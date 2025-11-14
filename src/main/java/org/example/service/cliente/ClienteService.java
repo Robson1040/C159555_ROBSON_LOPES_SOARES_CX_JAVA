@@ -10,6 +10,7 @@ import org.example.dto.cliente.ClienteUpdateRequest;
 import org.example.exception.ClienteNotFoundException;
 import org.example.mapper.PessoaMapper;
 import org.example.model.cliente.Pessoa;
+import org.example.repository.cliente.IPessoaRepository;
 import org.example.service.autenticacao.PasswordService;
 
 import java.util.List;
@@ -25,6 +26,9 @@ public class ClienteService {
 
     @Inject
     PessoaMapper pessoaMapper;
+
+    @Inject
+    IPessoaRepository pessoaRepository;
 
     /**
      * Lista todos os clientes
@@ -51,12 +55,12 @@ public class ClienteService {
     @Transactional
     public ClienteResponse criar(@Valid ClienteRequest request) {
         // Valida se CPF já existe
-        if (Pessoa.existsByCpf(request.cpf())) {
+        if (pessoaRepository.existsByCpf(request.cpf())) {
             throw new IllegalArgumentException("Já existe um cliente com este CPF");
         }
 
         // Valida se username já existe
-        if (Pessoa.existsByUsername(request.username())) {
+        if (pessoaRepository.existsByUsername(request.username())) {
             throw new IllegalArgumentException("Já existe um cliente com este username");
         }
 
@@ -83,7 +87,7 @@ public class ClienteService {
         // Validações específicas antes de usar o mapper
         if (request.username() != null && !request.username().trim().isEmpty()) {
             // Verifica se o novo username já existe em outro cliente
-            Pessoa existente = Pessoa.findByUsername(request.username());
+            Pessoa existente = pessoaRepository.findByUsername(request.username());
             if (existente != null && !existente.id.equals(id)) {
                 throw new IllegalArgumentException("Já existe um cliente com este username");
             }
@@ -118,7 +122,7 @@ public class ClienteService {
      * Busca cliente por CPF
      */
     public ClienteResponse buscarPorCpf(String cpf) {
-        Pessoa pessoa = Pessoa.findByCpf(cpf);
+        Pessoa pessoa = pessoaRepository.findByCpf(cpf);
         if (pessoa == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com CPF: " + cpf);
         }
@@ -129,7 +133,7 @@ public class ClienteService {
      * Busca cliente por username
      */
     public ClienteResponse buscarPorUsername(String username) {
-        Pessoa pessoa = Pessoa.findByUsername(username);
+        Pessoa pessoa = pessoaRepository.findByUsername(username);
         if (pessoa == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com username: " + username);
         }

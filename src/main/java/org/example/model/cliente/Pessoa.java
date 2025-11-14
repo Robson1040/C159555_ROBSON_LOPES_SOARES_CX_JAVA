@@ -60,33 +60,7 @@ public class Pessoa extends PanacheEntityBase {
         this.role = role;
     }
 
-    /**
-     * Busca pessoa por CPF
-     */
-    public static Pessoa findByCpf(String cpf) {
-        return find("cpf", cpf).firstResult();
-    }
 
-    /**
-     * Busca pessoa por username
-     */
-    public static Pessoa findByUsername(String username) {
-        return find("username", username).firstResult();
-    }
-
-    /**
-     * Verifica se CPF já existe
-     */
-    public static boolean existsByCpf(String cpf) {
-        return count("cpf", cpf) > 0;
-    }
-
-    /**
-     * Verifica se username já existe
-     */
-    public static boolean existsByUsername(String username) {
-        return count("username", username) > 0;
-    }
 
     @Override
     public String toString() {

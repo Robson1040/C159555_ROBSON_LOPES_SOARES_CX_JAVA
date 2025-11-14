@@ -86,30 +86,7 @@ public class Produto extends PanacheEntityBase {
         this.fgc = fgc;
     }
 
-    // Métodos de busca personalizados usando Panache
-    public static List<Produto> findByTipo(TipoProduto tipo) {
-        return find("tipo", tipo).list();
-    }
 
-    public static List<Produto> findByTipoRentabilidade(TipoRentabilidade tipoRentabilidade) {
-        return find("tipoRentabilidade", tipoRentabilidade).list();
-    }
-
-    public static List<Produto> findByFgc(Boolean fgc) {
-        return find("fgc", fgc).list();
-    }
-
-    public static List<Produto> findComLiquidezImediata() {
-        return find("liquidez", 0).list();
-    }
-
-    public static List<Produto> findSemLiquidez() {
-        return find("liquidez", -1).list();
-    }
-
-    public static List<Produto> findByNomeContaining(String nome) {
-        return find("lower(nome) like lower(?1)", "%" + nome + "%").list();
-    }
 
     // Getters e Setters
     public Long getId() {

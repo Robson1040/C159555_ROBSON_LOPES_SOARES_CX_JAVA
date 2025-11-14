@@ -12,6 +12,8 @@ import org.example.exception.ClienteNotFoundException;
 import org.example.model.investimento.Investimento;
 import org.example.model.produto.Produto;
 import org.example.model.simulacao.SimulacaoInvestimento;
+import org.example.repository.investimento.IInvestimentoRepository;
+import org.example.repository.simulacao.ISimulacaoInvestimentoRepository;
 import org.example.service.cliente.ClienteService;
 
 import java.util.*;
@@ -26,6 +28,12 @@ public class PerfilRiscoService {
     @Inject
     ClienteService clienteService;
 
+    @Inject
+    IInvestimentoRepository investimentoRepository;
+
+    @Inject
+    ISimulacaoInvestimentoRepository simulacaoRepository;
+
     /**
      * Calcula o perfil de risco de um cliente
      */
@@ -34,14 +42,14 @@ public class PerfilRiscoService {
         validarCliente(clienteId);
 
         // 2. Buscar histórico de investimentos
-        List<Investimento> investimentos = Investimento.find("clienteId", clienteId).list();
+        List<Investimento> investimentos = investimentoRepository.findByClienteId(clienteId);
         
         if (!investimentos.isEmpty()) {
             return calcularPerfilPorInvestimentos(clienteId, investimentos);
         }
 
         // 3. Se não há investimentos, usar simulações
-        List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.findByClienteId(clienteId);
+        List<SimulacaoInvestimento> simulacoes = simulacaoRepository.findByClienteId(clienteId);
         
         if (!simulacoes.isEmpty()) {
             return calcularPerfilPorSimulacoes(clienteId, simulacoes);

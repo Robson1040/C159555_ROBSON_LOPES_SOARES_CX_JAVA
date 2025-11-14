@@ -15,6 +15,7 @@ import org.example.mapper.ProdutoMapper;
 import org.example.mapper.SimulacaoInvestimentoMapper;
 import org.example.model.produto.Produto;
 import org.example.model.simulacao.SimulacaoInvestimento;
+import org.example.repository.simulacao.ISimulacaoInvestimentoRepository;
 import org.example.service.produto.ProdutoService;
 
 import java.math.BigDecimal;
@@ -39,6 +40,9 @@ public class SimulacaoInvestimentoService {
 
     @Inject
     SimuladorMercado simuladorMercado;
+
+    @Inject
+    ISimulacaoInvestimentoRepository simulacaoRepository;
 
     /**
      * Realiza a simulação de investimento e persiste o resultado
@@ -263,7 +267,7 @@ public class SimulacaoInvestimentoService {
      * Busca histórico de simulações de um cliente
      */
     public List<SimulacaoInvestimento> buscarSimulacoesPorCliente(Long clienteId) {
-        return SimulacaoInvestimento.findByClienteIdOrderByDate(clienteId);
+        return simulacaoRepository.findByClienteIdOrderByDate(clienteId);
     }
 
     /**
@@ -284,12 +288,12 @@ public class SimulacaoInvestimentoService {
     ) {}
 
     public EstatisticasCliente getEstatisticasCliente(Long clienteId) {
-        long totalSimulacoes = SimulacaoInvestimento.countByClienteId(clienteId);
-        BigDecimal totalInvestido = SimulacaoInvestimento.getTotalInvestidoByClienteId(clienteId);
+        long totalSimulacoes = simulacaoRepository.countByClienteId(clienteId);
+        BigDecimal totalInvestido = simulacaoRepository.getTotalInvestidoByClienteId(clienteId);
         BigDecimal mediaValorInvestido = totalSimulacoes > 0 ? 
                 totalInvestido.divide(BigDecimal.valueOf(totalSimulacoes), 2, RoundingMode.HALF_UP) : 
                 BigDecimal.ZERO;
-        SimulacaoInvestimento ultimaSimulacao = SimulacaoInvestimento.findLastByClienteId(clienteId);
+        SimulacaoInvestimento ultimaSimulacao = simulacaoRepository.findLastByClienteId(clienteId);
 
         return new EstatisticasCliente(totalSimulacoes, totalInvestido, mediaValorInvestido, ultimaSimulacao);
     }

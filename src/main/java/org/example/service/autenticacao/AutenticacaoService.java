@@ -6,6 +6,7 @@ import org.example.dto.autenticacao.LoginRequest;
 import org.example.dto.autenticacao.LoginResponse;
 import org.example.exception.ClienteNotFoundException;
 import org.example.model.cliente.Pessoa;
+import org.example.repository.cliente.IPessoaRepository;
 
 import java.time.LocalDateTime;
 
@@ -18,12 +19,15 @@ public class AutenticacaoService {
     @Inject
     PasswordService passwordService;
 
+    @Inject
+    IPessoaRepository pessoaRepository;
+
     /**
      * Autentica um usuário com username e password
      */
     public LoginResponse autenticar(LoginRequest loginRequest) {
         // Buscar usuário por username
-        Pessoa usuario = Pessoa.findByUsername(loginRequest.username());
+        Pessoa usuario = pessoaRepository.findByUsername(loginRequest.username());
         
         if (usuario == null) {
             throw new ClienteNotFoundException("Credenciais inválidas");

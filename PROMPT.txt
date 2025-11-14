@@ -328,6 +328,8 @@ http://localhost:10081/auth/realms/intranet/protocol/openid-connect/certs
 
 curl -X POST http://localhost:9090/clientes -H "Content-Type: application/json" -d '{"nome": "João Silva", "cpf": "12345678901", "username": "joao.silva", "password": "minhasenha123",  "role": "USER"}
 
+************************************************************************************
+
 Configure o ambiente para Java 21.
 Transfira as operações de banco de dados dos Models para os Repositorys.
 Crie um repository para cada model.

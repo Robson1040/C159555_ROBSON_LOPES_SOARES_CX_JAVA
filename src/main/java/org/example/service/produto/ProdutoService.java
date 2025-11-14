@@ -8,6 +8,7 @@ import org.example.dto.produto.ProdutoResponse;
 import org.example.exception.ProdutoNotFoundException;
 import org.example.mapper.ProdutoMapper;
 import org.example.model.produto.Produto;
+import org.example.repository.produto.IProdutoRepository;
 import org.example.enums.produto.TipoProduto;
 import org.example.enums.produto.TipoRentabilidade;
 
@@ -19,6 +20,9 @@ public class ProdutoService {
 
     @Inject
     ProdutoMapper produtoMapper;
+
+    @Inject
+    IProdutoRepository produtoRepository;
 
     /**
      * Lista todos os produtos
@@ -48,7 +52,7 @@ public class ProdutoService {
             return List.of();
         }
 
-        List<Produto> produtos = Produto.findByTipo(tipo);
+        List<Produto> produtos = produtoRepository.findByTipo(tipo);
         return produtoMapper.toResponseList(produtos);
     }
 
@@ -60,7 +64,7 @@ public class ProdutoService {
             return List.of();
         }
 
-        List<Produto> produtos = Produto.findByTipoRentabilidade(tipoRentabilidade);
+        List<Produto> produtos = produtoRepository.findByTipoRentabilidade(tipoRentabilidade);
         return produtoMapper.toResponseList(produtos);
     }
 
@@ -68,7 +72,7 @@ public class ProdutoService {
      * Busca produtos protegidos pelo FGC
      */
     public List<ProdutoResponse> buscarProdutosComFgc() {
-        List<Produto> produtos = Produto.findByFgc(true);
+        List<Produto> produtos = produtoRepository.findByFgc(true);
         return produtoMapper.toResponseList(produtos);
     }
 
@@ -76,7 +80,7 @@ public class ProdutoService {
      * Busca produtos com liquidez imediata (0 dias)
      */
     public List<ProdutoResponse> buscarProdutosComLiquidezImediata() {
-        List<Produto> produtos = Produto.findComLiquidezImediata();
+        List<Produto> produtos = produtoRepository.findComLiquidezImediata();
         return produtoMapper.toResponseList(produtos);
     }
 
@@ -84,7 +88,7 @@ public class ProdutoService {
      * Busca produtos sem liquidez
      */
     public List<ProdutoResponse> buscarProdutosSemLiquidez() {
-        List<Produto> produtos = Produto.findSemLiquidez();
+        List<Produto> produtos = produtoRepository.findSemLiquidez();
         return produtoMapper.toResponseList(produtos);
     }
 
@@ -96,7 +100,7 @@ public class ProdutoService {
             return List.of();
         }
 
-        List<Produto> produtos = Produto.findByNomeContaining(nome.trim());
+        List<Produto> produtos = produtoRepository.findByNomeContaining(nome.trim());
         return produtoMapper.toResponseList(produtos);
     }
 

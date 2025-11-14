@@ -100,72 +100,7 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
         this.cenarioSimulacao = cenarioSimulacao;
     }
 
-    // Métodos de busca customizados
-    
-    /**
-     * Busca todas as simulações de um cliente
-     */
-    public static List<SimulacaoInvestimento> findByClienteId(Long clienteId) {
-        return find("clienteId", clienteId).list();
-    }
 
-    /**
-     * Busca simulações de um cliente ordenadas por data (mais recentes primeiro)
-     */
-    public static List<SimulacaoInvestimento> findByClienteIdOrderByDate(Long clienteId) {
-        return find("clienteId = ?1 ORDER BY dataSimulacao DESC", clienteId).list();
-    }
-
-    /**
-     * Busca simulações por produto
-     */
-    public static List<SimulacaoInvestimento> findByProduto(String produto) {
-        return find("produto", produto).list();
-    }
-
-    /**
-     * Busca simulações por faixa de valor investido
-     */
-    public static List<SimulacaoInvestimento> findByValorInvestidoRange(BigDecimal minValue, BigDecimal maxValue) {
-        return find("valorInvestido BETWEEN ?1 AND ?2", minValue, maxValue).list();
-    }
-
-    /**
-     * Busca simulações por período
-     */
-    public static List<SimulacaoInvestimento> findByDataRange(LocalDateTime inicio, LocalDateTime fim) {
-        return find("dataSimulacao BETWEEN ?1 AND ?2", inicio, fim).list();
-    }
-
-    /**
-     * Busca simulações que usaram valores simulados (dinâmicos)
-     */
-    public static List<SimulacaoInvestimento> findSimulacoesComValoresSimulados() {
-        return find("valorSimulado = true").list();
-    }
-
-    /**
-     * Conta total de simulações por cliente
-     */
-    public static long countByClienteId(Long clienteId) {
-        return count("clienteId", clienteId);
-    }
-
-    /**
-     * Busca a última simulação de um cliente
-     */
-    public static SimulacaoInvestimento findLastByClienteId(Long clienteId) {
-        return find("clienteId = ?1 ORDER BY dataSimulacao DESC", clienteId).firstResult();
-    }
-
-    /**
-     * Calcula total investido por um cliente em simulações
-     */
-    public static BigDecimal getTotalInvestidoByClienteId(Long clienteId) {
-        Object result = find("SELECT SUM(s.valorInvestido) FROM SimulacaoInvestimento s WHERE s.clienteId = ?1", clienteId)
-                .singleResult();
-        return result != null ? (BigDecimal) result : BigDecimal.ZERO;
-    }
 
     // Método para facilitar criação a partir de SimulacaoRequest e ResultadoSimulacao
     public static SimulacaoInvestimento fromSimulacao(Long clienteId, String nomeProduto, 
