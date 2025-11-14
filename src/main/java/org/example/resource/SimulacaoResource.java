@@ -48,6 +48,7 @@ public class SimulacaoResource {
         // Agrupa por produto e data (sem horário)
         Map<String, Map<java.time.LocalDate, List<SimulacaoInvestimento>>> agrupamento = 
             simulacoes.stream()
+                .filter(s -> s != null && s.produto != null && s.dataSimulacao != null) // Filtra simulações nulas, sem produto ou data
                 .collect(Collectors.groupingBy(
                     s -> s.produto,
                     Collectors.groupingBy(s -> s.dataSimulacao.toLocalDate())
@@ -110,6 +111,7 @@ public class SimulacaoResource {
         // Agrupa por produto e mês
         Map<String, Map<java.time.YearMonth, List<SimulacaoInvestimento>>> agrupamento = 
             simulacoes.stream()
+                .filter(s -> s != null && s.produto != null && s.dataSimulacao != null) // Filtra simulações nulas, sem produto ou data
                 .collect(Collectors.groupingBy(
                     s -> s.produto,
                     Collectors.groupingBy(s -> java.time.YearMonth.from(s.dataSimulacao))
@@ -172,6 +174,7 @@ public class SimulacaoResource {
         // Agrupa por produto e ano
         Map<String, Map<java.time.Year, List<SimulacaoInvestimento>>> agrupamento = 
             simulacoes.stream()
+                .filter(s -> s != null && s.produto != null && s.dataSimulacao != null) // Filtra simulações nulas, sem produto ou data
                 .collect(Collectors.groupingBy(
                     s -> s.produto,
                     Collectors.groupingBy(s -> java.time.Year.from(s.dataSimulacao))

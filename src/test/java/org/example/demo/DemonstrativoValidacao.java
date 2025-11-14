@@ -2,6 +2,7 @@ package org.example.demo;
 
 import org.example.dto.ProdutoRequest;
 import org.example.model.*;
+import org.example.enums.*;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

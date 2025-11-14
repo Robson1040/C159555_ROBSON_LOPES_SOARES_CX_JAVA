@@ -3,6 +3,7 @@ package org.example.demo;
 import org.example.dto.ProdutoResponse;
 import org.example.mapper.ProdutoMapper;
 import org.example.model.*;
+import org.example.enums.*;
 
 import java.math.BigDecimal;
 

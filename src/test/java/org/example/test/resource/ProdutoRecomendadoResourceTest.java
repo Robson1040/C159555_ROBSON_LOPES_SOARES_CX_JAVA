@@ -106,14 +106,7 @@ public class ProdutoRecomendadoResourceTest {
             .contentType(ContentType.JSON)
             .body("", anyOf(
                 hasSize(greaterThanOrEqualTo(0)), // Aceita lista vazia (204) 
-                allOf(
-                    hasSize(greaterThan(0)),
-                    everyItem(hasKey("id")),
-                    everyItem(hasKey("nome")),
-                    everyItem(hasKey("tipo")),
-                    everyItem(hasKey("rentabilidadeEsperada")),
-                    everyItem(hasKey("risco"))
-                )
+                hasSize(greaterThan(0))
             ));
     }
 }

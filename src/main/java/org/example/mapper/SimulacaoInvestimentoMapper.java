@@ -46,6 +46,7 @@ public class SimulacaoInvestimentoMapper {
         }
 
         return simulacoes.stream()
+                .filter(simulacao -> simulacao != null)
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }

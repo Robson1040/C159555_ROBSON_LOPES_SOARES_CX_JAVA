@@ -1,6 +1,7 @@
 package org.example.test.model;
 
 import org.example.model.*;
+import org.example.enums.*;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

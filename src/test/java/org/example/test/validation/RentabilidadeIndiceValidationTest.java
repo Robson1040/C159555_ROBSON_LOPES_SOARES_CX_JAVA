@@ -2,6 +2,7 @@ package org.example.test.validation;
 
 import org.example.dto.ProdutoRequest;
 import org.example.model.*;
+import org.example.enums.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 

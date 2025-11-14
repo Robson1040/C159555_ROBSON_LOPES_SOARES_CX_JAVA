@@ -49,6 +49,7 @@ public class InvestimentoMapper {
         }
 
         return investimentos.stream()
+                .filter(investimento -> investimento != null)
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }

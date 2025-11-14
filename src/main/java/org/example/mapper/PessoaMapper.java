@@ -38,6 +38,7 @@ public class PessoaMapper {
         }
 
         return pessoas.stream()
+                .filter(pessoa -> pessoa != null)
                 .map(this::toClienteResponse)
                 .collect(Collectors.toList());
     }

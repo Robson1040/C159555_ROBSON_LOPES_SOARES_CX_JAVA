@@ -42,7 +42,9 @@ public class ProdutoMapper {
             return null;
         }
 
+        // Filtrar itens null que podem vir do Hibernate
         return produtos.stream()
+                .filter(produto -> produto != null)
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
