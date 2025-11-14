@@ -103,14 +103,14 @@ public class SimulacaoInvestimentoResource {
      */
     private void validarRegrasNegocio(SimulacaoRequest request) {
         // Validação: se filtrar por liquidez, o valor deve ser razoável
-        if (request.getLiquidez() != null && request.getLiquidez() < 0) {
+        if (request.liquidez() != null && request.liquidez() < 0) {
             throw new RuntimeException("Liquidez não pode ser negativa");
         }
         
         // Validação: valores muito altos podem ter limitações
-        if (request.getValor().compareTo(new java.math.BigDecimal("1000000")) > 0) {
+        if (request.valor().compareTo(new java.math.BigDecimal("1000000")) > 0) {
             // Apenas um aviso, não um erro
-            System.out.println("AVISO: Simulação com valor alto: " + request.getValor());
+            System.out.println("AVISO: Simulação com valor alto: " + request.valor());
         }
         
         // Validação: prazos muito longos podem ter limitações
@@ -120,14 +120,14 @@ public class SimulacaoInvestimentoResource {
         }
         
         // Validação de consistência: se especificar índice, deve ser compatível com tipo de rentabilidade
-        if (request.getTipoRentabilidade() != null && request.getIndice() != null) {
-            if (request.getTipoRentabilidade() == org.example.model.TipoRentabilidade.PRE && 
-                request.getIndice() != org.example.model.Indice.NENHUM) {
+        if (request.tipoRentabilidade() != null && request.indice() != null) {
+            if (request.tipoRentabilidade() == org.example.model.TipoRentabilidade.PRE && 
+                request.indice() != org.example.model.Indice.NENHUM) {
                 throw new RuntimeException("Produtos pré-fixados não devem ter índice específico. Use 'NENHUM' como índice.");
             }
             
-            if (request.getTipoRentabilidade() == org.example.model.TipoRentabilidade.POS && 
-                request.getIndice() == org.example.model.Indice.NENHUM) {
+            if (request.tipoRentabilidade() == org.example.model.TipoRentabilidade.POS && 
+                request.indice() == org.example.model.Indice.NENHUM) {
                 throw new RuntimeException("Produtos pós-fixados devem ter um índice específico (CDI, SELIC, IPCA, etc.)");
             }
         }

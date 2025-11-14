@@ -76,11 +76,11 @@ public class DemonstrativoRisco {
 
     private static void exibirProduto(String titulo, ProdutoResponse produto) {
         System.out.println("--- " + titulo + " ---");
-        System.out.println("Nome: " + produto.getNome());
-        System.out.println("Tipo: " + produto.getTipo() + " (" + produto.getTipo().getTipoRenda() + ")");
-        System.out.println("Rentabilidade: " + produto.getRentabilidade() + "% " + produto.getPeriodoRentabilidade());
-        System.out.println("FGC: " + (produto.getFgc() ? "SIM" : "NÃO"));
-        System.out.println("RISCO CALCULADO: " + produto.getRisco());
+        System.out.println("Nome: " + produto.nome());
+        System.out.println("Tipo: " + produto.tipo() + " (" + produto.tipo().getTipoRenda() + ")");
+        System.out.println("Rentabilidade: " + produto.rentabilidade() + "% " + produto.periodoRentabilidade());
+        System.out.println("FGC: " + (produto.fgc() ? "SIM" : "NÃO"));
+        System.out.println("RISCO CALCULADO: " + produto.risco());
         System.out.println();
     }
 }

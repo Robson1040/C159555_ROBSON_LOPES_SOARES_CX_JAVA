@@ -56,15 +56,15 @@ public class ProdutoMapper {
         }
 
         return new Produto(
-                request.getNome(),
-                request.getTipo(),
-                request.getTipoRentabilidade(),
-                request.getRentabilidade(),
-                request.getPeriodoRentabilidade(),
-                request.getIndice(),
-                request.getLiquidez(),
-                request.getMinimoDiasInvestimento(),
-                request.getFgc()
+                request.nome(),
+                request.tipo(),
+                request.tipoRentabilidade(),
+                request.rentabilidade(),
+                request.periodoRentabilidade(),
+                request.indice(),
+                request.liquidez(),
+                request.minimoDiasInvestimento(),
+                request.fgc()
         );
     }
 
@@ -76,14 +76,14 @@ public class ProdutoMapper {
             return;
         }
 
-        produto.setNome(request.getNome());
-        produto.setTipo(request.getTipo());
-        produto.setTipoRentabilidade(request.getTipoRentabilidade());
-        produto.setRentabilidade(request.getRentabilidade());
-        produto.setPeriodoRentabilidade(request.getPeriodoRentabilidade());
-        produto.setIndice(request.getIndice());
-        produto.setLiquidez(request.getLiquidez());
-        produto.setMinimoDiasInvestimento(request.getMinimoDiasInvestimento());
-        produto.setFgc(request.getFgc());
+        produto.setNome(request.nome());
+        produto.setTipo(request.tipo());
+        produto.setTipoRentabilidade(request.tipoRentabilidade());
+        produto.setRentabilidade(request.rentabilidade());
+        produto.setPeriodoRentabilidade(request.periodoRentabilidade());
+        produto.setIndice(request.indice());
+        produto.setLiquidez(request.liquidez());
+        produto.setMinimoDiasInvestimento(request.minimoDiasInvestimento());
+        produto.setFgc(request.fgc());
     }
 }

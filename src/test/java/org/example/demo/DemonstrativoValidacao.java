@@ -109,9 +109,9 @@ public class DemonstrativoValidacao {
     private static void validarEExibir(Validator validator, ProdutoRequest request) {
         Set<ConstraintViolation<ProdutoRequest>> violations = validator.validate(request);
         
-        System.out.println("   Produto: " + request.getNome());
-        System.out.println("   Tipo Rentabilidade: " + request.getTipoRentabilidade());
-        System.out.println("   Índice: " + request.getIndice());
+        System.out.println("   Produto: " + request.nome());
+        System.out.println("   Tipo Rentabilidade: " + request.tipoRentabilidade());
+        System.out.println("   Índice: " + request.indice());
         
         if (violations.isEmpty()) {
             System.out.println("   ✅ VALIDAÇÃO PASSOU");

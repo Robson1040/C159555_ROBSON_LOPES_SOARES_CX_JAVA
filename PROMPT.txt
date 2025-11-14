@@ -1,0 +1,262 @@
+C:\Users\c159555\IdeaProjects\trabalhoAdaQuarkus2-main\trabalhoAdaQuarkus2-main\API VEICULO SSO
+
+
+Crie uma API REST, usando bem os status code.
+Use Panache.
+Separe bem as classes em responsabilidades.
+Controller.
+Service.
+Mappers.
+DTOs.
+Bean Validation.
+Model (Entity).
+
+Endpoint GET /produtos
+
+Model Produto
+
+id,
+nome,
+tipo (CDB, LCI, LCA, FUNDO, TESOURO DIRETO, POUPANÇA)
+tipo_rentabilidade: pré ou pós
+rentabilidade (por exemplo 0.2)
+periodo_rentabilidade (ao dia, ao mes, ao ano, periodo total)
+indice: (se for pós fixado, pode ser por exemplo, selic, cdi, ibovespa)
+liquides (Quantos dias após o pedido de resgate o dinheiro cai na conta, sendo 0 = no mesmo dia e - 1 sem liquides).
+minimo_dias_investimento (tempo minimo até poder sacar)
+fgc (se é protegico pelo fundo garantidor de credito)
+
+************************************************************************************
+
+
+No tipo do produto deve ter um novo atributo, indicando se é renda fixa, renda variavel ou misto.
+
+O model produto deve ter um campo derivado "risco", ele deve ser classificado de acordo com abaixo:
+se garantido pelo fgc: risco baixo
+se não for garantido pelo fgc, mas for renda fica: risco medio
+se não for garantido pelo fgc e não for renda fixa: risco alto
+crie condições para outros casos não previstos.
+
+Refletir esse novo campo no DTO do Produto, apenas para Response.
+
+************************************************************************************
+
+Inclua validação no cadastro do produto:
+
+se tipo da rentabilidade for pós, precisa estar atrelado a indice.
+se tipo da rentabilidade for pré, pode estar atrelado a um indice ou não.
+
+************************************************************************************
+
+Crie um novo resourse, que responda a um unico endpoint:
+
+POST /simular-investimento
+
+Ele deve receber a Request:
+
+Exemplo:
+
+{
+clienteId
+valor
+prazoMeses ou PrazoDias ou PrazoAnos
+tipoProduto
+tipo_rentabilidade
+indice,
+liquides,
+fgc
+}
+
+e localizar o produto mais apropriado, sendo que os campos na request via JSON POST
+
+prazoMeses ou PrazoDias ou PrazoAnos
+tipoProduto
+tipo_rentabilidade
+indice,
+liquides,
+fgc
+
+são opcionais, podendo informar nenhum deles, um, varios ou todos.
+
+O retorno desse endpoint deve ser:
+
+{
+"produtoValidado": 
+{
+ "id": 101,
+ "nome": "CDB Caixa 2026",
+ "tipo": "CDB",
+ "rentabilidade": 0.12,
+ "risco": "Baixo"
+ e demais campos do produto
+},
+"resultadoSimulacao": {
+ "valorFinal": 11200.00,
+ "rentabilidadeEfetiva": 0.12,
+ prazoMeses ou PrazoDias ou PrazoAnos
+},
+"dataSimulacao": "2025-10-31T14:00:00Z"
+}
+
+Note que o ResultadoSimulacao deve ser calculado considerando rentabilidade e periodo_rentabilidade e prazoMeses ou PrazoDias ou PrazoAnos.
+
+Na classe indice, simule valores para os indices, quando for renda variavel atrelada a um indice.
+
+************************************************************************************
+
+todas simulações de investimentos (POST /simular-investimento) devem ser persistidas na model (SimulacaoInvestimento),
+
+{
+ "id": 1,
+ "clienteId": 123,
+ "produto": "CDB Caixa 2026",
+ "valorInvestido": 10000.00,
+ "valorFinal": 11200.00,
+ prazoMeses ou PrazoDias ou PrazoAnos: 12
+ "dataSimulacao": "2025-10-31T14:00:00Z"
+}
+
+************************************************************************************
+
+
+
+Implemente o endpoint em um novo resource, chamado SimulacaoResource
+
+Endpoint: GET /simulacoes. Faça o GET /simulacoes. não implemente outro endpoint além desse.
+
+que retorna todas as simulações realizadas:
+
+{
+ "id": 1,
+ "clienteId": 123,
+ "produto": "CDB Caixa 2026",
+ "valorInvestido": 10000.00,
+ "valorFinal": 11200.00,
+ prazoMeses ou PrazoDias ou PrazoAnos: 12
+ "dataSimulacao": "2025-10-31T14:00:00Z"
+}
+
+
+************************************************************************************
+
+No mesmo resource, implemente o endpoint:
+
+
+GET /simulacoes/por-produto-dia
+
+Cuja resposta é um agrupamento de produto e data com as quantidadeSimulacoes, mediaValorInvestido, mediaValorFinal.
+
+Response
+[
+{
+ "produto": "CDB Caixa 2026",
+ "data": "2025-10-30",
+ "quantidadeSimulacoes": 15,
+ "mediaValorFinal": 11050.00
+},
+{
+ "produto": "Fundo XPTO",
+ "data": "2025-10-30",
+ "quantidadeSimulacoes": 8,
+ "mediaValorFinal": 5700.00
+}
+]
+
+Implemente também GET /simulacoes/por-produto-mes e GET /simulacoes/por-produto-ano. Não implemente outro endpoint além desses.
+
+************************************************************************************
+
+Crie um CRUD basico de cliente no Cliente Resource. Grave no model Cliente.
+
+nome,
+cpf
+senha (criptografar ao salvar)
+role (cliente ou admim)
+
+************************************************************************************
+
+fazer um endpoint com dois endpoints:
+
+POST /entrar
+
+recebendo cpf e senha do cliente.
+
+e que retorna um JWT token, contendo a role do cliente, com validade de 1 hora.
+
+************************************************************************************
+
+cRIE apenas o endpoint POST /investimentos no InvestimentoResource
+
+{
+ "clienteId": 1,
+ "produtoId": 1
+ "valor": 5000.00,
+ prazoMeses ou PrazoDias ou PrazoAnos: 12
+ "data": "2025-01-15",
+},
+
+Valide se o produto existe.
+Valide se o cliente existe.
+Valide se os dados são validos.
+Registre no Model Investimento.
+
+Na hora de gravar, o sistema deve registrar também essas informações no Model Investimento a partir do produto informado:
+
+	tipo (CDB, LCI, LCA, FUNDO, TESOURO DIRETO, POUPANÇA)
+	tipo_rentabilidade: pré ou pós
+	rentabilidade (por exemplo 0.2)
+	periodo_rentabilidade (ao dia, ao mes, ao ano, periodo total)
+	indice: (se for pós fixado, pode ser por exemplo, selic, cdi, ibovespa)
+	liquides (Quantos dias após o pedido de resgate o dinheiro cai na conta, sendo 0 = no mesmo dia e - 1 sem liquides).
+	minimo_dias_investimento (tempo minimo até poder sacar)
+	fgc (se é protegico pelo fundo garantidor de credito)
+	
+************************************************************************************
+
+cRIE apenas o endpoint GET /investimentos/{clienteId} no InvestimentoResource
+
+Response
+[
+{
+ "id": 1,
+ "tipo": "CDB",
+ "valor": 5000.00,
+ prazoMeses ou PrazoDias ou PrazoAnos: 12
+ "data": "2025-01-15",
+ 
+ 	tipo (CDB, LCI, LCA, FUNDO, TESOURO DIRETO, POUPANÇA)
+	tipo_rentabilidade: pré ou pós
+	rentabilidade (por exemplo 0.2)
+	periodo_rentabilidade (ao dia, ao mes, ao ano, periodo total)
+	indice: (se for pós fixado, pode ser por exemplo, selic, cdi, ibovespa)
+	liquides (Quantos dias após o pedido de resgate o dinheiro cai na conta, sendo 0 = no mesmo dia e - 1 sem liquides).
+	minimo_dias_investimento (tempo minimo até poder sacar)
+	fgc (se é protegico pelo fundo garantidor de credito)
+	
+},
+{
+ "id": 2,
+ "tipo": "Fundo Multimercado",
+ "valor": 3000.00,
+ "data": "2025-03-10",
+ 
+ 	tipo (CDB, LCI, LCA, FUNDO, TESOURO DIRETO, POUPANÇA)
+	tipo_rentabilidade: pré ou pós
+	rentabilidade (por exemplo 0.2)
+	periodo_rentabilidade (ao dia, ao mes, ao ano, periodo total)
+	indice: (se for pós fixado, pode ser por exemplo, selic, cdi, ibovespa)
+	liquides (Quantos dias após o pedido de resgate o dinheiro cai na conta, sendo 0 = no mesmo dia e - 1 sem liquides).
+	minimo_dias_investimento (tempo minimo até poder sacar)
+	fgc (se é protegico pelo fundo garantidor de credito)
+}
+
+
+curl -X POST ^
+  "http://localhost:10081/auth/realms/intranet/protocol/openid-connect/token" ^
+  -H "Content-Type: application/x-www-form-urlencoded" ^
+  -d "grant_type=password" ^
+  -d "client_id=meu-cliente" ^
+  -d "username=usuario" ^
+  -d "password=minha-senha"
+  
+http://localhost:10081/auth/realms/intranet/protocol/openid-connect/certs

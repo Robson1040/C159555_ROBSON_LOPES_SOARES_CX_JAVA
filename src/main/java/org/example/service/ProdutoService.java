@@ -179,19 +179,19 @@ public class ProdutoService {
      */
     private void validarDadosProduto(ProdutoRequest request) {
         // Validação: Se for pós-fixado, deve ter um índice válido (diferente de NENHUM)
-        if (request.getTipoRentabilidade() == TipoRentabilidade.POS && 
-            request.getIndice().name().equals("NENHUM")) {
+        if (request.tipoRentabilidade() == TipoRentabilidade.POS && 
+            request.indice().name().equals("NENHUM")) {
             throw new IllegalArgumentException("Produtos pós-fixados devem ter um índice válido");
         }
 
         // Validação: Se for pré-fixado, o índice deve ser NENHUM
-        if (request.getTipoRentabilidade() == TipoRentabilidade.PRE && 
-            !request.getIndice().name().equals("NENHUM")) {
+        if (request.tipoRentabilidade() == TipoRentabilidade.PRE && 
+            !request.indice().name().equals("NENHUM")) {
             throw new IllegalArgumentException("Produtos pré-fixados não devem ter índice");
         }
 
         // Validação: Liquidez deve ser -1 ou >= 0
-        if (request.getLiquidez() < -1) {
+        if (request.liquidez() < -1) {
             throw new IllegalArgumentException("Liquidez deve ser -1 (sem liquidez) ou >= 0");
         }
     }

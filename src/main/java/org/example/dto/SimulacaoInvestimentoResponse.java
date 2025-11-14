@@ -5,116 +5,65 @@ import org.example.model.SimulacaoInvestimento;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * DTO para resposta de simulações persistidas
  * Usado nos endpoints de consulta de histórico
  */
-public class SimulacaoInvestimentoResponse {
+public record SimulacaoInvestimentoResponse(
+        @JsonProperty("id")
+        Long id,
 
-    @JsonProperty("id")
-    private Long id;
+        @JsonProperty("clienteId")
+        Long clienteId,
 
-    @JsonProperty("clienteId")
-    private Long clienteId;
+        @JsonProperty("produto")
+        String produto,
 
-    @JsonProperty("produto")
-    private String produto;
+        @JsonProperty("valorInvestido")
+        BigDecimal valorInvestido,
 
-    @JsonProperty("valorInvestido")
-    private BigDecimal valorInvestido;
+        @JsonProperty("valorFinal")
+        BigDecimal valorFinal,
 
-    @JsonProperty("valorFinal")
-    private BigDecimal valorFinal;
+        @JsonProperty("prazoMeses")
+        Integer prazoMeses,
 
-    @JsonProperty("prazoMeses")
-    private Integer prazoMeses;
+        @JsonProperty("prazoDias")
+        Integer prazoDias,
 
-    @JsonProperty("prazoDias")
-    private Integer prazoDias;
+        @JsonProperty("prazoAnos")
+        Integer prazoAnos,
 
-    @JsonProperty("prazoAnos")
-    private Integer prazoAnos;
+        @JsonProperty("dataSimulacao")
+        LocalDateTime dataSimulacao,
 
-    @JsonProperty("dataSimulacao")
-    private LocalDateTime dataSimulacao;
+        @JsonProperty("rentabilidadeEfetiva")
+        BigDecimal rentabilidadeEfetiva,
 
-    @JsonProperty("rentabilidadeEfetiva")
-    private BigDecimal rentabilidadeEfetiva;
+        @JsonProperty("rendimento")
+        BigDecimal rendimento,
 
-    @JsonProperty("rendimento")
-    private BigDecimal rendimento;
+        @JsonProperty("valorSimulado")
+        Boolean valorSimulado,
 
-    @JsonProperty("valorSimulado")
-    private Boolean valorSimulado;
-
-    @JsonProperty("cenarioSimulacao")
-    private String cenarioSimulacao;
-
-    // Construtores
-    public SimulacaoInvestimentoResponse() {}
-
+        @JsonProperty("cenarioSimulacao")
+        String cenarioSimulacao
+) {
+    // Construtor a partir da entidade
     public SimulacaoInvestimentoResponse(SimulacaoInvestimento entidade) {
-        this.id = entidade.id;
-        this.clienteId = entidade.clienteId;
-        this.produto = entidade.produto;
-        this.valorInvestido = entidade.valorInvestido;
-        this.valorFinal = entidade.valorFinal;
-        this.prazoMeses = entidade.prazoMeses;
-        this.prazoDias = entidade.prazoDias;
-        this.prazoAnos = entidade.prazoAnos;
-        this.dataSimulacao = entidade.dataSimulacao;
-        this.rentabilidadeEfetiva = entidade.rentabilidadeEfetiva;
-        this.rendimento = entidade.rendimento;
-        this.valorSimulado = entidade.valorSimulado;
-        this.cenarioSimulacao = entidade.cenarioSimulacao;
+        this(entidade.id, entidade.clienteId, entidade.produto, entidade.valorInvestido,
+             entidade.valorFinal, entidade.prazoMeses, entidade.prazoDias, entidade.prazoAnos,
+             entidade.dataSimulacao, entidade.rentabilidadeEfetiva, entidade.rendimento,
+             entidade.valorSimulado, entidade.cenarioSimulacao);
     }
 
     // Método utilitário para converter lista
-    public static java.util.List<SimulacaoInvestimentoResponse> fromList(
-            java.util.List<SimulacaoInvestimento> entidades) {
+    public static List<SimulacaoInvestimentoResponse> fromList(List<SimulacaoInvestimento> entidades) {
         return entidades.stream()
                 .map(SimulacaoInvestimentoResponse::new)
-                .collect(java.util.stream.Collectors.toList());
+                .collect(Collectors.toList());
     }
-
-    // Getters e Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Long getClienteId() { return clienteId; }
-    public void setClienteId(Long clienteId) { this.clienteId = clienteId; }
-
-    public String getProduto() { return produto; }
-    public void setProduto(String produto) { this.produto = produto; }
-
-    public BigDecimal getValorInvestido() { return valorInvestido; }
-    public void setValorInvestido(BigDecimal valorInvestido) { this.valorInvestido = valorInvestido; }
-
-    public BigDecimal getValorFinal() { return valorFinal; }
-    public void setValorFinal(BigDecimal valorFinal) { this.valorFinal = valorFinal; }
-
-    public Integer getPrazoMeses() { return prazoMeses; }
-    public void setPrazoMeses(Integer prazoMeses) { this.prazoMeses = prazoMeses; }
-
-    public Integer getPrazoDias() { return prazoDias; }
-    public void setPrazoDias(Integer prazoDias) { this.prazoDias = prazoDias; }
-
-    public Integer getPrazoAnos() { return prazoAnos; }
-    public void setPrazoAnos(Integer prazoAnos) { this.prazoAnos = prazoAnos; }
-
-    public LocalDateTime getDataSimulacao() { return dataSimulacao; }
-    public void setDataSimulacao(LocalDateTime dataSimulacao) { this.dataSimulacao = dataSimulacao; }
-
-    public BigDecimal getRentabilidadeEfetiva() { return rentabilidadeEfetiva; }
-    public void setRentabilidadeEfetiva(BigDecimal rentabilidadeEfetiva) { this.rentabilidadeEfetiva = rentabilidadeEfetiva; }
-
-    public BigDecimal getRendimento() { return rendimento; }
-    public void setRendimento(BigDecimal rendimento) { this.rendimento = rendimento; }
-
-    public Boolean getValorSimulado() { return valorSimulado; }
-    public void setValorSimulado(Boolean valorSimulado) { this.valorSimulado = valorSimulado; }
-
-    public String getCenarioSimulacao() { return cenarioSimulacao; }
-    public void setCenarioSimulacao(String cenarioSimulacao) { this.cenarioSimulacao = cenarioSimulacao; }
 }

@@ -21,9 +21,9 @@ public class ValidPrazoValidator implements ConstraintValidator<ValidPrazo, Simu
             return true; // @NotNull deve lidar com null
         }
 
-        boolean hasPrazoMeses = request.getPrazoMeses() != null && request.getPrazoMeses() > 0;
-        boolean hasPrazoDias = request.getPrazoDias() != null && request.getPrazoDias() > 0;
-        boolean hasPrazoAnos = request.getPrazoAnos() != null && request.getPrazoAnos() > 0;
+        boolean hasPrazoMeses = request.prazoMeses() != null && request.prazoMeses() > 0;
+        boolean hasPrazoDias = request.prazoDias() != null && request.prazoDias() > 0;
+        boolean hasPrazoAnos = request.prazoAnos() != null && request.prazoAnos() > 0;
 
         // Pelo menos um prazo deve estar preenchido
         boolean isValid = hasPrazoMeses || hasPrazoDias || hasPrazoAnos;

@@ -55,13 +55,25 @@ public class RentabilidadeIndiceValidator implements ConstraintValidator<ValidRe
      * Obtém o tipo de rentabilidade do objeto usando reflection
      */
     private TipoRentabilidade getTipoRentabilidade(Object object) throws Exception {
-        return (TipoRentabilidade) object.getClass().getMethod("getTipoRentabilidade").invoke(object);
+        try {
+            // Tenta primeiro o padrão record
+            return (TipoRentabilidade) object.getClass().getMethod("tipoRentabilidade").invoke(object);
+        } catch (NoSuchMethodException e) {
+            // Se não encontrar, tenta o padrão tradicional (entidades JPA)
+            return (TipoRentabilidade) object.getClass().getMethod("getTipoRentabilidade").invoke(object);
+        }
     }
 
     /**
      * Obtém o índice do objeto usando reflection
      */
     private Indice getIndice(Object object) throws Exception {
-        return (Indice) object.getClass().getMethod("getIndice").invoke(object);
+        try {
+            // Tenta primeiro o padrão record
+            return (Indice) object.getClass().getMethod("indice").invoke(object);
+        } catch (NoSuchMethodException e) {
+            // Se não encontrar, tenta o padrão tradicional (entidades JPA)
+            return (Indice) object.getClass().getMethod("getIndice").invoke(object);
+        }
     }
 }

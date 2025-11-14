@@ -54,7 +54,7 @@ public class SimulacaoInvestimentoService {
                 produtoResponse,
                 resultado,
                 LocalDateTime.now(),
-                request.getClienteId(),
+                request.clienteId(),
                 simulacaoPersistida.id // Incluir ID da simulação persistida
         );
     }
@@ -67,11 +67,11 @@ public class SimulacaoInvestimentoService {
 
         // Aplica filtros se informados
         return produtos.stream()
-                .filter(produto -> filtrarPorTipo(produto, request.getTipoProduto()))
-                .filter(produto -> filtrarPorTipoRentabilidade(produto, request.getTipoRentabilidade()))
-                .filter(produto -> filtrarPorIndice(produto, request.getIndice()))
-                .filter(produto -> filtrarPorLiquidez(produto, request.getLiquidez()))
-                .filter(produto -> filtrarPorFgc(produto, request.getFgc()))
+                .filter(produto -> filtrarPorTipo(produto, request.tipoProduto()))
+                .filter(produto -> filtrarPorTipoRentabilidade(produto, request.tipoRentabilidade()))
+                .filter(produto -> filtrarPorIndice(produto, request.indice()))
+                .filter(produto -> filtrarPorLiquidez(produto, request.liquidez()))
+                .filter(produto -> filtrarPorFgc(produto, request.fgc()))
                 .filter(produto -> filtrarPorPrazoMinimo(produto, request.getPrazoEmDias()))
                 // Ordena por melhor rentabilidade e menor risco
                 .sorted((p1, p2) -> compararProdutos(p1, p2))
@@ -83,7 +83,7 @@ public class SimulacaoInvestimentoService {
      * Calcula o resultado da simulação financeira
      */
     private ResultadoSimulacao calcularSimulacao(SimulacaoRequest request, Produto produto) {
-        BigDecimal valorInicial = request.getValor();
+        BigDecimal valorInicial = request.valor();
         int prazoMeses = request.getPrazoEmMeses();
 
         // Gera cenário de mercado para o período
@@ -101,9 +101,9 @@ public class SimulacaoInvestimentoService {
         return new ResultadoSimulacao(
                 valorFinal.setScale(2, RoundingMode.HALF_UP),
                 rentabilidadeEfetiva.setScale(4, RoundingMode.HALF_UP),
-                request.getPrazoMeses(),
-                request.getPrazoDias(),
-                request.getPrazoAnos(),
+                request.prazoMeses(),
+                request.prazoDias(),
+                request.prazoAnos(),
                 valorInicial,
                 rendimento.setScale(2, RoundingMode.HALF_UP),
                 true, // valorSimulado = true (valores são simulados dinamicamente)
@@ -229,9 +229,9 @@ public class SimulacaoInvestimentoService {
                                                    ResultadoSimulacao resultado) {
         
         SimulacaoInvestimento simulacao = SimulacaoInvestimento.fromSimulacao(
-                request.getClienteId(),
+                request.clienteId(),
                 produto.getNome(),
-                request.getValor(),
+                request.valor(),
                 resultado
         );
         

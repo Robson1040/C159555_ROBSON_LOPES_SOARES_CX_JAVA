@@ -169,14 +169,14 @@ public class SimulacaoInvestimento extends PanacheEntity {
                 clienteId,
                 nomeProduto,
                 valorInvestido,
-                resultado.getValorFinal(),
-                resultado.getPrazoMeses(),
-                resultado.getPrazoDias(),
-                resultado.getPrazoAnos(),
-                resultado.getRentabilidadeEfetiva(),
-                resultado.getRendimento(),
-                resultado.getValorSimulado(),
-                resultado.getCenarioSimulacao()
+                resultado.valorFinal(),
+                resultado.prazoMeses(),
+                resultado.prazoDias(),
+                resultado.prazoAnos(),
+                resultado.rentabilidadeEfetiva(),
+                resultado.rendimento(),
+                resultado.valorSimulado(),
+                resultado.cenarioSimulacao()
         );
     }
 
