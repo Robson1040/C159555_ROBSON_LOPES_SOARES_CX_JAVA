@@ -1,0 +1,135 @@
+package org.example.resource;
+
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.example.dto.SimulacaoRequest;
+import org.example.dto.SimulacaoResponse;
+import org.example.dto.SimulacaoInvestimentoResponse;
+import org.example.model.SimulacaoInvestimento;
+import org.example.service.SimulacaoInvestimentoService;
+
+import java.util.List;
+
+/**
+ * Resource para simulação de investimentos
+ */
+@Path("/simular-investimento")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class SimulacaoInvestimentoResource {
+
+    @Inject
+    SimulacaoInvestimentoService simulacaoInvestimentoService;
+
+    /**
+     * POST /simular-investimento
+     * Simula um investimento baseado nos critérios informados
+     * 
+     * Validações aplicadas:
+     * - clienteId: obrigatório e positivo
+     * - valor: obrigatório, entre R$ 1,00 e R$ 999.999.999,99
+     * - prazo: pelo menos um dos três deve ser informado (meses, dias ou anos)
+     * - liquidez: se informado, entre 0 e 3650 dias
+     */
+    @POST
+    public Response simularInvestimento(@Valid SimulacaoRequest request) {
+        // Validações adicionais de negócio
+        validarRegrasNegocio(request);
+        
+        // O service pode lançar RuntimeException que será tratada pelo handler global
+        SimulacaoResponse simulacao = simulacaoInvestimentoService.simularInvestimento(request);
+        
+        return Response.status(Response.Status.CREATED)
+                .entity(simulacao)
+                .build();
+    }
+
+    /**
+     * GET /simular-investimento/historico/{clienteId}
+     * Busca o histórico de simulações de um cliente
+     */
+    @GET
+    @Path("/historico/{clienteId}")
+    public Response buscarHistoricoSimulacoes(@PathParam("clienteId") @Positive Long clienteId) {
+        // Validação será tratada automaticamente pelo Bean Validation
+        List<SimulacaoInvestimento> simulacoes = simulacaoInvestimentoService.buscarSimulacoesPorCliente(clienteId);
+        List<SimulacaoInvestimentoResponse> response = SimulacaoInvestimentoResponse.fromList(simulacoes);
+        
+        return Response.status(Response.Status.OK)
+                .entity(response)
+                .build();
+    }
+
+    /**
+     * GET /simular-investimento/{id}
+     * Busca uma simulação específica por ID
+     */
+    @GET
+    @Path("/{id}")
+    public Response buscarSimulacaoPorId(@PathParam("id") @Positive Long id) {
+        SimulacaoInvestimento simulacao = simulacaoInvestimentoService.buscarSimulacaoPorId(id);
+        
+        if (simulacao == null) {
+            throw new RuntimeException("Simulação não encontrada com ID: " + id);
+        }
+        
+        SimulacaoInvestimentoResponse response = new SimulacaoInvestimentoResponse(simulacao);
+        return Response.status(Response.Status.OK)
+                .entity(response)
+                .build();
+    }
+
+    /**
+     * GET /simular-investimento/estatisticas/{clienteId}
+     * Busca estatísticas das simulações de um cliente
+     */
+    @GET
+    @Path("/estatisticas/{clienteId}")
+    public Response buscarEstatisticasCliente(@PathParam("clienteId") @Positive Long clienteId) {
+        SimulacaoInvestimentoService.EstatisticasCliente estatisticas = 
+                simulacaoInvestimentoService.getEstatisticasCliente(clienteId);
+        
+        return Response.status(Response.Status.OK)
+                .entity(estatisticas)
+                .build();
+    }
+
+    /**
+     * Validações adicionais de regras de negócio
+     */
+    private void validarRegrasNegocio(SimulacaoRequest request) {
+        // Validação: se filtrar por liquidez, o valor deve ser razoável
+        if (request.getLiquidez() != null && request.getLiquidez() < 0) {
+            throw new RuntimeException("Liquidez não pode ser negativa");
+        }
+        
+        // Validação: valores muito altos podem ter limitações
+        if (request.getValor().compareTo(new java.math.BigDecimal("1000000")) > 0) {
+            // Apenas um aviso, não um erro
+            System.out.println("AVISO: Simulação com valor alto: " + request.getValor());
+        }
+        
+        // Validação: prazos muito longos podem ter limitações
+        int prazoMeses = request.getPrazoEmMeses();
+        if (prazoMeses > 240) { // Mais de 20 anos
+            throw new RuntimeException("Prazo muito longo para simulação precisa. Máximo recomendado: 20 anos (240 meses)");
+        }
+        
+        // Validação de consistência: se especificar índice, deve ser compatível com tipo de rentabilidade
+        if (request.getTipoRentabilidade() != null && request.getIndice() != null) {
+            if (request.getTipoRentabilidade() == org.example.model.TipoRentabilidade.PRE && 
+                request.getIndice() != org.example.model.Indice.NENHUM) {
+                throw new RuntimeException("Produtos pré-fixados não devem ter índice específico. Use 'NENHUM' como índice.");
+            }
+            
+            if (request.getTipoRentabilidade() == org.example.model.TipoRentabilidade.POS && 
+                request.getIndice() == org.example.model.Indice.NENHUM) {
+                throw new RuntimeException("Produtos pós-fixados devem ter um índice específico (CDI, SELIC, IPCA, etc.)");
+            }
+        }
+    }
+}
