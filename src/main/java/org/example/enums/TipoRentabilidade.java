@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.enums;
 
 public enum TipoRentabilidade {
     PRE("Pré-fixado"),

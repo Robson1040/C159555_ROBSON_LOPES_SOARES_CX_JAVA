@@ -3,6 +3,12 @@ package org.example.model;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.example.enums.Indice;
+import org.example.enums.NivelRisco;
+import org.example.enums.PeriodoRentabilidade;
+import org.example.enums.TipoProduto;
+import org.example.enums.TipoRenda;
+import org.example.enums.TipoRentabilidade;
 import org.example.validation.ValidRentabilidadeIndice;
 
 import java.math.BigDecimal;

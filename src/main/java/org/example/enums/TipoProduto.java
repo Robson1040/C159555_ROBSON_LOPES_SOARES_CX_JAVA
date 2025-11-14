@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.enums;
 
 public enum TipoProduto {
     CDB("Certificado de Depósito Bancário", TipoRenda.RENDA_FIXA),

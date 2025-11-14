@@ -1,11 +1,11 @@
 package org.example.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.example.model.Indice;
-import org.example.model.NivelRisco;
-import org.example.model.PeriodoRentabilidade;
-import org.example.model.TipoProduto;
-import org.example.model.TipoRentabilidade;
+import org.example.enums.Indice;
+import org.example.enums.NivelRisco;
+import org.example.enums.PeriodoRentabilidade;
+import org.example.enums.TipoProduto;
+import org.example.enums.TipoRentabilidade;
 
 import java.math.BigDecimal;
 

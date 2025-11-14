@@ -8,8 +8,8 @@ import org.example.dto.ProdutoResponse;
 import org.example.exception.ProdutoNotFoundException;
 import org.example.mapper.ProdutoMapper;
 import org.example.model.Produto;
-import org.example.model.TipoProduto;
-import org.example.model.TipoRentabilidade;
+import org.example.enums.TipoProduto;
+import org.example.enums.TipoRentabilidade;
 
 import java.util.List;
 import java.util.Optional;

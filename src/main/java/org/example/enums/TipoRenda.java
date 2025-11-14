@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.enums;
 
 /**
  * Enum que define os tipos de renda dos produtos financeiros

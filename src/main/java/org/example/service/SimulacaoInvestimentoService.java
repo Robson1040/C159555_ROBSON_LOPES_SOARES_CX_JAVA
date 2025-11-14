@@ -7,6 +7,7 @@ import org.example.dto.*;
 import org.example.mapper.ProdutoMapper;
 import org.example.mapper.SimulacaoInvestimentoMapper;
 import org.example.model.*;
+import org.example.enums.*;
 import org.example.service.simulacao.SimuladorIndices;
 import org.example.service.simulacao.SimuladorMercado;
 

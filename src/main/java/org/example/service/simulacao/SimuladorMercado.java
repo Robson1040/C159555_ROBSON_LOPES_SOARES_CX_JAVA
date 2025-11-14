@@ -1,8 +1,8 @@
 package org.example.service.simulacao;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.example.model.TipoProduto;
-import org.example.model.TipoRentabilidade;
+import org.example.enums.TipoProduto;
+import org.example.enums.TipoRentabilidade;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

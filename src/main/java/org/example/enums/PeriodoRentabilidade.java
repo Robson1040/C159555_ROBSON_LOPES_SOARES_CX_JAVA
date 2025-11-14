@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.enums;
 
 public enum PeriodoRentabilidade {
     AO_DIA("Ao Dia"),

@@ -121,13 +121,13 @@ public class SimulacaoInvestimentoResource {
         
         // Validação de consistência: se especificar índice, deve ser compatível com tipo de rentabilidade
         if (request.tipoRentabilidade() != null && request.indice() != null) {
-            if (request.tipoRentabilidade() == org.example.model.TipoRentabilidade.PRE && 
-                request.indice() != org.example.model.Indice.NENHUM) {
+            if (request.tipoRentabilidade() == org.example.enums.TipoRentabilidade.PRE && 
+                request.indice() != org.example.enums.Indice.NENHUM) {
                 throw new RuntimeException("Produtos pré-fixados não devem ter índice específico. Use 'NENHUM' como índice.");
             }
             
-            if (request.tipoRentabilidade() == org.example.model.TipoRentabilidade.POS && 
-                request.indice() == org.example.model.Indice.NENHUM) {
+            if (request.tipoRentabilidade() == org.example.enums.TipoRentabilidade.POS && 
+                request.indice() == org.example.enums.Indice.NENHUM) {
                 throw new RuntimeException("Produtos pós-fixados devem ter um índice específico (CDI, SELIC, IPCA, etc.)");
             }
         }

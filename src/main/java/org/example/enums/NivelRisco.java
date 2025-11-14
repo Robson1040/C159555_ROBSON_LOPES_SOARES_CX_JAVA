@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.enums;
 
 /**
  * Enum que define os níveis de risco dos produtos financeiros

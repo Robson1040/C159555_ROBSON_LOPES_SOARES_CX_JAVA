@@ -1,7 +1,7 @@
 package org.example.service.simulacao;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.example.model.Indice;
+import org.example.enums.Indice;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

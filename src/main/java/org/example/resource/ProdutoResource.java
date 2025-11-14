@@ -9,8 +9,8 @@ import jakarta.ws.rs.core.Response;
 import org.example.dto.ProdutoRequest;
 import org.example.dto.ProdutoResponse;
 import org.example.exception.ProdutoNotFoundException;
-import org.example.model.TipoProduto;
-import org.example.model.TipoRentabilidade;
+import org.example.enums.TipoProduto;
+import org.example.enums.TipoRentabilidade;
 import org.example.service.ProdutoService;
 
 import java.util.List;
