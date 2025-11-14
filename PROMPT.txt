@@ -166,26 +166,31 @@ Implemente também GET /simulacoes/por-produto-mes e GET /simulacoes/por-produto
 
 ************************************************************************************
 
-Crie um CRUD basico de cliente no Cliente Resource. Grave no model Cliente.
+Crie um CRUD basico de cliente no Cliente Resource. Grave no model Pessoa.
 
 nome,
 cpf
-senha (criptografar ao salvar)
+username
+password (criptografar ao salvar)
 role (cliente ou admim)
 
 ************************************************************************************
 
-fazer um endpoint com dois endpoints:
+fazer um endpoint em AutenticacaoResource:
 
 POST /entrar
 
-recebendo cpf e senha do cliente.
+recebendo username e password do cliente.
 
 e que retorna um JWT token, contendo a role do cliente, com validade de 1 hora.
+Por enquanto não use esse JWT token para fazer nenhum controle de acesso.
+Futuramente usaremos para RBAC.
+
 
 ************************************************************************************
 
 cRIE apenas o endpoint POST /investimentos no InvestimentoResource
+Siga o padrão estabelecido no projeto.
 
 {
  "clienteId": 1,
@@ -198,7 +203,7 @@ cRIE apenas o endpoint POST /investimentos no InvestimentoResource
 Valide se o produto existe.
 Valide se o cliente existe.
 Valide se os dados são validos.
-Registre no Model Investimento.
+Registre no Model Investimento (PanacheEntityBase)
 
 Na hora de gravar, o sistema deve registrar também essas informações no Model Investimento a partir do produto informado:
 
@@ -214,6 +219,8 @@ Na hora de gravar, o sistema deve registrar também essas informações no Model
 ************************************************************************************
 
 cRIE apenas o endpoint GET /investimentos/{clienteId} no InvestimentoResource
+
+que retorna todos os investimentos de um cliente
 
 Response
 [
@@ -250,6 +257,51 @@ Response
 	fgc (se é protegico pelo fundo garantidor de credito)
 }
 
+************************************************************************************
+
+Porque só tem ProdutoMapper? Tem que ter um Mapper para cada Model.
+O mapper é o responsa´vel por converter de Modelo para DTO e vice versa.
+Cada model deve necessariamente ter um mapper e ser usado.
+
+
+************************************************************************************
+
+Implemente o endpoint Endpoint: GET /perfil-risco/{clienteId} no PerfilRiscoResource
+
+Valide se o cliente existe.
+Se o cliente não tiver historico de investimentos, use o historico de simulações.
+Se não tiver historico nenhum, emita mensagem de erro.
+
+Ele deve calcular o perfil de risco do cliente:
+	▪ Conservador: baixa movimentação, foco em liquidez
+	▪ Moderado: equilíbrio entre liquidez e rentabilidade
+	▪ Agressivo: busca por alta rentabilidade, maior risco
+
+O perfil é calculado da seguinte forma:
+	o sistema le todo o historico de investimentos do cliente e calcula a distancia de euclides para todos os outros investimentos disponiveis e pega o mais próximo (exceto ele mesmo).
+	Considere esses valores para calcular a distancia de euclides: (valor, tipo, tipo_rentabilidade, periodo_rentabilidade, indice, liquides, fgc, minimo_dias_investimento)
+	Normalisze os atributos textuais e booleanos para numericos para fazer o calculo.
+	se a maioria dos investimentos do cliente estiverem mais proximos dos de baixo risco, ele é conservado.
+	se a maioria dos investimentos do clientes estiverem mais proximos dos de medio risco, ele é moderado.
+	se a maioria dos investimentos do clientes estiverem mais proximos dos de alto risco, ele é Agressivo.
+	
+	Com base nesse calculo, defina uma pontuação, onde 0 é mais conservador extremo e 100 é agressivo extremo.
+	
+E retornar assim:
+
+Response
+{
+"clienteId": 123,
+"perfil": "Moderado",
+"pontuacao": 65,
+"descricao": "Perfil equilibrado entre segurança e rentabilidade."
+}
+
+************************************************************************************
+
+
+
+************************************************************************************
 
 curl -X POST ^
   "http://localhost:10081/auth/realms/intranet/protocol/openid-connect/token" ^

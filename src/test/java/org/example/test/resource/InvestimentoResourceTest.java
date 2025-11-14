@@ -143,6 +143,107 @@ public class InvestimentoResourceTest {
                 .body("message", containsString("Informe pelo menos um prazo"));
     }
 
+    @Test
+    public void testBuscarInvestimentosPorCliente() {
+        Long clienteId = criarClienteTeste();
+        Long produtoId = criarProdutoTeste(0);
+        
+        // Criar dois investimentos para o cliente
+        String json1 = """
+                {
+                  "clienteId": %d,
+                  "produtoId": %d,
+                  "valor": 5000.00,
+                  "prazoMeses": 12,
+                  "data": "2025-01-15"
+                }
+                """.formatted(clienteId, produtoId);
+                
+        String json2 = """
+                {
+                  "clienteId": %d,
+                  "produtoId": %d,
+                  "valor": 3000.00,
+                  "prazoDias": 180,
+                  "data": "2025-03-10"
+                }
+                """.formatted(clienteId, produtoId);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(json1)
+                .when().post("/investimentos")
+                .then()
+                .statusCode(201);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(json2)
+                .when().post("/investimentos")
+                .then()
+                .statusCode(201);
+
+        // Buscar investimentos do cliente
+        given()
+                .when().get("/investimentos/" + clienteId)
+                .then()
+                .statusCode(200)
+                .body("size()", is(2))
+                .body("[0].clienteId", is(clienteId.intValue()))
+                .body("[1].clienteId", is(clienteId.intValue()))
+                .body("[0].tipo", notNullValue())
+                .body("[0].valor", notNullValue())
+                .body("[0].data", notNullValue())
+                .body("[0].tipo_rentabilidade", notNullValue())
+                .body("[0].rentabilidade", notNullValue())
+                .body("[0].periodo_rentabilidade", notNullValue())
+                .body("[0].liquidez", notNullValue())
+                .body("[0].minimo_dias_investimento", notNullValue())
+                .body("[0].fgc", notNullValue());
+    }
+
+    @Test
+    public void testBuscarInvestimentosClienteNaoExiste() {
+        // Primeiro criar um cliente e investimento para garantir que o endpoint funciona
+        Long clienteId = criarClienteTeste();
+        Long produtoId = criarProdutoTeste(0);
+        
+        // Criar um investimento para o cliente
+        String json = """
+                {
+                  "clienteId": %d,
+                  "produtoId": %d,
+                  "valor": 1000.00,
+                  "prazoMeses": 6,
+                  "data": "2025-01-15"
+                }
+                """.formatted(clienteId, produtoId);
+                
+        given()
+                .contentType(ContentType.JSON)
+                .body(json)
+                .when().post("/investimentos")
+                .then()
+                .statusCode(201);
+        
+        // Agora testar busca por cliente que não existe - deve retornar 200 com lista vazia
+        given()
+                .when().get("/investimentos/99999")
+                .then()
+                .statusCode(200)
+                .body("size()", equalTo(0));
+    }
+
+    @Test
+    public void testBuscarInvestimentosClienteSemInvestimentos() {
+        Long clienteId = criarClienteTeste();
+
+        given()
+                .when().get("/investimentos/" + clienteId)
+                .then()
+                .statusCode(204); // NO_CONTENT quando lista vazia
+    }
+
     private Long criarClienteTeste() {
         String clienteJson = """
                 {
