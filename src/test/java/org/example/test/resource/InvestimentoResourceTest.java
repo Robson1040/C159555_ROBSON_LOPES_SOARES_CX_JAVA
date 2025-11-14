@@ -3,9 +3,9 @@ package org.example.test.resource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.transaction.Transactional;
-import org.example.model.Investimento;
-import org.example.model.Pessoa;
-import org.example.model.Produto;
+import org.example.model.investimento.Investimento;
+import org.example.model.cliente.Pessoa;
+import org.example.model.produto.Produto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -288,3 +288,4 @@ public class InvestimentoResourceTest {
         return id.longValue();
     }
 }
+

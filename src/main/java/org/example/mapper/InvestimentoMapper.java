@@ -3,8 +3,8 @@ package org.example.mapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.example.dto.investimento.InvestimentoRequest;
 import org.example.dto.investimento.InvestimentoResponse;
-import org.example.model.Investimento;
-import org.example.model.Produto;
+import org.example.model.investimento.Investimento;
+import org.example.model.produto.Produto;
 
 import java.util.List;
 import java.util.stream.Collectors;

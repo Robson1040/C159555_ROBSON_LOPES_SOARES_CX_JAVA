@@ -4,8 +4,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import org.example.model.Pessoa;
-import org.example.service.PasswordService;
+import org.example.model.cliente.Pessoa;
+import org.example.service.autenticacao.PasswordService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -147,3 +147,4 @@ public class AutenticacaoResourceTest {
         assert payload.contains("João Teste") : "Token deve conter o nome";
     }
 }
+

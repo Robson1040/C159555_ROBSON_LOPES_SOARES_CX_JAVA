@@ -2,7 +2,7 @@ package org.example.test.service;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import org.example.service.JwtService;
+import org.example.service.autenticacao.JwtService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

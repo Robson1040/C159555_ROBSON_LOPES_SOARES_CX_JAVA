@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.example.dto.cliente.ClienteRequest;
 import org.example.dto.cliente.ClienteResponse;
 import org.example.dto.cliente.ClienteUpdateRequest;
-import org.example.model.Pessoa;
+import org.example.model.cliente.Pessoa;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -3,7 +3,7 @@ package org.example.mapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.example.dto.produto.ProdutoRequest;
 import org.example.dto.produto.ProdutoResponse;
-import org.example.model.Produto;
+import org.example.model.produto.Produto;
 
 import java.util.List;
 import java.util.stream.Collectors;

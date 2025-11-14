@@ -2,8 +2,8 @@ package org.example.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.example.enums.Indice;
-import org.example.enums.TipoRentabilidade;
+import org.example.enums.simulacao.Indice;
+import org.example.enums.produto.TipoRentabilidade;
 
 /**
  * Implementação do validator para verificar se a rentabilidade e índice estão consistentes.

@@ -2,10 +2,7 @@ package org.example.test.resource;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import jakarta.transaction.Transactional;
-import org.example.model.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;

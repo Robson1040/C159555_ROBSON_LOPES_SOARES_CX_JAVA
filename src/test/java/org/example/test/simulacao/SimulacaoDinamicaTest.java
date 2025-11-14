@@ -1,7 +1,7 @@
 package org.example.test.simulacao;
 
-import org.example.enums.Indice;
-import org.example.enums.TipoProduto;
+import org.example.enums.simulacao.Indice;
+import org.example.enums.produto.TipoProduto;
 import org.example.service.simulacao.SimuladorIndices;
 import org.example.service.simulacao.SimuladorMercado;
 import org.junit.jupiter.api.Test;

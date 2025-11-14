@@ -2,10 +2,10 @@ package org.example.dto.produto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
-import org.example.enums.Indice;
-import org.example.enums.PeriodoRentabilidade;
-import org.example.enums.TipoProduto;
-import org.example.enums.TipoRentabilidade;
+import org.example.enums.simulacao.Indice;
+import org.example.enums.produto.PeriodoRentabilidade;
+import org.example.enums.produto.TipoProduto;
+import org.example.enums.produto.TipoRentabilidade;
 import org.example.validation.ValidRentabilidadeIndice;
 
 import java.math.BigDecimal;

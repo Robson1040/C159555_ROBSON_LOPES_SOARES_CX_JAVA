@@ -3,7 +3,7 @@ package org.example.mapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.example.dto.simulacao.ResultadoSimulacao;
 import org.example.dto.simulacao.SimulacaoInvestimentoResponse;
-import org.example.model.SimulacaoInvestimento;
+import org.example.model.simulacao.SimulacaoInvestimento;
 
 import java.math.BigDecimal;
 import java.util.List;

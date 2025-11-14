@@ -1,7 +1,7 @@
 package org.example.dto.simulacao;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.example.model.SimulacaoInvestimento;
+import org.example.model.simulacao.SimulacaoInvestimento;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

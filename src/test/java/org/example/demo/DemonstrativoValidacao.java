@@ -1,8 +1,10 @@
 package org.example.demo;
 
 import org.example.dto.produto.ProdutoRequest;
-import org.example.model.*;
-import org.example.enums.*;
+import org.example.enums.produto.PeriodoRentabilidade;
+import org.example.enums.produto.TipoProduto;
+import org.example.enums.produto.TipoRentabilidade;
+import org.example.enums.simulacao.Indice;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;

@@ -1,8 +1,8 @@
 package org.example.test.integration;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.example.model.Pessoa;
-import org.example.model.Produto;
+import org.example.model.cliente.Pessoa;
+import org.example.model.produto.Produto;
 
 import org.junit.jupiter.api.Test;
 

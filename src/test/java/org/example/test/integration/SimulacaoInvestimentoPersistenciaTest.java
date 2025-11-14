@@ -2,7 +2,7 @@ package org.example.test.integration;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.example.model.SimulacaoInvestimento;
+import org.example.model.simulacao.SimulacaoInvestimento;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;

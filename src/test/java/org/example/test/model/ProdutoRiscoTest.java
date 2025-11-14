@@ -1,7 +1,12 @@
 package org.example.test.model;
 
-import org.example.model.*;
-import org.example.enums.*;
+import org.example.enums.produto.NivelRisco;
+import org.example.enums.produto.PeriodoRentabilidade;
+import org.example.enums.produto.TipoProduto;
+import org.example.enums.produto.TipoRentabilidade;
+import org.example.enums.simulacao.Indice;
+import org.example.enums.simulacao.TipoRenda;
+import org.example.model.produto.Produto;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

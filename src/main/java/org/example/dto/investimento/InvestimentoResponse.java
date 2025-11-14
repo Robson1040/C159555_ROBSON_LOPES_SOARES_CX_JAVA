@@ -1,10 +1,10 @@
 package org.example.dto.investimento;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.example.enums.Indice;
-import org.example.enums.PeriodoRentabilidade;
-import org.example.enums.TipoProduto;
-import org.example.enums.TipoRentabilidade;
+import org.example.enums.simulacao.Indice;
+import org.example.enums.produto.PeriodoRentabilidade;
+import org.example.enums.produto.TipoProduto;
+import org.example.enums.produto.TipoRentabilidade;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

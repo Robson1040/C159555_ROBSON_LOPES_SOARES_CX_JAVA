@@ -1,7 +1,7 @@
 package org.example.dto.cliente;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.example.model.Pessoa;
+import org.example.model.cliente.Pessoa;
 
 /**
  * DTO para resposta de cliente

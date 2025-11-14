@@ -1,9 +1,12 @@
 package org.example.demo;
 
 import org.example.dto.produto.ProdutoResponse;
+import org.example.enums.produto.TipoProduto;
+import org.example.enums.produto.TipoRentabilidade;
+import org.example.enums.produto.PeriodoRentabilidade;
+import org.example.enums.simulacao.Indice;
 import org.example.mapper.ProdutoMapper;
-import org.example.model.*;
-import org.example.enums.*;
+import org.example.model.produto.Produto;
 
 import java.math.BigDecimal;
 
@@ -20,7 +23,7 @@ public class DemonstrativoRisco {
         // Exemplo 1: CDB com FGC - Risco Baixo
         Produto cdb = new Produto(
                 "CDB Banco XYZ", 
-                TipoProduto.CDB, 
+                TipoProduto.CDB,
                 TipoRentabilidade.POS,
                 new BigDecimal("5.5"), 
                 PeriodoRentabilidade.AO_ANO,
