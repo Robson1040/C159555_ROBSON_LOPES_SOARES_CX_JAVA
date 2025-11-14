@@ -1,0 +1,32 @@
+package org.example.resource;
+
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import org.example.dto.InvestimentoRequest;
+import org.example.dto.InvestimentoResponse;
+import org.example.service.InvestimentoService;
+
+@Path("/investimentos")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+public class InvestimentoResource {
+
+    @Inject
+    InvestimentoService investimentoService;
+
+    /**
+     * POST /investimentos - registra um novo investimento
+     */
+    @POST
+    public Response criar(@Valid @NotNull InvestimentoRequest request) {
+        InvestimentoResponse response = investimentoService.criar(request);
+        return Response.status(Response.Status.CREATED).entity(response).build();
+    }
+}

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 /**
  * Entidade JPA para representar uma Pessoa no sistema
@@ -12,7 +12,12 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
  */
 @Entity
 @Table(name = "pessoa")
-public class Pessoa extends PanacheEntity {
+public class Pessoa extends PanacheEntityBase {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "INTEGER")
+    public Long id;
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 2, max = 100, message = "Nome deve ter entre 2 e 100 caracteres")
@@ -35,7 +40,7 @@ public class Pessoa extends PanacheEntity {
     public String password;
 
     @NotBlank(message = "Role é obrigatório")
-    @Pattern(regexp = "cliente|admin", message = "Role deve ser 'cliente' ou 'admin'")
+    @Pattern(regexp = "cliente|admin|USER|ADMIN", message = "Role deve ser 'cliente', 'admin', 'USER' ou 'ADMIN'")
     @Column(name = "role", nullable = false, length = 10)
     public String role;
 

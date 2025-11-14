@@ -175,6 +175,14 @@ public class ProdutoService {
     }
 
     /**
+     * Remove todos os produtos (para testes)
+     */
+    @Transactional
+    public void limparTodos() {
+        Produto.deleteAll();
+    }
+
+    /**
      * Validações de negócio específicas
      */
     private void validarDadosProduto(ProdutoRequest request) {

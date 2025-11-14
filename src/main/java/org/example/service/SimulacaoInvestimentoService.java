@@ -38,7 +38,7 @@ public class SimulacaoInvestimentoService {
         Produto produto = encontrarProdutoMaisApropriado(request);
         
         if (produto == null) {
-            throw new RuntimeException("Nenhum produto encontrado com os critérios informados");
+            throw new org.example.exception.NenhumProdutoDisponivelException("Nenhum produto encontrado com os critérios informados");
         }
 
         // 2. Calcular a simulação
@@ -65,8 +65,9 @@ public class SimulacaoInvestimentoService {
     private Produto encontrarProdutoMaisApropriado(SimulacaoRequest request) {
         List<Produto> produtos = Produto.listAll();
 
-        // Aplica filtros se informados
+        // Aplica filtros se informados - primeiro filtra produtos null
         return produtos.stream()
+                .filter(produto -> produto != null) // Remove produtos null
                 .filter(produto -> filtrarPorTipo(produto, request.tipoProduto()))
                 .filter(produto -> filtrarPorTipoRentabilidade(produto, request.tipoRentabilidade()))
                 .filter(produto -> filtrarPorIndice(produto, request.indice()))
@@ -182,26 +183,32 @@ public class SimulacaoInvestimentoService {
 
     // Métodos de filtro
     private boolean filtrarPorTipo(Produto produto, TipoProduto tipo) {
+        if (produto == null) return false;
         return tipo == null || produto.getTipo().equals(tipo);
     }
 
     private boolean filtrarPorTipoRentabilidade(Produto produto, TipoRentabilidade tipo) {
+        if (produto == null) return false;
         return tipo == null || produto.getTipoRentabilidade().equals(tipo);
     }
 
     private boolean filtrarPorIndice(Produto produto, Indice indice) {
+        if (produto == null) return false;
         return indice == null || produto.getIndice().equals(indice);
     }
 
     private boolean filtrarPorLiquidez(Produto produto, Integer liquidez) {
+        if (produto == null) return false;
         return liquidez == null || produto.getLiquidez().equals(liquidez);
     }
 
     private boolean filtrarPorFgc(Produto produto, Boolean fgc) {
+        if (produto == null) return false;
         return fgc == null || produto.getFgc().equals(fgc);
     }
 
     private boolean filtrarPorPrazoMinimo(Produto produto, int prazoDias) {
+        if (produto == null) return false;
         return produto.getMinimoDiasInvestimento() <= prazoDias;
     }
 

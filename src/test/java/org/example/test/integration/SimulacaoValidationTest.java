@@ -12,19 +12,7 @@ import static org.hamcrest.Matchers.*;
 @QuarkusTest
 @DisplayName("Testes de Validação do SimulacaoInvestimentoResource")
 public class SimulacaoValidationTest {
-
-    @BeforeEach
-    public void limparDados() {
-        // Limpa produtos antes de cada teste
-        given()
-                .when().delete("/produtos")
-                .then()
-                .statusCode(anyOf(is(204), is(404)));
-        
-        // Cria um produto básico para os testes
-        criarProdutoTeste();
-    }
-
+    // Método limparDados removido conforme solicitação; criação de produto ocorre apenas onde necessário.
     @Test
     @DisplayName("Deve rejeitar simulação sem clienteId")
     public void testValidacaoClienteIdObrigatorio() {

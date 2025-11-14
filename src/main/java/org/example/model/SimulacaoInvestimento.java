@@ -1,6 +1,6 @@
 package org.example.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +16,12 @@ import java.util.List;
  */
 @Entity
 @Table(name = "simulacao_investimento")
-public class SimulacaoInvestimento extends PanacheEntity {
+public class SimulacaoInvestimento extends PanacheEntityBase {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "INTEGER")
+    public Long id;
 
     @NotNull
     @Positive

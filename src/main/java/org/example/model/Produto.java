@@ -14,9 +14,9 @@ import java.util.List;
 public class Produto extends PanacheEntityBase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "INTEGER")
-    private Long id;
+    public Long id;
 
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 2, max = 255, message = "Nome deve ter entre 2 e 255 caracteres")

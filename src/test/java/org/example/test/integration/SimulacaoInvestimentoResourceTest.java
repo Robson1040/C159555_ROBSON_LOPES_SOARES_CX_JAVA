@@ -10,15 +10,7 @@ import static org.hamcrest.Matchers.*;
 
 @QuarkusTest
 public class SimulacaoInvestimentoResourceTest {
-
-    @BeforeEach
-    public void limparDados() {
-        // Limpa todos os produtos antes de cada teste
-        given()
-                .when().delete("/produtos")
-                .then()
-                .statusCode(anyOf(is(204), is(404))); // Aceita tanto sucesso quanto not found
-    }
+        // Método limparDados removido conforme solicitação; testes utilizam estado compartilhado.
 
     @Test
     public void testSimulacaoComFiltroCompleto() {

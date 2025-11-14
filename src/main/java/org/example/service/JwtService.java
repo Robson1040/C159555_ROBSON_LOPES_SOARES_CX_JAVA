@@ -77,20 +77,140 @@ public class JwtService {
     }
 
     /**
+     * Gera um token JWT simples com email e role (usado pelos testes)
+     */
+    public String gerarToken(String email, String role) {
+        try {
+            Instant now = Instant.now();
+            Instant expiry = now.plus(1, ChronoUnit.HOURS);
+
+            // Header
+            Map<String, Object> header = Map.of(
+                "alg", "HS256",
+                "typ", "JWT"
+            );
+
+            // Payload
+            Map<String, Object> payload = Map.of(
+                "sub", email,
+                "email", email,
+                "role", role,
+                "iat", now.getEpochSecond(),
+                "exp", expiry.getEpochSecond(),
+                "iss", "api-veiculo-sso"
+            );
+
+            // Encode header and payload
+            String encodedHeader = Base64.getUrlEncoder().withoutPadding()
+                .encodeToString(objectMapper.writeValueAsBytes(header));
+            String encodedPayload = Base64.getUrlEncoder().withoutPadding()
+                .encodeToString(objectMapper.writeValueAsBytes(payload));
+
+            // Create signature
+            String data = encodedHeader + "." + encodedPayload;
+            String signature = createSignature(data);
+
+            return data + "." + signature;
+            
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao gerar token JWT", e);
+        }
+    }
+
+    /**
+     * Valida se o token é válido
+     */
+    public boolean validarToken(String token) {
+        try {
+            if (token == null || token.trim().isEmpty()) {
+                return false;
+            }
+
+            String[] parts = token.split("\\.");
+            if (parts.length != 3) {
+                return false;
+            }
+
+            // Verify signature
+            String data = parts[0] + "." + parts[1];
+            String expectedSignature = createSignature(data);
+            
+            if (!expectedSignature.equals(parts[2])) {
+                return false;
+            }
+
+            // Check if token is expired
+            String payloadJson = new String(Base64.getUrlDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+            @SuppressWarnings("unchecked")
+            Map<String, Object> payload = objectMapper.readValue(payloadJson, Map.class);
+            
+            Number exp = (Number) payload.get("exp");
+            if (exp != null && Instant.now().getEpochSecond() > exp.longValue()) {
+                return false;
+            }
+
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Extrai o email do token
+     */
+    public String extrairEmailDoToken(String token) {
+        try {
+            if (!validarToken(token)) {
+                return null;
+            }
+
+            String[] parts = token.split("\\.");
+            String payloadJson = new String(Base64.getUrlDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+            @SuppressWarnings("unchecked")
+            Map<String, Object> payload = objectMapper.readValue(payloadJson, Map.class);
+            
+            String email = (String) payload.get("email");
+            if (email == null) {
+                email = (String) payload.get("sub"); // fallback para sub se email não existir
+            }
+            
+            return email;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * Extrai a role do token
+     */
+    public String extrairRoleDoToken(String token) {
+        try {
+            if (!validarToken(token)) {
+                return null;
+            }
+
+            String[] parts = token.split("\\.");
+            String payloadJson = new String(Base64.getUrlDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+            @SuppressWarnings("unchecked")
+            Map<String, Object> payload = objectMapper.readValue(payloadJson, Map.class);
+            
+            return (String) payload.get("role");
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
      * Extrai informações do token (para uso futuro)
      */
     public String extractUsername(String token) {
-        // Implementação futura para validar e extrair dados do token
-        // Por enquanto retorna null, será implementado quando necessário
-        return null;
+        return extrairEmailDoToken(token);
     }
 
     /**
      * Valida se o token é válido (para uso futuro)
      */
     public boolean isTokenValid(String token) {
-        // Implementação futura para validar token
-        // Por enquanto retorna false, será implementado quando necessário
-        return false;
+        return validarToken(token);
     }
 }

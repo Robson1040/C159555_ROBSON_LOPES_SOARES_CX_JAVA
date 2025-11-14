@@ -110,6 +110,15 @@ public class ProdutoResource {
     }
 
     /**
+     * DELETE /produtos - Remove todos os produtos (para testes)
+     */
+    @DELETE
+    public Response limparProdutos() {
+        produtoService.limparTodos();
+        return Response.status(Response.Status.NO_CONTENT).build();
+    }
+
+    /**
      * GET /produtos/count - Conta total de produtos
      */
     @GET

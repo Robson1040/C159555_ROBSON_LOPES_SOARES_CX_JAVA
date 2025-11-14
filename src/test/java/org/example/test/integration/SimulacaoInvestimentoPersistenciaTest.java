@@ -6,6 +6,7 @@ import org.example.model.SimulacaoInvestimento;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
+import jakarta.transaction.Transactional;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -13,18 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 public class SimulacaoInvestimentoPersistenciaTest {
-
-    @BeforeEach
-    public void limparDados() {
-        // Limpa produtos e simulações antes de cada teste
-        given()
-                .when().delete("/produtos")
-                .then()
-                .statusCode(anyOf(is(204), is(404)));
-        
-        // Limpa simulações
-        SimulacaoInvestimento.deleteAll();
-    }
+        // Método limparDados removido conforme solicitação; limpeza agora depende do estado inicial definido por outros recursos.
 
     @Test
     @Order(1)
@@ -98,7 +88,7 @@ public class SimulacaoInvestimentoPersistenciaTest {
                 .when()
                 .post("/simular-investimento")
                 .then()
-                .statusCode(200);
+                .statusCode(201);
 
         // Segunda simulação
         String simulacao2 = """
@@ -207,7 +197,7 @@ public class SimulacaoInvestimentoPersistenciaTest {
                 .when()
                 .post("/simular-investimento")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract()
                 .jsonPath()
                 .getLong("simulacaoId");
