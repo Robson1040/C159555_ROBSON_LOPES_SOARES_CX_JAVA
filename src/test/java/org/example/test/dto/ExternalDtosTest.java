@@ -1,8 +1,8 @@
 package org.example.test.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.dto.AgrupamentoProdutoDataDTO;
-import org.example.dto.SimulacaoResponseDTO;
+import org.example.dto.simulacao.AgrupamentoProdutoDataDTO;
+import org.example.dto.simulacao.SimulacaoResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 

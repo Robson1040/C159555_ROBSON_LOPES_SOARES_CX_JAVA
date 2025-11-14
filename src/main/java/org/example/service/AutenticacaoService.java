@@ -2,8 +2,8 @@ package org.example.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.example.dto.LoginRequest;
-import org.example.dto.LoginResponse;
+import org.example.dto.autenticacao.LoginRequest;
+import org.example.dto.autenticacao.LoginResponse;
 import org.example.exception.ClienteNotFoundException;
 import org.example.model.Pessoa;
 

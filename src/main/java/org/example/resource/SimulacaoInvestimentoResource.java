@@ -7,9 +7,9 @@ import jakarta.validation.constraints.Positive;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.dto.SimulacaoRequest;
-import org.example.dto.SimulacaoResponse;
-import org.example.dto.SimulacaoInvestimentoResponse;
+import org.example.dto.simulacao.SimulacaoRequest;
+import org.example.dto.simulacao.SimulacaoResponse;
+import org.example.dto.simulacao.SimulacaoInvestimentoResponse;
 import org.example.model.SimulacaoInvestimento;
 import org.example.service.SimulacaoInvestimentoService;
 

@@ -2,7 +2,7 @@ package org.example.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.example.dto.PerfilRiscoResponse;
+import org.example.dto.perfil_risco.PerfilRiscoResponse;
 import org.example.exception.ClienteNotFoundException;
 import org.example.model.*;
 import org.example.enums.*;

@@ -3,7 +3,7 @@ package org.example.model;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import org.example.dto.InvestimentoRequest;
+import org.example.dto.investimento.InvestimentoRequest;
 import org.example.enums.Indice;
 import org.example.enums.PeriodoRentabilidade;
 import org.example.enums.TipoProduto;

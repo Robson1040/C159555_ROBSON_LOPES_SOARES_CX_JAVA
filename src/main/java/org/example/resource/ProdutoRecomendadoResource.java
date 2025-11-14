@@ -5,7 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.dto.ProdutoResponse;
+import org.example.dto.produto.ProdutoResponse;
 import org.example.service.ProdutoRecomendadoService;
 
 import java.util.List;

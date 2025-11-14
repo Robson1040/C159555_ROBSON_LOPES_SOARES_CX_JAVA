@@ -7,8 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.dto.InvestimentoRequest;
-import org.example.dto.InvestimentoResponse;
+import org.example.dto.investimento.InvestimentoRequest;
+import org.example.dto.investimento.InvestimentoResponse;
 import org.example.service.InvestimentoService;
 
 import java.util.List;

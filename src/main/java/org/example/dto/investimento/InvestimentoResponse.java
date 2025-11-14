@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.example.dto.investimento;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.enums.Indice;

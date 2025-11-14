@@ -4,10 +4,10 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.dto.AgrupamentoProdutoDataDTO;
-import org.example.dto.AgrupamentoProdutoMesDTO;
-import org.example.dto.AgrupamentoProdutoAnoDTO;
-import org.example.dto.SimulacaoResponseDTO;
+import org.example.dto.simulacao.AgrupamentoProdutoDataDTO;
+import org.example.dto.simulacao.AgrupamentoProdutoMesDTO;
+import org.example.dto.simulacao.AgrupamentoProdutoAnoDTO;
+import org.example.dto.simulacao.SimulacaoResponseDTO;
 import org.example.model.SimulacaoInvestimento;
 
 

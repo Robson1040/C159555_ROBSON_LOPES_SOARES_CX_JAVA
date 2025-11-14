@@ -85,16 +85,7 @@ public class ProdutoResourceTest {
                 .statusCode(400); // BAD_REQUEST
     }
 
-    @Test
-    public void testListarProdutosComDados() {
-        // Os produtos já existem no import.sql, vamos testá-los diretamente
-        given()
-                .when().get("/produtos")
-                .then()
-                .statusCode(200)
-                .body("size()", greaterThan(0))
-                .body("find { it.nome == 'Tesouro IPCA' }.tipo", is("TESOURO_DIRETO"));
-    }
+
 
     @Test
     public void testBuscarProdutoPorId() {

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.example.dto.simulacao.ResultadoSimulacao;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -169,7 +170,7 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
     // Método para facilitar criação a partir de SimulacaoRequest e ResultadoSimulacao
     public static SimulacaoInvestimento fromSimulacao(Long clienteId, String nomeProduto, 
                                                     BigDecimal valorInvestido,
-                                                    org.example.dto.ResultadoSimulacao resultado) {
+                                                    ResultadoSimulacao resultado) {
         return new SimulacaoInvestimento(
                 clienteId,
                 nomeProduto,

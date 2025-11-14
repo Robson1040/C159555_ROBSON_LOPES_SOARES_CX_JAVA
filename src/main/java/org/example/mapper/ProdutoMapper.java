@@ -1,8 +1,8 @@
 package org.example.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.example.dto.ProdutoRequest;
-import org.example.dto.ProdutoResponse;
+import org.example.dto.produto.ProdutoRequest;
+import org.example.dto.produto.ProdutoResponse;
 import org.example.model.Produto;
 
 import java.util.List;

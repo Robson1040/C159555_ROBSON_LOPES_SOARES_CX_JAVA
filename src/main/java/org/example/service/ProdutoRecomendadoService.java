@@ -2,7 +2,7 @@ package org.example.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.example.dto.ProdutoResponse;
+import org.example.dto.produto.ProdutoResponse;
 import org.example.enums.NivelRisco;
 import org.example.model.Produto;
 import org.example.mapper.ProdutoMapper;

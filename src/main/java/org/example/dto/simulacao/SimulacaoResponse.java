@@ -1,6 +1,7 @@
-package org.example.dto;
+package org.example.dto.simulacao;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.example.dto.produto.ProdutoResponse;
 
 import java.time.LocalDateTime;
 

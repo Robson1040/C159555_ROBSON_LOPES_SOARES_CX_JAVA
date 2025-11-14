@@ -2,8 +2,8 @@ package org.example.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.example.dto.SimulacaoRequest;
-import org.example.dto.InvestimentoRequest;
+import org.example.dto.simulacao.SimulacaoRequest;
+import org.example.dto.investimento.InvestimentoRequest;
 
 /**
  * Implementação da validação customizada para prazo.

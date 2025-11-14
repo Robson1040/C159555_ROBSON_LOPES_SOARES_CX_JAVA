@@ -1,9 +1,9 @@
 package org.example.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.example.dto.ClienteRequest;
-import org.example.dto.ClienteResponse;
-import org.example.dto.ClienteUpdateRequest;
+import org.example.dto.cliente.ClienteRequest;
+import org.example.dto.cliente.ClienteResponse;
+import org.example.dto.cliente.ClienteUpdateRequest;
 import org.example.model.Pessoa;
 
 import java.util.List;

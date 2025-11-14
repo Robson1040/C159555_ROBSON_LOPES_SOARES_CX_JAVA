@@ -299,7 +299,19 @@ Response
 
 ************************************************************************************
 
+Implemente o endpoint Endpoint: GET /produtos-recomendados/{perfil}
 
+Com base no perfil retorne os produtos de acordo com o risco
+
+	Conservador - Baixo
+	Moderado - Médio
+	Agressivo - Alto
+	
+A resposta deve ser uma lista de Produtos.
+
+
+
+Todos os endpoints de SimulacaoResource, SimulacaoInvestimentoResource, ProdutoRecomendadoResource, PerfilRiscoResource e InvestimentoResource devem exibir a ROLE USER ou ADMIM.
 
 ************************************************************************************
 

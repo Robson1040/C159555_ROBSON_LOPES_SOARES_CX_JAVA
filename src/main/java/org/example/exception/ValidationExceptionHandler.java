@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
-import org.example.dto.ErrorResponse;
+import org.example.dto.common.ErrorResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;

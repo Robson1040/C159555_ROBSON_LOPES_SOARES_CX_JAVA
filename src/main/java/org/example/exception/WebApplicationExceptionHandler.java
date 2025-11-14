@@ -4,7 +4,7 @@ import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
-import org.example.dto.ErrorResponse;
+import org.example.dto.common.ErrorResponse;
 
 /**
  * Handler específico para WebApplicationException

@@ -1,8 +1,8 @@
 package org.example.mapper;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import org.example.dto.InvestimentoRequest;
-import org.example.dto.InvestimentoResponse;
+import org.example.dto.investimento.InvestimentoRequest;
+import org.example.dto.investimento.InvestimentoResponse;
 import org.example.model.Investimento;
 import org.example.model.Produto;
 

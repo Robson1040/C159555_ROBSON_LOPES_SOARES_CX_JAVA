@@ -5,9 +5,9 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.example.dto.ClienteRequest;
-import org.example.dto.ClienteResponse;
-import org.example.dto.ClienteUpdateRequest;
+import org.example.dto.cliente.ClienteRequest;
+import org.example.dto.cliente.ClienteResponse;
+import org.example.dto.cliente.ClienteUpdateRequest;
 import org.example.service.ClienteService;
 
 import java.util.List;
