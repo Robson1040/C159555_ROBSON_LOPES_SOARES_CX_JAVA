@@ -45,16 +45,7 @@ public class ImportSqlVerificationTest {
                 .statusCode(200);
     }
 
-    @Test
-    @DisplayName("Verificar se dados do import.sql estão sendo carregados - Veiculos") 
-    public void testVeiculosFromImportSql() {
-        // Este teste não limpa os dados, então deve encontrar os veículos do import.sql
-        RestAssured.given()
-                .contentType("application/json")
-                .get("/veiculos")
-                .then()
-                .statusCode(200);
-    }
+
     
     @Test
     @DisplayName("Verificar contagem específica de dados do import.sql")

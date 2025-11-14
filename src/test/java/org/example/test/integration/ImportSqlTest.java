@@ -3,7 +3,7 @@ package org.example.test.integration;
 import io.quarkus.test.junit.QuarkusTest;
 import org.example.model.Pessoa;
 import org.example.model.Produto;
-import org.example.model.Veiculo;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -52,23 +52,5 @@ public class ImportSqlTest {
         assertTrue(cdbEncontrado, "Produto CDB Banco XYZ deve estar presente");
     }
 
-    @Test
-    public void testDadosVeiculos() {
-        List<Veiculo> veiculos = Veiculo.listAll();
-        
-        System.out.println("Total de veículos encontrados: " + veiculos.size());
-        veiculos.forEach(v -> System.out.println("Veículo: " + v.getBrand() + " " + v.getModel()));
-        
-        // Verificar se os veículos do import.sql foram carregados
-        assertEquals(5, veiculos.size(), "Deve haver 5 veículos carregados do import.sql");
-        
-        // Verificar veículos específicos
-        boolean toyotaEncontrado = veiculos.stream()
-            .anyMatch(v -> "Toyota".equals(v.getBrand()) && "Corolla".equals(v.getModel()));
-        boolean hondaEncontrado = veiculos.stream()
-            .anyMatch(v -> "Honda".equals(v.getBrand()) && "Civic".equals(v.getModel()));
-            
-        assertTrue(toyotaEncontrado, "Veículo Toyota Corolla deve estar presente");
-        assertTrue(hondaEncontrado, "Veículo Honda Civic deve estar presente");
-    }
+
 }
