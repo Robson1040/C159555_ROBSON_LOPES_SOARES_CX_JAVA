@@ -12,6 +12,7 @@ import org.example.dto.simulacao.SimulacaoResponse;
 import org.example.dto.simulacao.SimulacaoInvestimentoResponse;
 import org.example.enums.produto.TipoRentabilidade;
 import org.example.enums.simulacao.Indice;
+
 import org.example.model.simulacao.SimulacaoInvestimento;
 import org.example.service.simulacao.SimulacaoInvestimentoService;
 

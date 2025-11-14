@@ -11,6 +11,7 @@ import org.example.dto.produto.ProdutoResponse;
 import org.example.exception.produto.ProdutoNotFoundException;
 import org.example.enums.produto.TipoProduto;
 import org.example.enums.produto.TipoRentabilidade;
+
 import org.example.service.produto.ProdutoService;
 
 import java.util.List;
