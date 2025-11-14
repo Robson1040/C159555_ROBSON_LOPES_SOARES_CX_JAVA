@@ -17,6 +17,7 @@ import org.example.model.produto.Produto;
 import org.example.model.simulacao.SimulacaoInvestimento;
 import org.example.repository.simulacao.ISimulacaoInvestimentoRepository;
 import org.example.service.produto.ProdutoService;
+import org.example.exception.produto.NenhumProdutoDisponivelException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -53,7 +54,7 @@ public class SimulacaoInvestimentoService {
         Produto produto = encontrarProdutoMaisApropriado(request);
         
         if (produto == null) {
-            throw new org.example.exception.NenhumProdutoDisponivelException("Nenhum produto encontrado com os critérios informados");
+            throw new NenhumProdutoDisponivelException("Nenhum produto encontrado com os critérios informados");
         }
 
         // 2. Calcular a simulação

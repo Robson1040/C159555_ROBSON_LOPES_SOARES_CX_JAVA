@@ -1,4 +1,4 @@
-package org.example.exception;
+package org.example.exception.cliente;
 
 public class ClienteNotFoundException extends RuntimeException {
 

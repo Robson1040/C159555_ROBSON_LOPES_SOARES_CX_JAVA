@@ -8,7 +8,7 @@ import jakarta.ws.rs.core.Response;
 import org.example.dto.common.ErrorResponse;
 import org.example.dto.autenticacao.LoginRequest;
 import org.example.dto.autenticacao.LoginResponse;
-import org.example.exception.ClienteNotFoundException;
+import org.example.exception.cliente.ClienteNotFoundException;
 import org.example.service.autenticacao.AutenticacaoService;
 
 import java.time.LocalDateTime;

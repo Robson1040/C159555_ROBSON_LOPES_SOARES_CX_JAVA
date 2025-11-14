@@ -334,3 +334,40 @@ Configure o ambiente para Java 21.
 Transfira as operações de banco de dados dos Models para os Repositorys.
 Crie um repository para cada model.
 teste se o projeto compila.
+
+
+************************************************************************************
+
+Você acha que é um bom padrão cada repository ser uma implementação de sua interface? E nos services o @inject ser feito na interface?
+
+************************************************************************************
+
+
+Implemente o endpoint GET /telemetria no TelemetriaResource.
+Note que para isso precisa implementar telemetria para registrar as informações de todos os endpoints da api.
+Use o uarkus-micrometer.
+
+O retorno do endpoint /telemetria deve ser:
+
+Response
+{
+"servicos": [
+ {
+ "nome": "simular-investimento",
+ "quantidadeChamadas": 120,
+ "mediaTempoRespostaMs": 250
+ },
+ {
+ "nome": "perfil-risco",
+ "quantidadeChamadas": 80,
+ "mediaTempoRespostaMs": 180
+ }
+],
+"periodo": {
+ "inicio": "2025-10-01",
+ "fim": "2025-10-31"
+}
+}
+
+
+************************************************************************************

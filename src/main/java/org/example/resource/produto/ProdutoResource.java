@@ -8,7 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.dto.produto.ProdutoRequest;
 import org.example.dto.produto.ProdutoResponse;
-import org.example.exception.ProdutoNotFoundException;
+import org.example.exception.produto.ProdutoNotFoundException;
 import org.example.enums.produto.TipoProduto;
 import org.example.enums.produto.TipoRentabilidade;
 import org.example.service.produto.ProdutoService;

@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.example.dto.autenticacao.LoginRequest;
 import org.example.dto.autenticacao.LoginResponse;
-import org.example.exception.ClienteNotFoundException;
+import org.example.exception.cliente.ClienteNotFoundException;
 import org.example.model.cliente.Pessoa;
 import org.example.repository.cliente.IPessoaRepository;
 

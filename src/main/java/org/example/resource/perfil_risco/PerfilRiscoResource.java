@@ -6,7 +6,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.dto.perfil_risco.PerfilRiscoResponse;
-import org.example.exception.ClienteNotFoundException;
+import org.example.exception.cliente.ClienteNotFoundException;
 import org.example.service.perfil_risco.PerfilRiscoService;
 
 /**

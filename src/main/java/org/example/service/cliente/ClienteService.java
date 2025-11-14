@@ -7,7 +7,7 @@ import jakarta.validation.Valid;
 import org.example.dto.cliente.ClienteRequest;
 import org.example.dto.cliente.ClienteResponse;
 import org.example.dto.cliente.ClienteUpdateRequest;
-import org.example.exception.ClienteNotFoundException;
+import org.example.exception.cliente.ClienteNotFoundException;
 import org.example.mapper.PessoaMapper;
 import org.example.model.cliente.Pessoa;
 import org.example.repository.cliente.IPessoaRepository;

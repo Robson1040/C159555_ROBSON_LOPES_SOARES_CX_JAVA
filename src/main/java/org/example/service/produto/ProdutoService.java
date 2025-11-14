@@ -5,7 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.example.dto.produto.ProdutoRequest;
 import org.example.dto.produto.ProdutoResponse;
-import org.example.exception.ProdutoNotFoundException;
+import org.example.exception.produto.ProdutoNotFoundException;
 import org.example.mapper.ProdutoMapper;
 import org.example.model.produto.Produto;
 import org.example.repository.produto.IProdutoRepository;

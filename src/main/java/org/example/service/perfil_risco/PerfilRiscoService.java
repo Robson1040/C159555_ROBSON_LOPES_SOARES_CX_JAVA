@@ -8,7 +8,7 @@ import org.example.enums.produto.PeriodoRentabilidade;
 import org.example.enums.produto.TipoProduto;
 import org.example.enums.produto.TipoRentabilidade;
 import org.example.enums.simulacao.Indice;
-import org.example.exception.ClienteNotFoundException;
+import org.example.exception.cliente.ClienteNotFoundException;
 import org.example.model.investimento.Investimento;
 import org.example.model.produto.Produto;
 import org.example.model.simulacao.SimulacaoInvestimento;
