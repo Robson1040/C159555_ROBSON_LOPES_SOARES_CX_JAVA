@@ -153,13 +153,14 @@ public class InvestimentoResourceTest {
                   "role": "cliente"
                 }
                 """;
-        return given()
+        Integer id = given()
                 .contentType(ContentType.JSON)
                 .body(clienteJson)
                 .when().post("/clientes")
                 .then()
                 .statusCode(201)
                 .extract().path("id");
+        return id.longValue();
     }
 
     private Long criarProdutoTeste(int minimoDias) {
@@ -176,12 +177,13 @@ public class InvestimentoResourceTest {
                   "fgc": true
                 }
                 """.formatted(minimoDias);
-        return given()
+        Integer id = given()
                 .contentType(ContentType.JSON)
                 .body(produtoJson)
                 .when().post("/produtos")
                 .then()
                 .statusCode(201)
                 .extract().path("id");
+        return id.longValue();
     }
 }

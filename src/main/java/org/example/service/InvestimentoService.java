@@ -10,6 +10,9 @@ import org.example.model.Investimento;
 import org.example.model.Pessoa;
 import org.example.model.Produto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @ApplicationScoped
 public class InvestimentoService {
 
@@ -56,5 +59,43 @@ public class InvestimentoService {
                 investimento.minimoDiasInvestimento,
                 investimento.fgc
         );
+    }
+
+    /**
+     * Busca todos os investimentos de um cliente
+     */
+    public List<InvestimentoResponse> buscarPorCliente(Long clienteId) {
+        if (clienteId == null) {
+            throw new IllegalArgumentException("ID do cliente não pode ser nulo");
+        }
+
+        // Verifica se o cliente existe
+        Pessoa cliente = Pessoa.findById(clienteId);
+        if (cliente == null) {
+            throw new ClienteNotFoundException("Cliente não encontrado com ID: " + clienteId);
+        }
+
+        List<Investimento> investimentos = Investimento.find("clienteId", clienteId).list();
+        
+        return investimentos.stream()
+                .map(investimento -> new InvestimentoResponse(
+                        investimento.id,
+                        investimento.clienteId,
+                        investimento.produtoId,
+                        investimento.valor,
+                        investimento.prazoMeses,
+                        investimento.prazoDias,
+                        investimento.prazoAnos,
+                        investimento.data,
+                        investimento.tipo,
+                        investimento.tipoRentabilidade,
+                        investimento.rentabilidade,
+                        investimento.periodoRentabilidade,
+                        investimento.indice,
+                        investimento.liquidez,
+                        investimento.minimoDiasInvestimento,
+                        investimento.fgc
+                ))
+                .collect(Collectors.toList());
     }
 }
