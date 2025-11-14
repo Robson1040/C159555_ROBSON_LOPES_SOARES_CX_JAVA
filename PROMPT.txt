@@ -369,5 +369,10 @@ Response
 }
 }
 
-
 ************************************************************************************
+
+
+remova todos os testes unitarios e de integração, deixe sem teste nenhum.
+dentro da pasta test/java/org.example/test crie uma estrutura de pacotes (vazios) identico a estrutura de main/java/org.example.
+não implemente nenhum teste unitario ou de integração. deixe os pacotes vazios.
+a partir de agora só implemente classes de teste se eu pedir.
