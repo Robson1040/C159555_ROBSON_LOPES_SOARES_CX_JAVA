@@ -30,6 +30,28 @@ public class WebApplicationExceptionHandler implements ExceptionMapper<WebApplic
                     .build();
         }
         
+        // Se é erro 401 (Unauthorized), retorna mensagem amigável
+        if (exception.getResponse().getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()) {
+            ErrorResponse errorResponse = ErrorResponse.unauthorized(
+                    "Acesso não autorizado. É necessário fazer login para acessar este recurso."
+            );
+            
+            return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity(errorResponse)
+                    .build();
+        }
+        
+        // Se é erro 403 (Forbidden), retorna mensagem amigável
+        if (exception.getResponse().getStatus() == Response.Status.FORBIDDEN.getStatusCode()) {
+            ErrorResponse errorResponse = ErrorResponse.forbidden(
+                    "Acesso negado. Você não possui permissão para acessar este recurso."
+            );
+            
+            return Response.status(Response.Status.FORBIDDEN)
+                    .entity(errorResponse)
+                    .build();
+        }
+        
         // Para outros casos, verifica se é erro de parsing JSON
         if (isJsonParsingError(exception)) {
             ErrorResponse errorResponse = ErrorResponse.badRequest(

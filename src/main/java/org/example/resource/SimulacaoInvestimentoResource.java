@@ -1,5 +1,6 @@
 package org.example.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -20,6 +21,7 @@ import java.util.List;
 @Path("/simular-investimento")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@RolesAllowed({"USER", "ADMIN"})
 public class SimulacaoInvestimentoResource {
 
     @Inject

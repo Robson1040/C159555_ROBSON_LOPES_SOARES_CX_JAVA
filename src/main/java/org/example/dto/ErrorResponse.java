@@ -65,4 +65,12 @@ public record ErrorResponse(
     public static ErrorResponse validationError(String message, List<String> errors) {
         return new ErrorResponse(message, LocalDateTime.now(), 400, null, errors);
     }
+
+    public static ErrorResponse unauthorized(String message) {
+        return new ErrorResponse(message, LocalDateTime.now(), 401, null, null);
+    }
+
+    public static ErrorResponse forbidden(String message) {
+        return new ErrorResponse(message, LocalDateTime.now(), 403, null, null);
+    }
 }

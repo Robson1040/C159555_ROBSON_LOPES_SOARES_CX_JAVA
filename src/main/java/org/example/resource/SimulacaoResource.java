@@ -1,5 +1,6 @@
 package org.example.resource;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  */
 @Path("/simulacoes")
 @Produces(MediaType.APPLICATION_JSON)
+@RolesAllowed({"USER", "ADMIN"})
 public class SimulacaoResource {
 
     /**
