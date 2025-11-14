@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.example.dto.*;
 import org.example.mapper.ProdutoMapper;
+import org.example.mapper.SimulacaoInvestimentoMapper;
 import org.example.model.*;
 import org.example.service.simulacao.SimuladorIndices;
 import org.example.service.simulacao.SimuladorMercado;
@@ -22,6 +23,9 @@ public class SimulacaoInvestimentoService {
 
     @Inject
     ProdutoMapper produtoMapper;
+
+    @Inject
+    SimulacaoInvestimentoMapper simulacaoMapper;
 
     @Inject
     SimuladorIndices simuladorIndices;
@@ -235,7 +239,7 @@ public class SimulacaoInvestimentoService {
                                                    Produto produto, 
                                                    ResultadoSimulacao resultado) {
         
-        SimulacaoInvestimento simulacao = SimulacaoInvestimento.fromSimulacao(
+        SimulacaoInvestimento simulacao = simulacaoMapper.toEntity(
                 request.clienteId(),
                 produto.getNome(),
                 request.valor(),

@@ -8,6 +8,7 @@ import org.example.dto.ClienteRequest;
 import org.example.dto.ClienteResponse;
 import org.example.dto.ClienteUpdateRequest;
 import org.example.exception.ClienteNotFoundException;
+import org.example.mapper.PessoaMapper;
 import org.example.model.Pessoa;
 
 import java.util.List;
@@ -21,12 +22,15 @@ public class ClienteService {
     @Inject
     PasswordService passwordService;
 
+    @Inject
+    PessoaMapper pessoaMapper;
+
     /**
      * Lista todos os clientes
      */
     public List<ClienteResponse> listarTodos() {
         List<Pessoa> pessoas = Pessoa.listAll();
-        return ClienteResponse.fromList(pessoas);
+        return pessoaMapper.toClienteResponseList(pessoas);
     }
 
     /**
@@ -37,7 +41,7 @@ public class ClienteService {
         if (pessoa == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + id);
         }
-        return new ClienteResponse(pessoa);
+        return pessoaMapper.toClienteResponse(pessoa);
     }
 
     /**
@@ -55,20 +59,14 @@ public class ClienteService {
             throw new IllegalArgumentException("Já existe um cliente com este username");
         }
 
+        // Cria a pessoa usando o mapper
+        Pessoa pessoa = pessoaMapper.toEntity(request);
+        
         // Criptografa a senha
-        String senhaCriptografada = passwordService.encryptPassword(request.password());
-
-        // Cria a pessoa
-        Pessoa pessoa = new Pessoa(
-                request.nome(),
-                request.cpf(),
-                request.username(),
-                senhaCriptografada,
-                request.role()
-        );
+        pessoa.password = passwordService.encryptPassword(request.password());
 
         pessoa.persist();
-        return new ClienteResponse(pessoa);
+        return pessoaMapper.toClienteResponse(pessoa);
     }
 
     /**
@@ -81,26 +79,25 @@ public class ClienteService {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + id);
         }
 
-        // Atualiza apenas campos não nulos
-        if (request.nome() != null && !request.nome().trim().isEmpty()) {
-            pessoa.nome = request.nome();
-        }
-
+        // Validações específicas antes de usar o mapper
         if (request.username() != null && !request.username().trim().isEmpty()) {
             // Verifica se o novo username já existe em outro cliente
             Pessoa existente = Pessoa.findByUsername(request.username());
             if (existente != null && !existente.id.equals(id)) {
                 throw new IllegalArgumentException("Já existe um cliente com este username");
             }
-            pessoa.username = request.username();
         }
 
+        // Usa o mapper para atualizar
+        pessoaMapper.updateEntityFromRequest(pessoa, request);
+
+        // Criptografa a senha se foi fornecida
         if (request.password() != null && !request.password().trim().isEmpty()) {
             pessoa.password = passwordService.encryptPassword(request.password());
         }
 
         pessoa.persist();
-        return new ClienteResponse(pessoa);
+        return pessoaMapper.toClienteResponse(pessoa);
     }
 
     /**
@@ -124,7 +121,7 @@ public class ClienteService {
         if (pessoa == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com CPF: " + cpf);
         }
-        return new ClienteResponse(pessoa);
+        return pessoaMapper.toClienteResponse(pessoa);
     }
 
     /**
@@ -135,6 +132,6 @@ public class ClienteService {
         if (pessoa == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com username: " + username);
         }
-        return new ClienteResponse(pessoa);
+        return pessoaMapper.toClienteResponse(pessoa);
     }
 }

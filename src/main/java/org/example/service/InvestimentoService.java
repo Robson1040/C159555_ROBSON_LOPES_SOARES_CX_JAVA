@@ -1,20 +1,24 @@
 package org.example.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.example.dto.InvestimentoRequest;
 import org.example.dto.InvestimentoResponse;
 import org.example.exception.ClienteNotFoundException;
 import org.example.exception.ProdutoNotFoundException;
+import org.example.mapper.InvestimentoMapper;
 import org.example.model.Investimento;
 import org.example.model.Pessoa;
 import org.example.model.Produto;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class InvestimentoService {
+
+    @Inject
+    InvestimentoMapper investimentoMapper;
 
     @Transactional
     public InvestimentoResponse criar(InvestimentoRequest request) {
@@ -38,27 +42,10 @@ public class InvestimentoService {
             throw new IllegalArgumentException("Prazo informado é menor que o mínimo do produto: " + produto.getMinimoDiasInvestimento() + " dias");
         }
 
-        Investimento investimento = Investimento.from(request, produto);
+        Investimento investimento = investimentoMapper.toEntity(request, produto);
         investimento.persist();
 
-        return new InvestimentoResponse(
-                investimento.id,
-                investimento.clienteId,
-                investimento.produtoId,
-                investimento.valor,
-                investimento.prazoMeses,
-                investimento.prazoDias,
-                investimento.prazoAnos,
-                investimento.data,
-                investimento.tipo,
-                investimento.tipoRentabilidade,
-                investimento.rentabilidade,
-                investimento.periodoRentabilidade,
-                investimento.indice,
-                investimento.liquidez,
-                investimento.minimoDiasInvestimento,
-                investimento.fgc
-        );
+        return investimentoMapper.toResponse(investimento);
     }
 
     /**
@@ -77,25 +64,6 @@ public class InvestimentoService {
 
         List<Investimento> investimentos = Investimento.find("clienteId", clienteId).list();
         
-        return investimentos.stream()
-                .map(investimento -> new InvestimentoResponse(
-                        investimento.id,
-                        investimento.clienteId,
-                        investimento.produtoId,
-                        investimento.valor,
-                        investimento.prazoMeses,
-                        investimento.prazoDias,
-                        investimento.prazoAnos,
-                        investimento.data,
-                        investimento.tipo,
-                        investimento.tipoRentabilidade,
-                        investimento.rentabilidade,
-                        investimento.periodoRentabilidade,
-                        investimento.indice,
-                        investimento.liquidez,
-                        investimento.minimoDiasInvestimento,
-                        investimento.fgc
-                ))
-                .collect(Collectors.toList());
+        return investimentoMapper.toResponseList(investimentos);
     }
 }
