@@ -1,12 +1,9 @@
 package br.gov.caixa.api.investimentos.dto.simulacao;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * DTO para resposta de simulações persistidas
@@ -54,19 +51,4 @@ public record SimulacaoInvestimentoResponse(
 
         @JsonProperty("cenarioSimulacao")
         String cenarioSimulacao
-) {
-    // Construtor a partir da entidade
-    public SimulacaoInvestimentoResponse(SimulacaoInvestimento entidade) {
-        this(entidade.getId(), entidade.getProdutoId(), entidade.getClienteId(), entidade.getProduto(), entidade.getValorInvestido(),
-             entidade.getValorFinal(), entidade.getPrazoMeses(), entidade.getPrazoDias(), entidade.getPrazoAnos(),
-             entidade.getDataSimulacao(), entidade.getRentabilidadeEfetiva(), entidade.getRendimento(),
-             entidade.getValorSimulado(), entidade.getCenarioSimulacao());
-    }
-
-    // Método utilitário para converter lista
-    public static List<SimulacaoInvestimentoResponse> fromList(List<SimulacaoInvestimento> entidades) {
-        return entidades.stream()
-                .map(SimulacaoInvestimentoResponse::new)
-                .collect(Collectors.toList());
-    }
-}
+) {}

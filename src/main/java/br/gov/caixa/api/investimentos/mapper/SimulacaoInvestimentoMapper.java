@@ -60,7 +60,20 @@ public class SimulacaoInvestimentoMapper {
             return null;
         }
 
-        return SimulacaoInvestimento.fromSimulacao(clienteId, produtoId, nomeProduto, valorInvestido, resultado);
+        return new SimulacaoInvestimento(
+                clienteId,
+                produtoId,
+                nomeProduto,
+                valorInvestido,
+                resultado.valorFinal(),
+                resultado.prazoMeses(),
+                resultado.prazoDias(),
+                resultado.prazoAnos(),
+                resultado.rentabilidadeEfetiva(),
+                resultado.rendimento(),
+                resultado.valorSimulado(),
+                resultado.cenarioSimulacao()
+        );
     }
 
     /**

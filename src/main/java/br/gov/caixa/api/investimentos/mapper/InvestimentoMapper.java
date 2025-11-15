@@ -62,7 +62,23 @@ public class InvestimentoMapper {
             return null;
         }
 
-        return Investimento.from(request, produto);
+        Investimento inv = new Investimento();
+        inv.setClienteId(request.clienteId());
+        inv.setProdutoId(request.produtoId());
+        inv.setValor(request.valor());
+        inv.setPrazoMeses(request.prazoMeses());
+        inv.setPrazoDias(request.prazoDias());
+        inv.setPrazoAnos(request.prazoAnos());
+        inv.setData(request.data());
+        inv.setTipo(produto.getTipo());
+        inv.setTipoRentabilidade(produto.getTipoRentabilidade());
+        inv.setRentabilidade(produto.getRentabilidade());
+        inv.setPeriodoRentabilidade(produto.getPeriodoRentabilidade());
+        inv.setIndice(produto.getIndice());
+        inv.setLiquidez(produto.getLiquidez());
+        inv.setMinimoDiasInvestimento(produto.getMinimoDiasInvestimento());
+        inv.setFgc(produto.getFgc());
+        return inv;
     }
 
     /**

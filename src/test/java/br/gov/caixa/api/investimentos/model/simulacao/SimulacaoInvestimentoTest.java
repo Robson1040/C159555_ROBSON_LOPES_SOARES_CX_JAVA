@@ -1,6 +1,7 @@
 package br.gov.caixa.api.investimentos.model.simulacao;
 
 import br.gov.caixa.api.investimentos.dto.simulacao.ResultadoSimulacao;
+import br.gov.caixa.api.investimentos.mapper.SimulacaoInvestimentoMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +14,12 @@ class SimulacaoInvestimentoTest {
 
     private SimulacaoInvestimento simulacao;
     private ResultadoSimulacao resultado;
+    private SimulacaoInvestimentoMapper mapper;
 
     @BeforeEach
     void setUp() {
+        mapper = new SimulacaoInvestimentoMapper();
+        
         resultado = new ResultadoSimulacao(
                 BigDecimal.valueOf(1200.0),
                 BigDecimal.valueOf(0.12),
@@ -62,7 +66,7 @@ class SimulacaoInvestimentoTest {
 
     @Test
     void testFromSimulacao() {
-        SimulacaoInvestimento s = SimulacaoInvestimento.fromSimulacao(
+        SimulacaoInvestimento s = mapper.toEntity(
                 1L,
                 100L,
                 "Produto Teste",

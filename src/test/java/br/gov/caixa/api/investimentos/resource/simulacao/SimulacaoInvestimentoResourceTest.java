@@ -6,6 +6,7 @@ import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoInvestimentoResponse;
 import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
+import br.gov.caixa.api.investimentos.mapper.SimulacaoInvestimentoMapper;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
 import br.gov.caixa.api.investimentos.service.simulacao.SimulacaoInvestimentoService;
 import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
@@ -35,6 +36,9 @@ class SimulacaoInvestimentoResourceTest {
 
     @Mock
     private JwtAuthorizationHelper authHelper;
+
+    @Mock
+    private SimulacaoInvestimentoMapper simulacaoMapper;
 
     @BeforeEach
     void setUp() {
@@ -83,10 +87,22 @@ class SimulacaoInvestimentoResourceTest {
                 new BigDecimal("0.05"), new BigDecimal("100"), false, "Cenário B"
         );
 
+        SimulacaoInvestimentoResponse response1 = new SimulacaoInvestimentoResponse(
+                1L, 100L, 10L, "ProdutoA", new BigDecimal("1000"), new BigDecimal("1100"), 
+                12, 0, 1, LocalDateTime.now(), new BigDecimal("0.1"), new BigDecimal("100"), true, "Cenário A"
+        );
+        SimulacaoInvestimentoResponse response2 = new SimulacaoInvestimentoResponse(
+                2L, 101L, 10L, "ProdutoB", new BigDecimal("2000"), new BigDecimal("2200"), 
+                6, 0, 0, LocalDateTime.now(), new BigDecimal("0.05"), new BigDecimal("100"), false, "Cenário B"
+        );
+
         when(service.buscarSimulacoesPorCliente(10L)).thenReturn(List.of(simulacao1, simulacao2));
+        when(simulacaoMapper.toResponse(simulacao1)).thenReturn(response1);
+        when(simulacaoMapper.toResponse(simulacao2)).thenReturn(response2);
 
         var response = resource.buscarHistoricoSimulacoes(10L);
         assertEquals(200, response.getStatus());
+        @SuppressWarnings("unchecked")
         var body = (List<SimulacaoInvestimentoResponse>) response.getEntity();
         assertEquals(2, body.size());
         assertTrue(body.stream().anyMatch(r -> r.produto().equals("ProdutoA")));
@@ -98,7 +114,13 @@ class SimulacaoInvestimentoResourceTest {
                 10L, 100L, "ProdutoA", new BigDecimal("1000"), new BigDecimal("1100"), 12, 0, 1,
                 new BigDecimal("0.1"), new BigDecimal("100"), true, "Cenário A"
         );
+        SimulacaoInvestimentoResponse responseExpected = new SimulacaoInvestimentoResponse(
+                1L, 100L, 10L, "ProdutoA", new BigDecimal("1000"), new BigDecimal("1100"), 
+                12, 0, 1, LocalDateTime.now(), new BigDecimal("0.1"), new BigDecimal("100"), true, "Cenário A"
+        );
+
         when(service.buscarSimulacaoPorId(1L)).thenReturn(simulacao);
+        when(simulacaoMapper.toResponse(simulacao)).thenReturn(responseExpected);
 
         var response = resource.buscarSimulacaoPorId(1L);
         assertEquals(200, response.getStatus());

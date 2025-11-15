@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import br.gov.caixa.api.investimentos.dto.simulacao.ResultadoSimulacao;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -102,28 +102,6 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
         this.setRendimento(rendimento);
         this.setValorSimulado(valorSimulado);
         this.setCenarioSimulacao(cenarioSimulacao);
-    }
-
-
-
-    // Método para facilitar criação a partir de SimulacaoRequest e ResultadoSimulacao
-    public static SimulacaoInvestimento fromSimulacao(Long clienteId, Long produtoId, String nomeProduto,
-                                                    BigDecimal valorInvestido,
-                                                    ResultadoSimulacao resultado) {
-        return new SimulacaoInvestimento(
-                clienteId,
-                produtoId,
-                nomeProduto,
-                valorInvestido,
-                resultado.valorFinal(),
-                resultado.prazoMeses(),
-                resultado.prazoDias(),
-                resultado.prazoAnos(),
-                resultado.rentabilidadeEfetiva(),
-                resultado.rendimento(),
-                resultado.valorSimulado(),
-                resultado.cenarioSimulacao()
-        );
     }
 
     @Override

@@ -14,8 +14,10 @@ import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
+import java.util.stream.Collectors;
 import br.gov.caixa.api.investimentos.service.simulacao.SimulacaoInvestimentoService;
 import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import br.gov.caixa.api.investimentos.mapper.SimulacaoInvestimentoMapper;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.List;
@@ -37,6 +39,9 @@ public class SimulacaoInvestimentoResource {
 
     @Inject
     JwtAuthorizationHelper authHelper;
+
+    @Inject
+    SimulacaoInvestimentoMapper simulacaoMapper;
 
     /**
      * POST /simular-investimento
@@ -72,7 +77,9 @@ public class SimulacaoInvestimentoResource {
         authHelper.validarAcessoAoCliente(jwt, clienteId);
         
         List<SimulacaoInvestimento> simulacoes = simulacaoInvestimentoService.buscarSimulacoesPorCliente(clienteId);
-        List<SimulacaoInvestimentoResponse> response = SimulacaoInvestimentoResponse.fromList(simulacoes);
+        List<SimulacaoInvestimentoResponse> response = simulacoes.stream()
+                .map(simulacao -> simulacaoMapper.toResponse(simulacao))
+                .collect(Collectors.toList());
         
         return Response.status(Response.Status.OK)
                 .entity(response)
@@ -95,7 +102,7 @@ public class SimulacaoInvestimentoResource {
         // Verificar se o usuário pode acessar esta simulação
         authHelper.validarAcessoAoCliente(jwt, simulacao.getClienteId());
         
-        SimulacaoInvestimentoResponse response = new SimulacaoInvestimentoResponse(simulacao);
+        SimulacaoInvestimentoResponse response = simulacaoMapper.toResponse(simulacao);
         return Response.status(Response.Status.OK)
                 .entity(response)
                 .build();

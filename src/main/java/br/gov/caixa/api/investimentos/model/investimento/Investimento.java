@@ -3,12 +3,10 @@ package br.gov.caixa.api.investimentos.model.investimento;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.model.produto.Produto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -92,26 +90,6 @@ public class Investimento extends PanacheEntityBase {
     private Boolean fgc;
 
     public Investimento() {}
-
-    public static Investimento from(InvestimentoRequest request, Produto produto) {
-        Investimento inv = new Investimento();
-        inv.setClienteId(request.clienteId());
-        inv.setProdutoId(request.produtoId());
-        inv.setValor(request.valor());
-        inv.setPrazoMeses(request.prazoMeses());
-        inv.setPrazoDias(request.prazoDias());
-        inv.setPrazoAnos(request.prazoAnos());
-        inv.setData(request.data());
-        inv.setTipo(produto.getTipo());
-        inv.setTipoRentabilidade(produto.getTipoRentabilidade());
-        inv.setRentabilidade(produto.getRentabilidade());
-        inv.setPeriodoRentabilidade(produto.getPeriodoRentabilidade());
-        inv.setIndice(produto.getIndice());
-        inv.setLiquidez(produto.getLiquidez());
-        inv.setMinimoDiasInvestimento(produto.getMinimoDiasInvestimento());
-        inv.setFgc(produto.getFgc());
-        return inv;
-    }
 
     public Long getId() {
         return id;

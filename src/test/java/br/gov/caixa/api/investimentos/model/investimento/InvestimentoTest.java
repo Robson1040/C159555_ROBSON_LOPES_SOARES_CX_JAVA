@@ -5,7 +5,9 @@ import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.mapper.InvestimentoMapper;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -14,6 +16,13 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InvestimentoTest {
+
+    private InvestimentoMapper mapper;
+
+    @BeforeEach
+    void setUp() {
+        mapper = new InvestimentoMapper();
+    }
 
     @Test
     void testGettersSetters() {
@@ -79,7 +88,7 @@ class InvestimentoTest {
                 true
         );
 
-        Investimento inv = Investimento.from(req, produto);
+        Investimento inv = mapper.toEntity(req, produto);
 
         assertEquals(req.clienteId(), inv.getClienteId());
         assertEquals(req.produtoId(), inv.getProdutoId());
