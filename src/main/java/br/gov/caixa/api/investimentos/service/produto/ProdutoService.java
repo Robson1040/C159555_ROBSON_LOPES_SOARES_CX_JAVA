@@ -28,7 +28,7 @@ public class ProdutoService {
      * Lista todos os produtos
      */
     public List<ProdutoResponse> listarTodos() {
-        List<Produto> produtos = Produto.listAll();
+        List<Produto> produtos = produtoRepository.listAll();
         return produtoMapper.toResponseList(produtos);
     }
 
@@ -116,7 +116,7 @@ public class ProdutoService {
         validarDadosProduto(request);
 
         Produto produto = produtoMapper.toEntity(request);
-        produto.persist();
+        produtoRepository.persist(produto);
         
         return produtoMapper.toResponse(produto);
     }
@@ -135,13 +135,13 @@ public class ProdutoService {
 
         validarDadosProduto(request);
 
-        Produto produto = Produto.findById(id);
+        Produto produto = produtoRepository.findById(id);
         if (produto == null) {
             throw new ProdutoNotFoundException("Produto não encontrado com ID: " + id);
         }
 
         produtoMapper.updateEntityFromRequest(produto, request);
-        produto.persist();
+        produtoRepository.persist(produto);
         
         return produtoMapper.toResponse(produto);
     }
@@ -155,7 +155,7 @@ public class ProdutoService {
             throw new IllegalArgumentException("ID não pode ser nulo");
         }
 
-        boolean removido = Produto.deleteById(id);
+        boolean removido = produtoRepository.deleteById(id);
         if (!removido) {
             throw new ProdutoNotFoundException("Produto não encontrado com ID: " + id);
         }
@@ -168,14 +168,14 @@ public class ProdutoService {
         if (id == null) {
             return false;
         }
-        return Produto.findByIdOptional(id).isPresent();
+        return produtoRepository.findByIdOptional(id).isPresent();
     }
 
     /**
      * Conta total de produtos
      */
     public long contarTodos() {
-        return Produto.count();
+        return produtoRepository.count();
     }
 
     /**
@@ -183,7 +183,7 @@ public class ProdutoService {
      */
     @Transactional
     public void limparTodos() {
-        Produto.deleteAll();
+        produtoRepository.deleteAll();
     }
 
     /**

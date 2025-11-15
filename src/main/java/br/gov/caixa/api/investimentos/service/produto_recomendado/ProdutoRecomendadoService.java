@@ -6,6 +6,7 @@ import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
 import br.gov.caixa.api.investimentos.mapper.ProdutoMapper;
+import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,9 @@ public class ProdutoRecomendadoService {
 
     @Inject
     ProdutoMapper produtoMapper;
+
+    @Inject
+    IProdutoRepository produtoRepository;
 
     /**
      * Busca produtos recomendados baseado no perfil de risco
@@ -33,7 +37,7 @@ public class ProdutoRecomendadoService {
         NivelRisco nivelRisco = mapearPerfilParaNivelRisco(perfil.trim());
         
         // Buscar todos os produtos e filtrar por nível de risco
-        List<Produto> todosProdutos = Produto.listAll();
+        List<Produto> todosProdutos = produtoRepository.listAll();
         
         List<Produto> produtosFiltrados = todosProdutos.stream()
                 .filter(produto -> produto.getRisco() == nivelRisco)

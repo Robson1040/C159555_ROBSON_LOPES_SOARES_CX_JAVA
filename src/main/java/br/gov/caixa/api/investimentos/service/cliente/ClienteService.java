@@ -34,7 +34,7 @@ public class ClienteService {
      * Lista todos os clientes
      */
     public List<ClienteResponse> listarTodos() {
-        List<Pessoa> pessoas = Pessoa.listAll();
+        List<Pessoa> pessoas = pessoaRepository.listAll();
         return pessoaMapper.toClienteResponseList(pessoas);
     }
 
@@ -42,7 +42,7 @@ public class ClienteService {
      * Busca cliente por ID
      */
     public ClienteResponse buscarPorId(Long id) {
-        Pessoa pessoa = Pessoa.findById(id);
+        Pessoa pessoa = pessoaRepository.findById(id);
         if (pessoa == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + id);
         }
@@ -70,7 +70,7 @@ public class ClienteService {
         // Criptografa a senha
         pessoa.setPassword(passwordService.encryptPassword(request.password()));
 
-        pessoa.persist();
+        pessoaRepository.persist(pessoa);
         return pessoaMapper.toClienteResponse(pessoa);
     }
 
@@ -79,7 +79,7 @@ public class ClienteService {
      */
     @Transactional
     public ClienteResponse atualizar(Long id, @Valid ClienteUpdateRequest request) {
-        Pessoa pessoa = Pessoa.findById(id);
+        Pessoa pessoa = pessoaRepository.findById(id);
         if (pessoa == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + id);
         }
@@ -101,7 +101,7 @@ public class ClienteService {
             pessoa.setPassword(passwordService.encryptPassword(request.password()));
         }
 
-        pessoa.persist();
+        pessoaRepository.persist(pessoa);
         return pessoaMapper.toClienteResponse(pessoa);
     }
 
@@ -110,12 +110,12 @@ public class ClienteService {
      */
     @Transactional
     public void deletar(Long id) {
-        Pessoa pessoa = Pessoa.findById(id);
+        Pessoa pessoa = pessoaRepository.findById(id);
         if (pessoa == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + id);
         }
 
-        pessoa.delete();
+        pessoaRepository.delete(pessoa);
     }
 
     /**

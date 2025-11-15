@@ -70,7 +70,6 @@ public class SimulacaoInvestimentoService {
         List<Produto> produtos_sugeridos = new ArrayList<Produto>();
 
         List<Investimento> investimentos = investimentoRepository.findByClienteId(request.clienteId());
-        List<SimulacaoInvestimento> simulacoes = simulacaoRepository.findByClienteId(request.clienteId());
 
         if (!investimentos.isEmpty())
         {
@@ -122,7 +121,7 @@ public class SimulacaoInvestimentoService {
         // Se request possui produtoId, busca direto
         if (request.produtoId() != null)
         {
-            Produto produto = Produto.findById(request.produtoId());
+            Produto produto = produtoRepository.findById(request.produtoId());
             if (produto != null) {
                 return List.of(produto);
             }
@@ -313,7 +312,7 @@ public class SimulacaoInvestimentoService {
         );
         
         // Persiste no banco
-        simulacao.persist();
+        simulacaoRepository.persist(simulacao);
         
         return simulacao;
     }
@@ -329,7 +328,7 @@ public class SimulacaoInvestimentoService {
      * Busca uma simulação específica por ID
      */
     public SimulacaoInvestimento buscarSimulacaoPorId(Long id) {
-        return SimulacaoInvestimento.findById(id);
+        return simulacaoRepository.findById(id);
     }
 
     /**

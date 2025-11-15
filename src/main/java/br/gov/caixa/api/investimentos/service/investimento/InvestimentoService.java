@@ -11,6 +11,9 @@ import br.gov.caixa.api.investimentos.mapper.InvestimentoMapper;
 import br.gov.caixa.api.investimentos.model.investimento.Investimento;
 import br.gov.caixa.api.investimentos.model.cliente.Pessoa;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
+import br.gov.caixa.api.investimentos.repository.cliente.IPessoaRepository;
+import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
+import br.gov.caixa.api.investimentos.repository.investimento.IInvestimentoRepository;
 
 import java.util.List;
 
@@ -20,6 +23,15 @@ public class InvestimentoService {
     @Inject
     InvestimentoMapper investimentoMapper;
 
+    @Inject
+    IPessoaRepository pessoaRepository;
+
+    @Inject
+    IProdutoRepository produtoRepository;
+
+    @Inject
+    IInvestimentoRepository investimentoRepository;
+
     @Transactional
     public InvestimentoResponse criar(InvestimentoRequest request)
     {
@@ -27,12 +39,12 @@ public class InvestimentoService {
             throw new IllegalArgumentException("Dados do investimento não podem ser nulos");
         }
 
-        Produto produto = Produto.findById(request.produtoId());
+        Produto produto = produtoRepository.findById(request.produtoId());
         if (produto == null) {
             throw new ProdutoNotFoundException("Produto não encontrado com ID: " + request.produtoId());
         }
 
-        Pessoa cliente = Pessoa.findById(request.clienteId());
+        Pessoa cliente = pessoaRepository.findById(request.clienteId());
         if (cliente == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + request.clienteId());
         }
@@ -44,7 +56,7 @@ public class InvestimentoService {
         }
 
         Investimento investimento = investimentoMapper.toEntity(request, produto);
-        investimento.persist();
+        investimentoRepository.persist(investimento);
 
         return investimentoMapper.toResponse(investimento);
     }
@@ -58,12 +70,12 @@ public class InvestimentoService {
         }
 
         // Verifica se o cliente existe
-        Pessoa cliente = Pessoa.findById(clienteId);
+        Pessoa cliente = pessoaRepository.findById(clienteId);
         if (cliente == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + clienteId);
         }
 
-        List<Investimento> investimentos = Investimento.find("clienteId", clienteId).list();
+        List<Investimento> investimentos = investimentoRepository.findByClienteId(clienteId);
         
         return investimentoMapper.toResponseList(investimentos);
     }
