@@ -2,11 +2,14 @@ package br.gov.caixa.api.investimentos.resource.produto_recomendado;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.constraints.Positive;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.service.produto_recomendado.ProdutoRecomendadoService;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.List;
 
@@ -21,6 +24,47 @@ public class ProdutoRecomendadoResource {
 
     @Inject
     ProdutoRecomendadoService produtoRecomendadoService;
+
+    @Inject
+    JsonWebToken jwt;
+
+    @Inject
+    JwtAuthorizationHelper authHelper;
+
+    /**
+     * GET /produtos-recomendados/cliente/{clienteId} - Retorna produtos recomendados baseado no histórico do cliente
+     * 
+     * Este endpoint analisa o histórico de investimentos e simulações do cliente
+     * para recomendar produtos usando machine learning. 
+     * 
+     * @param clienteId ID do cliente para buscar recomendações
+     * @return Lista de produtos recomendados baseados no histórico do cliente
+     */
+    @GET
+    @Path("/cliente/{clienteId}")
+    public Response buscarProdutosPorCliente(@PathParam("clienteId") @Positive Long clienteId) {
+        try {
+            // Verificar autorização baseada no JWT
+            authHelper.validarAcessoAoCliente(jwt, clienteId);
+
+            List<ProdutoResponse> produtos = produtoRecomendadoService.buscarProdutosPorCliente(clienteId);
+
+            return Response.ok(produtos).build();
+            
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(new ErrorResponse(e.getMessage()))
+                    .build();
+        } catch (IllegalStateException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity(new ErrorResponse(e.getMessage()))
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new ErrorResponse("Erro interno no servidor"))
+                    .build();
+        }
+    }
 
     /**
      * GET /produtos-recomendados/{perfil} - Retorna produtos recomendados baseado no perfil de risco
