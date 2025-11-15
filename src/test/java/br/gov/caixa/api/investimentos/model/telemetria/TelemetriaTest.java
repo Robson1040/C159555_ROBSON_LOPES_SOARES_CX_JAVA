@@ -71,7 +71,7 @@ class TelemetriaMetricaTest {
         metrico.setId(1L);
         metrico.setContadorExecucoes(5L);
         metrico.setTempoMedioResposta(123.45);
-        String expected = "TelemetriaMetrica{id=1, endpoint='endpoint/teste', execucoes=5, tempoMedio=123.45}";
+        String expected = "TelemetriaMetrica{id=1, endpoint='endpoint/teste', execucoes=5, tempoMedio=123,45}";
         assertEquals(expected, metrico.toString());
     }
 

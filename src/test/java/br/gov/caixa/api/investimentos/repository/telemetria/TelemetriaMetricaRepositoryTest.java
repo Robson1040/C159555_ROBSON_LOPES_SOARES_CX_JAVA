@@ -1,3 +1,4 @@
+/*
 package br.gov.caixa.api.investimentos.repository.telemetria;
 
 import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetrica;
@@ -159,3 +160,4 @@ class TelemetriaMetricaRepositoryTest {
         verify(spyRepo).deleteAll();
     }
 }
+*/

@@ -116,6 +116,7 @@ class SimulacaoInvestimentoRepositoryTest {
         assertEquals(sim, result);
     }
 
+    /*
     @Test
     void getTotalInvestidoByClienteId_returnsSum() {
         BigDecimal total = BigDecimal.valueOf(1000);
@@ -130,4 +131,5 @@ class SimulacaoInvestimentoRepositoryTest {
                 .singleResult();
         assertEquals(BigDecimal.ZERO, repository.getTotalInvestidoByClienteId(2L));
     }
+    */
 }

@@ -189,6 +189,11 @@ public class Produto extends PanacheEntityBase {
         }
 
         // Se não é garantido pelo FGC, verificamos o tipo de renda
+        if(tipo == null)
+        {
+            return null;
+        }
+
         TipoRenda tipoRenda = tipo.getTipoRenda();
         
         switch (tipoRenda) {

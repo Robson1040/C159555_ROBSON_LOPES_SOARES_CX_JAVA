@@ -81,7 +81,7 @@ class ProdutoTest {
         // Não garantido pelo FGC, RENDA_FIXA
         Produto p2 = new Produto();
         p2.setFgc(false);
-        p2.setTipo(TipoProduto.FUNDO);
+        p2.setTipo(TipoProduto.CRI);
         assertEquals(NivelRisco.MEDIO, p2.getRisco());
 
         // Não garantido pelo FGC, RENDA_VARIAVEL

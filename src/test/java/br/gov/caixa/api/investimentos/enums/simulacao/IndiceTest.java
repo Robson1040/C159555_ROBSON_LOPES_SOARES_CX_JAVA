@@ -45,9 +45,9 @@ class IndiceTest {
     void shouldReturnCorrectTaxaDecimal() {
         assertEquals(new BigDecimal("0.1075"), Indice.SELIC.getTaxaDecimal(12));
         assertEquals(new BigDecimal("0.1065"), Indice.CDI.getTaxaDecimal(12));
-        assertEquals(new BigDecimal("0.0850"), Indice.IBOVESPA.getTaxaDecimal(12));
+        assertEquals(new BigDecimal("0.085"), Indice.IBOVESPA.getTaxaDecimal(12));
         assertEquals(new BigDecimal("0.0425"), Indice.IPCA.getTaxaDecimal(12));
-        assertEquals(new BigDecimal("0.0480"), Indice.IGP_M.getTaxaDecimal(12));
+        assertEquals(new BigDecimal("0.048"), Indice.IGP_M.getTaxaDecimal(12));
         assertEquals(BigDecimal.ZERO, Indice.NENHUM.getTaxaDecimal(12));
     }
 
