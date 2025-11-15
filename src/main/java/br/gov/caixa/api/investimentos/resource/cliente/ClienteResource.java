@@ -11,6 +11,8 @@ import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteUpdateRequest;
 import br.gov.caixa.api.investimentos.service.cliente.ClienteService;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.List;
 
@@ -25,6 +27,12 @@ public class ClienteResource {
     @Inject
     ClienteService clienteService;
 
+    @Inject
+    JsonWebToken jwt;
+
+    @Inject
+    JwtAuthorizationHelper authHelper;
+
     /**
      * GET /clientes - Lista todos os clientes
      */
@@ -37,11 +45,15 @@ public class ClienteResource {
 
     /**
      * GET /clientes/{id} - Busca cliente por ID
+     * ADMIN pode buscar qualquer cliente, USER só pode buscar seus próprios dados
      */
     @GET
     @Path("/{id}")
-    @RolesAllowed({"ADMIN"})
+    @RolesAllowed({"USER", "ADMIN"})
     public Response buscarPorId(@PathParam("id") Long id) {
+        // Verificar autorização baseada no JWT
+        authHelper.validarAcessoAoCliente(jwt, id);
+        
         ClienteResponse cliente = clienteService.buscarPorId(id);
         return Response.ok(cliente).build();
     }
@@ -58,11 +70,15 @@ public class ClienteResource {
 
     /**
      * PUT /clientes/{id} - Atualiza um cliente existente
+     * USER só pode atualizar seus próprios dados
      */
     @PUT
     @Path("/{id}")
-    @RolesAllowed({"USER"})
+    @RolesAllowed({"USER", "ADMIN"})
     public Response atualizar(@PathParam("id") Long id, @Valid ClienteUpdateRequest request) {
+        // Verificar autorização baseada no JWT
+        authHelper.validarAcessoAoCliente(jwt, id);
+        
         ClienteResponse cliente = clienteService.atualizar(id, request);
         return Response.ok(cliente).build();
     }
