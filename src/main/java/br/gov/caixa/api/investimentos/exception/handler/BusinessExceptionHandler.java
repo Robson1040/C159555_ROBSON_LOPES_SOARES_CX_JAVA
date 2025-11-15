@@ -4,6 +4,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
+import br.gov.caixa.api.investimentos.exception.auth.AccessDeniedException;
 
 /**
  * Handler global para RuntimeExceptions gerais
@@ -18,8 +19,10 @@ public class BusinessExceptionHandler implements ExceptionMapper<RuntimeExceptio
         System.err.println("BusinessException: " + exception.getMessage());
         exception.printStackTrace();
 
-        // Identifica tipo de erro baseado na mensagem
-        if (isValidationError(exception)) {
+        // Identifica tipo de erro baseado na exceção específica
+        if (exception instanceof AccessDeniedException) {
+            return createForbiddenResponse(exception);
+        } else if (isValidationError(exception)) {
             return createValidationErrorResponse(exception);
         } else if (isNotFoundError(exception)) {
             return createNotFoundResponse(exception);
@@ -58,6 +61,14 @@ public class BusinessExceptionHandler implements ExceptionMapper<RuntimeExceptio
         ErrorResponse errorResponse = ErrorResponse.notFound(exception.getMessage());
         
         return Response.status(Response.Status.NOT_FOUND)
+                .entity(errorResponse)
+                .build();
+    }
+
+    private Response createForbiddenResponse(RuntimeException exception) {
+        ErrorResponse errorResponse = ErrorResponse.forbidden(exception.getMessage());
+        
+        return Response.status(Response.Status.FORBIDDEN)
                 .entity(errorResponse)
                 .build();
     }

@@ -15,6 +15,8 @@ import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
 import br.gov.caixa.api.investimentos.service.simulacao.SimulacaoInvestimentoService;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.List;
 
@@ -29,6 +31,12 @@ public class SimulacaoInvestimentoResource {
 
     @Inject
     SimulacaoInvestimentoService simulacaoInvestimentoService;
+
+    @Inject
+    JsonWebToken jwt;
+
+    @Inject
+    JwtAuthorizationHelper authHelper;
 
     /**
      * POST /simular-investimento
@@ -60,7 +68,9 @@ public class SimulacaoInvestimentoResource {
     @GET
     @Path("/historico/{clienteId}")
     public Response buscarHistoricoSimulacoes(@PathParam("clienteId") @Positive Long clienteId) {
-        // Validação será tratada automaticamente pelo Bean Validation
+        // Verificar autorização baseada no JWT
+        authHelper.validarAcessoAoCliente(jwt, clienteId);
+        
         List<SimulacaoInvestimento> simulacoes = simulacaoInvestimentoService.buscarSimulacoesPorCliente(clienteId);
         List<SimulacaoInvestimentoResponse> response = SimulacaoInvestimentoResponse.fromList(simulacoes);
         
@@ -82,6 +92,9 @@ public class SimulacaoInvestimentoResource {
             throw new RuntimeException("Simulação não encontrada com ID: " + id);
         }
         
+        // Verificar se o usuário pode acessar esta simulação
+        authHelper.validarAcessoAoCliente(jwt, simulacao.getClienteId());
+        
         SimulacaoInvestimentoResponse response = new SimulacaoInvestimentoResponse(simulacao);
         return Response.status(Response.Status.OK)
                 .entity(response)
@@ -95,6 +108,9 @@ public class SimulacaoInvestimentoResource {
     @GET
     @Path("/estatisticas/{clienteId}")
     public Response buscarEstatisticasCliente(@PathParam("clienteId") @Positive Long clienteId) {
+        // Verificar autorização baseada no JWT
+        authHelper.validarAcessoAoCliente(jwt, clienteId);
+        
         SimulacaoInvestimentoService.EstatisticasCliente estatisticas = 
                 simulacaoInvestimentoService.getEstatisticasCliente(clienteId);
         

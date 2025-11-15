@@ -8,6 +8,8 @@ import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoInvestimentoRespons
 import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
 import br.gov.caixa.api.investimentos.service.simulacao.SimulacaoInvestimentoService;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -15,6 +17,7 @@ import org.mockito.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -27,9 +30,17 @@ class SimulacaoInvestimentoResourceTest {
     @Mock
     private SimulacaoInvestimentoService service;
 
+    @Mock
+    private JsonWebToken jwt;
+
+    @Mock
+    private JwtAuthorizationHelper authHelper;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        // Mock padrão para JWT - ADMIN com acesso total
+        when(jwt.getGroups()).thenReturn(Set.of("ADMIN"));
     }
 
     @Test
