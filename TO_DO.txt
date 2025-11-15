@@ -1,16 +1,34 @@
 (OK) - No ClienteRequest validar se CPF é válido.
 (OK) - No InvestimentoRequest não pode usar mais de um prazo ao mesmo tempo.
 (OK) - No SimulacaoRequest não pode usar mais de um prazo ao mesmo tempo.
-No public Response atualizar(@PathParam("id") Long id, @Valid ClienteUpdateRequest request), o cliente só deve atualizar ele mesmo e deve checar se já existe outro usuario com o mesmo username.
-na hora de cadastrar o cliente ver se já não tem outro com o mesmo username.
-Em buscarHistoricoSimulacoes, o cliente (role USER) só deve ver o histórico dele ele mesmo. Se tiver a ROLE ADMIN, pode ver de todos.
-Em buscarEstatisticasCliente,  o (role USER) cliente só deve ver o histórico dele ele mesmo. Se tiver a ROLE ADMIN, pode ver de todos.
-Em buscarSimulacaoPorId, o cliente (role USER) só deve ver se a simulação for dele mesmo. Se tiver a ROLE ADMIN, pode ver de todos.
+(OK) No public Response atualizar(@PathParam("id") Long id, @Valid ClienteUpdateRequest request), o cliente só deve atualizar ele mesmo e deve checar se já existe outro usuario com o mesmo username.
+(__) na hora de cadastrar o cliente ver se já não tem outro com o mesmo username.
+(OK) Em buscarHistoricoSimulacoes, o cliente (role USER) só deve ver o histórico dele ele mesmo. Se tiver a ROLE ADMIN, pode ver de todos. uSE Jwtebtoken.
+(OK) Em buscarEstatisticasCliente,  o (role USER) cliente só deve ver o histórico dele ele mesmo. Se tiver a ROLE ADMIN, pode ver de todos. Use Use JwtAuthorizationHelper.validarAcessoAoCliente.
+(OK) Em buscarSimulacaoPorId, o cliente (role USER) só deve ver se a simulação for dele mesmo. Se tiver a ROLE ADMIN, pode ver de todos. Use Use JwtAuthorizationHelper.validarAcessoAoCliente.
 No listarProdutos o filtro não deve ser de um ou outro. Deve ser de todos informados.
 A CountResponse deve ser um DTO dentro do pacote adequado.
 Não usar o ErrorResponse dentro de ProdutoRecomendadoResource. Use o ErrorResponse que está na pasta commom de DTO.
 O SimulacaoResponseDTO não deve ficar dentro de SimulacaoResource. Ele deve ficar na po pacote apropriado para DTO.
 (OK) No /simulacoes/por-produto-mes o grupador deve ser por mês e ano.
 O validarRegrasNegocio não deve estar no resource. crie anotações de validação e aplique no DTO.
-Ao simular ou fazer investimento, valide o minimo_dias_investimento a partir dos prazos informados.
-Jwtebtoken
+(OK) Ao simular ou fazer investimento, valide o minimo_dias_investimento do produto a partir dos prazos informados. Caso não atinga o mínimo, lance uma exceção própria e retorne erro 400.
+(OK) Jwtebtoken
+
+(OK) Esse método validarAcessoAoCliente deve ir para uma classe de utilidade, pois ela será usada mais vezes mais adiante.
+(OK) Não lance uma RuntimeException("Acesso. Crie uma exceção propria no pacote exception e depois capture ela no BusinessExceptionHandler para retornar 403 como status code.
+
+(OK) Garanta que nenhum uso é realizado do panache direto nos models.
+(OK) Todos os acesso ao banco de dados devem ser feitos via Repository.
+(OK) por exemplo, essa chamada é indevida:
+(OK) List<Investimento> investimentos = Investimento.find("clienteId", clienteId).list()
+(OK) Deveria estar usando o Repository.
+
+(OK) ProdutoRecomendadoResource crie um endpoint GET que retore o produto recomendado para um clientId.
+(OK) Use  JwtAuthorizationHelper.validarAcessoAoCliente
+(OK) Use produtoRecomendadoService e crie um metodo equivalente a calcularPerfilRisco, retornando produtos_sugeridos.
+
+
+(OK) Os atributos de todos os models devem ser private.
+(OK) Os dados devem ser acessados por getters and setters.
+
