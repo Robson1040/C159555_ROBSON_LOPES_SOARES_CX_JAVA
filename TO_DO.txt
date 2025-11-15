@@ -1,0 +1,16 @@
+OK - No ClienteRequest validar se CPF é válido.
+OK - No InvestimentoRequest não pode usar mais de um prazo ao mesmo tempo.
+OK - No SimulacaoRequest não pode usar mais de um prazo ao mesmo tempo.
+No public Response atualizar(@PathParam("id") Long id, @Valid ClienteUpdateRequest request), o cliente só deve atualizar ele mesmo e deve checar se já existe outro usuario com o mesmo username.
+na hora de cadastrar o cliente ver se já não tem outro com o mesmo username.
+Em buscarHistoricoSimulacoes, o cliente (role USER) só deve ver o histórico dele ele mesmo. Se tiver a ROLE ADMIN, pode ver de todos.
+Em buscarEstatisticasCliente,  o (role USER) cliente só deve ver o histórico dele ele mesmo. Se tiver a ROLE ADMIN, pode ver de todos.
+Em buscarSimulacaoPorId, o cliente (role USER) só deve ver se a simulação for dele mesmo. Se tiver a ROLE ADMIN, pode ver de todos.
+No listarProdutos o filtro não deve ser de um ou outro. Deve ser de todos informados.
+A CountResponse deve ser um DTO dentro do pacote adequado.
+Não usar o ErrorResponse dentro de ProdutoRecomendadoResource. Use o ErrorResponse que está na pasta commom de DTO.
+O SimulacaoResponseDTO não deve ficar dentro de SimulacaoResource. Ele deve ficar na po pacote apropriado para DTO.
+No /simulacoes/por-produto-mes o grupador deve ser por mês e ano.
+O validarRegrasNegocio não deve estar no resource. crie anotações de validação e aplique no DTO.
+Ao simular ou fazer investimento, valide o minimo_dias_investimento a partir dos prazos informados.
+Jwtebtoken

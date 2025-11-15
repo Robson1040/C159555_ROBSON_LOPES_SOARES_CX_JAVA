@@ -47,7 +47,7 @@ O token JWT contém as seguintes informações:
 - **role**: Papel/função do usuário (USER, ADMIN, etc.)
 - **iat**: Timestamp de criação
 - **exp**: Timestamp de expiração (1 hora após criação)
-- **iss**: Emissor do token (api-veiculo-sso)
+- **iss**: Emissor do token (api-investimentos-caixa)
 
 ## Como usar
 

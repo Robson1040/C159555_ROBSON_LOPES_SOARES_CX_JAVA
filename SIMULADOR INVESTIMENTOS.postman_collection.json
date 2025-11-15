@@ -1,0 +1,785 @@
+{
+	"info": {
+		"_postman_id": "0d489427-1111-4770-b188-23abdea06e09",
+		"name": "SIMULADOR INVESTIMENTOS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42473966"
+	},
+	"item": [
+		{
+			"name": "CLIENTES",
+			"item": [
+				{
+					"name": "POST CLIENTES USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"João da Silva\",\n  \"cpf\": \"12345678901\",\n  \"username\": \"user\",\n  \"password\": \"user123\",\n  \"role\": \"USER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST CLIENTES ADMIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"João da Silva\",\n  \"cpf\": \"12345678911\",\n  \"username\": \"admin\",\n  \"password\": \"admin123\",\n  \"role\": \"ADMIN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLIENTES ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLIENTES CPF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/clientes/cpf/12345678901",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"clientes",
+								"cpf",
+								"12345678901"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT CLIENTES ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"João Atualizado\",\n  \"username\": \"joao_novo\",\n  \"password\": \"senhaNova123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLIENTES USERNAME",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/clientes/username/joao_novo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"clientes",
+								"username",
+								"joao_novo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CLIENTES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AUTENTICACAO",
+			"item": [
+				{
+					"name": "ENTRAR USER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"user\",\n  \"password\": \"user123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/entrar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"entrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ENTRAR ADMIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/entrar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"entrar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PERFIL DE RISCO",
+			"item": [
+				{
+					"name": "GET PERFIL DE RISCO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/perfil-risco/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"perfil-risco",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TELEMETRIA",
+			"item": [
+				{
+					"name": "GET TELEMETRIA",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/telemetria",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"telemetria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET DETALHDO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/telemetria/detalhado",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"telemetria",
+								"detalhado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET MAIS ACESSADOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/telemetria/mais-acessados/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"telemetria",
+								"mais-acessados",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIMPAR",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/telemetria/limpar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"telemetria",
+								"limpar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PRODUTOS RECOMENDADOS",
+			"item": [
+				{
+					"name": "GET RECOMENDADO MODERADO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/produtos-recomendados/moderado",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"produtos-recomendados",
+								"moderado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET RECOMENDADO CONSERVADOR",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/produtos-recomendados/conservador",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"produtos-recomendados",
+								"conservador"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET RECOMENDADO AGRESSIVO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/produtos-recomendados/agressivo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"produtos-recomendados",
+								"agressivo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SIMULACOES",
+			"item": [
+				{
+					"name": "GET SIMULACOES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/simulacoes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"simulacoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET POR PRODUTO E DIA",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/simulacoes/por-produto-dia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"simulacoes",
+								"por-produto-dia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET POR PRODUTO E MÊS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/simulacoes/por-produto-mes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"simulacoes",
+								"por-produto-mes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET POR PRODUTO E ANO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/simulacoes/por-produto-ano",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"simulacoes",
+								"por-produto-ano"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SIMULAR INVESTIMENTOS",
+			"item": [
+				{
+					"name": "POST SIMULAR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000.00,\n  \"prazoMeses\": 12,\n  \"prazoDias\": null,\n  \"prazoAnos\": null,\n  \"tipoProduto\": \"RENDA_FIXA\",\n  \"tipo_rentabilidade\": \"POS_FIXADA\",\n  \"indice\": \"CDI\",\n  \"liquidez\": 30,\n  \"fgc\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/simular-investimento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"simular-investimento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET HISTÓRICO SIMULAÇÕES CLIENTE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/simular-investimento/simular-investimento/historico/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"simular-investimento",
+								"simular-investimento",
+								"historico",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SIMULACAO ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/simular-investimento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"simular-investimento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ESTATISTIAS CLIENTE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/simular-investimento/estatisticas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"simular-investimento",
+								"estatisticas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "INVESTIMENTO",
+			"item": [
+				{
+					"name": "POST INVESTIMENTO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clienteId\": 123,\n  \"produtoId\": 10,\n  \"valor\": 1500.50,\n  \"prazoMeses\": 12,\n  \"prazoDias\": null,\n  \"prazoAnos\": null,\n  \"data\": \"2025-02-20\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/investimentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"investimentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET INVESTIMENTOS CLIENTE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/investimentos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"investimentos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PRODUTO",
+			"item": [
+				{
+					"name": "GET PRODUTOS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET PRODUTO ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/produtos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"produtos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST PRODUTO",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"CDB Banco XP\",\n  \"tipo\": \"RENDA_FIXA\",\n  \"tipo_rentabilidade\": \"POS_FIXADA\",\n  \"rentabilidade\": 0.95,\n  \"periodo_rentabilidade\": \"DIARIA\",\n  \"indice\": \"CDI\",\n  \"liquidez\": 30,\n  \"minimo_dias_investimento\": 90,\n  \"fgc\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/produtos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT PRODUTO",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"CDB Banco XP\",\n  \"tipo\": \"RENDA_FIXA\",\n  \"tipo_rentabilidade\": \"POS_FIXADA\",\n  \"rentabilidade\": 0.95,\n  \"periodo_rentabilidade\": \"DIARIA\",\n  \"indice\": \"CDI\",\n  \"liquidez\": 30,\n  \"minimo_dias_investimento\": 90,\n  \"fgc\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/produtos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"produtos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktdmVpY3Vsby1zc28iLCJzdWIiOiJhZG1pbiIsImdyb3VwcyI6WyJBRE1JTiJdLCJub21lIjoiSm_Do28gZGEgU2lsdmEiLCJjcGYiOiIxMjM0NTY3ODkxMSIsInVzZXJJZCI6MSwiaWF0IjoxNzYzMjA5NzUxLCJleHAiOjE3NjMyMTMzNTEsImp0aSI6IjU1ZTcwMzQ1LTg2ZWMtNDY5OS1hYjQ0LTMzOTJmYmE4YjgwNCJ9.Nu1svxOpHpuGmUsKQDv29Qj5RQ4GG2W4MB-DxOJwvrk6DSyKebwKbEQT4Tw-andx5QbFyPWqVAMcX8on89M1F2Q9xMantehUJiUOx6ECeW4saM1ss1zBPq183bVtZvR_5RdIRAMiDbPcLLdgmY4DziRpqQvOfejsHpMIUaIsKGEIvwxZ2nMY2VmSr4MNIMpSo_dk2ozz2IX634EEpVL7sXg_f0XPwUUiQySt7t8kQNnwUq7JaEk2qevqeJBTgh7vaTR-0IgQ_QIO37mMVIx-gYACUH5tlxngAT0z-4DDIRLkEuWTbkJzshPaAKXZh2n_szHOFDxe9m0xsVoIlP2doA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

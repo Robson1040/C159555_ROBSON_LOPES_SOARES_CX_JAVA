@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  api-investimentos-caixa:
+    build: .
+    container_name: api-investimentos-caixa
+    ports:
+      - "9090:9090"
+    environment:
+      QUARKUS_HTTP_PORT: 9090
+    volumes:
+      # Banco SQLite persistente
+      - ./banco_de_dados.db:/app/banco_de_dados.db
+      # Chaves JWT persistentes (não precisam ser rebuildadas)
+      - ./public-key.pem:/app/public-key.pem
+      - ./private-key.pem:/app/private-key.pem
+    restart: unless-stopped

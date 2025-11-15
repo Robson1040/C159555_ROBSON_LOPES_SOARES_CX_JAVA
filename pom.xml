@@ -4,9 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>API-VEICULO-9090</artifactId>
+    <groupId>br.gov.caixa</groupId>
+    <artifactId>API-INVESTIMENTOS-CAIXA</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <developers>
+        <developer>
+            <id>c159555</id>
+            <name>Robson Lopes Soares</name>
+            <email>robson.soares@caixa.gov.br</email>
+            <roles>
+                <role>FullStack Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <properties>
         <compiler-plugin.version>3.14.0</compiler-plugin.version>
