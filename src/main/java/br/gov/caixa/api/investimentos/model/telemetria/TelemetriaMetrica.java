@@ -11,48 +11,48 @@ public class TelemetriaMetrica extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "INTEGER")
-    public Long id;
+    private Long id;
 
     @Column(name = "endpoint", nullable = false, length = 200)
-    public String endpoint;
+    private String endpoint;
     
     @Column(name = "contador_execucoes", nullable = false)
-    public Long contadorExecucoes;
+    private Long contadorExecucoes;
     
     @Column(name = "tempo_medio_resposta", nullable = false)
-    public Double tempoMedioResposta;
+    private Double tempoMedioResposta;
     
     @Column(name = "tempo_total_execucao", nullable = false)
-    public Double tempoTotalExecucao;
+    private Double tempoTotalExecucao;
     
     @Column(name = "data_criacao", nullable = false)
-    public LocalDateTime dataCriacao;
+    private LocalDateTime dataCriacao;
     
     @Column(name = "ultima_atualizacao", nullable = false)
-    public LocalDateTime ultimaAtualizacao;
+    private LocalDateTime ultimaAtualizacao;
     
     public TelemetriaMetrica() {
-        this.dataCriacao = LocalDateTime.now();
-        this.ultimaAtualizacao = LocalDateTime.now();
+        this.setDataCriacao(LocalDateTime.now());
+        this.setUltimaAtualizacao(LocalDateTime.now());
     }
     
     public TelemetriaMetrica(String endpoint) {
         this();
-        this.endpoint = endpoint;
-        this.contadorExecucoes = 0L;
-        this.tempoMedioResposta = 0.0;
-        this.tempoTotalExecucao = 0.0;
+        this.setEndpoint(endpoint);
+        this.setContadorExecucoes(0L);
+        this.setTempoMedioResposta(0.0);
+        this.setTempoTotalExecucao(0.0);
     }
     
     public void incrementarContador() {
-        this.contadorExecucoes++;
-        this.ultimaAtualizacao = LocalDateTime.now();
+        this.setContadorExecucoes(this.getContadorExecucoes() + 1);
+        this.setUltimaAtualizacao(LocalDateTime.now());
     }
     
     public void adicionarTempoExecucao(long tempoExecucaoMs) {
-        this.tempoTotalExecucao += tempoExecucaoMs;
-        this.tempoMedioResposta = this.tempoTotalExecucao / this.contadorExecucoes;
-        this.ultimaAtualizacao = LocalDateTime.now();
+        this.setTempoTotalExecucao(this.getTempoTotalExecucao() + tempoExecucaoMs);
+        this.setTempoMedioResposta(this.getTempoTotalExecucao() / this.getContadorExecucoes());
+        this.setUltimaAtualizacao(LocalDateTime.now());
     }
     
     public static TelemetriaMetrica findByEndpoint(String endpoint) {
@@ -62,7 +62,7 @@ public class TelemetriaMetrica extends PanacheEntityBase {
     @Override
     public String toString() {
         return String.format("TelemetriaMetrica{id=%d, endpoint='%s', execucoes=%d, tempoMedio=%.2f}", 
-                id, endpoint, contadorExecucoes, tempoMedioResposta);
+                getId(), getEndpoint(), getContadorExecucoes(), getTempoMedioResposta());
     }
 
     public LocalDateTime getUltimaAtualizacao() {

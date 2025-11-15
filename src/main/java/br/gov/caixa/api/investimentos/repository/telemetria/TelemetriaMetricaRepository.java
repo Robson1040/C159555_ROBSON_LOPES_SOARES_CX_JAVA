@@ -71,7 +71,7 @@ public class TelemetriaMetricaRepository implements PanacheRepository<Telemetria
      */
     public Set<String> obterEndpointsComMetricas() {
         return listAll().stream()
-                .map(metrica -> metrica.endpoint)
+                .map(metrica -> metrica.getEndpoint())
                 .collect(Collectors.toSet());
     }
     
@@ -80,7 +80,7 @@ public class TelemetriaMetricaRepository implements PanacheRepository<Telemetria
      */
     public Long obterContadorExecucoes(String endpoint) {
         TelemetriaMetrica metrica = findByEndpoint(endpoint);
-        return metrica != null ? metrica.contadorExecucoes : 0L;
+        return metrica != null ? metrica.getContadorExecucoes() : 0L;
     }
     
     /**
@@ -88,7 +88,7 @@ public class TelemetriaMetricaRepository implements PanacheRepository<Telemetria
      */
     public Double obterTempoMedioResposta(String endpoint) {
         TelemetriaMetrica metrica = findByEndpoint(endpoint);
-        return metrica != null ? metrica.tempoMedioResposta : 0.0;
+        return metrica != null ? metrica.getTempoMedioResposta() : 0.0;
     }
     
     /**
@@ -110,7 +110,7 @@ public class TelemetriaMetricaRepository implements PanacheRepository<Telemetria
      */
     public LocalDateTime obterDataInicio() {
         TelemetriaMetrica primeiraMetrica = find("order by dataCriacao asc").firstResult();
-        return primeiraMetrica != null ? primeiraMetrica.dataCriacao : null;
+        return primeiraMetrica != null ? primeiraMetrica.getDataCriacao() : null;
     }
     
     /**
@@ -118,7 +118,7 @@ public class TelemetriaMetricaRepository implements PanacheRepository<Telemetria
      */
     public LocalDateTime obterDataFim() {
         TelemetriaMetrica ultimaMetrica = find("order by ultimaAtualizacao desc").firstResult();
-        return ultimaMetrica != null ? ultimaMetrica.ultimaAtualizacao : null;
+        return ultimaMetrica != null ? ultimaMetrica.getUltimaAtualizacao() : null;
     }
     
     /**

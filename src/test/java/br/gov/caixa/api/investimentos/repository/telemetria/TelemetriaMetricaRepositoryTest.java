@@ -1,7 +1,8 @@
 /*
 package br.gov.caixa.api.investimentos.repository.telemetria;
 
-import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetrica;
+import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetr        TelemetriaMetrica m = new TelemetriaMetrica();
+        m.setDataCriacao(LocalDateTime.now());a;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ class TelemetriaMetricaRepositoryTest {
 
         TelemetriaMetrica metrica = repository.findOrCreateByEndpoint("endpointB");
         assertNotNull(metrica);
-        assertEquals("endpointB", metrica.endpoint);
+        assertEquals("endpointB", metrica.getEndpoint());
     }
 
     @Test
@@ -88,7 +89,7 @@ class TelemetriaMetricaRepositoryTest {
     @Test
     void obterContadorExecucoes_returnsValueOrZero() {
         TelemetriaMetrica metrica = new TelemetriaMetrica("X");
-        metrica.contadorExecucoes = 5L;
+        metrica.setContadorExecucoes(5L);
         doReturn(metrica).when(repository).findByEndpoint("X");
 
         assertEquals(5L, repository.obterContadorExecucoes("X"));
@@ -139,7 +140,7 @@ class TelemetriaMetricaRepositoryTest {
         when(query.firstResult()).thenReturn(m);
         doReturn(query).when(repository).find("order by dataCriacao asc");
 
-        assertEquals(m.dataCriacao, repository.obterDataInicio());
+        assertEquals(m.getDataCriacao(), repository.obterDataInicio());
     }
 
     @Test

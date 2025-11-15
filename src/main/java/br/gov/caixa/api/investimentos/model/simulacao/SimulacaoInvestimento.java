@@ -21,55 +21,55 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "INTEGER")
-    public Long id;
+    private Long id;
 
     @NotNull
     @Positive
     @Column(name = "cliente_id", nullable = false)
-    public Long clienteId;
+    private Long clienteId;
 
     @NotNull
     @Column(name = "produto", nullable = false, length = 255)
-    public String produto;
+    private String produto;
 
     @NotNull
     @Column(name = "produto_id", nullable = false)
-    public Long produtoId;
+    private Long produtoId;
 
     @NotNull
     @DecimalMin(value = "0.01", message = "Valor investido deve ser maior que zero")
     @Column(name = "valor_investido", nullable = false, precision = 15, scale = 2)
-    public BigDecimal valorInvestido;
+    private BigDecimal valorInvestido;
 
     @NotNull
     @DecimalMin(value = "0.00", message = "Valor final não pode ser negativo")
     @Column(name = "valor_final", nullable = false, precision = 15, scale = 2)
-    public BigDecimal valorFinal;
+    private BigDecimal valorFinal;
 
     @Column(name = "prazo_meses")
-    public Integer prazoMeses;
+    private Integer prazoMeses;
 
     @Column(name = "prazo_dias")
-    public Integer prazoDias;
+    private Integer prazoDias;
 
     @Column(name = "prazo_anos")
-    public Integer prazoAnos;
+    private Integer prazoAnos;
 
     @NotNull
     @Column(name = "data_simulacao", nullable = false)
-    public LocalDateTime dataSimulacao;
+    private LocalDateTime dataSimulacao;
 
     @Column(name = "rentabilidade_efetiva", precision = 10, scale = 4)
-    public BigDecimal rentabilidadeEfetiva;
+    private BigDecimal rentabilidadeEfetiva;
 
     @Column(name = "rendimento", precision = 15, scale = 2)
-    public BigDecimal rendimento;
+    private BigDecimal rendimento;
 
     @Column(name = "valor_simulado")
-    public Boolean valorSimulado;
+    private Boolean valorSimulado;
 
     @Column(name = "cenario_simulacao", length = 500)
-    public String cenarioSimulacao;
+    private String cenarioSimulacao;
 
     // Construtor padrão
     public SimulacaoInvestimento() {
@@ -81,14 +81,14 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
                                BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias, 
                                Integer prazoAnos) {
         this();
-        this.clienteId = clienteId;
-        this.produtoId = produtoId;
-        this.produto = produto;
-        this.valorInvestido = valorInvestido;
-        this.valorFinal = valorFinal;
-        this.prazoMeses = prazoMeses;
-        this.prazoDias = prazoDias;
-        this.prazoAnos = prazoAnos;
+        this.setClienteId(clienteId);
+        this.setProdutoId(produtoId);
+        this.setProduto(produto);
+        this.setValorInvestido(valorInvestido);
+        this.setValorFinal(valorFinal);
+        this.setPrazoMeses(prazoMeses);
+        this.setPrazoDias(prazoDias);
+        this.setPrazoAnos(prazoAnos);
     }
 
     // Construtor completo
@@ -98,10 +98,10 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
                                BigDecimal rendimento, Boolean valorSimulado, 
                                String cenarioSimulacao) {
         this(clienteId, produtoId, produto, valorInvestido, valorFinal, prazoMeses, prazoDias, prazoAnos);
-        this.rentabilidadeEfetiva = rentabilidadeEfetiva;
-        this.rendimento = rendimento;
-        this.valorSimulado = valorSimulado;
-        this.cenarioSimulacao = cenarioSimulacao;
+        this.setRentabilidadeEfetiva(rentabilidadeEfetiva);
+        this.setRendimento(rendimento);
+        this.setValorSimulado(valorSimulado);
+        this.setCenarioSimulacao(cenarioSimulacao);
     }
 
 

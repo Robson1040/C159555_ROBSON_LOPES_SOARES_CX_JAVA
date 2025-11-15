@@ -50,10 +50,10 @@ public class SimulacaoResource {
         // Agrupa por produto e data (sem horário)
         Map<String, Map<java.time.LocalDate, List<SimulacaoInvestimento>>> agrupamento = 
             simulacoes.stream()
-                .filter(s -> s != null && s.produto != null && s.dataSimulacao != null) // Filtra simulações nulas, sem produto ou data
+                .filter(s -> s != null && s.getProduto() != null && s.getDataSimulacao() != null) // Filtra simulações nulas, sem produto ou data
                 .collect(Collectors.groupingBy(
-                    s -> s.produto,
-                    Collectors.groupingBy(s -> s.dataSimulacao.toLocalDate())
+                    s -> s.getProduto(),
+                    Collectors.groupingBy(s -> s.getDataSimulacao().toLocalDate())
                 ));
         
         List<AgrupamentoProdutoDataDTO> response = agrupamento.entrySet().stream()
@@ -67,11 +67,11 @@ public class SimulacaoResource {
                         int quantidadeSimulacoes = simulacoesDoDia.size();
                         
                         java.math.BigDecimal somaValorInvestido = simulacoesDoDia.stream()
-                            .map(s -> s.valorInvestido)
+                            .map(s -> s.getValorInvestido())
                             .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
                         
                         java.math.BigDecimal somaValorFinal = simulacoesDoDia.stream()
-                            .map(s -> s.valorFinal)
+                            .map(s -> s.getValorFinal())
                             .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
                         
                         java.math.BigDecimal mediaValorInvestido = quantidadeSimulacoes > 0 ? 
@@ -113,10 +113,10 @@ public class SimulacaoResource {
         // Agrupa por produto e ano-mês
         Map<String, Map<java.time.YearMonth, List<SimulacaoInvestimento>>> agrupamento =
                 simulacoes.stream()
-                        .filter(s -> s != null && s.produto != null && s.dataSimulacao != null)
+                        .filter(s -> s != null && s.getProduto() != null && s.getDataSimulacao() != null)
                         .collect(Collectors.groupingBy(
-                                s -> s.produto,
-                                Collectors.groupingBy(s -> java.time.YearMonth.from(s.dataSimulacao))
+                                s -> s.getProduto(),
+                                Collectors.groupingBy(s -> java.time.YearMonth.from(s.getDataSimulacao()))
                         ));
 
         List<AgrupamentoProdutoMesDTO> response = agrupamento.entrySet().stream()
@@ -130,11 +130,11 @@ public class SimulacaoResource {
                                 int quantidadeSimulacoes = simulacoesDoPeriodo.size();
 
                                 java.math.BigDecimal somaValorInvestido = simulacoesDoPeriodo.stream()
-                                        .map(s -> s.valorInvestido)
+                                        .map(s -> s.getValorInvestido())
                                         .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
 
                                 java.math.BigDecimal somaValorFinal = simulacoesDoPeriodo.stream()
-                                        .map(s -> s.valorFinal)
+                                        .map(s -> s.getValorFinal())
                                         .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
 
                                 java.math.BigDecimal mediaValorInvestido = quantidadeSimulacoes > 0 ?
@@ -178,10 +178,10 @@ public class SimulacaoResource {
         // Agrupa por produto e ano
         Map<String, Map<java.time.Year, List<SimulacaoInvestimento>>> agrupamento = 
             simulacoes.stream()
-                .filter(s -> s != null && s.produto != null && s.dataSimulacao != null) // Filtra simulações nulas, sem produto ou data
+                .filter(s -> s != null && s.getProduto() != null && s.getDataSimulacao() != null) // Filtra simulações nulas, sem produto ou data
                 .collect(Collectors.groupingBy(
-                    s -> s.produto,
-                    Collectors.groupingBy(s -> java.time.Year.from(s.dataSimulacao))
+                    s -> s.getProduto(),
+                    Collectors.groupingBy(s -> java.time.Year.from(s.getDataSimulacao()))
                 ));
         
         List<AgrupamentoProdutoAnoDTO> response = agrupamento.entrySet().stream()
@@ -195,11 +195,11 @@ public class SimulacaoResource {
                         int quantidadeSimulacoes = simulacoesDoAno.size();
                         
                         java.math.BigDecimal somaValorInvestido = simulacoesDoAno.stream()
-                            .map(s -> s.valorInvestido)
+                            .map(s -> s.getValorInvestido())
                             .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
                         
                         java.math.BigDecimal somaValorFinal = simulacoesDoAno.stream()
-                            .map(s -> s.valorFinal)
+                            .map(s -> s.getValorFinal())
                             .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);
                         
                         java.math.BigDecimal mediaValorInvestido = quantidadeSimulacoes > 0 ? 
@@ -234,15 +234,15 @@ public class SimulacaoResource {
      */
     private SimulacaoResponseDTO toResponseDTO(SimulacaoInvestimento simulacao) {
         return new SimulacaoResponseDTO(
-                simulacao.id,
-                simulacao.clienteId,
-                simulacao.produto,
-                simulacao.valorInvestido,
-                simulacao.valorFinal,
-                simulacao.prazoMeses,
-                simulacao.prazoDias,
-                simulacao.prazoAnos,
-                simulacao.dataSimulacao
+                simulacao.getId(),
+                simulacao.getClienteId(),
+                simulacao.getProduto(),
+                simulacao.getValorInvestido(),
+                simulacao.getValorFinal(),
+                simulacao.getPrazoMeses(),
+                simulacao.getPrazoDias(),
+                simulacao.getPrazoAnos(),
+                simulacao.getDataSimulacao()
         );
     }
 

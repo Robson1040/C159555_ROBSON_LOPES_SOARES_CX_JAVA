@@ -57,10 +57,10 @@ public record SimulacaoInvestimentoResponse(
 ) {
     // Construtor a partir da entidade
     public SimulacaoInvestimentoResponse(SimulacaoInvestimento entidade) {
-        this(entidade.id, entidade.produtoId, entidade.clienteId, entidade.produto, entidade.valorInvestido,
-             entidade.valorFinal, entidade.prazoMeses, entidade.prazoDias, entidade.prazoAnos,
-             entidade.dataSimulacao, entidade.rentabilidadeEfetiva, entidade.rendimento,
-             entidade.valorSimulado, entidade.cenarioSimulacao);
+        this(entidade.getId(), entidade.getProdutoId(), entidade.getClienteId(), entidade.getProduto(), entidade.getValorInvestido(),
+             entidade.getValorFinal(), entidade.getPrazoMeses(), entidade.getPrazoDias(), entidade.getPrazoAnos(),
+             entidade.getDataSimulacao(), entidade.getRentabilidadeEfetiva(), entidade.getRendimento(),
+             entidade.getValorSimulado(), entidade.getCenarioSimulacao());
     }
 
     // Método utilitário para converter lista

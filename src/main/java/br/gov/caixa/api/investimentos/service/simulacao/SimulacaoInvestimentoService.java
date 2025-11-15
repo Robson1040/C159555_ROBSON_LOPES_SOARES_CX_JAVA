@@ -107,7 +107,7 @@ public class SimulacaoInvestimentoService {
                 resultado,
                 LocalDateTime.now(),
                 request.clienteId(),
-                simulacaoPersistida.id // Incluir ID da simulação persistida
+                simulacaoPersistida.getId() // Incluir ID da simulação persistida
         );
     }
 

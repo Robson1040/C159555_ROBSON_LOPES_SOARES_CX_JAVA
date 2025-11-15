@@ -23,93 +23,93 @@ public class Investimento extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "INTEGER")
-    public Long id;
+    private Long id;
 
     @NotNull
     @Column(name = "cliente_id", nullable = false)
-    public Long clienteId;
+    private Long clienteId;
 
     @NotNull
     @Column(name = "produto_id", nullable = false)
-    public Long produtoId;
+    private Long produtoId;
 
     @NotNull
     @DecimalMin(value = "1.00")
     @DecimalMax(value = "999999999.99")
     @Column(name = "valor", precision = 19, scale = 2, nullable = false)
-    public BigDecimal valor;
+    private BigDecimal valor;
 
     @Column(name = "prazo_meses")
-    public Integer prazoMeses;
+    private Integer prazoMeses;
 
     @Column(name = "prazo_dias")
-    public Integer prazoDias;
+    private Integer prazoDias;
 
     @Column(name = "prazo_anos")
-    public Integer prazoAnos;
+    private Integer prazoAnos;
 
     @NotNull
     @Column(name = "data", nullable = false)
-    public LocalDate data;
+    private LocalDate data;
 
     // Campos copiados do Produto para snapshot
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
-    public TipoProduto tipo;
+    private TipoProduto tipo;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_rentabilidade", nullable = false)
-    public TipoRentabilidade tipoRentabilidade;
+    private TipoRentabilidade tipoRentabilidade;
 
     @NotNull
     @DecimalMin("0.0")
     @Column(name = "rentabilidade", precision = 10, scale = 4, nullable = false)
-    public BigDecimal rentabilidade;
+    private BigDecimal rentabilidade;
 
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "periodo_rentabilidade", nullable = false)
-    public PeriodoRentabilidade periodoRentabilidade;
+    private PeriodoRentabilidade periodoRentabilidade;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "indice")
-    public Indice indice;
+    private Indice indice;
 
     @NotNull
     @Min(-1)
     @Column(name = "liquidez", nullable = false)
-    public Integer liquidez;
+    private Integer liquidez;
 
     @NotNull
     @Min(0)
     @Column(name = "minimo_dias_investimento", nullable = false)
-    public Integer minimoDiasInvestimento;
+    private Integer minimoDiasInvestimento;
 
     @NotNull
     @Column(name = "fgc", nullable = false)
-    public Boolean fgc;
+    private Boolean fgc;
 
     public Investimento() {}
 
     public static Investimento from(InvestimentoRequest request, Produto produto) {
         Investimento inv = new Investimento();
-        inv.clienteId = request.clienteId();
-        inv.produtoId = request.produtoId();
-        inv.valor = request.valor();
-        inv.prazoMeses = request.prazoMeses();
-        inv.prazoDias = request.prazoDias();
-        inv.prazoAnos = request.prazoAnos();
-        inv.data = request.data();
-        inv.tipo = produto.getTipo();
-        inv.tipoRentabilidade = produto.getTipoRentabilidade();
-        inv.rentabilidade = produto.getRentabilidade();
-        inv.periodoRentabilidade = produto.getPeriodoRentabilidade();
-        inv.indice = produto.getIndice();
-        inv.liquidez = produto.getLiquidez();
-        inv.minimoDiasInvestimento = produto.getMinimoDiasInvestimento();
-        inv.fgc = produto.getFgc();
+        inv.setClienteId(request.clienteId());
+        inv.setProdutoId(request.produtoId());
+        inv.setValor(request.valor());
+        inv.setPrazoMeses(request.prazoMeses());
+        inv.setPrazoDias(request.prazoDias());
+        inv.setPrazoAnos(request.prazoAnos());
+        inv.setData(request.data());
+        inv.setTipo(produto.getTipo());
+        inv.setTipoRentabilidade(produto.getTipoRentabilidade());
+        inv.setRentabilidade(produto.getRentabilidade());
+        inv.setPeriodoRentabilidade(produto.getPeriodoRentabilidade());
+        inv.setIndice(produto.getIndice());
+        inv.setLiquidez(produto.getLiquidez());
+        inv.setMinimoDiasInvestimento(produto.getMinimoDiasInvestimento());
+        inv.setFgc(produto.getFgc());
         return inv;
     }
 

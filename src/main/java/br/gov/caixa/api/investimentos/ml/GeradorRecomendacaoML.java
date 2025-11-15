@@ -32,7 +32,7 @@ public class GeradorRecomendacaoML
 
             for (Produto produto : todosProdutos) {
                 // IGNORA o "mesmo produto"
-                if (investimento.produtoId.equals(produto.getId())) {
+                if (investimento.getProdutoId().equals(produto.getId())) {
                     continue;
                 }
 
@@ -76,7 +76,7 @@ public class GeradorRecomendacaoML
 
             for (Produto produto : todosProdutos) {
                 // IGNORA o "mesmo produto"
-                if (simulacao.produtoId.equals(produto.getId())) {
+                if (simulacao.getProdutoId().equals(produto.getId())) {
                     continue;
                 }
 
@@ -120,18 +120,18 @@ public class GeradorRecomendacaoML
         // === CASO 1: Investimento real ===
         if (entrada instanceof Investimento investimento)
         {
-            valorNorm = normalizar(investimento.valor.doubleValue(), 0, 1_000_000);
-            tipoNorm = normalizarTipoProduto(investimento.tipo);
-            tipoRentNorm = normalizarTipoRentabilidade(investimento.tipoRentabilidade);
-            periodoRentNorm = normalizarPeriodoRentabilidade(investimento.periodoRentabilidade);
-            indiceNorm = normalizarIndice(investimento.indice);
+            valorNorm = normalizar(investimento.getValor().doubleValue(), 0, 1_000_000);
+            tipoNorm = normalizarTipoProduto(investimento.getTipo());
+            tipoRentNorm = normalizarTipoRentabilidade(investimento.getTipoRentabilidade());
+            periodoRentNorm = normalizarPeriodoRentabilidade(investimento.getPeriodoRentabilidade());
+            indiceNorm = normalizarIndice(investimento.getIndice());
             liquidezNorm = normalizar(
-                    investimento.liquidez != null ? investimento.liquidez : 0,
+                    investimento.getLiquidez() != null ? investimento.getLiquidez() : 0,
                     -1, 365
             );
-            fgcNorm = investimento.fgc != null && investimento.fgc ? 1.0 : 0.0;
+            fgcNorm = investimento.getFgc() != null && investimento.getFgc() ? 1.0 : 0.0;
             minimoInvNorm = normalizar(
-                    investimento.minimoDiasInvestimento != null ? investimento.minimoDiasInvestimento : 0,
+                    investimento.getMinimoDiasInvestimento() != null ? investimento.getMinimoDiasInvestimento() : 0,
                     0, 1800
             );
         }

@@ -21,22 +21,22 @@ public class InvestimentoMapper {
         }
 
         return new InvestimentoResponse(
-                investimento.id,
-                investimento.clienteId,
-                investimento.produtoId,
-                investimento.valor,
-                investimento.prazoMeses,
-                investimento.prazoDias,
-                investimento.prazoAnos,
-                investimento.data,
-                investimento.tipo,
-                investimento.tipoRentabilidade,
-                investimento.rentabilidade,
-                investimento.periodoRentabilidade,
-                investimento.indice,
-                investimento.liquidez,
-                investimento.minimoDiasInvestimento,
-                investimento.fgc
+                investimento.getId(),
+                investimento.getClienteId(),
+                investimento.getProdutoId(),
+                investimento.getValor(),
+                investimento.getPrazoMeses(),
+                investimento.getPrazoDias(),
+                investimento.getPrazoAnos(),
+                investimento.getData(),
+                investimento.getTipo(),
+                investimento.getTipoRentabilidade(),
+                investimento.getRentabilidade(),
+                investimento.getPeriodoRentabilidade(),
+                investimento.getIndice(),
+                investimento.getLiquidez(),
+                investimento.getMinimoDiasInvestimento(),
+                investimento.getFgc()
         );
     }
 
@@ -73,22 +73,22 @@ public class InvestimentoMapper {
             return;
         }
 
-        investimento.clienteId = request.clienteId();
-        investimento.produtoId = request.produtoId();
-        investimento.valor = request.valor();
-        investimento.prazoMeses = request.prazoMeses();
-        investimento.prazoDias = request.prazoDias();
-        investimento.prazoAnos = request.prazoAnos();
-        investimento.data = request.data();
+        investimento.setClienteId(request.clienteId());
+        investimento.setProdutoId(request.produtoId());
+        investimento.setValor(request.valor());
+        investimento.setPrazoMeses(request.prazoMeses());
+        investimento.setPrazoDias(request.prazoDias());
+        investimento.setPrazoAnos(request.prazoAnos());
+        investimento.setData(request.data());
         
         // Atualizar informações do produto (snapshot)
-        investimento.tipo = produto.getTipo();
-        investimento.tipoRentabilidade = produto.getTipoRentabilidade();
-        investimento.rentabilidade = produto.getRentabilidade();
-        investimento.periodoRentabilidade = produto.getPeriodoRentabilidade();
-        investimento.indice = produto.getIndice();
-        investimento.liquidez = produto.getLiquidez();
-        investimento.minimoDiasInvestimento = produto.getMinimoDiasInvestimento();
-        investimento.fgc = produto.getFgc();
+        investimento.setTipo(produto.getTipo());
+        investimento.setTipoRentabilidade(produto.getTipoRentabilidade());
+        investimento.setRentabilidade(produto.getRentabilidade());
+        investimento.setPeriodoRentabilidade(produto.getPeriodoRentabilidade());
+        investimento.setIndice(produto.getIndice());
+        investimento.setLiquidez(produto.getLiquidez());
+        investimento.setMinimoDiasInvestimento(produto.getMinimoDiasInvestimento());
+        investimento.setFgc(produto.getFgc());
     }
 }

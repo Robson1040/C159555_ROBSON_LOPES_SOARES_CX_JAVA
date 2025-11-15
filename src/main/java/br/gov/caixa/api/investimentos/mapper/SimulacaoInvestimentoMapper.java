@@ -21,20 +21,20 @@ public class SimulacaoInvestimentoMapper {
         }
 
         return new SimulacaoInvestimentoResponse(
-                simulacao.id,
-                simulacao.produtoId,
-                simulacao.clienteId,
-                simulacao.produto,
-                simulacao.valorInvestido,
-                simulacao.valorFinal,
-                simulacao.prazoMeses,
-                simulacao.prazoDias,
-                simulacao.prazoAnos,
-                simulacao.dataSimulacao,
-                simulacao.rentabilidadeEfetiva,
-                simulacao.rendimento,
-                simulacao.valorSimulado,
-                simulacao.cenarioSimulacao
+                simulacao.getId(),
+                simulacao.getProdutoId(),
+                simulacao.getClienteId(),
+                simulacao.getProduto(),
+                simulacao.getValorInvestido(),
+                simulacao.getValorFinal(),
+                simulacao.getPrazoMeses(),
+                simulacao.getPrazoDias(),
+                simulacao.getPrazoAnos(),
+                simulacao.getDataSimulacao(),
+                simulacao.getRentabilidadeEfetiva(),
+                simulacao.getRendimento(),
+                simulacao.getValorSimulado(),
+                simulacao.getCenarioSimulacao()
         );
     }
 
@@ -97,16 +97,16 @@ public class SimulacaoInvestimentoMapper {
             return;
         }
 
-        simulacao.clienteId = clienteId;
-        simulacao.produto = produto;
-        simulacao.valorInvestido = valorInvestido;
-        simulacao.valorFinal = valorFinal;
-        simulacao.prazoMeses = prazoMeses;
-        simulacao.prazoDias = prazoDias;
-        simulacao.prazoAnos = prazoAnos;
-        simulacao.rentabilidadeEfetiva = rentabilidadeEfetiva;
-        simulacao.rendimento = rendimento;
-        simulacao.valorSimulado = valorSimulado;
-        simulacao.cenarioSimulacao = cenarioSimulacao;
+        simulacao.setClienteId(clienteId);
+        simulacao.setProduto(produto);
+        simulacao.setValorInvestido(valorInvestido);
+        simulacao.setValorFinal(valorFinal);
+        simulacao.setPrazoMeses(prazoMeses);
+        simulacao.setPrazoDias(prazoDias);
+        simulacao.setPrazoAnos(prazoAnos);
+        simulacao.setRentabilidadeEfetiva(rentabilidadeEfetiva);
+        simulacao.setRendimento(rendimento);
+        simulacao.setValorSimulado(valorSimulado);
+        simulacao.setCenarioSimulacao(cenarioSimulacao);
     }
 }

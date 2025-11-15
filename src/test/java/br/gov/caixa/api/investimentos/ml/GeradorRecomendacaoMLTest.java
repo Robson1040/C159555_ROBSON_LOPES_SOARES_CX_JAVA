@@ -29,15 +29,15 @@ class GeradorRecomendacaoMLTest {
         Produto p3 = criarProduto(3L, "Produto3", TipoProduto.LCA);
 
         Investimento inv1 = new Investimento();
-        inv1.produtoId = 1L;
-        inv1.valor = BigDecimal.valueOf(1000);
-        inv1.tipo = TipoProduto.CDB;
-        inv1.tipoRentabilidade = TipoRentabilidade.PRE;
-        inv1.periodoRentabilidade = PeriodoRentabilidade.AO_MES;
-        inv1.indice = Indice.SELIC;
-        inv1.liquidez = 0;
-        inv1.fgc = true;
-        inv1.minimoDiasInvestimento = 0;
+        inv1.setProdutoId(1L);
+        inv1.setValor(BigDecimal.valueOf(1000));
+        inv1.setTipo(TipoProduto.CDB);
+        inv1.setTipoRentabilidade(TipoRentabilidade.PRE);
+        inv1.setPeriodoRentabilidade(PeriodoRentabilidade.AO_MES);
+        inv1.setIndice(Indice.SELIC);
+        inv1.setLiquidez(0);
+        inv1.setFgc(true);
+        inv1.setMinimoDiasInvestimento(0);
 
         List<Produto> produtos = List.of(p1, p2, p3);
         List<Investimento> investimentos = List.of(inv1);
@@ -55,7 +55,7 @@ class GeradorRecomendacaoMLTest {
         Produto p2 = criarProduto(2L, "Produto2", TipoProduto.LCI);
 
         SimulacaoInvestimento sim1 = new SimulacaoInvestimento();
-        sim1.produtoId = 1L;
+        sim1.setProdutoId(1L);
         sim1.setValorInvestido(BigDecimal.valueOf(2000));
         sim1.setProduto("Produto1");
 
