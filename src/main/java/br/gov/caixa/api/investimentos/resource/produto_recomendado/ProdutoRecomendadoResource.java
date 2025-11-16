@@ -7,6 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 import br.gov.caixa.api.investimentos.service.produto_recomendado.ProdutoRecomendadoService;
 import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
 import org.eclipse.microprofile.jwt.JsonWebToken;
@@ -53,21 +54,21 @@ public class ProdutoRecomendadoResource {
             
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ErrorResponse(e.getMessage()))
+                    .entity(ErrorResponse.badRequest(e.getMessage()))
                     .build();
         } catch (IllegalStateException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ErrorResponse(e.getMessage()))
+                    .entity(ErrorResponse.badRequest(e.getMessage()))
                     .build();
         } catch (br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity(new ErrorResponse(e.getMessage()))
+                    .entity(ErrorResponse.notFound(e.getMessage()))
                     .build();
         } catch (Exception e) {
             System.err.println("Erro interno no ProdutoRecomendadoResource: " + e.getClass().getName() + " - " + e.getMessage());
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new ErrorResponse("Erro interno no servidor"))
+                    .entity(ErrorResponse.internalError("Erro interno no servidor"))
                     .build();
         }
     }
@@ -93,18 +94,13 @@ public class ProdutoRecomendadoResource {
             
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ErrorResponse(e.getMessage()))
+                    .entity(ErrorResponse.badRequest(e.getMessage()))
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new ErrorResponse("Erro interno no servidor"))
+                    .entity(ErrorResponse.internalError("Erro interno no servidor"))
                     .build();
         }
     }
-
-    /**
-     * DTO para respostas de erro
-     */
-    public record ErrorResponse(String message) {}
 }
 

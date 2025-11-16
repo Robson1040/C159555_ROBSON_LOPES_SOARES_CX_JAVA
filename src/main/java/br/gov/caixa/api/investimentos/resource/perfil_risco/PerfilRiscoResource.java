@@ -6,8 +6,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import br.gov.caixa.api.investimentos.dto.perfil_risco.PerfilRiscoResponse;
+import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
-
 import br.gov.caixa.api.investimentos.service.perfil_risco.PerfilRiscoService;
 
 /**
@@ -40,22 +40,17 @@ public class PerfilRiscoResource {
             return Response.ok(perfil).build();
         } catch (ClienteNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity(new ErrorResponse("Cliente não encontrado"))
+                    .entity(ErrorResponse.notFound("Cliente não encontrado"))
                     .build();
         } catch (IllegalStateException e) {
             return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(new ErrorResponse(e.getMessage()))
+                    .entity(ErrorResponse.badRequest(e.getMessage()))
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new ErrorResponse("Erro interno no servidor"))
+                    .entity(ErrorResponse.internalError("Erro interno no servidor"))
                     .build();
         }
     }
-
-    /**
-     * DTO para respostas de erro
-     */
-    public record ErrorResponse(String message) {}
 }
 
