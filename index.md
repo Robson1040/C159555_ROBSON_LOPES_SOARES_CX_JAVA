@@ -2,7 +2,17 @@
 
 Este é o índice principal da documentação da API de Investimentos da Caixa. Aqui você encontrará todos os recursos, funcionalidades e guias organizados por categoria.
 
-## 🚀 Funcionalidades Principais
+## � Especificação da API
+
+### 🔌 OpenAPI/Swagger
+- [**swagger-api-investimentos-caixa.yaml**](./swagger-api-investimentos-caixa.yaml) - **Especificação completa da API** em formato OpenAPI 3.0.3
+  - 27 endpoints documentados com schemas detalhados
+  - Autenticação JWT e segurança por roles
+  - Exemplos práticos para todos os endpoints
+  - Validações completas com Jakarta Bean Validation
+  - Códigos de resposta HTTP apropriados
+
+## �🚀 Funcionalidades Principais
 
 ### 🔐 Autenticação e Segurança
 - [**DOCUMENTACAO_AUTENTICACAO.md**](./DOCUMENTACAO_AUTENTICACAO.md) - Sistema de autenticação JWT e autorização baseada em roles
@@ -52,10 +62,17 @@ A API foi construída seguindo os princípios de:
 
 ## 📝 Como Navegar
 
-1. **Para desenvolvedores**: Comece pela [Autenticação](./DOCUMENTACAO_AUTENTICACAO.md) e depois explore os recursos específicos
+1. **Para desenvolvedores**: 
+   - Comece pelo [**Swagger YAML**](./swagger-api-investimentos-caixa.yaml) para visão completa da API
+   - Continue pela [Autenticação](./DOCUMENTACAO_AUTENTICACAO.md) e depois explore os recursos específicos
 2. **Para arquitetos**: Veja a [Telemetria](./DOCUMENTACAO_TELEMETRIA.md) para entender o monitoramento do sistema
 3. **Para analistas**: O [Sistema de Recomendação](./DOCUMENTACAO_PRODUTO_RECOMENDADO.md) contém a lógica de ML
 4. **Para QA**: As documentações de testes contêm cenários completos de validação
+5. **Para integração**: Use o [**Swagger YAML**](./swagger-api-investimentos-caixa.yaml) com ferramentas como:
+   - **Swagger UI** para interface interativa
+   - **Postman** para importar coleção automaticamente
+   - **Insomnia** para testes de API
+   - Geradores de código para SDKs em diferentes linguagens
 
 ## 🔧 Tecnologias Utilizadas
 
@@ -66,6 +83,47 @@ A API foi construída seguindo os princípios de:
 - **SQLite Database** - Banco de dados em arquivo
 - **JUnit 5 + RestAssured** - Testes automatizados
 - **Machine Learning** - Algoritmo personalizado de recomendações
+- **OpenAPI 3.0.3** - Especificação completa da API
+
+## 🛠️ Ferramentas de Desenvolvimento
+
+### 📡 Testando a API
+Para testar a API, você pode usar o arquivo Swagger de várias formas:
+
+```bash
+# 1. Swagger UI (interface web interativa)
+# Acesse: https://editor.swagger.io/
+# Cole o conteúdo do arquivo swagger-api-investimentos-caixa.yaml
+
+# 2. Postman (importação automática)
+# File > Import > selecione o arquivo swagger-api-investimentos-caixa.yaml
+
+# 3. Insomnia (importação direta)
+# Preferences > Data > Import Data > selecione o arquivo YAML
+
+# 4. CLI com curl (exemplos incluídos no Swagger)
+curl -X POST http://localhost:8080/entrar \
+  -H "Content-Type: application/json" \
+  -d '{"username": "maria.silva", "password": "123456"}'
+```
+
+### 🔌 Gerando SDKs
+Use o OpenAPI Generator para criar clientes em diferentes linguagens:
+
+```bash
+# JavaScript/TypeScript
+npx @openapitools/openapi-generator-cli generate \
+  -i swagger-api-investimentos-caixa.yaml \
+  -g typescript-axios \
+  -o ./sdk-typescript
+
+# Python
+pip install openapi-generator-cli
+openapi-generator generate \
+  -i swagger-api-investimentos-caixa.yaml \
+  -g python \
+  -o ./sdk-python
+```
 
 ---
 

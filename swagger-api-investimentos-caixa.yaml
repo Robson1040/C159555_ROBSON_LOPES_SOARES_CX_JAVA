@@ -1,0 +1,1492 @@
+openapi: 3.0.3
+info:
+  title: API Investimentos CAIXA
+  description: |
+    API RESTful para simulação e gestão de investimentos da CAIXA.
+    
+    Esta API permite:
+    - Autenticação de usuários (clientes e administradores)
+    - Gestão de clientes e perfis de risco
+    - Catálogo completo de produtos de investimento
+    - Simulação de investimentos com machine learning
+    - Registros de investimentos reais
+    - Recomendação personalizada de produtos
+    - Telemetria e monitoramento do sistema
+    
+    ## Autenticação
+    A API utiliza JWT (JSON Web Token) para autenticação. Use o endpoint `/entrar` para obter o token
+    e inclua-o no header `Authorization: Bearer <token>` nas requisições autenticadas.
+    
+    ## Perfis de Usuário
+    - **USER**: Clientes regulares (acesso limitado aos próprios dados)
+    - **ADMIN**: Administradores (acesso completo ao sistema)
+  version: 1.0.0
+  contact:
+    name: Equipe API Investimentos CAIXA
+    email: api-investimentos@caixa.gov.br
+  license:
+    name: Proprietary
+    
+servers:
+  - url: http://localhost:8080
+    description: Ambiente de desenvolvimento
+  - url: https://api-investimentos.caixa.gov.br
+    description: Ambiente de produção
+
+security:
+  - bearerAuth: []
+
+paths:
+  # AUTENTICAÇÃO
+  /entrar:
+    post:
+      tags:
+        - Autenticação
+      summary: Realizar login
+      description: Autentica um usuário e retorna um JWT token para acesso às funcionalidades da API
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              cliente:
+                summary: Login de cliente
+                value:
+                  username: "maria.silva"
+                  password: "123456"
+              admin:
+                summary: Login de administrador
+                value:
+                  username: "admin"
+                  password: "admin123"
+      responses:
+        '200':
+          description: Login realizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Credenciais inválidas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # CLIENTES
+  /clientes:
+    get:
+      tags:
+        - Clientes
+      summary: Listar todos os clientes
+      description: Retorna lista completa de clientes (apenas para ADMIN)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de clientes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClienteResponse'
+        '403':
+          description: Acesso negado - apenas ADMIN
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
+    post:
+      tags:
+        - Clientes
+      summary: Criar novo cliente
+      description: Registra um novo cliente no sistema (endpoint público)
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteRequest'
+      responses:
+        '201':
+          description: Cliente criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /clientes/{id}:
+    get:
+      tags:
+        - Clientes
+      summary: Buscar cliente por ID
+      description: Retorna dados de um cliente específico (USER pode acessar apenas seus próprios dados)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Dados do cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
+    put:
+      tags:
+        - Clientes
+      summary: Atualizar cliente
+      description: Atualiza dados de um cliente (USER pode atualizar apenas seus próprios dados)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteUpdateRequest'
+      responses:
+        '200':
+          description: Cliente atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /clientes/cpf/{cpf}:
+    get:
+      tags:
+        - Clientes
+      summary: Buscar cliente por CPF
+      description: Busca cliente pelo CPF (apenas para ADMIN)
+      parameters:
+        - name: cpf
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "12345678901"
+      responses:
+        '200':
+          description: Cliente encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /clientes/username/{username}:
+    get:
+      tags:
+        - Clientes
+      summary: Buscar cliente por username
+      description: Busca cliente pelo username (apenas para ADMIN)
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "maria.silva"
+      responses:
+        '200':
+          description: Cliente encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # PRODUTOS
+  /produtos:
+    get:
+      tags:
+        - Produtos
+      summary: Listar produtos
+      description: |
+        Lista produtos de investimento com filtros opcionais.
+        Suporta múltiplos filtros via query parameters para refinar a busca.
+      parameters:
+        - name: tipo
+          in: query
+          description: Filtrar por tipo de produto
+          schema:
+            $ref: '#/components/schemas/TipoProduto'
+        - name: tipo_rentabilidade
+          in: query
+          description: Filtrar por tipo de rentabilidade
+          schema:
+            $ref: '#/components/schemas/TipoRentabilidade'
+        - name: fgc
+          in: query
+          description: Filtrar produtos com garantia FGC
+          schema:
+            type: boolean
+        - name: liquidez_imediata
+          in: query
+          description: Filtrar produtos com liquidez imediata (0 dias)
+          schema:
+            type: boolean
+        - name: sem_liquidez
+          in: query
+          description: Filtrar produtos sem liquidez (-1)
+          schema:
+            type: boolean
+        - name: nome
+          in: query
+          description: Buscar produtos por nome (busca parcial)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de produtos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProdutoResponse'
+    
+    post:
+      tags:
+        - Produtos
+      summary: Criar novo produto
+      description: Cria um novo produto de investimento (apenas para ADMIN)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+      responses:
+        '201':
+          description: Produto criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProdutoResponse'
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /produtos/{id}:
+    get:
+      tags:
+        - Produtos
+      summary: Buscar produto por ID
+      description: Retorna detalhes de um produto específico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Detalhes do produto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProdutoResponse'
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
+    put:
+      tags:
+        - Produtos
+      summary: Atualizar produto
+      description: Atualiza um produto existente (apenas para ADMIN)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProdutoRequest'
+      responses:
+        '200':
+          description: Produto atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProdutoResponse'
+        '404':
+          description: Produto não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /produtos/count:
+    get:
+      tags:
+        - Produtos
+      summary: Contar total de produtos
+      description: Retorna o número total de produtos cadastrados
+      responses:
+        '200':
+          description: Total de produtos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    format: int64
+                    example: 25
+
+  # INVESTIMENTOS
+  /investimentos:
+    post:
+      tags:
+        - Investimentos
+      summary: Registrar novo investimento
+      description: Registra um investimento real realizado pelo cliente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestimentoRequest'
+      responses:
+        '201':
+          description: Investimento registrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvestimentoResponse'
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /investimentos/{clienteId}:
+    get:
+      tags:
+        - Investimentos
+      summary: Listar investimentos de um cliente
+      description: Retorna todos os investimentos de um cliente específico
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Lista de investimentos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InvestimentoResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # PERFIL DE RISCO
+  /perfil-risco/{clienteId}:
+    get:
+      tags:
+        - Perfil de Risco
+      summary: Calcular perfil de risco
+      description: |
+        Calcula o perfil de risco do cliente baseado em:
+        1. Histórico de investimentos reais
+        2. Histórico de simulações (se não houver investimentos)
+        3. Retorna erro se não houver nenhum histórico
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Perfil de risco calculado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerfilRiscoResponse'
+        '400':
+          description: Cliente sem histórico suficiente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # PRODUTOS RECOMENDADOS
+  /produtos-recomendados/cliente/{clienteId}:
+    get:
+      tags:
+        - Produtos Recomendados
+      summary: Produtos recomendados por cliente
+      description: |
+        Retorna produtos recomendados usando machine learning baseado no histórico do cliente.
+        Analisa padrões de investimentos e simulações para sugerir produtos similares.
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Produtos recomendados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProdutoResponse'
+        '400':
+          description: Cliente sem histórico suficiente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Cliente não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /produtos-recomendados/{perfil}:
+    get:
+      tags:
+        - Produtos Recomendados
+      summary: Produtos recomendados por perfil
+      description: |
+        Retorna produtos recomendados baseados no perfil de risco:
+        - **Conservador**: produtos de risco BAIXO com garantia FGC
+        - **Moderado**: produtos de risco MÉDIO sem FGC
+        - **Agressivo**: produtos de risco ALTO sem FGC
+      parameters:
+        - name: perfil
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [Conservador, Moderado, Agressivo]
+            example: "Conservador"
+      responses:
+        '200':
+          description: Produtos recomendados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProdutoResponse'
+        '400':
+          description: Perfil inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # SIMULAÇÃO DE INVESTIMENTOS
+  /simular-investimento:
+    post:
+      tags:
+        - Simulação de Investimentos
+      summary: Simular investimento
+      description: |
+        Realiza simulação de investimento com machine learning e cenários de mercado.
+        A simulação considera:
+        - Filtros de produto especificados
+        - Histórico do cliente (se disponível)
+        - Cenários econômicos simulados
+        - Recomendações de ML baseadas em similaridade
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimulacaoRequest'
+      responses:
+        '201':
+          description: Simulação realizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulacaoResponse'
+        '400':
+          description: Dados inválidos ou regras de negócio violadas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /simular-investimento/historico/{clienteId}:
+    get:
+      tags:
+        - Simulação de Investimentos
+      summary: Histórico de simulações do cliente
+      description: Retorna todas as simulações realizadas por um cliente
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Histórico de simulações
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SimulacaoInvestimentoResponse'
+
+  /simular-investimento/{id}:
+    get:
+      tags:
+        - Simulação de Investimentos
+      summary: Buscar simulação por ID
+      description: Retorna detalhes de uma simulação específica
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Detalhes da simulação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulacaoInvestimentoResponse'
+        '404':
+          description: Simulação não encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /simular-investimento/estatisticas/{clienteId}:
+    get:
+      tags:
+        - Simulação de Investimentos
+      summary: Estatísticas de simulações do cliente
+      description: Retorna estatísticas agregadas das simulações do cliente
+      parameters:
+        - name: clienteId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Estatísticas das simulações
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstatisticasCliente'
+
+  # RELATÓRIOS DE SIMULAÇÕES (ADMIN)
+  /simulacoes:
+    get:
+      tags:
+        - Relatórios de Simulações
+      summary: Listar todas as simulações
+      description: Retorna todas as simulações realizadas no sistema (apenas para ADMIN)
+      responses:
+        '200':
+          description: Lista completa de simulações
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SimulacaoResponseDTO'
+
+  /simulacoes/por-produto-dia:
+    get:
+      tags:
+        - Relatórios de Simulações
+      summary: Agrupamento por produto e dia
+      description: Retorna simulações agrupadas por produto e data (apenas para ADMIN)
+      responses:
+        '200':
+          description: Agrupamento por produto e dia
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgrupamentoProdutoDataDTO'
+
+  /simulacoes/por-produto-mes:
+    get:
+      tags:
+        - Relatórios de Simulações
+      summary: Agrupamento por produto e mês
+      description: Retorna simulações agrupadas por produto e mês (apenas para ADMIN)
+      responses:
+        '200':
+          description: Agrupamento por produto e mês
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgrupamentoProdutoMesDTO'
+
+  /simulacoes/por-produto-ano:
+    get:
+      tags:
+        - Relatórios de Simulações
+      summary: Agrupamento por produto e ano
+      description: Retorna simulações agrupadas por produto e ano (apenas para ADMIN)
+      responses:
+        '200':
+          description: Agrupamento por produto e ano
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AgrupamentoProdutoAnoDTO'
+
+  # TELEMETRIA
+  /telemetria:
+    get:
+      tags:
+        - Telemetria
+      summary: Obter telemetria do sistema
+      description: Retorna métricas consolidadas do sistema (apenas para ADMIN)
+      responses:
+        '200':
+          description: Métricas do sistema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetriaResponse'
+        '500':
+          description: Erro ao obter telemetria
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /telemetria/detalhado:
+    get:
+      tags:
+        - Telemetria
+      summary: Obter telemetria detalhada
+      description: Retorna métricas detalhadas de todos os endpoints (apenas para ADMIN)
+      responses:
+        '200':
+          description: Métricas detalhadas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TelemetriaMetrica'
+
+  /telemetria/mais-acessados/{limite}:
+    get:
+      tags:
+        - Telemetria
+      summary: Endpoints mais acessados
+      description: Retorna os endpoints mais acessados (apenas para ADMIN)
+      parameters:
+        - name: limite
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            example: 10
+      responses:
+        '200':
+          description: Endpoints mais acessados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TelemetriaMetrica'
+
+  /telemetria/limpar:
+    delete:
+      tags:
+        - Telemetria
+      summary: Limpar métricas
+      description: Limpa todas as métricas armazenadas (apenas para ADMIN)
+      responses:
+        '204':
+          description: Métricas limpas com sucesso
+        '500':
+          description: Erro ao limpar métricas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtido através do endpoint /entrar
+
+  schemas:
+    # AUTENTICAÇÃO
+    LoginRequest:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+          example: "maria.silva"
+          description: Nome de usuário
+        password:
+          type: string
+          example: "123456"
+          description: Senha do usuário
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..."
+          description: JWT token para autenticação
+        username:
+          type: string
+          example: "maria.silva"
+          description: Nome de usuário autenticado
+        role:
+          type: string
+          enum: [USER, ADMIN]
+          example: "USER"
+          description: Perfil do usuário
+        clienteId:
+          type: integer
+          format: int64
+          example: 123
+          description: ID do cliente (apenas para role USER)
+
+    # CLIENTES
+    ClienteRequest:
+      type: object
+      required: [nome, cpf, username, password, role]
+      properties:
+        nome:
+          type: string
+          minLength: 2
+          maxLength: 100
+          example: "Maria da Silva"
+          description: Nome completo do cliente
+        cpf:
+          type: string
+          pattern: '^\d{11}$'
+          example: "12345678901"
+          description: CPF do cliente (apenas números)
+        username:
+          type: string
+          minLength: 3
+          maxLength: 50
+          example: "maria.silva"
+          description: Nome de usuário único
+        password:
+          type: string
+          minLength: 6
+          example: "123456"
+          description: Senha do usuário
+        role:
+          type: string
+          enum: [USER, ADMIN]
+          example: "USER"
+          description: Perfil do usuário
+
+    ClienteUpdateRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          minLength: 2
+          maxLength: 100
+          example: "Maria da Silva Santos"
+        password:
+          type: string
+          minLength: 6
+          example: "novaSenha123"
+
+    ClienteResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 123
+        nome:
+          type: string
+          example: "Maria da Silva"
+        cpf:
+          type: string
+          example: "12345678901"
+        username:
+          type: string
+          example: "maria.silva"
+        role:
+          type: string
+          enum: [USER, ADMIN]
+          example: "USER"
+
+    # PRODUTOS
+    TipoProduto:
+      type: string
+      enum: [CDB, LCI, LCA, POUPANCA, TESOURO_DIRETO, DEBENTURE, CRI, FUNDO, FII, ACAO, ETF]
+      example: "CDB"
+
+    TipoRentabilidade:
+      type: string
+      enum: [PRE, POS]
+      example: "PRE"
+
+    PeriodoRentabilidade:
+      type: string
+      enum: [AO_DIA, AO_MES, AO_ANO, PERIODO_TOTAL]
+      example: "AO_ANO"
+
+    Indice:
+      type: string
+      enum: [NENHUM, CDI, SELIC, IPCA, IGP_M, IGP_DI, INCC, IPC_A]
+      example: "CDI"
+
+    NivelRisco:
+      type: string
+      enum: [BAIXO, MEDIO, ALTO]
+      example: "BAIXO"
+
+    ProdutoRequest:
+      type: object
+      required: [nome, tipo, tipoRentabilidade, rentabilidade, periodoRentabilidade, liquidez, minimoDiasInvestimento, fgc]
+      properties:
+        nome:
+          type: string
+          minLength: 2
+          maxLength: 255
+          example: "CDB Caixa Progressivo"
+        tipo:
+          $ref: '#/components/schemas/TipoProduto'
+        tipo_rentabilidade:
+          $ref: '#/components/schemas/TipoRentabilidade'
+        rentabilidade:
+          type: number
+          format: decimal
+          minimum: 0
+          example: 10.5
+          description: Taxa de rentabilidade (percentual)
+        periodo_rentabilidade:
+          $ref: '#/components/schemas/PeriodoRentabilidade'
+        indice:
+          $ref: '#/components/schemas/Indice'
+        liquidez:
+          type: integer
+          minimum: -1
+          example: 90
+          description: Dias para liquidez (-1 = sem liquidez, 0 = liquidez imediata)
+        minimo_dias_investimento:
+          type: integer
+          minimum: 0
+          example: 90
+          description: Período mínimo de investimento em dias
+        fgc:
+          type: boolean
+          example: true
+          description: Possui garantia do Fundo Garantidor de Créditos
+
+    ProdutoResponse:
+      allOf:
+        - $ref: '#/components/schemas/ProdutoRequest'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+              example: 1
+            risco:
+              $ref: '#/components/schemas/NivelRisco'
+
+    # INVESTIMENTOS
+    InvestimentoRequest:
+      type: object
+      required: [clienteId, produtoId, valor, data]
+      properties:
+        clienteId:
+          type: integer
+          format: int64
+          example: 123
+        produtoId:
+          type: integer
+          format: int64
+          example: 1
+        valor:
+          type: number
+          format: decimal
+          minimum: 1.00
+          maximum: 999999999.99
+          example: 10000.00
+        prazoMeses:
+          type: integer
+          minimum: 1
+          maximum: 600
+          example: 12
+        prazoDias:
+          type: integer
+          minimum: 1
+          maximum: 18250
+          example: 365
+        prazoAnos:
+          type: integer
+          minimum: 1
+          maximum: 50
+          example: 1
+        data:
+          type: string
+          format: date
+          example: "2024-01-15"
+
+    InvestimentoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        clienteId:
+          type: integer
+          format: int64
+          example: 123
+        produtoId:
+          type: integer
+          format: int64
+          example: 1
+        valor:
+          type: number
+          format: decimal
+          example: 10000.00
+        prazoMeses:
+          type: integer
+          example: 12
+        prazoDias:
+          type: integer
+          example: 365
+        prazoAnos:
+          type: integer
+          example: 1
+        data:
+          type: string
+          format: date
+          example: "2024-01-15"
+        # Dados do produto
+        tipoProduto:
+          $ref: '#/components/schemas/TipoProduto'
+        tipoRentabilidade:
+          $ref: '#/components/schemas/TipoRentabilidade'
+        rentabilidade:
+          type: number
+          format: decimal
+          example: 10.5
+        periodoRentabilidade:
+          $ref: '#/components/schemas/PeriodoRentabilidade'
+        indice:
+          $ref: '#/components/schemas/Indice'
+        liquidez:
+          type: integer
+          example: 90
+        minimoDiasInvestimento:
+          type: integer
+          example: 90
+        fgc:
+          type: boolean
+          example: true
+
+    # PERFIL DE RISCO
+    PerfilRiscoResponse:
+      type: object
+      properties:
+        clienteId:
+          type: integer
+          format: int64
+          example: 123
+        perfil:
+          type: string
+          enum: [CONSERVADOR, MODERADO, AGRESSIVO]
+          example: "CONSERVADOR"
+        pontuacao:
+          type: number
+          format: decimal
+          example: 25.5
+          description: Pontuação de risco calculada
+        descricao:
+          type: string
+          example: "Perfil conservador baseado em histórico de produtos de baixo risco"
+        baseadoEm:
+          type: string
+          enum: [INVESTIMENTOS, SIMULACOES]
+          example: "INVESTIMENTOS"
+          description: Fonte dos dados para o cálculo
+
+    # SIMULAÇÃO
+    SimulacaoRequest:
+      type: object
+      required: [clienteId, valor]
+      properties:
+        clienteId:
+          type: integer
+          format: int64
+          example: 123
+        produto_id:
+          type: integer
+          format: int64
+          example: 1
+          description: ID específico do produto (opcional)
+        valor:
+          type: number
+          format: decimal
+          minimum: 1.00
+          maximum: 999999999.99
+          example: 50000.00
+        prazoMeses:
+          type: integer
+          minimum: 1
+          maximum: 600
+          example: 24
+        prazoDias:
+          type: integer
+          minimum: 1
+          maximum: 18250
+          example: 730
+        prazoAnos:
+          type: integer
+          minimum: 1
+          maximum: 50
+          example: 2
+        # Filtros opcionais
+        tipoProduto:
+          $ref: '#/components/schemas/TipoProduto'
+        produto:
+          type: string
+          example: "CDB"
+          description: Nome do produto (busca parcial)
+        tipo_rentabilidade:
+          $ref: '#/components/schemas/TipoRentabilidade'
+        indice:
+          $ref: '#/components/schemas/Indice'
+        liquidez:
+          type: integer
+          minimum: -1
+          example: 0
+          description: Liquidez desejada em dias
+        fgc:
+          type: boolean
+          example: true
+
+    ResultadoSimulacao:
+      type: object
+      properties:
+        valorFinal:
+          type: number
+          format: decimal
+          example: 55000.00
+          description: Valor final projetado
+        rentabilidade:
+          type: number
+          format: decimal
+          example: 10.0000
+          description: Taxa de rentabilidade efetiva
+        prazoMeses:
+          type: integer
+          example: 24
+        prazoDias:
+          type: integer
+          example: 730
+        prazoAnos:
+          type: integer
+          example: 2
+        valorInicial:
+          type: number
+          format: decimal
+          example: 50000.00
+        rendimento:
+          type: number
+          format: decimal
+          example: 5000.00
+          description: Rendimento líquido
+        valorSimulado:
+          type: boolean
+          example: true
+          description: Indica se valores são simulados dinamicamente
+        descricaoCenario:
+          type: string
+          example: "Simulação para Longo Prazo (24 meses) - Cenário: Crescimento Moderado"
+
+    SimulacaoResponse:
+      type: object
+      properties:
+        produtoValidado:
+          $ref: '#/components/schemas/ProdutoResponse'
+        resultadoSimulacao:
+          $ref: '#/components/schemas/ResultadoSimulacao'
+        dataSimulacao:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00"
+        clienteId:
+          type: integer
+          format: int64
+          example: 123
+        simulacaoId:
+          type: integer
+          format: int64
+          example: 456
+          description: ID da simulação persistida
+
+    SimulacaoInvestimentoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 456
+        clienteId:
+          type: integer
+          format: int64
+          example: 123
+        produto:
+          type: string
+          example: "CDB Caixa Progressivo"
+        valorInvestido:
+          type: number
+          format: decimal
+          example: 50000.00
+        valorFinal:
+          type: number
+          format: decimal
+          example: 55000.00
+        prazoMeses:
+          type: integer
+          example: 24
+        prazoDias:
+          type: integer
+          example: 730
+        prazoAnos:
+          type: integer
+          example: 2
+        dataSimulacao:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00"
+
+    EstatisticasCliente:
+      type: object
+      properties:
+        totalSimulacoes:
+          type: integer
+          format: int64
+          example: 15
+        totalInvestido:
+          type: number
+          format: decimal
+          example: 250000.00
+          description: Soma total de valores simulados
+        mediaValorInvestido:
+          type: number
+          format: decimal
+          example: 16666.67
+          description: Valor médio por simulação
+        ultimaSimulacao:
+          $ref: '#/components/schemas/SimulacaoInvestimentoResponse'
+
+    # RELATÓRIOS
+    SimulacaoResponseDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 456
+        clienteId:
+          type: integer
+          format: int64
+          example: 123
+        produto:
+          type: string
+          example: "CDB Caixa Progressivo"
+        valorInvestido:
+          type: number
+          format: decimal
+          example: 50000.00
+        valorFinal:
+          type: number
+          format: decimal
+          example: 55000.00
+        prazoMeses:
+          type: integer
+          example: 24
+        prazoDias:
+          type: integer
+          example: 730
+        prazoAnos:
+          type: integer
+          example: 2
+        dataSimulacao:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00"
+
+    AgrupamentoProdutoDataDTO:
+      type: object
+      properties:
+        produto:
+          type: string
+          example: "CDB Caixa Progressivo"
+        data:
+          type: string
+          format: date
+          example: "2024-01-15"
+        quantidadeSimulacoes:
+          type: integer
+          format: int64
+          example: 5
+        mediaValorInvestido:
+          type: number
+          format: decimal
+          example: 45000.00
+        mediaValorFinal:
+          type: number
+          format: decimal
+          example: 49500.00
+
+    AgrupamentoProdutoMesDTO:
+      type: object
+      properties:
+        produto:
+          type: string
+          example: "CDB Caixa Progressivo"
+        mes:
+          type: string
+          example: "2024-01"
+          description: Ano-mês no formato YYYY-MM
+        quantidadeSimulacoes:
+          type: integer
+          format: int64
+          example: 25
+        mediaValorInvestido:
+          type: number
+          format: decimal
+          example: 48000.00
+        mediaValorFinal:
+          type: number
+          format: decimal
+          example: 52800.00
+
+    AgrupamentoProdutoAnoDTO:
+      type: object
+      properties:
+        produto:
+          type: string
+          example: "CDB Caixa Progressivo"
+        ano:
+          type: string
+          example: "2024"
+        quantidadeSimulacoes:
+          type: integer
+          format: int64
+          example: 150
+        mediaValorInvestido:
+          type: number
+          format: decimal
+          example: 47000.00
+        mediaValorFinal:
+          type: number
+          format: decimal
+          example: 51700.00
+
+    # TELEMETRIA
+    TelemetriaResponse:
+      type: object
+      properties:
+        periodoPesquisa:
+          type: string
+          example: "2024-01-01T00:00:00 até 2024-01-15T23:59:59"
+        totalEndpoints:
+          type: integer
+          example: 8
+        metricas:
+          type: array
+          items:
+            type: object
+            properties:
+              endpoint:
+                type: string
+                example: "/produtos"
+              execucoes:
+                type: integer
+                example: 150
+              tempoMedio:
+                type: number
+                format: decimal
+                example: 125.5
+                description: Tempo médio de resposta em millisegundos
+
+    TelemetriaMetrica:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        endpoint:
+          type: string
+          example: "/produtos"
+        contador:
+          type: integer
+          example: 150
+        tempoMedio:
+          type: number
+          format: decimal
+          example: 125.5
+          description: Tempo médio em millisegundos
+        ultimaAtualizacao:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00"
+
+    # ERRO
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Credenciais inválidas"
+          description: Descrição do erro
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00"
+        status:
+          type: integer
+          example: 401
+          description: Código de status HTTP
+        path:
+          type: string
+          example: "/entrar"
+          description: Path da requisição que gerou o erro
+        details:
+          type: object
+          nullable: true
+          description: Detalhes adicionais do erro
+
+tags:
+  - name: Autenticação
+    description: Endpoints para login e autenticação de usuários
+  - name: Clientes
+    description: Gestão de clientes e contas de usuário
+  - name: Produtos
+    description: Catálogo de produtos de investimento
+  - name: Investimentos
+    description: Registro de investimentos reais realizados
+  - name: Perfil de Risco
+    description: Cálculo de perfil de risco baseado em histórico
+  - name: Produtos Recomendados
+    description: Recomendação personalizada com machine learning
+  - name: Simulação de Investimentos
+    description: Simulação de investimentos com cenários de mercado
+  - name: Relatórios de Simulações
+    description: Relatórios e agrupamentos administrativos
+  - name: Telemetria
+    description: Monitoramento e métricas do sistema
