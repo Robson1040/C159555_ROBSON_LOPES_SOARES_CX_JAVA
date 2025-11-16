@@ -144,7 +144,7 @@ public class GeradorRecomendacaoML
             Produto p = null;
 
             for (Produto todoProduto : todoProdutos) {
-                if (Objects.equals(produto.getId(), todoProduto.getId()))
+                if (Objects.equals(simulacao.getProdutoId(), todoProduto.getId()))
                 {
                     p = todoProduto;
                     break;
@@ -154,7 +154,7 @@ public class GeradorRecomendacaoML
             if(p == null)
             {
                 throw new IllegalArgumentException(
-                        "Tipo não suportado: " + entrada.getClass()
+                        "Produto não encontrado para simulação com produtoId: " + simulacao.getProdutoId()
                 );
             }
 
@@ -163,7 +163,7 @@ public class GeradorRecomendacaoML
             periodoRentNorm = 0.5;
             indiceNorm = 0.5;
             liquidezNorm = 0.5;
-            fgcNorm = inferirFgcDeNome(simulacao.getProduto());
+            fgcNorm = p.getFgc() != null && p.getFgc() ? 1.0 : 0.0;
             minimoInvNorm = 0.5;
         }
 

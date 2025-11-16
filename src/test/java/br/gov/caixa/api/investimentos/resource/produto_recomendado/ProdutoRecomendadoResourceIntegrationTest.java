@@ -1,6 +1,7 @@
 package br.gov.caixa.api.investimentos.resource.produto_recomendado;
 
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
+import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -287,7 +289,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
     void deveCriarClienteInvestidor1() {
         ClienteRequest cliente = new ClienteRequest(
                 "Carlos Silva Conservador",
-                "12345678901", // CPF válido para teste
+                "27269308080", // CPF válido para teste
                 "carlos.conservador@test.com",
                 "senha123",
                 "USER"
@@ -301,7 +303,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 .when()
                 .post("/clientes")
                 .then()
-                .statusCode(anyOf(equalTo(201), equalTo(400)));
+                .statusCode(anyOf(equalTo(201)));
 
         // Define um ID fixo para continuar os testes
         clienteIdInvestidor1 = 1L;
@@ -313,7 +315,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
     void deveCriarClienteInvestidor2() {
         ClienteRequest cliente = new ClienteRequest(
                 "Ana Santos Agressiva",
-                "98765432109", // CPF válido para teste
+                "49003529000", // CPF válido para teste
                 "ana.agressiva@test.com",
                 "senha456",
                 "USER"
@@ -327,7 +329,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 .when()
                 .post("/clientes")
                 .then()
-                .statusCode(anyOf(equalTo(201), equalTo(400)));
+                .statusCode(anyOf(equalTo(201)));
 
         // Define um ID fixo para continuar os testes
         clienteIdInvestidor2 = 2L;
@@ -339,7 +341,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
     void deveCriarClienteSemHistorico() {
         ClienteRequest cliente = new ClienteRequest(
                 "José Sem Histórico",
-                "11111111111",
+                "96949804024",
                 "jose.semhistorico@test.com",
                 "senha789",
                 "USER"
@@ -353,7 +355,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 .when()
                 .post("/clientes")
                 .then()
-                .statusCode(anyOf(equalTo(201), equalTo(400)));
+                .statusCode(anyOf(equalTo(201)));
 
         // Define um ID fixo para continuar os testes
         clienteIdSemHistorico = 3L;
@@ -392,7 +394,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
     @Test
     @Order(11)
     void deveCriarInvestimentoModerado() {
-        // Cliente 1 também investe em produto médio
+        // Cliente 1 investe em produto médio - DEVE ser criado com sucesso para histórico
         InvestimentoRequest investimento = new InvestimentoRequest(
                 clienteIdInvestidor1, // clienteId
                 produtoIdRiscoMedio1, // produtoId - Debênture
@@ -410,20 +412,22 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 .when()
                 .post("/investimentos")
                 .then()
-                .statusCode(anyOf(equalTo(201), equalTo(400), equalTo(404))); // Aceita erro se endpoint não estiver pronto
+                .statusCode(201) // DEVE ser criado com sucesso para gerar histórico
+                .body("clienteId", equalTo(clienteIdInvestidor1.intValue()))
+                .body("produtoId", equalTo(produtoIdRiscoMedio1.intValue()));
 
-        System.out.println("=== DEBUG: Tentativa de investimento moderado realizada");
+        System.out.println("=== DEBUG: Investimento moderado criado com sucesso para cliente " + clienteIdInvestidor1);
     }
 
     @Test
     @Order(12)
     void deveCriarInvestimentoAgressivo() {
-        // Cliente 2 investe em produtos agressivos
+        // Cliente 2 investe em produtos agressivos - DEVE ser criado com sucesso para histórico
         InvestimentoRequest investimento = new InvestimentoRequest(
                 clienteIdInvestidor2, // clienteId
                 produtoIdRiscoAlto1, // produtoId - Ação
                 new BigDecimal("15000.00"), // valor
-                null, // prazoMeses
+                12, // prazoMeses - ação precisa de prazo
                 null, // prazoDias
                 null, // prazoAnos
                 LocalDate.now() // data
@@ -436,9 +440,39 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 .when()
                 .post("/investimentos")
                 .then()
-                .statusCode(anyOf(equalTo(201), equalTo(400))); // Aceita erro se endpoint não estiver pronto
+                .statusCode(201) // DEVE ser criado com sucesso para gerar histórico
+                .body("clienteId", equalTo(clienteIdInvestidor2.intValue()))
+                .body("produtoId", equalTo(produtoIdRiscoAlto1.intValue()));
 
-        System.out.println("=== DEBUG: Tentativa de investimento agressivo realizada");
+        System.out.println("=== DEBUG: Investimento agressivo criado com sucesso para cliente " + clienteIdInvestidor2);
+    }
+
+    @Test
+    @Order(125) // Inserindo entre 12 e 13
+    void deveCriarSegundoInvestimentoCliente1() {
+        // Cliente 1 faz outro investimento (conservador) para enriquecer histórico
+        InvestimentoRequest investimento = new InvestimentoRequest(
+                clienteIdInvestidor1, // clienteId
+                produtoIdRiscoBaixo1, // produtoId - CDB
+                new BigDecimal("5000.00"), // valor
+                6, // prazoMeses
+                null, // prazoDias
+                null, // prazoAnos
+                LocalDate.now() // data
+        );
+
+        given()
+                .header("Authorization", "Bearer " + adminToken)
+                .contentType(ContentType.JSON)
+                .body(investimento)
+                .when()
+                .post("/investimentos")
+                .then()
+                .statusCode(201)
+                .body("clienteId", equalTo(clienteIdInvestidor1.intValue()))
+                .body("produtoId", equalTo(produtoIdRiscoBaixo1.intValue()));
+
+        System.out.println("=== DEBUG: Segundo investimento do cliente " + clienteIdInvestidor1 + " criado com sucesso");
     }
 
     // === TESTES DE RECOMENDAÇÃO POR PERFIL ===
@@ -493,15 +527,28 @@ public class ProdutoRecomendadoResourceIntegrationTest {
     @Test
     @Order(16)
     void deveBuscarProdutosPorClienteComHistorico() {
-        // Testa o endpoint de recomendações por cliente
+        // IMPORTANTE: Este teste exige cliente com histórico - só aceita 200, não 404
+        
+        // Se clienteIdInvestidor1 foi criado nos testes anteriores, usar ele
+        Long clienteId = clienteIdInvestidor1;
+        
+        System.out.println("=== DEBUG: Testando GET /produtos-recomendados/cliente/" + clienteId + " - DEVE retornar 200");
+        
+        // REGRA ESTRITA: Cliente com histórico DEVE sempre retornar 200 com produtos
         given()
                 .header("Authorization", "Bearer " + adminToken)
                 .when()
-                .get("/produtos-recomendados/cliente/" + clienteIdInvestidor1)
+                .get("/produtos-recomendados/cliente/" + clienteId)
                 .then()
-                .statusCode(anyOf(equalTo(200), equalTo(400), equalTo(404), equalTo(500))); // Aceita vários códigos
+                .statusCode(200) // SÓ ACEITA 200 - não aceita 404
+                .contentType(ContentType.JSON)
+                .body("size()", greaterThan(0)) // DEVE ter pelo menos 1 produto recomendado
+                .body("[0]", hasKey("id"))
+                .body("[0]", hasKey("nome"))
+                .body("[0]", hasKey("tipo"))
+                .body("[0]", hasKey("risco"));
 
-        System.out.println("=== DEBUG: Busca de produtos por cliente com histórico realizada");
+        System.out.println("=== SUCCESS: Cliente com histórico - produtos recomendados validados com 200 OK");
     }
 
     @Test
@@ -513,7 +560,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 .when()
                 .get("/produtos-recomendados/cliente/" + clienteIdSemHistorico)
                 .then()
-                .statusCode(anyOf(equalTo(400), equalTo(404), equalTo(500))); // Aceita vários códigos de erro
+                .statusCode(anyOf(equalTo(400), equalTo(404))); // Aceita vários códigos de erro
 
         System.out.println("=== DEBUG: Busca de produtos por cliente sem histórico realizada");
     }

@@ -59,7 +59,13 @@ public class ProdutoRecomendadoResource {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(new ErrorResponse(e.getMessage()))
                     .build();
+        } catch (br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(new ErrorResponse(e.getMessage()))
+                    .build();
         } catch (Exception e) {
+            System.err.println("Erro interno no ProdutoRecomendadoResource: " + e.getClass().getName() + " - " + e.getMessage());
+            e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity(new ErrorResponse("Erro interno no servidor"))
                     .build();
