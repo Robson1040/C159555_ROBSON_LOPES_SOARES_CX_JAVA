@@ -295,19 +295,32 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 "USER"
         );
 
-        // Aceita tanto sucesso quanto erro (400) caso ClienteResource tenha validações
-        given()
+        // Criar cliente e extrair o ID real da resposta
+        ClienteResponse clienteResponse = given()
                 .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(cliente)
                 .when()
                 .post("/clientes")
                 .then()
-                .statusCode(anyOf(equalTo(201)));
+                .statusCode(equalTo(201))
+                .body("nome", equalTo("Carlos Silva Conservador"))
+                .body("cpf", equalTo("27269308080"))
+                .body("username", equalTo("carlos.conservador@test.com"))
+                .body("role", equalTo("USER"))
+                .body("id", notNullValue())
+                .extract()
+                .as(ClienteResponse.class);
 
-        // Define um ID fixo para continuar os testes
-        clienteIdInvestidor1 = 1L;
-        System.out.println("=== DEBUG: Usando Cliente ID fixo: " + clienteIdInvestidor1);
+        // Extrair o ID real do cliente criado
+        clienteIdInvestidor1 = clienteResponse.id();
+        System.out.println("=== DEBUG: Cliente investidor 1 criado com ID: " + clienteIdInvestidor1);
+        
+        assertNotNull(clienteIdInvestidor1);
+        assertEquals("Carlos Silva Conservador", clienteResponse.nome());
+        assertEquals("27269308080", clienteResponse.cpf());
+        assertEquals("carlos.conservador@test.com", clienteResponse.username());
+        assertEquals("USER", clienteResponse.role());
     }
 
     @Test
@@ -321,19 +334,32 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 "USER"
         );
 
-        // Aceita tanto sucesso quanto erro (400) caso ClienteResource tenha validações
-        given()
+        // Criar cliente e extrair o ID real da resposta
+        ClienteResponse clienteResponse = given()
                 .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(cliente)
                 .when()
                 .post("/clientes")
                 .then()
-                .statusCode(anyOf(equalTo(201)));
+                .statusCode(equalTo(201))
+                .body("nome", equalTo("Ana Santos Agressiva"))
+                .body("cpf", equalTo("49003529000"))
+                .body("username", equalTo("ana.agressiva@test.com"))
+                .body("role", equalTo("USER"))
+                .body("id", notNullValue())
+                .extract()
+                .as(ClienteResponse.class);
 
-        // Define um ID fixo para continuar os testes
-        clienteIdInvestidor2 = 2L;
-        System.out.println("=== DEBUG: Usando Cliente ID fixo: " + clienteIdInvestidor2);
+        // Extrair o ID real do cliente criado
+        clienteIdInvestidor2 = clienteResponse.id();
+        System.out.println("=== DEBUG: Cliente investidor 2 criado com ID: " + clienteIdInvestidor2);
+        
+        assertNotNull(clienteIdInvestidor2);
+        assertEquals("Ana Santos Agressiva", clienteResponse.nome());
+        assertEquals("49003529000", clienteResponse.cpf());
+        assertEquals("ana.agressiva@test.com", clienteResponse.username());
+        assertEquals("USER", clienteResponse.role());
     }
 
     @Test
@@ -347,19 +373,32 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 "USER"
         );
 
-        // Aceita tanto sucesso quanto erro (400) caso ClienteResource tenha validações
-        given()
+        // Criar cliente e extrair o ID real da resposta
+        ClienteResponse clienteResponse = given()
                 .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(cliente)
                 .when()
                 .post("/clientes")
                 .then()
-                .statusCode(anyOf(equalTo(201)));
+                .statusCode(equalTo(201))
+                .body("nome", equalTo("José Sem Histórico"))
+                .body("cpf", equalTo("96949804024"))
+                .body("username", equalTo("jose.semhistorico@test.com"))
+                .body("role", equalTo("USER"))
+                .body("id", notNullValue())
+                .extract()
+                .as(ClienteResponse.class);
 
-        // Define um ID fixo para continuar os testes
-        clienteIdSemHistorico = 3L;
-        System.out.println("=== DEBUG: Usando Cliente ID fixo: " + clienteIdSemHistorico);
+        // Extrair o ID real do cliente criado
+        clienteIdSemHistorico = clienteResponse.id();
+        System.out.println("=== DEBUG: Cliente sem histórico criado com ID: " + clienteIdSemHistorico);
+        
+        assertNotNull(clienteIdSemHistorico);
+        assertEquals("José Sem Histórico", clienteResponse.nome());
+        assertEquals("96949804024", clienteResponse.cpf());
+        assertEquals("jose.semhistorico@test.com", clienteResponse.username());
+        assertEquals("USER", clienteResponse.role());
     }
 
     // === SETUP: CRIAR INVESTIMENTOS PARA HISTÓRICO ===

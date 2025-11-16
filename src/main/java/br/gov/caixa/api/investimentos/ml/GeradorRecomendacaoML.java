@@ -9,6 +9,8 @@ import br.gov.caixa.api.investimentos.model.produto.Produto;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +25,34 @@ public class GeradorRecomendacaoML
     public List<Produto> encontrarProdutosOrdenadosPorAparicao(List<Investimento> investimentos,
                                                                List<Produto> todosProdutos)
     {
+        // Validações de entrada
+        if (investimentos == null) {
+            throw new IllegalArgumentException("Lista de investimentos não pode ser nula");
+        }
+        if (todosProdutos == null) {
+            throw new IllegalArgumentException("Lista de produtos não pode ser nula");
+        }
+        
+        // Se listas estão vazias, retorna lista vazia
+        if (investimentos.isEmpty() || todosProdutos.isEmpty()) {
+            return List.of();
+        }
+
         Map<Produto, Integer> contador = new HashMap<>();
 
         for (Investimento investimento : investimentos) {
             Produto produtoMaisProximo = null;
             double menorDistancia = Double.MAX_VALUE;
-            int peso = investimento.getValor().intValue();
+            // Aplicar peso logarítmico para evitar dominância excessiva de investimentos altos
+            int pesoBase = (int) (Math.log10(investimento.getValor().doubleValue() + 1) * 1000);
+            
+            // Aplicar decay temporal - investimentos recentes têm mais relevância
+            double decayFactor = 1.0; // Fator padrão se não houver data
+            if (investimento.getData() != null) {
+                long diasDesdeInvestimento = ChronoUnit.DAYS.between(investimento.getData(), LocalDate.now());
+                decayFactor = Math.exp(-diasDesdeInvestimento / 365.0); // Decay anual exponencial
+            }
+            int peso = (int) (pesoBase * decayFactor);
 
             for (Produto produto : todosProdutos) {
                 // IGNORA o "mesmo produto"
@@ -67,12 +91,31 @@ public class GeradorRecomendacaoML
             List<SimulacaoInvestimento> investimentos,
             List<Produto> todosProdutos)
     {
+        // Validações de entrada
+        if (investimentos == null) {
+            throw new IllegalArgumentException("Lista de simulações não pode ser nula");
+        }
+        if (todosProdutos == null) {
+            throw new IllegalArgumentException("Lista de produtos não pode ser nula");
+        }
+        
+        // Se listas estão vazias, retorna lista vazia
+        if (investimentos.isEmpty() || todosProdutos.isEmpty()) {
+            return List.of();
+        }
+
         Map<Produto, Integer> contador = new HashMap<>();
 
         for (SimulacaoInvestimento simulacao : investimentos) {
             Produto produtoMaisProximo = null;
             double menorDistancia = Double.MAX_VALUE;
-            int peso = simulacao.getValorInvestido().intValue();
+            // Aplicar peso logarítmico para evitar dominância excessiva de investimentos altos
+            int pesoBase = (int) (Math.log10(simulacao.getValorInvestido().doubleValue() + 1) * 1000);
+            
+            // Aplicar decay temporal - simulações recentes têm mais relevância
+            long diasDesdeSimulacao = ChronoUnit.DAYS.between(simulacao.getDataSimulacao().toLocalDate(), LocalDate.now());
+            double decayFactor = Math.exp(-diasDesdeSimulacao / 365.0); // Decay anual exponencial
+            int peso = (int) (pesoBase * decayFactor);
 
             for (Produto produto : todosProdutos) {
                 // IGNORA o "mesmo produto"
@@ -159,12 +202,19 @@ public class GeradorRecomendacaoML
             }
 
             tipoNorm = p.getTipo().getValor();
-            tipoRentNorm = 0.5;
-            periodoRentNorm = 0.5;
-            indiceNorm = 0.5;
-            liquidezNorm = 0.5;
+            // Usar características do produto simulado ao invés de valores neutros
+            tipoRentNorm = normalizarTipoRentabilidade(p.getTipoRentabilidade());
+            periodoRentNorm = normalizarPeriodoRentabilidade(p.getPeriodoRentabilidade());
+            indiceNorm = normalizarIndice(p.getIndice());
+            liquidezNorm = normalizar(
+                    p.getLiquidez() != null ? p.getLiquidez() : 0,
+                    -1, 365
+            );
             fgcNorm = p.getFgc() != null && p.getFgc() ? 1.0 : 0.0;
-            minimoInvNorm = 0.5;
+            minimoInvNorm = normalizar(
+                    p.getMinimoDiasInvestimento() != null ? p.getMinimoDiasInvestimento() : 0,
+                    0, 1800
+            );
         }
 
         else
@@ -175,7 +225,9 @@ public class GeradorRecomendacaoML
         }
 
         // === Valores normais do produto ===
-        double prodValorNorm = 0.5;
+        // Usar rentabilidade como proxy para faixa de valor (produtos mais rentáveis atraem investimentos maiores)
+        double prodValorNorm = produto.getRentabilidade() != null ? 
+            normalizar(produto.getRentabilidade().doubleValue() * 10000, 0, 1_000_000) : 0.5;
         double prodTipoNorm = normalizarTipoProduto(produto.getTipo());
         double prodTipoRentNorm = normalizarTipoRentabilidade(produto.getTipoRentabilidade());
         double prodPeriodoRentNorm = normalizarPeriodoRentabilidade(produto.getPeriodoRentabilidade());
@@ -248,33 +300,5 @@ public class GeradorRecomendacaoML
         };
     }
 
-    /**
-     * Infere tipo de produto baseado no nome da simulação
-     */
-    private double inferirTipoProdutoDeNome(String nomeProduto) {
-        String nome = nomeProduto.toUpperCase();
-        if (nome.contains("CDB")) return normalizarTipoProduto(TipoProduto.CDB);
-        if (nome.contains("LCI")) return normalizarTipoProduto(TipoProduto.LCI);
-        if (nome.contains("LCA")) return normalizarTipoProduto(TipoProduto.LCA);
-        if (nome.contains("TESOURO")) return normalizarTipoProduto(TipoProduto.TESOURO_DIRETO);
-        if (nome.contains("FUNDO")) return normalizarTipoProduto(TipoProduto.FUNDO);
-        if (nome.contains("POUPANÇA") || nome.contains("POUPANCA")) return normalizarTipoProduto(TipoProduto.POUPANCA);
-        return 0.5; // Valor neutro se não conseguir inferir
-    }
 
-    /**
-     * Infere se tem FGC baseado no nome da simulação
-     */
-    private double inferirFgcDeNome(String nomeProduto) {
-        String nome = nomeProduto.toUpperCase();
-        // Produtos que geralmente têm FGC
-        if (nome.contains("CDB") || nome.contains("LCI") || nome.contains("LCA") || nome.contains("POUPANÇA") || nome.contains("POUPANCA")) {
-            return 1.0;
-        }
-        // Produtos que geralmente não têm FGC
-        if (nome.contains("FUNDO") || nome.contains("TESOURO")) {
-            return 0.0;
-        }
-        return 0.5; // Valor neutro se não conseguir inferir
-    }
 }
