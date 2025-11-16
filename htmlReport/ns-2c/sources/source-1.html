@@ -1,0 +1,528 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SimulacaoInvestimentoService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.service.simulacao</a>
+</div>
+
+<h1>Coverage Summary for Class: SimulacaoInvestimentoService (br.gov.caixa.api.investimentos.service.simulacao)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SimulacaoInvestimentoService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    59,3%
+  </span>
+  <span class="absValue">
+    (32/54)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91,8%
+  </span>
+  <span class="absValue">
+    (101/110)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SimulacaoInvestimentoService$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">SimulacaoInvestimentoService$EstatisticasCliente</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (20/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    59,3%
+  </span>
+  <span class="absValue">
+    (32/54)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92%
+  </span>
+  <span class="absValue">
+    (103/112)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.service.simulacao;
+&nbsp;
+&nbsp;import br.gov.caixa.api.investimentos.ml.GeradorRecomendacaoML;
+&nbsp;import br.gov.caixa.api.investimentos.model.investimento.Investimento;
+&nbsp;import br.gov.caixa.api.investimentos.repository.investimento.IInvestimentoRepository;
+&nbsp;import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
+&nbsp;import jakarta.enterprise.context.ApplicationScoped;
+&nbsp;import jakarta.inject.Inject;
+&nbsp;import jakarta.transaction.Transactional;
+&nbsp;import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+&nbsp;import br.gov.caixa.api.investimentos.dto.simulacao.ResultadoSimulacao;
+&nbsp;import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
+&nbsp;import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+&nbsp;import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+&nbsp;import br.gov.caixa.api.investimentos.mapper.ProdutoMapper;
+&nbsp;import br.gov.caixa.api.investimentos.mapper.SimulacaoInvestimentoMapper;
+&nbsp;import br.gov.caixa.api.investimentos.model.produto.Produto;
+&nbsp;import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
+&nbsp;import br.gov.caixa.api.investimentos.repository.simulacao.ISimulacaoInvestimentoRepository;
+&nbsp;import br.gov.caixa.api.investimentos.service.produto.ProdutoService;
+&nbsp;import br.gov.caixa.api.investimentos.exception.produto.NenhumProdutoDisponivelException;
+&nbsp;
+&nbsp;import java.math.BigDecimal;
+&nbsp;import java.math.RoundingMode;
+&nbsp;import java.time.LocalDateTime;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;@ApplicationScoped
+<b class="fc">&nbsp;public class SimulacaoInvestimentoService {</b>
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    ProdutoService produtoService;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    ProdutoMapper produtoMapper;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    SimulacaoInvestimentoMapper simulacaoMapper;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    SimuladorIndices simuladorIndices;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    SimuladorMercado simuladorMercado;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    ISimulacaoInvestimentoRepository simulacaoRepository;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    IInvestimentoRepository investimentoRepository;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    IProdutoRepository produtoRepository;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    GeradorRecomendacaoML geradorRecomendacaoML;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Realiza a simulação de investimento e persiste o resultado
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    public SimulacaoResponse simularInvestimento(SimulacaoRequest request)
+&nbsp;    {
+&nbsp;        // 1. Encontrar o produto mais apropriado
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = encontrarProdutoMaisApropriado(request);</b>
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos_sugeridos = new ArrayList&lt;Produto&gt;();</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Investimento&gt; investimentos = investimentoRepository.findByClienteId(request.clienteId());</b>
+&nbsp;
+<b class="pc">&nbsp;        if (!investimentos.isEmpty())</b>
+&nbsp;        {
+<b class="nc">&nbsp;            produtos_sugeridos = geradorRecomendacaoML.encontrarProdutosOrdenadosPorAparicao(investimentos, produtos);</b>
+&nbsp;        }
+&nbsp;
+<b class="pc">&nbsp;        if (produtos_sugeridos.isEmpty())</b>
+&nbsp;        {
+<b class="fc">&nbsp;            produtos_sugeridos = geradorRecomendacaoML.encontrarProdutosOrdenadosPorAparicao(investimentos, produtos);</b>
+&nbsp;        }
+&nbsp;
+<b class="pc">&nbsp;        if (produtos_sugeridos.isEmpty())</b>
+&nbsp;        {
+<b class="fc">&nbsp;            produtos_sugeridos = produtos;</b>
+&nbsp;        }
+&nbsp;
+<b class="pc">&nbsp;        if (produtos_sugeridos.isEmpty())</b>
+&nbsp;        {
+<b class="nc">&nbsp;            throw new NenhumProdutoDisponivelException(&quot;Nenhum produto encontrado com os critérios informados&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Produto produto = produtos_sugeridos.getFirst();</b>
+&nbsp;
+&nbsp;        // 2. Calcular a simulação
+<b class="fc">&nbsp;        ResultadoSimulacao resultado = calcularSimulacao(request, produto);</b>
+&nbsp;
+&nbsp;        // 3. Persistir a simulação no banco de dados
+<b class="fc">&nbsp;        SimulacaoInvestimento simulacaoPersistida = persistirSimulacao(request, produto, resultado);</b>
+&nbsp;
+&nbsp;        // 4. Montar a resposta
+<b class="fc">&nbsp;        ProdutoResponse produtoResponse = produtoMapper.toResponse(produto);</b>
+&nbsp;        
+<b class="fc">&nbsp;        return new SimulacaoResponse(</b>
+&nbsp;                produtoResponse,
+&nbsp;                resultado,
+<b class="fc">&nbsp;                LocalDateTime.now(),</b>
+<b class="fc">&nbsp;                request.clienteId(),</b>
+<b class="fc">&nbsp;                simulacaoPersistida.getId() // Incluir ID da simulação persistida</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Encontra o produto mais apropriado baseado nos filtros da request
+&nbsp;     */
+&nbsp;    private List&lt;Produto&gt; encontrarProdutoMaisApropriado(SimulacaoRequest request)
+&nbsp;    {
+&nbsp;        // Se request possui produtoId, busca direto
+<b class="fc">&nbsp;        if (request.produtoId() != null)</b>
+&nbsp;        {
+<b class="fc">&nbsp;            Produto produto = produtoRepository.findById(request.produtoId());</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="pc">&nbsp;            if (produto != null) {</b>
+<b class="fc">&nbsp;                return List.of(produto);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.listAll();</b>
+&nbsp;
+&nbsp;        // Aplica filtros se informados - primeiro filtra produtos null
+<b class="fc">&nbsp;        return produtos.stream()</b>
+<b class="fc">&nbsp;                .filter(Objects::nonNull) // Remove produtos null</b>
+<b class="fc">&nbsp;                .filter(produto -&gt; filtrarPorNome(produto, request.nome()))</b>
+<b class="fc">&nbsp;                .filter(produto -&gt; filtrarPorTipo(produto, request.tipoProduto()))</b>
+<b class="fc">&nbsp;                .filter(produto -&gt; filtrarPorTipoRentabilidade(produto, request.tipoRentabilidade()))</b>
+<b class="fc">&nbsp;                .filter(produto -&gt; filtrarPorIndice(produto, request.indice()))</b>
+<b class="fc">&nbsp;                .filter(produto -&gt; filtrarPorLiquidez(produto, request.liquidez()))</b>
+<b class="fc">&nbsp;                .filter(produto -&gt; filtrarPorFgc(produto, request.fgc()))</b>
+<b class="fc">&nbsp;                .filter(produto -&gt; filtrarPorPrazoMinimo(produto, request.getPrazoEmDias()))</b>
+&nbsp;                // Ordena por melhor rentabilidade e menor risco
+<b class="fc">&nbsp;                .sorted(this::compararProdutos)</b>
+<b class="fc">&nbsp;                .toList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calcula o resultado da simulação financeira
+&nbsp;     */
+&nbsp;    private ResultadoSimulacao calcularSimulacao(SimulacaoRequest request, Produto produto) {
+<b class="fc">&nbsp;        BigDecimal valorInicial = request.valor();</b>
+<b class="fc">&nbsp;        int prazoMeses = request.getPrazoEmMeses();</b>
+&nbsp;
+&nbsp;        // Gera cenário de mercado para o período
+<b class="fc">&nbsp;        SimuladorMercado.CenarioMercado cenario = simuladorMercado.gerarCenario(produto.getTipo(), prazoMeses);</b>
+&nbsp;        
+&nbsp;        // Calcula a rentabilidade efetiva com simulação dinâmica
+<b class="fc">&nbsp;        BigDecimal rentabilidadeEfetiva = calcularRentabilidadeEfetiva(produto, prazoMeses, cenario);</b>
+&nbsp;        
+&nbsp;        // Calcula o valor final baseado no período de rentabilidade
+<b class="fc">&nbsp;        BigDecimal valorFinal = calcularValorFinal(valorInicial, rentabilidadeEfetiva, </b>
+<b class="fc">&nbsp;                                                  produto.getPeriodoRentabilidade(), prazoMeses);</b>
+&nbsp;
+<b class="fc">&nbsp;        BigDecimal rendimento = valorFinal.subtract(valorInicial);</b>
+&nbsp;
+<b class="fc">&nbsp;        return new ResultadoSimulacao(</b>
+<b class="fc">&nbsp;                valorFinal.setScale(2, RoundingMode.HALF_UP),</b>
+<b class="fc">&nbsp;                rentabilidadeEfetiva.setScale(4, RoundingMode.HALF_UP),</b>
+<b class="fc">&nbsp;                request.prazoMeses(),</b>
+<b class="fc">&nbsp;                request.prazoDias(),</b>
+<b class="fc">&nbsp;                request.prazoAnos(),</b>
+&nbsp;                valorInicial,
+<b class="fc">&nbsp;                rendimento.setScale(2, RoundingMode.HALF_UP),</b>
+<b class="fc">&nbsp;                true, // valorSimulado = true (valores são simulados dinamicamente)</b>
+<b class="fc">&nbsp;                cenario.getDescricao() // descrição do cenário simulado</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calcula a rentabilidade efetiva considerando o índice e simulação dinâmica
+&nbsp;     */
+&nbsp;    private BigDecimal calcularRentabilidadeEfetiva(Produto produto, int prazoMeses, 
+&nbsp;                                                   SimuladorMercado.CenarioMercado cenario) {
+<b class="fc">&nbsp;        BigDecimal rentabilidadeBase = produto.getRentabilidade();</b>
+&nbsp;
+&nbsp;        // Se for pós-fixado e tiver índice, usa simulação dinâmica
+<b class="fc">&nbsp;        if (TipoRentabilidade.POS.equals(produto.getTipoRentabilidade()) &amp;&amp; </b>
+<b class="pc">&nbsp;            produto.getIndice() != null &amp;&amp; !Indice.NENHUM.equals(produto.getIndice())) {</b>
+&nbsp;            
+&nbsp;            // Para pós-fixado: usa simulação dinâmica do índice
+&nbsp;            // Ex: 105% do CDI simulado = rentabilidade * taxa_simulada_do_cdi
+<b class="fc">&nbsp;            BigDecimal taxaIndiceSimulada = simuladorIndices.getTaxaSimulada(produto.getIndice(), prazoMeses);</b>
+&nbsp;            
+&nbsp;            // Aplica o cenário de mercado à taxa simulada
+<b class="fc">&nbsp;            BigDecimal taxaAjustada = simuladorMercado.ajustarRentabilidadePorCenario(</b>
+<b class="fc">&nbsp;                taxaIndiceSimulada, cenario, produto.getTipoRentabilidade()</b>
+&nbsp;            );
+&nbsp;            
+<b class="fc">&nbsp;            return rentabilidadeBase.multiply(taxaAjustada).divide(new BigDecimal(&quot;100&quot;), 4, RoundingMode.HALF_UP);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Para pré-fixado, ainda aplica o cenário de mercado
+<b class="fc">&nbsp;        return simuladorMercado.ajustarRentabilidadePorCenario(</b>
+<b class="fc">&nbsp;            rentabilidadeBase, cenario, produto.getTipoRentabilidade()</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calcula o valor final baseado na rentabilidade e período
+&nbsp;     */
+&nbsp;    private BigDecimal calcularValorFinal(BigDecimal valorInicial, BigDecimal rentabilidade,
+&nbsp;                                          PeriodoRentabilidade periodo, int prazoMeses) {
+&nbsp;        
+<b class="fc">&nbsp;        BigDecimal taxaDecimal = rentabilidade.divide(new BigDecimal(&quot;100&quot;), 6, RoundingMode.HALF_UP);</b>
+&nbsp;        
+<b class="pc">&nbsp;        switch (periodo) {</b>
+&nbsp;            case AO_DIA:
+&nbsp;                // Juros compostos diários
+<b class="nc">&nbsp;                int dias = prazoMeses * 30;</b>
+<b class="nc">&nbsp;                BigDecimal taxaDiaria = taxaDecimal.divide(new BigDecimal(&quot;365&quot;), 8, RoundingMode.HALF_UP);</b>
+<b class="nc">&nbsp;                return valorInicial.multiply(</b>
+<b class="nc">&nbsp;                    BigDecimal.ONE.add(taxaDiaria).pow(dias)</b>
+&nbsp;                );
+&nbsp;                
+&nbsp;            case AO_MES:
+&nbsp;                // Juros compostos mensais
+<b class="fc">&nbsp;                BigDecimal taxaMensal = taxaDecimal.divide(new BigDecimal(&quot;12&quot;), 6, RoundingMode.HALF_UP);</b>
+<b class="fc">&nbsp;                return valorInicial.multiply(</b>
+<b class="fc">&nbsp;                    BigDecimal.ONE.add(taxaMensal).pow(prazoMeses)</b>
+&nbsp;                );
+&nbsp;                
+&nbsp;            case AO_ANO:
+&nbsp;                // Juros compostos anuais
+<b class="fc">&nbsp;                double anos = prazoMeses / 12.0;</b>
+<b class="fc">&nbsp;                return valorInicial.multiply(</b>
+<b class="fc">&nbsp;                    BigDecimal.ONE.add(taxaDecimal).pow((int)Math.ceil(anos))</b>
+&nbsp;                );
+&nbsp;                
+&nbsp;            case PERIODO_TOTAL:
+&nbsp;                // Rentabilidade sobre o período total
+<b class="nc">&nbsp;                return valorInicial.multiply(BigDecimal.ONE.add(taxaDecimal));</b>
+&nbsp;                
+&nbsp;            default:
+<b class="nc">&nbsp;                return valorInicial.multiply(BigDecimal.ONE.add(taxaDecimal));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Métodos de filtro
+&nbsp;    private boolean filtrarPorNome(Produto produto, String nome)
+&nbsp;    {
+<b class="pc">&nbsp;        if (produto == null) return false;</b>
+<b class="fc">&nbsp;        return nome == null || produto.getNome().equals(nome);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean filtrarPorTipo(Produto produto, TipoProduto tipo) {
+<b class="pc">&nbsp;        if (produto == null) return false;</b>
+<b class="pc">&nbsp;        return tipo == null || produto.getTipo().equals(tipo);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean filtrarPorTipoRentabilidade(Produto produto, TipoRentabilidade tipo) {
+<b class="pc">&nbsp;        if (produto == null) return false;</b>
+<b class="pc">&nbsp;        return tipo == null || produto.getTipoRentabilidade().equals(tipo);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean filtrarPorIndice(Produto produto, Indice indice) {
+<b class="pc">&nbsp;        if (produto == null) return false;</b>
+<b class="pc">&nbsp;        return indice == null || produto.getIndice().equals(indice);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean filtrarPorLiquidez(Produto produto, Integer liquidez) {
+<b class="pc">&nbsp;        if (produto == null) return false;</b>
+<b class="fc">&nbsp;        return liquidez == null || produto.getLiquidez().equals(liquidez);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean filtrarPorFgc(Produto produto, Boolean fgc) {
+<b class="pc">&nbsp;        if (produto == null) return false;</b>
+<b class="pc">&nbsp;        return fgc == null || produto.getFgc().equals(fgc);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean filtrarPorPrazoMinimo(Produto produto, int prazoDias) {
+<b class="pc">&nbsp;        if (produto == null) return false;</b>
+<b class="pc">&nbsp;        return produto.getMinimoDiasInvestimento() &lt;= prazoDias;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compara produtos para encontrar o melhor (maior rentabilidade, menor risco)
+&nbsp;     */
+&nbsp;    private int compararProdutos(Produto p1, Produto p2) {
+&nbsp;        // Prioridade: 1. Menor risco, 2. Maior rentabilidade
+<b class="fc">&nbsp;        int risco1 = p1.getRisco().ordinal();</b>
+<b class="fc">&nbsp;        int risco2 = p2.getRisco().ordinal();</b>
+&nbsp;        
+<b class="fc">&nbsp;        if (risco1 != risco2) {</b>
+<b class="fc">&nbsp;            return Integer.compare(risco1, risco2); // Menor risco primeiro</b>
+&nbsp;        }
+&nbsp;        
+&nbsp;        // Se mesmo risco, maior rentabilidade primeiro
+<b class="fc">&nbsp;        return p2.getRentabilidade().compareTo(p1.getRentabilidade());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Persiste a simulação realizada no banco de dados
+&nbsp;     */
+&nbsp;    private SimulacaoInvestimento persistirSimulacao(SimulacaoRequest request, 
+&nbsp;                                                   Produto produto, 
+&nbsp;                                                   ResultadoSimulacao resultado) {
+&nbsp;        
+<b class="fc">&nbsp;        SimulacaoInvestimento simulacao = simulacaoMapper.toEntity(</b>
+<b class="fc">&nbsp;                request.clienteId(),</b>
+<b class="fc">&nbsp;                produto.getId(),</b>
+<b class="fc">&nbsp;                produto.getNome(),</b>
+<b class="fc">&nbsp;                request.valor(),</b>
+&nbsp;                resultado
+&nbsp;        );
+&nbsp;        
+&nbsp;        // Persiste no banco
+<b class="fc">&nbsp;        simulacaoRepository.persist(simulacao);</b>
+&nbsp;        
+<b class="fc">&nbsp;        return simulacao;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca histórico de simulações de um cliente
+&nbsp;     */
+&nbsp;    public List&lt;SimulacaoInvestimento&gt; buscarSimulacoesPorCliente(Long clienteId) {
+<b class="fc">&nbsp;        return simulacaoRepository.findByClienteIdOrderByDate(clienteId);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca uma simulação específica por ID
+&nbsp;     */
+&nbsp;    public SimulacaoInvestimento buscarSimulacaoPorId(Long id) {
+<b class="fc">&nbsp;        return simulacaoRepository.findById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Estatísticas de simulações por cliente
+&nbsp;     */
+<b class="fc">&nbsp;    public record EstatisticasCliente(</b>
+&nbsp;            Long totalSimulacoes,
+&nbsp;            BigDecimal totalInvestido,
+&nbsp;            BigDecimal mediaValorInvestido,
+&nbsp;            SimulacaoInvestimento ultimaSimulacao
+&nbsp;    ) {}
+&nbsp;
+&nbsp;    public EstatisticasCliente getEstatisticasCliente(Long clienteId) {
+<b class="fc">&nbsp;        long totalSimulacoes = simulacaoRepository.countByClienteId(clienteId);</b>
+<b class="fc">&nbsp;        BigDecimal totalInvestido = simulacaoRepository.getTotalInvestidoByClienteId(clienteId);</b>
+<b class="pc">&nbsp;        BigDecimal mediaValorInvestido = totalSimulacoes &gt; 0 ? </b>
+<b class="fc">&nbsp;                totalInvestido.divide(BigDecimal.valueOf(totalSimulacoes), 2, RoundingMode.HALF_UP) : </b>
+<b class="nc">&nbsp;                BigDecimal.ZERO;</b>
+<b class="fc">&nbsp;        SimulacaoInvestimento ultimaSimulacao = simulacaoRepository.findLastByClienteId(clienteId);</b>
+&nbsp;
+<b class="fc">&nbsp;        return new EstatisticasCliente(totalSimulacoes, totalInvestido, mediaValorInvestido, ultimaSimulacao);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-16 11:31</div>
+</div>
+</body>
+</html>

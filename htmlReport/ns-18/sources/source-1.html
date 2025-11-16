@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PessoaRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.repository.cliente</a>
+</div>
+
+<h1>Coverage Summary for Class: PessoaRepository (br.gov.caixa.api.investimentos.repository.cliente)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PessoaRepository</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.repository.cliente;
+&nbsp;
+&nbsp;import jakarta.enterprise.context.ApplicationScoped;
+&nbsp;import br.gov.caixa.api.investimentos.model.cliente.Pessoa;
+&nbsp;
+&nbsp;/**
+&nbsp; * Repository para operações de banco de dados da entidade Pessoa
+&nbsp; */
+&nbsp;@ApplicationScoped
+<b class="fc">&nbsp;public class PessoaRepository implements IPessoaRepository {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca pessoa por CPF
+&nbsp;     */
+&nbsp;    public Pessoa findByCpf(String cpf) {
+<b class="fc">&nbsp;        return find(&quot;cpf&quot;, cpf).firstResult();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca pessoa por username
+&nbsp;     */
+&nbsp;    public Pessoa findByUsername(String username) {
+<b class="fc">&nbsp;        return find(&quot;username&quot;, username).firstResult();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Verifica se CPF já existe
+&nbsp;     */
+&nbsp;    public boolean existsByCpf(String cpf) {
+<b class="fc">&nbsp;        return count(&quot;cpf&quot;, cpf) &gt; 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Verifica se username já existe
+&nbsp;     */
+&nbsp;    public boolean existsByUsername(String username) {
+<b class="fc">&nbsp;        return count(&quot;username&quot;, username) &gt; 0;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-16 11:31</div>
+</div>
+</body>
+</html>

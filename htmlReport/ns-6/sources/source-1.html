@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ProdutoRequest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.dto.produto</a>
+</div>
+
+<h1>Coverage Summary for Class: ProdutoRequest (br.gov.caixa.api.investimentos.dto.produto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProdutoRequest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.dto.produto;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.annotation.JsonProperty;
+&nbsp;import jakarta.validation.constraints.*;
+&nbsp;import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+&nbsp;import br.gov.caixa.api.investimentos.validation.ValidRentabilidadeIndice;
+&nbsp;
+&nbsp;import java.math.BigDecimal;
+&nbsp;
+&nbsp;/**
+&nbsp; * DTO para requisições de criação/atualização de produtos
+&nbsp; */
+<b class="fc">&nbsp;@ValidRentabilidadeIndice</b>
+<b class="fc">&nbsp;public record ProdutoRequest(</b>
+&nbsp;        @NotBlank(message = &quot;Nome é obrigatório&quot;)
+&nbsp;        @Size(min = 2, max = 255, message = &quot;Nome deve ter entre 2 e 255 caracteres&quot;)
+&nbsp;        String nome,
+&nbsp;
+&nbsp;        @NotNull(message = &quot;Tipo do produto é obrigatório&quot;)
+&nbsp;        TipoProduto tipo,
+&nbsp;
+&nbsp;        @NotNull(message = &quot;Tipo de rentabilidade é obrigatório&quot;)
+&nbsp;        @JsonProperty(&quot;tipo_rentabilidade&quot;)
+&nbsp;        TipoRentabilidade tipoRentabilidade,
+&nbsp;
+&nbsp;        @NotNull(message = &quot;Rentabilidade é obrigatória&quot;)
+&nbsp;        @DecimalMin(value = &quot;0.0&quot;, message = &quot;Rentabilidade deve ser maior ou igual a zero&quot;)
+&nbsp;        BigDecimal rentabilidade,
+&nbsp;
+&nbsp;        @NotNull(message = &quot;Período de rentabilidade é obrigatório&quot;)
+&nbsp;        @JsonProperty(&quot;periodo_rentabilidade&quot;)
+&nbsp;        PeriodoRentabilidade periodoRentabilidade,
+&nbsp;
+&nbsp;        Indice indice,
+&nbsp;
+&nbsp;        @NotNull(message = &quot;Liquidez é obrigatória&quot;)
+&nbsp;        @Min(value = -1, message = &quot;Liquidez deve ser -1 (sem liquidez) ou &gt;= 0&quot;)
+&nbsp;        Integer liquidez,
+&nbsp;
+&nbsp;        @NotNull(message = &quot;Mínimo de dias de investimento é obrigatório&quot;)
+&nbsp;        @Min(value = 0, message = &quot;Mínimo de dias de investimento deve ser &gt;= 0&quot;)
+&nbsp;        @JsonProperty(&quot;minimo_dias_investimento&quot;)
+&nbsp;        Integer minimoDiasInvestimento,
+&nbsp;
+&nbsp;        @NotNull(message = &quot;FGC é obrigatório&quot;)
+&nbsp;        Boolean fgc
+&nbsp;) {}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-16 11:31</div>
+</div>
+</body>
+</html>

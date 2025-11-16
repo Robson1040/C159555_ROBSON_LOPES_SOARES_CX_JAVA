@@ -32,3 +32,69 @@ O validarRegrasNegocio não deve estar no resource. crie anotações de validaç
 (OK) Os atributos de todos os models devem ser private.
 (OK) Os dados devem ser acessados por getters and setters.
 
+(OK) Os mappers são responsáveis por converter DTO em MODEL e vice versa.
+(OK) Garanta que o projeto segue 100% essa premissa.
+(OK) Não deve ter outra classe fazendo esse papel.
+
+Responda objetivamente. Tem uma forma mais inteligente de fazer os mappers? Cite 3 opções.
+
+Crie uma documentação dos endpoints do AutenticacaoResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+
+
+Crie uma documentação dos endpoints do ClienteResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+
+Crie uma documentação dos endpoints do TelemetriaResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+Inclua uma relação de status code e todas as mensagens possíveis, por endpoint.
+
+Crie uma documentação dos endpoints do PerfilRiscoResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+Inclua uma relação de status code e todas as mensagens possíveis, por endpoint.
+
+Crie uma documentação dos endpoints do ProdutoRecomendadoResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+
+Crie uma documentação dos endpoints do SimulacaoInvestimentoResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+Inclua uma relação de status code e todas as mensagens possíveis, por endpoint.
+
+Crie uma documentação dos endpoints do SimulacaoInvestimentoResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+Inclua uma relação de status code e todas as mensagens possíveis, por endpoint.
+
+Crie uma documentação dos endpoints do SimulacaoResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+Inclua uma relação de status code e todas as mensagens possíveis, por endpoint.
+
+Crie uma documentação dos endpoints do ProdutoResource.
+Deve descrever todas as entradas possíveis.
+Todos os retornos possíveis.
+Todos os status code possívels.
+Se exibe token ou não. Se exigir, qual a ROLE.
+Inclua uma relação de status code e todas as mensagens possíveis, por endpoint.

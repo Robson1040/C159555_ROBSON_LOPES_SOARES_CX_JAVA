@@ -1,0 +1,207 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TelemetriaResource</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.resource.telemetria</a>
+</div>
+
+<h1>Coverage Summary for Class: TelemetriaResource (br.gov.caixa.api.investimentos.resource.telemetria)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TelemetriaResource</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (25/25)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">TelemetriaResource$quarkusrestinvoker$limparMetricas_cead0a1c254fbe7c22256eb17751478aae3362cb</td>
+  </tr>
+  <tr>
+    <td class="name">TelemetriaResource$quarkusrestinvoker$obterMaisAcessados_a95a085a0ecc7a2bf7d08f321e87aed8f48eeb07</td>
+  </tr>
+  <tr>
+    <td class="name">TelemetriaResource$quarkusrestinvoker$obterTelemetria_b3b8dc190e997bd62fc237bd7ee5547819f8ce40</td>
+  </tr>
+  <tr>
+    <td class="name">TelemetriaResource$quarkusrestinvoker$obterTelemetriaDetalhada_93dadf63e56d4a9d55573aa395e11fcdc1c1def3</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (25/25)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.resource.telemetria;
+&nbsp;
+&nbsp;import jakarta.annotation.security.RolesAllowed;
+&nbsp;import br.gov.caixa.api.investimentos.dto.telemetria.TelemetriaResponse;
+&nbsp;import br.gov.caixa.api.investimentos.service.telemetria.TelemetriaService;
+&nbsp;import br.gov.caixa.api.investimentos.repository.telemetria.TelemetriaMetricaRepository;
+&nbsp;import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetrica;
+&nbsp;import jakarta.inject.Inject;
+&nbsp;import jakarta.ws.rs.GET;
+&nbsp;import jakarta.ws.rs.Path;
+&nbsp;import jakarta.ws.rs.PathParam;
+&nbsp;import jakarta.ws.rs.Produces;
+&nbsp;import jakarta.ws.rs.DELETE;
+&nbsp;import jakarta.ws.rs.core.MediaType;
+&nbsp;import jakarta.ws.rs.core.Response;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Path(&quot;/telemetria&quot;)
+&nbsp;@RolesAllowed({&quot;ADMIN&quot;})
+<b class="fc">&nbsp;public class TelemetriaResource {</b>
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    TelemetriaService telemetriaService;
+&nbsp;    
+&nbsp;    @Inject
+&nbsp;    TelemetriaMetricaRepository telemetriaRepository;
+&nbsp;
+&nbsp;    @GET
+&nbsp;    @Produces(MediaType.APPLICATION_JSON)
+&nbsp;    public Response obterTelemetria() {
+&nbsp;        try {
+<b class="fc">&nbsp;            TelemetriaResponse telemetria = telemetriaService.obterTelemetria();</b>
+<b class="fc">&nbsp;            return Response.ok(telemetria).build();</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)</b>
+<b class="fc">&nbsp;                    .entity(&quot;Erro ao obter telemetria: &quot; + e.getMessage())</b>
+<b class="fc">&nbsp;                    .build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    
+&nbsp;    @GET
+&nbsp;    @Path(&quot;/detalhado&quot;)
+&nbsp;    @Produces(MediaType.APPLICATION_JSON)
+&nbsp;    public Response obterTelemetriaDetalhada() {
+&nbsp;        try {
+<b class="fc">&nbsp;            List&lt;TelemetriaMetrica&gt; metricas = telemetriaRepository.listAll();</b>
+<b class="fc">&nbsp;            return Response.ok(metricas).build();</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)</b>
+<b class="fc">&nbsp;                    .entity(&quot;Erro ao obter telemetria detalhada: &quot; + e.getMessage())</b>
+<b class="fc">&nbsp;                    .build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    
+&nbsp;    @GET
+&nbsp;    @Path(&quot;/mais-acessados/{limite}&quot;)
+&nbsp;    @Produces(MediaType.APPLICATION_JSON)
+&nbsp;    public Response obterMaisAcessados(@PathParam(&quot;limite&quot;) int limite) {
+&nbsp;        try {
+<b class="fc">&nbsp;            List&lt;TelemetriaMetrica&gt; metricas = telemetriaRepository.listarMaisAcessadas(limite);</b>
+<b class="fc">&nbsp;            return Response.ok(metricas).build();</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)</b>
+<b class="fc">&nbsp;                    .entity(&quot;Erro ao obter endpoints mais acessados: &quot; + e.getMessage())</b>
+<b class="fc">&nbsp;                    .build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    
+&nbsp;    @DELETE
+&nbsp;    @Path(&quot;/limpar&quot;)
+&nbsp;    @Produces(MediaType.APPLICATION_JSON)
+&nbsp;    public Response limparMetricas() {
+&nbsp;        try {
+<b class="fc">&nbsp;            telemetriaRepository.limparTodasMetricas();</b>
+&nbsp;
+<b class="fc">&nbsp;            return Response.status(Response.Status.NO_CONTENT).build();</b>
+&nbsp;
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)</b>
+<b class="fc">&nbsp;                    .entity(&quot;Erro ao limpar métricas: &quot; + e.getMessage())</b>
+<b class="fc">&nbsp;                    .build();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-16 11:31</div>
+</div>
+</body>
+</html>
