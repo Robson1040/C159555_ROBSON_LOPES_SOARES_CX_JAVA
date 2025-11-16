@@ -195,15 +195,15 @@ public class ProdutoService {
      * Validações de negócio específicas
      */
     private void validarDadosProduto(ProdutoRequest request) {
-        // Validação: Se for pós-fixado, deve ter um índice válido (diferente de NENHUM)
+        // Validação: Se for pós-fixado, deve ter um índice válido (não null e diferente de NENHUM)
         if (request.tipoRentabilidade() == TipoRentabilidade.POS && 
-            request.indice().name().equals("NENHUM")) {
+            (request.indice() == null || request.indice().name().equals("NENHUM"))) {
             throw new IllegalArgumentException("Produtos pós-fixados devem ter um índice válido");
         }
 
-        // Validação: Se for pré-fixado, o índice deve ser NENHUM
+        // Validação: Se for pré-fixado, o índice deve ser null ou NENHUM
         if (request.tipoRentabilidade() == TipoRentabilidade.PRE && 
-            !request.indice().name().equals("NENHUM")) {
+            request.indice() != null && !request.indice().name().equals("NENHUM")) {
             throw new IllegalArgumentException("Produtos pré-fixados não devem ter índice");
         }
 
