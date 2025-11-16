@@ -98,7 +98,9 @@ public class SimulacaoInvestimentoResource {
         if (simulacao == null) {
             throw new RuntimeException("Simulação não encontrada com ID: " + id);
         }
-        
+
+        System.out.println("SIMULACAO id" + simulacao.getClienteId());
+
         // Verificar se o usuário pode acessar esta simulação
         authHelper.validarAcessoAoCliente(jwt, simulacao.getClienteId());
         

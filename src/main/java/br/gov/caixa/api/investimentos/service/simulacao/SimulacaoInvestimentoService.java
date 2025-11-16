@@ -64,10 +64,12 @@ public class SimulacaoInvestimentoService {
      * Realiza a simulação de investimento e persiste o resultado
      */
     @Transactional
-    public SimulacaoResponse simularInvestimento(SimulacaoRequest request) {
+    public SimulacaoResponse simularInvestimento(SimulacaoRequest request)
+    {
         // 1. Encontrar o produto mais apropriado
         List<Produto> produtos = encontrarProdutoMaisApropriado(request);
         List<Produto> produtos_sugeridos = new ArrayList<Produto>();
+
 
         List<Investimento> investimentos = investimentoRepository.findByClienteId(request.clienteId());
 
@@ -116,16 +118,19 @@ public class SimulacaoInvestimentoService {
      */
     private List<Produto> encontrarProdutoMaisApropriado(SimulacaoRequest request)
     {
-        List<Produto> produtos = produtoRepository.listAll();
-
         // Se request possui produtoId, busca direto
         if (request.produtoId() != null)
         {
             Produto produto = produtoRepository.findById(request.produtoId());
+
+
+
             if (produto != null) {
                 return List.of(produto);
             }
         }
+
+        List<Produto> produtos = produtoRepository.listAll();
 
         // Aplica filtros se informados - primeiro filtra produtos null
         return produtos.stream()

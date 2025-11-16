@@ -56,7 +56,7 @@ public record SimulacaoRequest(
         Indice indice,
 
         @JsonProperty("liquidez")
-        @NotNull(message = "Liquidez é obrigatória")
+        //@NotNull(message = "Liquidez é obrigatória")
         @Min(value = -1, message = "Liquidez deve ser -1 (sem liquidez) ou >= 0")
         Integer liquidez,
 
