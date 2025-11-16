@@ -1,0 +1,183 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TributacaoService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.service.compliance</a>
+</div>
+
+<h1>Coverage Summary for Class: TributacaoService (br.gov.caixa.api.investimentos.service.compliance)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TributacaoService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92,9%
+  </span>
+  <span class="absValue">
+    (13/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95,5%
+  </span>
+  <span class="absValue">
+    (21/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.service.compliance;
+&nbsp;
+&nbsp;import jakarta.enterprise.context.ApplicationScoped;
+&nbsp;import java.math.BigDecimal;
+&nbsp;import java.math.RoundingMode;
+&nbsp;
+&nbsp;/**
+&nbsp; * Serviço para cálculos de tributação em investimentos
+&nbsp; * Implementa as regras do IR e IOF conforme legislação brasileira
+&nbsp; */
+&nbsp;@ApplicationScoped
+<b class="fc">&nbsp;public class TributacaoService {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calcula Imposto de Renda sobre rendimentos de investimentos
+&nbsp;     * Tabela regressiva conforme Lei 11.033/2004
+&nbsp;     */
+&nbsp;    public BigDecimal calcularIR(BigDecimal rendimento, int prazoDias) {
+<b class="fc">&nbsp;        if (rendimento.compareTo(BigDecimal.ZERO) &lt;= 0) {</b>
+<b class="fc">&nbsp;            return BigDecimal.ZERO;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        BigDecimal aliquota;
+<b class="fc">&nbsp;        if (prazoDias &lt;= 180) {</b>
+<b class="fc">&nbsp;            aliquota = new BigDecimal(&quot;0.225&quot;); // 22,5%</b>
+<b class="fc">&nbsp;        } else if (prazoDias &lt;= 360) {</b>
+<b class="fc">&nbsp;            aliquota = new BigDecimal(&quot;0.20&quot;);  // 20%</b>
+<b class="fc">&nbsp;        } else if (prazoDias &lt;= 720) {</b>
+<b class="fc">&nbsp;            aliquota = new BigDecimal(&quot;0.175&quot;); // 17,5%</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            aliquota = new BigDecimal(&quot;0.15&quot;);  // 15%</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return rendimento.multiply(aliquota).setScale(2, RoundingMode.HALF_UP);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calcula IOF sobre rendimentos até 30 dias
+&nbsp;     * Tabela regressiva IOF conforme Decreto 6.306/2007
+&nbsp;     */
+&nbsp;    public BigDecimal calcularIOF(BigDecimal rendimento, int prazoDias) {
+<b class="fc">&nbsp;        if (prazoDias &gt;= 30 || rendimento.compareTo(BigDecimal.ZERO) &lt;= 0) {</b>
+<b class="fc">&nbsp;            return BigDecimal.ZERO;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // IOF regressivo: 96% (1 dia) até 0% (30 dias)
+<b class="fc">&nbsp;        BigDecimal percentualIOF = new BigDecimal(&quot;96&quot;)</b>
+<b class="fc">&nbsp;            .subtract(new BigDecimal(prazoDias - 1).multiply(new BigDecimal(&quot;3.33&quot;)))</b>
+<b class="fc">&nbsp;            .divide(new BigDecimal(&quot;100&quot;), 4, RoundingMode.HALF_UP);</b>
+&nbsp;
+<b class="pc">&nbsp;        if (percentualIOF.compareTo(BigDecimal.ZERO) &lt; 0) {</b>
+<b class="nc">&nbsp;            percentualIOF = BigDecimal.ZERO;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return rendimento.multiply(percentualIOF).setScale(2, RoundingMode.HALF_UP);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calcula rendimento líquido após IR e IOF
+&nbsp;     */
+&nbsp;    public BigDecimal calcularRendimentoLiquido(BigDecimal rendimentoBruto, int prazoDias) {
+<b class="fc">&nbsp;        BigDecimal ir = calcularIR(rendimentoBruto, prazoDias);</b>
+<b class="fc">&nbsp;        BigDecimal iof = calcularIOF(rendimentoBruto, prazoDias);</b>
+&nbsp;        
+<b class="fc">&nbsp;        return rendimentoBruto.subtract(ir).subtract(iof);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-16 12:04</div>
+</div>
+</body>
+</html>

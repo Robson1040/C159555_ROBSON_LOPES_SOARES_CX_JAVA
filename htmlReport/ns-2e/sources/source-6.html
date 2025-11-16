@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > ValidRentabilidadeIndice</title>
+  <title>Coverage Report > ValidPrazo</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">br.gov.caixa.api.investimentos.validation</a>
 </div>
 
-<h1>Coverage Summary for Class: ValidRentabilidadeIndice (br.gov.caixa.api.investimentos.validation)</h1>
+<h1>Coverage Summary for Class: ValidPrazo (br.gov.caixa.api.investimentos.validation)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">ValidRentabilidadeIndice</td>
+  <td class="name">ValidPrazo</td>
 </tr>
 
 </table>
@@ -47,23 +47,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.lang.annotation.*;
 &nbsp;
 &nbsp;/**
-&nbsp; * Validação customizada para verificar se produtos com rentabilidade pós-fixada
-&nbsp; * possuem um índice obrigatoriamente associado.
-&nbsp; * 
-&nbsp; * Regras:
-&nbsp; * - TipoRentabilidade.POS: índice é obrigatório (não pode ser null ou NENHUM)
-&nbsp; * - TipoRentabilidade.PRE: índice é opcional (pode ser null ou NENHUM)
+&nbsp; * Validação customizada para garantir que pelo menos um campo de prazo seja informado
+&nbsp; * na SimulacaoRequest (prazoMeses, prazoDias ou prazoAnos)
 &nbsp; */
 &nbsp;@Documented
-&nbsp;@Constraint(validatedBy = RentabilidadeIndiceValidator.class)
+&nbsp;@Constraint(validatedBy = ValidPrazoValidator.class)
 &nbsp;@Target({ElementType.TYPE})
 &nbsp;@Retention(RetentionPolicy.RUNTIME)
-&nbsp;public @interface ValidRentabilidadeIndice {
-&nbsp;    
-&nbsp;    String message() default &quot;Produtos com rentabilidade pós-fixada devem ter um índice associado&quot;;
-&nbsp;    
+&nbsp;public @interface ValidPrazo {
+&nbsp;    String message() default &quot;Pelo menos um prazo deve ser informado (prazoMeses, prazoDias ou prazoAnos)&quot;;
 &nbsp;    Class&lt;?&gt;[] groups() default {};
-&nbsp;    
 &nbsp;    Class&lt;? extends Payload&gt;[] payload() default {};
 &nbsp;}
 </code>
@@ -89,7 +82,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 11:31</div>
+    <div style="float:right;">generated on 2025-11-16 12:04</div>
 </div>
 </body>
 </html>

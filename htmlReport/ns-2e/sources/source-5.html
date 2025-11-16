@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > ValidPrazo</title>
+  <title>Coverage Report > ValidCPF</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">br.gov.caixa.api.investimentos.validation</a>
 </div>
 
-<h1>Coverage Summary for Class: ValidPrazo (br.gov.caixa.api.investimentos.validation)</h1>
+<h1>Coverage Summary for Class: ValidCPF (br.gov.caixa.api.investimentos.validation)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">ValidPrazo</td>
+  <td class="name">ValidCPF</td>
 </tr>
 
 </table>
@@ -46,16 +46,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import java.lang.annotation.*;
 &nbsp;
-&nbsp;/**
-&nbsp; * Validação customizada para garantir que pelo menos um campo de prazo seja informado
-&nbsp; * na SimulacaoRequest (prazoMeses, prazoDias ou prazoAnos)
-&nbsp; */
 &nbsp;@Documented
-&nbsp;@Constraint(validatedBy = ValidPrazoValidator.class)
-&nbsp;@Target({ElementType.TYPE})
+&nbsp;@Constraint(validatedBy = CPFValidator.class)
+&nbsp;@Target({ ElementType.FIELD, ElementType.PARAMETER })
 &nbsp;@Retention(RetentionPolicy.RUNTIME)
-&nbsp;public @interface ValidPrazo {
-&nbsp;    String message() default &quot;Pelo menos um prazo deve ser informado (prazoMeses, prazoDias ou prazoAnos)&quot;;
+&nbsp;public @interface ValidCPF {
+&nbsp;    String message() default &quot;CPF inválido&quot;;
 &nbsp;    Class&lt;?&gt;[] groups() default {};
 &nbsp;    Class&lt;? extends Payload&gt;[] payload() default {};
 &nbsp;}
@@ -82,7 +78,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 11:31</div>
+    <div style="float:right;">generated on 2025-11-16 12:04</div>
 </div>
 </body>
 </html>

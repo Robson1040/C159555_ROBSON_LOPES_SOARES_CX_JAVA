@@ -64,18 +64,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (9/18)
+    (18/18)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    83,3%
+    100%
   </span>
   <span class="absValue">
-    (25/30)
+    (30/30)
   </span>
 </td>
 </tr>
@@ -105,8 +105,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Converte uma entidade Pessoa para ClienteResponse
 &nbsp;     */
 &nbsp;    public ClienteResponse toClienteResponse(Pessoa pessoa) {
-<b class="pc">&nbsp;        if (pessoa == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (pessoa == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return new ClienteResponse(</b>
@@ -122,12 +122,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Converte uma lista de entidades Pessoa para uma lista de ClienteResponse
 &nbsp;     */
 &nbsp;    public List&lt;ClienteResponse&gt; toClienteResponseList(List&lt;Pessoa&gt; pessoas) {
-<b class="pc">&nbsp;        if (pessoas == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (pessoas == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return pessoas.stream()</b>
-<b class="pc">&nbsp;                .filter(pessoa -&gt; pessoa != null)</b>
+<b class="fc">&nbsp;                .filter(pessoa -&gt; pessoa != null)</b>
 <b class="fc">&nbsp;                .map(this::toClienteResponse)</b>
 <b class="fc">&nbsp;                .collect(Collectors.toList());</b>
 &nbsp;    }
@@ -136,8 +136,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Converte um ClienteRequest para entidade Pessoa
 &nbsp;     */
 &nbsp;    public Pessoa toEntity(ClienteRequest request) {
-<b class="pc">&nbsp;        if (request == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (request == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return new Pessoa(</b>
@@ -153,18 +153,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Atualiza uma entidade Pessoa existente com dados de um ClienteUpdateRequest
 &nbsp;     */
 &nbsp;    public void updateEntityFromRequest(Pessoa pessoa, ClienteUpdateRequest request) {
-<b class="pc">&nbsp;        if (pessoa == null || request == null) {</b>
+<b class="fc">&nbsp;        if (pessoa == null || request == null) {</b>
 &nbsp;            return;
 &nbsp;        }
 &nbsp;
-<b class="pc">&nbsp;        if (request.nome() != null) {</b>
-<b class="nc">&nbsp;            pessoa.setNome(request.nome());</b>
+<b class="fc">&nbsp;        if (request.nome() != null) {</b>
+<b class="fc">&nbsp;            pessoa.setNome(request.nome());</b>
 &nbsp;        }
-<b class="pc">&nbsp;        if (request.username() != null) {</b>
+<b class="fc">&nbsp;        if (request.username() != null) {</b>
 <b class="fc">&nbsp;            pessoa.setUsername(request.username());</b>
 &nbsp;        }
-<b class="pc">&nbsp;        if (request.password() != null) {</b>
-<b class="nc">&nbsp;            pessoa.setPassword(request.password());</b>
+<b class="fc">&nbsp;        if (request.password() != null) {</b>
+<b class="fc">&nbsp;            pessoa.setPassword(request.password());</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;}
@@ -191,7 +191,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 11:31</div>
+    <div style="float:right;">generated on 2025-11-16 12:05</div>
 </div>
 </body>
 </html>

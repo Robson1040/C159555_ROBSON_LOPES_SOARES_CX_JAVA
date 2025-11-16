@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    62,5%
+    100%
   </span>
   <span class="absValue">
-    (10/16)
+    (16/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    44,7%
+    97,4%
   </span>
   <span class="absValue">
-    (17/38)
+    (37/38)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    56,5%
+    100%
   </span>
   <span class="absValue">
-    (35/62)
+    (62/62)
   </span>
 </td>
 </tr>
@@ -125,8 +125,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Busca produto por ID
 &nbsp;     */
 &nbsp;    public Optional&lt;ProdutoResponse&gt; buscarPorId(Long id) {
-<b class="pc">&nbsp;        if (id == null) {</b>
-<b class="nc">&nbsp;            return Optional.empty();</b>
+<b class="fc">&nbsp;        if (id == null) {</b>
+<b class="fc">&nbsp;            return Optional.empty();</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return Produto.&lt;Produto&gt;findByIdOptional(id)</b>
@@ -137,8 +137,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Busca produtos por tipo
 &nbsp;     */
 &nbsp;    public List&lt;ProdutoResponse&gt; buscarPorTipo(TipoProduto tipo) {
-<b class="pc">&nbsp;        if (tipo == null) {</b>
-<b class="nc">&nbsp;            return List.of();</b>
+<b class="fc">&nbsp;        if (tipo == null) {</b>
+<b class="fc">&nbsp;            return List.of();</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByTipo(tipo);</b>
@@ -149,12 +149,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Busca produtos por tipo de rentabilidade
 &nbsp;     */
 &nbsp;    public List&lt;ProdutoResponse&gt; buscarPorTipoRentabilidade(TipoRentabilidade tipoRentabilidade) {
-<b class="nc">&nbsp;        if (tipoRentabilidade == null) {</b>
-<b class="nc">&nbsp;            return List.of();</b>
+<b class="fc">&nbsp;        if (tipoRentabilidade == null) {</b>
+<b class="fc">&nbsp;            return List.of();</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByTipoRentabilidade(tipoRentabilidade);</b>
-<b class="nc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByTipoRentabilidade(tipoRentabilidade);</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -177,20 +177,20 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Busca produtos sem liquidez
 &nbsp;     */
 &nbsp;    public List&lt;ProdutoResponse&gt; buscarProdutosSemLiquidez() {
-<b class="nc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findSemLiquidez();</b>
-<b class="nc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findSemLiquidez();</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Busca produtos por nome (busca parcial)
 &nbsp;     */
 &nbsp;    public List&lt;ProdutoResponse&gt; buscarPorNome(String nome) {
-<b class="nc">&nbsp;        if (nome == null || nome.trim().isEmpty()) {</b>
-<b class="nc">&nbsp;            return List.of();</b>
+<b class="fc">&nbsp;        if (nome == null || nome.trim().isEmpty()) {</b>
+<b class="fc">&nbsp;            return List.of();</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByNomeContaining(nome.trim());</b>
-<b class="nc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByNomeContaining(nome.trim());</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -198,8 +198,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @Transactional
 &nbsp;    public ProdutoResponse criar(ProdutoRequest request) {
-<b class="pc">&nbsp;        if (request == null) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Dados do produto não podem ser nulos&quot;);</b>
+<b class="fc">&nbsp;        if (request == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Dados do produto não podem ser nulos&quot;);</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        validarDadosProduto(request);</b>
@@ -220,18 +220,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @Transactional
 &nbsp;    public ProdutoResponse atualizar(Long id, ProdutoRequest request) {
-<b class="pc">&nbsp;        if (id == null) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;ID não pode ser nulo&quot;);</b>
+<b class="fc">&nbsp;        if (id == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;ID não pode ser nulo&quot;);</b>
 &nbsp;        }
-<b class="pc">&nbsp;        if (request == null) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Dados do produto não podem ser nulos&quot;);</b>
+<b class="fc">&nbsp;        if (request == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Dados do produto não podem ser nulos&quot;);</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        validarDadosProduto(request);</b>
 &nbsp;
 <b class="fc">&nbsp;        Produto produto = produtoRepository.findById(id);</b>
-<b class="pc">&nbsp;        if (produto == null) {</b>
-<b class="nc">&nbsp;            throw new ProdutoNotFoundException(&quot;Produto não encontrado com ID: &quot; + id);</b>
+<b class="fc">&nbsp;        if (produto == null) {</b>
+<b class="fc">&nbsp;            throw new ProdutoNotFoundException(&quot;Produto não encontrado com ID: &quot; + id);</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        produtoMapper.updateEntityFromRequest(produto, request);</b>
@@ -245,13 +245,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @Transactional
 &nbsp;    public void remover(Long id) {
-<b class="nc">&nbsp;        if (id == null) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;ID não pode ser nulo&quot;);</b>
+<b class="fc">&nbsp;        if (id == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;ID não pode ser nulo&quot;);</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        boolean removido = produtoRepository.deleteById(id);</b>
-<b class="nc">&nbsp;        if (!removido) {</b>
-<b class="nc">&nbsp;            throw new ProdutoNotFoundException(&quot;Produto não encontrado com ID: &quot; + id);</b>
+<b class="fc">&nbsp;        boolean removido = produtoRepository.deleteById(id);</b>
+<b class="fc">&nbsp;        if (!removido) {</b>
+<b class="fc">&nbsp;            throw new ProdutoNotFoundException(&quot;Produto não encontrado com ID: &quot; + id);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -259,10 +259,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Verifica se existe produto com ID
 &nbsp;     */
 &nbsp;    public boolean existePorId(Long id) {
-<b class="nc">&nbsp;        if (id == null) {</b>
-<b class="nc">&nbsp;            return false;</b>
+<b class="fc">&nbsp;        if (id == null) {</b>
+<b class="fc">&nbsp;            return false;</b>
 &nbsp;        }
-<b class="nc">&nbsp;        return produtoRepository.findByIdOptional(id).isPresent();</b>
+<b class="fc">&nbsp;        return produtoRepository.findByIdOptional(id).isPresent();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -277,7 +277,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @Transactional
 &nbsp;    public void limparTodos() {
-<b class="nc">&nbsp;        produtoRepository.deleteAll();</b>
+<b class="fc">&nbsp;        produtoRepository.deleteAll();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -287,7 +287,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        // Validação: Se for pós-fixado, deve ter um índice válido (não null e diferente de NENHUM)
 <b class="fc">&nbsp;        if (request.tipoRentabilidade() == TipoRentabilidade.POS &amp;&amp; </b>
 <b class="pc">&nbsp;            (request.indice() == null || request.indice().name().equals(&quot;NENHUM&quot;))) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Produtos pós-fixados devem ter um índice válido&quot;);</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Produtos pós-fixados devem ter um índice válido&quot;);</b>
 &nbsp;        }
 &nbsp;
 &nbsp;        // Validação: Se for pré-fixado, o índice deve ser null ou NENHUM
@@ -297,8 +297,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        }
 &nbsp;
 &nbsp;        // Validação: Liquidez deve ser -1 ou &gt;= 0
-<b class="pc">&nbsp;        if (request.liquidez() &lt; -1) {</b>
-<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Liquidez deve ser -1 (sem liquidez) ou &gt;= 0&quot;);</b>
+<b class="fc">&nbsp;        if (request.liquidez() &lt; -1) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Liquidez deve ser -1 (sem liquidez) ou &gt;= 0&quot;);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;}
@@ -326,7 +326,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 11:31</div>
+    <div style="float:right;">generated on 2025-11-16 12:04</div>
 </div>
 </body>
 </html>

@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    40%
+    100%
   </span>
   <span class="absValue">
-    (2/5)
+    (5/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    31,2%
+    100%
   </span>
   <span class="absValue">
-    (5/16)
+    (16/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (7/14)
+    (14/14)
   </span>
 </td>
 </tr>
@@ -109,8 +109,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @throws AccessDeniedException se o acesso for negado
 &nbsp;     */
 &nbsp;    public void validarAcessoAoCliente(JsonWebToken jwt, Long clienteId) {
-<b class="pc">&nbsp;        if (jwt == null) {</b>
-<b class="nc">&nbsp;            throw new AccessDeniedException(&quot;Token JWT não encontrado&quot;);</b>
+<b class="fc">&nbsp;        if (jwt == null) {</b>
+<b class="fc">&nbsp;            throw new AccessDeniedException(&quot;Token JWT não encontrado&quot;);</b>
 &nbsp;        }
 &nbsp;
 &nbsp;        // Obtém as roles do usuário logado
@@ -119,18 +119,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;            return;
 &nbsp;        }
 &nbsp;
-<b class="pc">&nbsp;        if (jwt.getGroups().contains(&quot;USER&quot;)) {</b>
+<b class="fc">&nbsp;        if (jwt.getGroups().contains(&quot;USER&quot;)) {</b>
 &nbsp;            // Obtém o userId do token JWT
 <b class="fc">&nbsp;            Long userIdJwt = jwt.getClaim(&quot;userId&quot;);</b>
 &nbsp;
-<b class="pc">&nbsp;            if (userIdJwt == null || !userIdJwt.equals(clienteId)) {</b>
+<b class="fc">&nbsp;            if (userIdJwt == null || !userIdJwt.equals(clienteId)) {</b>
 <b class="fc">&nbsp;                throw new AccessDeniedException(&quot;Acesso negado: usuário só pode acessar seus próprios dados&quot;);</b>
 &nbsp;            }
 &nbsp;            return;
 &nbsp;        }
 &nbsp;
 &nbsp;        // Se não tem role válida, nega acesso
-<b class="nc">&nbsp;        throw new AccessDeniedException(&quot;Acesso negado: role não autorizada&quot;);</b>
+<b class="fc">&nbsp;        throw new AccessDeniedException(&quot;Acesso negado: role não autorizada&quot;);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -140,7 +140,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return true se for admin, false caso contrário
 &nbsp;     */
 &nbsp;    public boolean isAdmin(JsonWebToken jwt) {
-<b class="nc">&nbsp;        return jwt != null &amp;&amp; jwt.getGroups().contains(&quot;ADMIN&quot;);</b>
+<b class="fc">&nbsp;        return jwt != null &amp;&amp; jwt.getGroups().contains(&quot;ADMIN&quot;);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -150,7 +150,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return true se for user, false caso contrário
 &nbsp;     */
 &nbsp;    public boolean isUser(JsonWebToken jwt) {
-<b class="nc">&nbsp;        return jwt != null &amp;&amp; jwt.getGroups().contains(&quot;USER&quot;);</b>
+<b class="fc">&nbsp;        return jwt != null &amp;&amp; jwt.getGroups().contains(&quot;USER&quot;);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -160,10 +160,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return o ID do usuário ou null se não encontrado
 &nbsp;     */
 &nbsp;    public Long getUserId(JsonWebToken jwt) {
-<b class="nc">&nbsp;        if (jwt == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (jwt == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
-<b class="nc">&nbsp;        return jwt.getClaim(&quot;userId&quot;);</b>
+<b class="fc">&nbsp;        return jwt.getClaim(&quot;userId&quot;);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -189,7 +189,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 11:31</div>
+    <div style="float:right;">generated on 2025-11-16 12:04</div>
 </div>
 </body>
 </html>

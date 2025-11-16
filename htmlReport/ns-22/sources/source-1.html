@@ -49,10 +49,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    43,8%
+    100%
   </span>
   <span class="absValue">
-    (14/32)
+    (32/32)
   </span>
 </td>
 </tr>
@@ -93,10 +93,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    45,5%
+    100%
   </span>
   <span class="absValue">
-    (15/33)
+    (33/33)
   </span>
 </td>
 </tr>
@@ -160,24 +160,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;            return Response.ok(produtos).build();</b>
 &nbsp;            
-<b class="nc">&nbsp;        } catch (IllegalArgumentException e) {</b>
-<b class="nc">&nbsp;            return Response.status(Response.Status.BAD_REQUEST)</b>
-<b class="nc">&nbsp;                    .entity(new ErrorResponse(e.getMessage()))</b>
-<b class="nc">&nbsp;                    .build();</b>
-<b class="nc">&nbsp;        } catch (IllegalStateException e) {</b>
-<b class="nc">&nbsp;            return Response.status(Response.Status.BAD_REQUEST)</b>
-<b class="nc">&nbsp;                    .entity(new ErrorResponse(e.getMessage()))</b>
-<b class="nc">&nbsp;                    .build();</b>
+<b class="fc">&nbsp;        } catch (IllegalArgumentException e) {</b>
+<b class="fc">&nbsp;            return Response.status(Response.Status.BAD_REQUEST)</b>
+<b class="fc">&nbsp;                    .entity(new ErrorResponse(e.getMessage()))</b>
+<b class="fc">&nbsp;                    .build();</b>
+<b class="fc">&nbsp;        } catch (IllegalStateException e) {</b>
+<b class="fc">&nbsp;            return Response.status(Response.Status.BAD_REQUEST)</b>
+<b class="fc">&nbsp;                    .entity(new ErrorResponse(e.getMessage()))</b>
+<b class="fc">&nbsp;                    .build();</b>
 <b class="fc">&nbsp;        } catch (br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException e) {</b>
 <b class="fc">&nbsp;            return Response.status(Response.Status.NOT_FOUND)</b>
 <b class="fc">&nbsp;                    .entity(new ErrorResponse(e.getMessage()))</b>
 <b class="fc">&nbsp;                    .build();</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            System.err.println(&quot;Erro interno no ProdutoRecomendadoResource: &quot; + e.getClass().getName() + &quot; - &quot; + e.getMessage());</b>
-<b class="nc">&nbsp;            e.printStackTrace();</b>
-<b class="nc">&nbsp;            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)</b>
-<b class="nc">&nbsp;                    .entity(new ErrorResponse(&quot;Erro interno no servidor&quot;))</b>
-<b class="nc">&nbsp;                    .build();</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            System.err.println(&quot;Erro interno no ProdutoRecomendadoResource: &quot; + e.getClass().getName() + &quot; - &quot; + e.getMessage());</b>
+<b class="fc">&nbsp;            e.printStackTrace();</b>
+<b class="fc">&nbsp;            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)</b>
+<b class="fc">&nbsp;                    .entity(new ErrorResponse(&quot;Erro interno no servidor&quot;))</b>
+<b class="fc">&nbsp;                    .build();</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -204,10 +204,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            return Response.status(Response.Status.BAD_REQUEST)</b>
 <b class="fc">&nbsp;                    .entity(new ErrorResponse(e.getMessage()))</b>
 <b class="fc">&nbsp;                    .build();</b>
-<b class="nc">&nbsp;        } catch (Exception e) {</b>
-<b class="nc">&nbsp;            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)</b>
-<b class="nc">&nbsp;                    .entity(new ErrorResponse(&quot;Erro interno no servidor&quot;))</b>
-<b class="nc">&nbsp;                    .build();</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)</b>
+<b class="fc">&nbsp;                    .entity(new ErrorResponse(&quot;Erro interno no servidor&quot;))</b>
+<b class="fc">&nbsp;                    .build();</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -240,7 +240,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 11:31</div>
+    <div style="float:right;">generated on 2025-11-16 12:05</div>
 </div>
 </body>
 </html>

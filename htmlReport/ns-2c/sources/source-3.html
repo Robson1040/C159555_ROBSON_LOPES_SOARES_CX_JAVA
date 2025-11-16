@@ -53,18 +53,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    53,4%
+    47,9%
   </span>
   <span class="absValue">
-    (39/73)
+    (35/73)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    70,3%
+    67,6%
   </span>
   <span class="absValue">
-    (52/74)
+    (50/74)
   </span>
 </td>
 </tr>
@@ -137,18 +137,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    53,4%
+    47,9%
   </span>
   <span class="absValue">
-    (39/73)
+    (35/73)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    73,9%
+    71,7%
   </span>
   <span class="absValue">
-    (68/92)
+    (66/92)
   </span>
 </td>
 </tr>
@@ -204,13 +204,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;            return CenarioEconomico.VOLATIL;</b>
 <b class="fc">&nbsp;        } else if (prazoMeses &lt;= 12) {</b>
 &nbsp;            // Médio prazo - variação moderada
-<b class="pc">&nbsp;            if (probabilidade &lt; 0.3) return CenarioEconomico.RECESSAO_LEVE;</b>
-<b class="fc">&nbsp;            if (probabilidade &lt; 0.5) return CenarioEconomico.ESTAVEL;</b>
-<b class="fc">&nbsp;            if (probabilidade &lt; 0.75) return CenarioEconomico.CRESCIMENTO_MODERADO;</b>
+<b class="fc">&nbsp;            if (probabilidade &lt; 0.3) return CenarioEconomico.RECESSAO_LEVE;</b>
+<b class="pc">&nbsp;            if (probabilidade &lt; 0.5) return CenarioEconomico.ESTAVEL;</b>
+<b class="pc">&nbsp;            if (probabilidade &lt; 0.75) return CenarioEconomico.CRESCIMENTO_MODERADO;</b>
 <b class="fc">&nbsp;            return CenarioEconomico.CRESCIMENTO_FORTE;</b>
 <b class="pc">&nbsp;        } else if (prazoMeses &lt;= 24) {</b>
 &nbsp;            // Longo prazo - maior variabilidade
-<b class="fc">&nbsp;            if (probabilidade &lt; 0.2) return CenarioEconomico.RECESSAO_FORTE;</b>
+<b class="pc">&nbsp;            if (probabilidade &lt; 0.2) return CenarioEconomico.RECESSAO_FORTE;</b>
 <b class="fc">&nbsp;            if (probabilidade &lt; 0.35) return CenarioEconomico.RECESSAO_LEVE;</b>
 <b class="fc">&nbsp;            if (probabilidade &lt; 0.5) return CenarioEconomico.ESTAVEL;</b>
 <b class="fc">&nbsp;            if (probabilidade &lt; 0.7) return CenarioEconomico.CRESCIMENTO_MODERADO;</b>
@@ -255,7 +255,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    private BigDecimal getAjusteCenario(CenarioEconomico cenario) {
 <b class="pc">&nbsp;        return switch (cenario) {</b>
-<b class="fc">&nbsp;            case RECESSAO_FORTE -&gt; new BigDecimal(&quot;0.70&quot;);</b>
+<b class="nc">&nbsp;            case RECESSAO_FORTE -&gt; new BigDecimal(&quot;0.70&quot;);</b>
 <b class="fc">&nbsp;            case RECESSAO_LEVE -&gt; new BigDecimal(&quot;0.85&quot;);</b>
 <b class="fc">&nbsp;            case ESTAVEL -&gt; new BigDecimal(&quot;1.00&quot;);</b>
 <b class="fc">&nbsp;            case CRESCIMENTO_MODERADO -&gt; new BigDecimal(&quot;1.15&quot;);</b>
@@ -287,7 +287,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    private String getDescricaoCenario(CenarioEconomico cenario) {
 <b class="pc">&nbsp;        return switch (cenario) {</b>
-<b class="fc">&nbsp;            case RECESSAO_FORTE -&gt; &quot;Recessão Forte - Queda significativa na atividade econômica&quot;;</b>
+<b class="nc">&nbsp;            case RECESSAO_FORTE -&gt; &quot;Recessão Forte - Queda significativa na atividade econômica&quot;;</b>
 <b class="fc">&nbsp;            case RECESSAO_LEVE -&gt; &quot;Recessão Leve - Desaceleração moderada da economia&quot;;</b>
 <b class="fc">&nbsp;            case ESTAVEL -&gt; &quot;Economia Estável - Crescimento moderado e inflação controlada&quot;;</b>
 <b class="fc">&nbsp;            case CRESCIMENTO_MODERADO -&gt; &quot;Crescimento Moderado - Expansão econômica sustentável&quot;;</b>
@@ -370,7 +370,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 11:31</div>
+    <div style="float:right;">generated on 2025-11-16 12:04</div>
 </div>
 </body>
 </html>
