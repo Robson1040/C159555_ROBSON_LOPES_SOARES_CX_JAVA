@@ -32,11 +32,21 @@ public class JwtAuthorizationHelper {
 
         if (jwt.getGroups().contains("USER")) {
             // Obtém o userId do token JWT
-            Long userIdJwt = jwt.getClaim("userId");
 
-            if (userIdJwt == null || !userIdJwt.equals(clienteId)) {
+            try
+            {
+                Long userIdJwt = Long.valueOf(jwt.getClaim("userId").toString());
+
+
+                if (userIdJwt == null || !userIdJwt.equals(clienteId)) {
+                    throw new AccessDeniedException("Acesso negado: usuário só pode acessar seus próprios dados");
+                }
+            }
+            catch(Exception e)
+            {
                 throw new AccessDeniedException("Acesso negado: usuário só pode acessar seus próprios dados");
             }
+
             return;
         }
 

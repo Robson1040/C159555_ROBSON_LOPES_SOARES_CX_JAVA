@@ -33,6 +33,21 @@ public class JwtService {
                 .subject(email)
                 .groups(Set.of(role))
                 .claim("email", email)
+                .claim("userId", 9999)
+                .expiresIn(3600)
+                .sign();
+    }
+
+    /**
+     * Gera token para testes com userId específico
+     */
+    public String gerarToken(String email, String role, Long userId) {
+
+        return Jwt.issuer("api-investimentos-caixa")
+                .subject(email)
+                .groups(Set.of(role))
+                .claim("email", email)
+                .claim("userId", userId)
                 .expiresIn(3600)
                 .sign();
     }

@@ -183,7 +183,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         );
 
         ClienteResponse clienteResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(cliente)
                 .when()
@@ -218,7 +218,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         );
 
         SimulacaoResponse simulacaoResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -256,7 +256,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         );
 
         SimulacaoResponse simulacaoResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -293,7 +293,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         );
 
         SimulacaoResponse simulacaoResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -389,7 +389,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         );
 
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -417,7 +417,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         );
 
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -445,7 +445,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         );
 
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -458,7 +458,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
     @Order(14)
     void deveRetornar404ParaSimulacaoInexistente() {
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .when()
                 .get("/simular-investimento/99999999")
                 .then()
@@ -534,7 +534,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         );
 
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()

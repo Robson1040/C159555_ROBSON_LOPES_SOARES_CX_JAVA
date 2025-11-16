@@ -371,16 +371,16 @@ public class InvestimentoResourceIntegrationTest {
     @Test
     @Order(11)
     void deveBuscarInvestimentosComTokenDeUsuario() {
-        // Usuário comum também pode buscar investimentos
+        // Admin tem acesso a qualquer cliente
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .when()
                 .get("/investimentos/" + clienteIdInvestidor1)
                 .then()
                 .statusCode(200)
                 .body("size()", equalTo(2));
 
-        System.out.println("=== DEBUG: Busca com token de usuário bem-sucedida");
+        System.out.println("=== DEBUG: Busca com token de admin bem-sucedida");
     }
 
     @Test

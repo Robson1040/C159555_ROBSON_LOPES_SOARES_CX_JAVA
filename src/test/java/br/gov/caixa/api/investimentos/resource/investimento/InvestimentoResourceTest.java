@@ -7,6 +7,8 @@ import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.service.investimento.InvestimentoService;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,13 +23,19 @@ import static org.mockito.Mockito.*;
 class InvestimentoResourceTest {
 
     private InvestimentoService service;
+    private JwtAuthorizationHelper authHelper;
+    private JsonWebToken jwt;
     private InvestimentoResource resource;
 
     @BeforeEach
     void setUp() {
         service = mock(InvestimentoService.class);
+        authHelper = mock(JwtAuthorizationHelper.class);
+        jwt = mock(JsonWebToken.class);
         resource = new InvestimentoResource();
         resource.investimentoService = service; // Injeta mock manualmente
+        resource.authHelper = authHelper; // Injeta mock do authHelper
+        resource.jwt = jwt; // Injeta mock do JWT
     }
 
     @Test

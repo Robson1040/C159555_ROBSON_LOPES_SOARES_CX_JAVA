@@ -288,7 +288,7 @@ public class PerfilRiscoResourceIntegrationTest {
         );
 
         SimulacaoResponse simulacaoResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -324,7 +324,7 @@ public class PerfilRiscoResourceIntegrationTest {
         );
 
         SimulacaoResponse simulacaoResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -347,7 +347,7 @@ public class PerfilRiscoResourceIntegrationTest {
     @Order(9)
     void deveCalcularPerfilRiscoConservador() {
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .when()
                 .get("/perfil-risco/" + clienteIdCriado)
                 .then()
@@ -384,7 +384,7 @@ public class PerfilRiscoResourceIntegrationTest {
         Long clienteInexistente = 99999L;
 
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .when()
                 .get("/perfil-risco/" + clienteInexistente)
                 .then()
@@ -423,7 +423,7 @@ public class PerfilRiscoResourceIntegrationTest {
     @Order(14)
     void deveRetornar400_ClienteIdInvalido() {
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .when()
                 .get("/perfil-risco/invalid")
                 .then()
@@ -438,7 +438,7 @@ public class PerfilRiscoResourceIntegrationTest {
     @Order(15)
     void deveValidarEstruturaDaResponse() {
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .when()
                 .get("/perfil-risco/" + clienteIdCriado)
                 .then()
@@ -455,7 +455,7 @@ public class PerfilRiscoResourceIntegrationTest {
     @Order(16)
     void deveValidarContentTypeResponse() {
         given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .when()
                 .get("/perfil-risco/" + clienteIdCriado)
                 .then()

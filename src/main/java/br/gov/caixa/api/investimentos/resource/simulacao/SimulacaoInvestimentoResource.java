@@ -55,6 +55,9 @@ public class SimulacaoInvestimentoResource {
      */
     @POST
     public Response simularInvestimento(@Valid SimulacaoRequest request) {
+        // Verificar se o usuário pode criar simulação para o cliente especificado
+        authHelper.validarAcessoAoCliente(jwt, request.clienteId());
+        
         // Validações adicionais de negócio
         validarRegrasNegocio(request);
         

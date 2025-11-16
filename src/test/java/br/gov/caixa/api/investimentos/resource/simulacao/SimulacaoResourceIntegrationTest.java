@@ -250,7 +250,7 @@ public class SimulacaoResourceIntegrationTest {
         );
 
         SimulacaoResponse simulacaoResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -286,7 +286,7 @@ public class SimulacaoResourceIntegrationTest {
         );
 
         SimulacaoResponse simulacaoResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
@@ -322,7 +322,7 @@ public class SimulacaoResourceIntegrationTest {
         );
 
         SimulacaoResponse simulacaoResponse = given()
-                .header("Authorization", "Bearer " + userToken)
+                .header("Authorization", "Bearer " + adminToken)
                 .contentType(ContentType.JSON)
                 .body(simulacao)
                 .when()
