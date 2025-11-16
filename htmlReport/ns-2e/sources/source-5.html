@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > ValidCPF</title>
+  <title>Coverage Report > ValidRentabilidadeIndice</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,14 +22,14 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">br.gov.caixa.api.investimentos.validation</a>
 </div>
 
-<h1>Coverage Summary for Class: ValidCPF (br.gov.caixa.api.investimentos.validation)</h1>
+<h1>Coverage Summary for Class: ValidRentabilidadeIndice (br.gov.caixa.api.investimentos.validation)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
 </tr>
 <tr>
-  <td class="name">ValidCPF</td>
+  <td class="name">ValidRentabilidadeIndice</td>
 </tr>
 
 </table>
@@ -46,13 +46,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import java.lang.annotation.*;
 &nbsp;
+&nbsp;/**
+&nbsp; * Validação customizada para verificar se produtos com rentabilidade pós-fixada
+&nbsp; * possuem um índice obrigatoriamente associado.
+&nbsp; * 
+&nbsp; * Regras:
+&nbsp; * - TipoRentabilidade.POS: índice é obrigatório (não pode ser null ou NENHUM)
+&nbsp; * - TipoRentabilidade.PRE: índice é opcional (pode ser null ou NENHUM)
+&nbsp; */
 &nbsp;@Documented
-&nbsp;@Constraint(validatedBy = CPFValidator.class)
-&nbsp;@Target({ ElementType.FIELD, ElementType.PARAMETER })
+&nbsp;@Constraint(validatedBy = RentabilidadeIndiceValidator.class)
+&nbsp;@Target({ElementType.TYPE})
 &nbsp;@Retention(RetentionPolicy.RUNTIME)
-&nbsp;public @interface ValidCPF {
-&nbsp;    String message() default &quot;CPF inválido&quot;;
+&nbsp;public @interface ValidRentabilidadeIndice {
+&nbsp;    
+&nbsp;    String message() default &quot;Produtos com rentabilidade pós-fixada devem ter um índice associado&quot;;
+&nbsp;    
 &nbsp;    Class&lt;?&gt;[] groups() default {};
+&nbsp;    
 &nbsp;    Class&lt;? extends Payload&gt;[] payload() default {};
 &nbsp;}
 </code>
@@ -78,7 +89,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 12:04</div>
+    <div style="float:right;">generated on 2025-11-16 13:18</div>
 </div>
 </body>
 </html>

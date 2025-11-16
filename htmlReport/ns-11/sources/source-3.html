@@ -64,18 +64,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (6/12)
+    (12/12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    93%
+    100%
   </span>
   <span class="absValue">
-    (40/43)
+    (43/43)
   </span>
 </td>
 </tr>
@@ -104,8 +104,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Converte uma entidade Produto para ProdutoResponse
 &nbsp;     */
 &nbsp;    public ProdutoResponse toResponse(Produto produto) {
-<b class="pc">&nbsp;        if (produto == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (produto == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return new ProdutoResponse(</b>
@@ -127,13 +127,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Converte uma lista de entidades Produto para uma lista de ProdutoResponse
 &nbsp;     */
 &nbsp;    public List&lt;ProdutoResponse&gt; toResponseList(List&lt;Produto&gt; produtos) {
-<b class="pc">&nbsp;        if (produtos == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (produtos == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
 &nbsp;        // Filtrar itens null que podem vir do Hibernate
 <b class="fc">&nbsp;        return produtos.stream()</b>
-<b class="pc">&nbsp;                .filter(produto -&gt; produto != null)</b>
+<b class="fc">&nbsp;                .filter(produto -&gt; produto != null)</b>
 <b class="fc">&nbsp;                .map(this::toResponse)</b>
 <b class="fc">&nbsp;                .collect(Collectors.toList());</b>
 &nbsp;    }
@@ -142,8 +142,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Converte um ProdutoRequest para entidade Produto
 &nbsp;     */
 &nbsp;    public Produto toEntity(ProdutoRequest request) {
-<b class="pc">&nbsp;        if (request == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (request == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return new Produto(</b>
@@ -163,7 +163,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Atualiza uma entidade Produto existente com dados de um ProdutoRequest
 &nbsp;     */
 &nbsp;    public void updateEntityFromRequest(Produto produto, ProdutoRequest request) {
-<b class="pc">&nbsp;        if (produto == null || request == null) {</b>
+<b class="fc">&nbsp;        if (produto == null || request == null) {</b>
 &nbsp;            return;
 &nbsp;        }
 &nbsp;
@@ -201,7 +201,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 12:05</div>
+    <div style="float:right;">generated on 2025-11-16 13:18</div>
 </div>
 </body>
 </html>

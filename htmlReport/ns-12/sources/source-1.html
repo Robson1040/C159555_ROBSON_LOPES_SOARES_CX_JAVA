@@ -53,18 +53,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    52,7%
+    65,6%
   </span>
   <span class="absValue">
-    (49/93)
+    (61/93)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    81,4%
+    85,6%
   </span>
   <span class="absValue">
-    (96/118)
+    (101/118)
   </span>
 </td>
 </tr>
@@ -99,18 +99,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    52,7%
+    65,6%
   </span>
   <span class="absValue">
-    (49/93)
+    (61/93)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    81,7%
+    85,8%
   </span>
   <span class="absValue">
-    (98/120)
+    (103/120)
   </span>
 </td>
 </tr>
@@ -168,7 +168,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                }
 &nbsp;            }
 &nbsp;
-<b class="pc">&nbsp;            if (produtoMaisProximo != null)</b>
+<b class="fc">&nbsp;            if (produtoMaisProximo != null)</b>
 &nbsp;            {
 <b class="fc">&nbsp;                produtoMaisProximo.setPontuacao(produtoMaisProximo.getPontuacao() + peso);</b>
 <b class="fc">&nbsp;                contador.merge(produtoMaisProximo, peso, Integer::sum);</b>
@@ -212,7 +212,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                }
 &nbsp;            }
 &nbsp;
-<b class="pc">&nbsp;            if (produtoMaisProximo != null) {</b>
+<b class="fc">&nbsp;            if (produtoMaisProximo != null) {</b>
 <b class="fc">&nbsp;                produtoMaisProximo.setPontuacao(produtoMaisProximo.getPontuacao() + peso);</b>
 <b class="fc">&nbsp;                contador.merge(produtoMaisProximo, peso, Integer::sum);</b>
 &nbsp;            }
@@ -249,12 +249,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            periodoRentNorm = normalizarPeriodoRentabilidade(investimento.getPeriodoRentabilidade());</b>
 <b class="fc">&nbsp;            indiceNorm = normalizarIndice(investimento.getIndice());</b>
 <b class="fc">&nbsp;            liquidezNorm = normalizar(</b>
-<b class="pc">&nbsp;                    investimento.getLiquidez() != null ? investimento.getLiquidez() : 0,</b>
+<b class="fc">&nbsp;                    investimento.getLiquidez() != null ? investimento.getLiquidez() : 0,</b>
 &nbsp;                    -1, 365
 &nbsp;            );
-<b class="pc">&nbsp;            fgcNorm = investimento.getFgc() != null &amp;&amp; investimento.getFgc() ? 1.0 : 0.0;</b>
+<b class="fc">&nbsp;            fgcNorm = investimento.getFgc() != null &amp;&amp; investimento.getFgc() ? 1.0 : 0.0;</b>
 <b class="fc">&nbsp;            minimoInvNorm = normalizar(</b>
-<b class="pc">&nbsp;                    investimento.getMinimoDiasInvestimento() != null ? investimento.getMinimoDiasInvestimento() : 0,</b>
+<b class="fc">&nbsp;                    investimento.getMinimoDiasInvestimento() != null ? investimento.getMinimoDiasInvestimento() : 0,</b>
 &nbsp;                    0, 1800
 &nbsp;            );
 &nbsp;        }
@@ -266,7 +266,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;            Produto p = null;</b>
 &nbsp;
-<b class="pc">&nbsp;            for (Produto todoProduto : todoProdutos) {</b>
+<b class="fc">&nbsp;            for (Produto todoProduto : todoProdutos) {</b>
 <b class="fc">&nbsp;                if (Objects.equals(simulacao.getProdutoId(), todoProduto.getId()))</b>
 &nbsp;                {
 <b class="fc">&nbsp;                    p = todoProduto;</b>
@@ -274,10 +274,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                }
 &nbsp;            }
 &nbsp;
-<b class="pc">&nbsp;            if(p == null)</b>
+<b class="fc">&nbsp;            if(p == null)</b>
 &nbsp;            {
-<b class="nc">&nbsp;                throw new IllegalArgumentException(</b>
-<b class="nc">&nbsp;                        &quot;Produto não encontrado para simulação com produtoId: &quot; + simulacao.getProdutoId()</b>
+<b class="fc">&nbsp;                throw new IllegalArgumentException(</b>
+<b class="fc">&nbsp;                        &quot;Produto não encontrado para simulação com produtoId: &quot; + simulacao.getProdutoId()</b>
 &nbsp;                );
 &nbsp;            }
 &nbsp;
@@ -339,7 +339,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Normaliza tipo de rentabilidade para valor numérico
 &nbsp;     */
 &nbsp;    private double normalizarTipoRentabilidade(TipoRentabilidade tipo) {
-<b class="pc">&nbsp;        if (tipo == null) return 0.5;</b>
+<b class="fc">&nbsp;        if (tipo == null) return 0.5;</b>
 <b class="fc">&nbsp;        return tipo == TipoRentabilidade.PRE ? 0.0 : 1.0;</b>
 &nbsp;    }
 &nbsp;
@@ -347,12 +347,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Normaliza período de rentabilidade para valor numérico
 &nbsp;     */
 &nbsp;    private double normalizarPeriodoRentabilidade(PeriodoRentabilidade periodo) {
-<b class="pc">&nbsp;        if (periodo == null) return 0.5;</b>
+<b class="fc">&nbsp;        if (periodo == null) return 0.5;</b>
 <b class="pc">&nbsp;        return switch (periodo) {</b>
-<b class="nc">&nbsp;            case AO_DIA -&gt; 0.0;</b>
+<b class="fc">&nbsp;            case AO_DIA -&gt; 0.0;</b>
 <b class="fc">&nbsp;            case AO_MES -&gt; 0.33;</b>
 <b class="fc">&nbsp;            case AO_ANO -&gt; 0.66;</b>
-<b class="nc">&nbsp;            case PERIODO_TOTAL -&gt; 1.0;</b>
+<b class="fc">&nbsp;            case PERIODO_TOTAL -&gt; 1.0;</b>
 &nbsp;        };
 &nbsp;    }
 &nbsp;
@@ -365,7 +365,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            case SELIC -&gt; 0.2;</b>
 <b class="fc">&nbsp;            case CDI -&gt; 0.4;</b>
 <b class="fc">&nbsp;            case IPCA -&gt; 0.6;</b>
-<b class="nc">&nbsp;            case IGP_M -&gt; 0.8;</b>
+<b class="fc">&nbsp;            case IGP_M -&gt; 0.8;</b>
 <b class="fc">&nbsp;            case IBOVESPA -&gt; 1.0;</b>
 <b class="nc">&nbsp;            default -&gt; 0.0;</b>
 &nbsp;        };
@@ -424,7 +424,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 12:04</div>
+    <div style="float:right;">generated on 2025-11-16 13:18</div>
 </div>
 </body>
 </html>

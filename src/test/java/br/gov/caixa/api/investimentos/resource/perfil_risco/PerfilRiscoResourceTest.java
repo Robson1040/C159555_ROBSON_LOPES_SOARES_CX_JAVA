@@ -1,6 +1,7 @@
 package br.gov.caixa.api.investimentos.resource.perfil_risco;
 
 import br.gov.caixa.api.investimentos.dto.perfil_risco.PerfilRiscoResponse;
+import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
 import br.gov.caixa.api.investimentos.service.perfil_risco.PerfilRiscoService;
 import jakarta.ws.rs.core.Response;
@@ -45,7 +46,7 @@ class PerfilRiscoResourceTest {
         Response response = resource.calcularPerfilRisco(clienteId);
 
         assertEquals(404, response.getStatus());
-        PerfilRiscoResource.ErrorResponse entity = (PerfilRiscoResource.ErrorResponse) response.getEntity();
+        ErrorResponse entity = (ErrorResponse) response.getEntity();
         assertEquals("Cliente não encontrado", entity.message());
     }
 
@@ -58,7 +59,7 @@ class PerfilRiscoResourceTest {
         Response response = resource.calcularPerfilRisco(clienteId);
 
         assertEquals(400, response.getStatus());
-        PerfilRiscoResource.ErrorResponse entity = (PerfilRiscoResource.ErrorResponse) response.getEntity();
+        ErrorResponse entity = (ErrorResponse) response.getEntity();
         assertEquals(errorMsg, entity.message());
     }
 
@@ -70,7 +71,7 @@ class PerfilRiscoResourceTest {
         Response response = resource.calcularPerfilRisco(clienteId);
 
         assertEquals(500, response.getStatus());
-        PerfilRiscoResource.ErrorResponse entity = (PerfilRiscoResource.ErrorResponse) response.getEntity();
+        ErrorResponse entity = (ErrorResponse) response.getEntity();
         assertEquals("Erro interno no servidor", entity.message());
     }
 }

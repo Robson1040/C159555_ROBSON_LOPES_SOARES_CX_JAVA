@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    100%
   </span>
   <span class="absValue">
-    (3/6)
+    (6/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    20,8%
+    100%
   </span>
   <span class="absValue">
-    (5/24)
+    (24/24)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    54%
+    100%
   </span>
   <span class="absValue">
-    (27/50)
+    (50/50)
   </span>
 </td>
 </tr>
@@ -105,8 +105,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Converte uma entidade SimulacaoInvestimento para SimulacaoInvestimentoResponse
 &nbsp;     */
 &nbsp;    public SimulacaoInvestimentoResponse toResponse(SimulacaoInvestimento simulacao) {
-<b class="pc">&nbsp;        if (simulacao == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (simulacao == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return new SimulacaoInvestimentoResponse(</b>
@@ -131,22 +131,22 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Converte uma lista de entidades SimulacaoInvestimento para uma lista de SimulacaoInvestimentoResponse
 &nbsp;     */
 &nbsp;    public List&lt;SimulacaoInvestimentoResponse&gt; toResponseList(List&lt;SimulacaoInvestimento&gt; simulacoes) {
-<b class="nc">&nbsp;        if (simulacoes == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (simulacoes == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        return simulacoes.stream()</b>
-<b class="nc">&nbsp;                .filter(simulacao -&gt; simulacao != null)</b>
-<b class="nc">&nbsp;                .map(this::toResponse)</b>
-<b class="nc">&nbsp;                .collect(Collectors.toList());</b>
+<b class="fc">&nbsp;        return simulacoes.stream()</b>
+<b class="fc">&nbsp;                .filter(simulacao -&gt; simulacao != null)</b>
+<b class="fc">&nbsp;                .map(this::toResponse)</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Converte um SimulacaoRequest e ResultadoSimulacao para entidade SimulacaoInvestimento
 &nbsp;     */
 &nbsp;    public SimulacaoInvestimento toEntity(Long clienteId, Long produtoId, String nomeProduto, BigDecimal valorInvestido, ResultadoSimulacao resultado) {
-<b class="pc">&nbsp;        if (clienteId == null || nomeProduto == null || valorInvestido == null || resultado == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (clienteId == null || nomeProduto == null || valorInvestido == null || resultado == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        return new SimulacaoInvestimento(</b>
@@ -171,11 +171,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public SimulacaoInvestimento toEntity(Long clienteId, Long produtoId, String produto, BigDecimal valorInvestido,
 &nbsp;                                        BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias, 
 &nbsp;                                        Integer prazoAnos) {
-<b class="nc">&nbsp;        if (clienteId == null || produto == null || valorInvestido == null || valorFinal == null) {</b>
-<b class="nc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        if (clienteId == null || produto == null || valorInvestido == null || valorFinal == null) {</b>
+<b class="fc">&nbsp;            return null;</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        return new SimulacaoInvestimento(</b>
+<b class="fc">&nbsp;        return new SimulacaoInvestimento(</b>
 &nbsp;                clienteId,
 &nbsp;                produtoId,
 &nbsp;                produto,
@@ -195,21 +195,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;                                   Integer prazoMeses, Integer prazoDias, Integer prazoAnos,
 &nbsp;                                   BigDecimal rentabilidadeEfetiva, BigDecimal rendimento, 
 &nbsp;                                   Boolean valorSimulado, String cenarioSimulacao) {
-<b class="nc">&nbsp;        if (simulacao == null) {</b>
+<b class="fc">&nbsp;        if (simulacao == null) {</b>
 &nbsp;            return;
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        simulacao.setClienteId(clienteId);</b>
-<b class="nc">&nbsp;        simulacao.setProduto(produto);</b>
-<b class="nc">&nbsp;        simulacao.setValorInvestido(valorInvestido);</b>
-<b class="nc">&nbsp;        simulacao.setValorFinal(valorFinal);</b>
-<b class="nc">&nbsp;        simulacao.setPrazoMeses(prazoMeses);</b>
-<b class="nc">&nbsp;        simulacao.setPrazoDias(prazoDias);</b>
-<b class="nc">&nbsp;        simulacao.setPrazoAnos(prazoAnos);</b>
-<b class="nc">&nbsp;        simulacao.setRentabilidadeEfetiva(rentabilidadeEfetiva);</b>
-<b class="nc">&nbsp;        simulacao.setRendimento(rendimento);</b>
-<b class="nc">&nbsp;        simulacao.setValorSimulado(valorSimulado);</b>
-<b class="nc">&nbsp;        simulacao.setCenarioSimulacao(cenarioSimulacao);</b>
+<b class="fc">&nbsp;        simulacao.setClienteId(clienteId);</b>
+<b class="fc">&nbsp;        simulacao.setProduto(produto);</b>
+<b class="fc">&nbsp;        simulacao.setValorInvestido(valorInvestido);</b>
+<b class="fc">&nbsp;        simulacao.setValorFinal(valorFinal);</b>
+<b class="fc">&nbsp;        simulacao.setPrazoMeses(prazoMeses);</b>
+<b class="fc">&nbsp;        simulacao.setPrazoDias(prazoDias);</b>
+<b class="fc">&nbsp;        simulacao.setPrazoAnos(prazoAnos);</b>
+<b class="fc">&nbsp;        simulacao.setRentabilidadeEfetiva(rentabilidadeEfetiva);</b>
+<b class="fc">&nbsp;        simulacao.setRendimento(rendimento);</b>
+<b class="fc">&nbsp;        simulacao.setValorSimulado(valorSimulado);</b>
+<b class="fc">&nbsp;        simulacao.setCenarioSimulacao(cenarioSimulacao);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -235,7 +235,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-11-16 12:05</div>
+    <div style="float:right;">generated on 2025-11-16 13:18</div>
 </div>
 </body>
 </html>

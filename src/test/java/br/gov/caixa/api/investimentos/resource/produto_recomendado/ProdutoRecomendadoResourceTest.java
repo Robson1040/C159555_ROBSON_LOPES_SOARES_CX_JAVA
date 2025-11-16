@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 import br.gov.caixa.api.investimentos.service.produto_recomendado.ProdutoRecomendadoService;
 import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
 import br.gov.caixa.api.investimentos.exception.auth.AccessDeniedException;
@@ -84,8 +85,7 @@ class ProdutoRecomendadoResourceTest {
 
         // Then
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
-        ProdutoRecomendadoResource.ErrorResponse errorResponse = 
-            (ProdutoRecomendadoResource.ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse = (ErrorResponse) response.getEntity();
         assertEquals(mensagemErro, errorResponse.message());
     }
 
@@ -103,8 +103,8 @@ class ProdutoRecomendadoResourceTest {
 
         // Then
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
-        ProdutoRecomendadoResource.ErrorResponse errorResponse = 
-            (ProdutoRecomendadoResource.ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse = 
+            (ErrorResponse) response.getEntity();
         assertEquals(mensagemErro, errorResponse.message());
     }
 
@@ -122,8 +122,8 @@ class ProdutoRecomendadoResourceTest {
 
         // Then
         assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
-        ProdutoRecomendadoResource.ErrorResponse errorResponse = 
-            (ProdutoRecomendadoResource.ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse = 
+            (ErrorResponse) response.getEntity();
         assertEquals(mensagemErro, errorResponse.message());
     }
 
@@ -140,8 +140,8 @@ class ProdutoRecomendadoResourceTest {
 
         // Then
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
-        ProdutoRecomendadoResource.ErrorResponse errorResponse = 
-            (ProdutoRecomendadoResource.ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse = 
+            (ErrorResponse) response.getEntity();
         assertEquals("Erro interno no servidor", errorResponse.message());
     }
 
@@ -157,8 +157,8 @@ class ProdutoRecomendadoResourceTest {
 
         // Then - AccessDeniedException é capturada pelo catch genérico
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
-        ProdutoRecomendadoResource.ErrorResponse errorResponse = 
-            (ProdutoRecomendadoResource.ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse = 
+            (ErrorResponse) response.getEntity();
         assertEquals("Erro interno no servidor", errorResponse.message());
         
         verify(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
@@ -201,8 +201,8 @@ class ProdutoRecomendadoResourceTest {
 
         // Then
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
-        ProdutoRecomendadoResource.ErrorResponse errorResponse = 
-            (ProdutoRecomendadoResource.ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse = 
+            (ErrorResponse) response.getEntity();
         assertEquals(mensagemErro, errorResponse.message());
     }
 
@@ -219,8 +219,8 @@ class ProdutoRecomendadoResourceTest {
 
         // Then
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
-        ProdutoRecomendadoResource.ErrorResponse errorResponse = 
-            (ProdutoRecomendadoResource.ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse = 
+            (ErrorResponse) response.getEntity();
         assertEquals("Erro interno no servidor", errorResponse.message());
     }
 
@@ -231,8 +231,8 @@ class ProdutoRecomendadoResourceTest {
         String mensagem = "Teste de erro";
         
         // When
-        ProdutoRecomendadoResource.ErrorResponse errorResponse = 
-            new ProdutoRecomendadoResource.ErrorResponse(mensagem);
+        ErrorResponse errorResponse = 
+            new ErrorResponse(mensagem);
 
         // Then
         assertEquals(mensagem, errorResponse.message());
