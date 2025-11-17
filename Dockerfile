@@ -7,6 +7,7 @@ WORKDIR /project
 # Copia o código e compila (caso queira build interno)
 # Se você preferir buildar no IntelliJ, pode ignorar esse stage
 COPY . .
+RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 # ============================================
@@ -24,8 +25,8 @@ COPY --from=build /project/target/quarkus-app /app/quarkus-app
 #COPY private-key.pem /app/private-key.pem
 
 # Copia o banco SQLite para dentro do container (vai ser montado via volume também)
-COPY banco_de_dados.db /app/banco_de_dados.db
-COPY banco_de_dados_teste.db /app/banco_de_dados_teste.db
+#COPY banco_de_dados.db /app/banco_de_dados.db
+#COPY banco_de_dados_teste.db /app/banco_de_dados_teste.db
 
 EXPOSE 9090
 
