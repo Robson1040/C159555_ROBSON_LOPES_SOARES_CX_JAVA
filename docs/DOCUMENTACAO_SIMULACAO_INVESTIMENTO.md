@@ -116,7 +116,7 @@ Content-Type: application/json
     "nome": "CDB Banco XYZ 120% CDI",
     "tipo": "CDB",
     "tipo_rentabilidade": "POS_FIXADO",
-    "rentabilidade": 120.0,
+    "rentabilidade": 20.0,
     "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 30,
@@ -725,7 +725,7 @@ curl -X GET http://localhost:9090/simular-investimento/estatisticas/1 \
 {
   "produtoValidado": {
     "nome": "CDB Premium 115% CDI",
-    "rentabilidade": 115.0,
+    "rentabilidade": 15.0,
     "fgc": true
   },
   "resultadoSimulacao": {

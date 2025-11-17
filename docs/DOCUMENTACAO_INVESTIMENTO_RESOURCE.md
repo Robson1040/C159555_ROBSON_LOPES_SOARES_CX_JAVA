@@ -103,7 +103,7 @@ Content-Type: application/json
   "data": "2025-11-15",
   "tipo": "CDB",
   "tipo_rentabilidade": "POS",
-  "rentabilidade": 120.00,
+  "rentabilidade": 20.00,
   "periodo_rentabilidade": "AO_ANO",
   "indice": "CDI",
   "liquidez": 30,
@@ -126,7 +126,7 @@ Content-Type: application/json
 | `data` | date | Data da aplicação |
 | `tipo` | enum | Tipo do produto (ex: CDB, LCI) |
 | `tipo_rentabilidade` | enum | Tipo de rentabilidade (ex: PRE, POS) |
-| `rentabilidade` | BigDecimal | Valor percentual/nominal de rentabilidade |
+| `rentabilidade` | BigDecimal | Valor percentual de rentabilidade |
 | `periodo_rentabilidade` | enum | Período da rentabilidade (ex: AO_ANO) |
 | `indice` | enum | Índice relacionado (ex: CDI, SELIC, IPCA, NENHUM) |
 | `liquidez` | Integer | Liquidez em dias (-1 = sem liquidez) |
@@ -182,7 +182,7 @@ Content-Type: application/json
     "data": "2025-11-15",
     "tipo": "CDB",
     "tipo_rentabilidade": "POS",
-    "rentabilidade": 120.00,
+    "rentabilidade": 20.00,
     "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 30,
