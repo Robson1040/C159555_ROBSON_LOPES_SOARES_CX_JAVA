@@ -19,6 +19,8 @@ O `ClienteResource` é responsável por gerenciar operações CRUD (Create, Read
 ### 1. GET /clientes
 **Lista todos os clientes do sistema**
 
+`http://localhost:9090/clientes`
+
 #### Descrição
 Retorna uma lista completa de todos os clientes cadastrados no sistema. Endpoint restrito apenas para administradores.
 
@@ -67,6 +69,8 @@ Content-Type: application/json
 ### 2. GET /clientes/{id}
 **Busca cliente por ID**
 
+`http://localhost:9090/clientes/{id}`
+
 #### Descrição
 Retorna os dados de um cliente específico pelo ID. ADMINs podem buscar qualquer cliente, USERs só podem buscar seus próprios dados.
 
@@ -112,6 +116,8 @@ Content-Type: application/json
 
 ### 3. POST /clientes
 **Cria um novo cliente**
+
+`http://localhost:9090/clientes`
 
 #### Descrição
 Cadastra um novo cliente no sistema. Endpoint público para permitir auto-registro de usuários.
@@ -180,6 +186,8 @@ Content-Type: application/json
 
 ### 4. PUT /clientes/{id}
 **Atualiza um cliente existente**
+
+`http://localhost:9090/clientes/{id}`
 
 #### Descrição
 Atualiza os dados de um cliente específico. USERs só podem atualizar seus próprios dados, ADMINs podem atualizar qualquer cliente.
@@ -251,6 +259,8 @@ Content-Type: application/json
 ### 5. GET /clientes/cpf/{cpf}
 **Busca cliente por CPF**
 
+`http://localhost:9090/clientes/cpf/{cpf}`
+
 #### Descrição
 Retorna os dados de um cliente específico pelo CPF. Endpoint restrito para administradores apenas.
 
@@ -295,6 +305,8 @@ Content-Type: application/json
 
 ### 6. GET /clientes/username/{username}
 **Busca cliente por username**
+
+`http://localhost:9090/clientes/username/{username}`
 
 #### Descrição
 Retorna os dados de um cliente específico pelo username. Endpoint restrito para administradores apenas.

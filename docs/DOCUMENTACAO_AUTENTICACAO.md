@@ -19,6 +19,8 @@ O `AutenticacaoResource` é responsável por gerenciar a autenticação de usuá
 ### 1. POST /entrar
 **Realiza login de usuário no sistema**
 
+`http://localhost:9090/entrar`
+
 #### Descrição
 Autentica um usuário através de username e password, retornando um token JWT válido por 1 hora com as informações do usuário autenticado.
 

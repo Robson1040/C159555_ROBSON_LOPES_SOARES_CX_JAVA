@@ -23,6 +23,8 @@ O `PerfilRiscoResource` é responsável por calcular e fornecer o perfil de risc
 ### 1. GET /perfil-risco/{clienteId}
 **Calcula o perfil de risco de um cliente**
 
+`http://localhost:9090/perfil-risco/{clienteId}`
+
 #### Descrição
 Analisa o histórico de investimentos e simulações de um cliente para determinar seu perfil de risco. O cálculo utiliza Machine Learning baseado nos produtos mais utilizados pelo cliente, considerando primeiro investimentos reais e, na ausência destes, simulações realizadas.
 

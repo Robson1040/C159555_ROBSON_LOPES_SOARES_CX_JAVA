@@ -24,6 +24,8 @@ O `InvestimentoResource` é responsável por registrar investimentos reais reali
 ### 1. POST /investimentos
 **Registra um novo investimento real**
 
+`http://localhost:9090/investimentos`
+
 #### Descrição
 Registra um investimento realizado por um cliente. O endpoint persiste o investimento e retorna os dados do investimento criado.
 
@@ -137,6 +139,8 @@ Content-Type: application/json
 
 ### 2. GET /investimentos/{clienteId}
 **Busca todos os investimentos de um cliente**
+
+`http://localhost:9090/investimentos/{clienteId}`
 
 #### Descrição
 Retorna a lista de investimentos persistidos para o cliente informado. O endpoint ordena ou filtra conforme regras internas do serviço.

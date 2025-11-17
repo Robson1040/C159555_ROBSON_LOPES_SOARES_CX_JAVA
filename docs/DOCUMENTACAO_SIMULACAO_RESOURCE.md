@@ -30,6 +30,8 @@ O `SimulacaoResource` é responsável por fornecer funcionalidades de consulta e
 ### 1. GET /simulacoes
 **Lista todas as simulações realizadas**
 
+`http://localhost:9090/simulacoes`
+
 #### Descrição
 Retorna uma lista completa de todas as simulações de investimentos realizadas na plataforma, incluindo dados detalhados de cada simulação. Útil para análise completa do histórico de simulações de todos os clientes.
 
@@ -114,6 +116,8 @@ Content-Type: application/json
 ### 2. GET /simulacoes/por-produto-dia
 **Agrupamento de simulações por produto e data**
 
+`http://localhost:9090/simulacoes/por-produto-dia`
+
 #### Descrição
 Retorna um agrupamento das simulações organizadas por produto e data específica (sem considerar horário). Para cada combinação produto/data, calcula estatísticas agregadas como quantidade total, valor médio investido e valor médio final projetado.
 
@@ -190,6 +194,8 @@ Content-Type: application/json
 ### 3. GET /simulacoes/por-produto-mes
 **Agrupamento de simulações por produto e mês**
 
+`http://localhost:9090/simulacoes/por-produto-mes`
+
 #### Descrição
 Retorna um agrupamento das simulações organizadas por produto e mês/ano (YearMonth). Consolida dados mensais para análise de tendências e comportamentos sazonais de simulações por produto.
 
@@ -262,6 +268,8 @@ Content-Type: application/json
 
 ### 4. GET /simulacoes/por-produto-ano
 **Agrupamento de simulações por produto e ano**
+
+`http://localhost:9090/simulacoes/por-produto-ano`
 
 #### Descrição
 Retorna um agrupamento das simulações organizadas por produto e ano. Fornece uma visão consolidada anual para análise de tendências de longo prazo e evolução dos produtos ao longo do tempo.

@@ -30,6 +30,8 @@ O `ProdutoResource` é responsável pelo gerenciamento completo dos produtos de 
 ### 1. GET /produtos
 **Lista produtos com filtros opcionais**
 
+`http://localhost:9090/produtos`
+
 #### Descrição
 Retorna uma lista de produtos de investimento disponíveis na plataforma. Suporta filtros via query parameters para busca específica por características do produto. Se nenhum filtro for aplicado, retorna todos os produtos cadastrados.
 
@@ -140,6 +142,8 @@ GET /produtos?nome=Premium
 ### 2. GET /produtos/{id}
 **Busca produto específico por ID**
 
+`http://localhost:9090/produtos/{id}`
+
 #### Descrição
 Retorna os detalhes completos de um produto específico através do seu ID único. Utilizado para consulta detalhada de produtos individuais.
 
@@ -191,6 +195,8 @@ Content-Type: application/json
 
 ### 3. POST /produtos
 **Cria um novo produto**
+
+`http://localhost:9090/produtos`
 
 #### Descrição
 Cria um novo produto de investimento na plataforma. Realiza validações completas dos dados fornecidos, incluindo validação customizada da consistência entre tipo de rentabilidade e índice.
@@ -308,6 +314,8 @@ Content-Type: application/json
 ### 4. PUT /produtos/{id}
 **Atualiza um produto existente**
 
+`http://localhost:9090/produtos/{id}`
+
 #### Descrição
 Atualiza completamente um produto existente na plataforma. Realiza as mesmas validações do POST, incluindo verificação de existência do produto.
 
@@ -361,6 +369,8 @@ Content-Type: application/json
 
 ### 5. GET /produtos/count
 **Conta total de produtos**
+
+`http://localhost:9090/produtos/count`
 
 #### Descrição
 Retorna o número total de produtos cadastrados na plataforma. Útil para paginação, dashboards e estatísticas gerais.

@@ -23,6 +23,8 @@ O `TelemetriaResource` é responsável por fornecer métricas e dados de monitor
 ### 1. GET /telemetria
 **Obtém telemetria resumida do sistema**
 
+`http://localhost:9090/telemetria`
+
 #### Descrição
 Retorna um resumo consolidado das métricas de uso da API, incluindo quantidade de chamadas e tempo médio de resposta por endpoint, além do período de coleta dos dados.
 
@@ -84,6 +86,8 @@ Content-Type: application/json
 
 ### 2. GET /telemetria/detalhado
 **Obtém telemetria detalhada do sistema**
+
+`http://localhost:9090/telemetria/detalhado`
 
 #### Descrição
 Retorna todas as métricas detalhadas do banco de dados, incluindo informações completas de cada endpoint monitorado com dados de criação e atualização.
@@ -149,6 +153,8 @@ Content-Type: application/json
 ### 3. GET /telemetria/mais-acessados/{limite}
 **Obtém endpoints mais acessados**
 
+`http://localhost:9090/telemetria/mais-acessados/{limite}`
+
 #### Descrição
 Retorna uma lista dos endpoints mais acessados, ordenados por quantidade de chamadas em ordem decrescente, limitada pelo parâmetro especificado.
 
@@ -206,6 +212,8 @@ Content-Type: application/json
 
 ### 4. DELETE /telemetria/limpar
 **Limpa todas as métricas de telemetria**
+
+`http://localhost:9090/telemetria/limpar`
 
 #### Descrição
 Remove todas as métricas de telemetria do sistema, resetando os contadores e dados históricos. Operação irreversível.

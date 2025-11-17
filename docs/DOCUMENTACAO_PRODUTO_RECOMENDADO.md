@@ -23,6 +23,8 @@ O `ProdutoRecomendadoResource` é responsável por fornecer recomendações pers
 ### 1. GET /produtos-recomendados/cliente/{clienteId}
 **Obtém produtos recomendados baseados no histórico do cliente**
 
+`http://localhost:9090/produtos-recomendados/cliente/{clienteId}`
+
 #### Descrição
 Analisa o histórico de investimentos e simulações de um cliente específico para gerar recomendações personalizadas usando algoritmos de Machine Learning. O sistema prioriza investimentos reais e, na ausência destes, utiliza simulações como base para as recomendações.
 

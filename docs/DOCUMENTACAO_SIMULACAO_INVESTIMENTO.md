@@ -23,6 +23,8 @@ O `SimulacaoInvestimentoResource` é responsável por realizar simulações de i
 ### 1. POST /simular-investimento
 **Realiza simulação de investimento**
 
+`http://localhost:9090/simular-investimento`
+
 #### Descrição
 Calcula a projeção de rentabilidade de um investimento baseado nos parâmetros fornecidos. O sistema busca produtos que atendam aos critérios especificados e retorna o resultado da simulação com o produto validado e valores calculados.
 
@@ -161,6 +163,8 @@ Content-Type: application/json
 ### 2. GET /simular-investimento/historico/{clienteId}
 **Busca histórico de simulações de um cliente**
 
+`http://localhost:9090/simular-investimento/historico/{clienteId}`
+
 #### Descrição
 Retorna todas as simulações realizadas por um cliente específico, ordenadas por data. Permite acompanhar o comportamento e histórico de simulações para análise de perfil.
 
@@ -234,6 +238,8 @@ Content-Type: application/json
 ### 3. GET /simular-investimento/{id}
 **Busca simulação específica por ID**
 
+`http://localhost:9090/simular-investimento/{id}`
+
 #### Descrição
 Retorna os detalhes de uma simulação específica pelo seu ID. Inclui validação de acesso para garantir que o usuário só acesse simulações próprias (ou todas se for ADMIN).
 
@@ -288,6 +294,8 @@ Content-Type: application/json
 
 ### 4. GET /simular-investimento/estatisticas/{clienteId}
 **Busca estatísticas de simulações do cliente**
+
+`http://localhost:9090/simular-investimento/estatisticas/{clienteId}`
 
 #### Descrição
 Retorna estatísticas consolidadas das simulações de um cliente, incluindo totais, médias e última simulação. Útil para análise comportamental e dashboards.
