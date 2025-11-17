@@ -4,6 +4,8 @@
 
 O `TelemetriaResource` é responsável por fornecer métricas e dados de monitoramento da API de Investimentos Caixa. Oferece endpoints para visualizar estatísticas de uso, performance dos serviços e gerenciar dados de telemetria. Todos os endpoints são restritos a administradores.
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/telemetria`
 
 **Formatos suportados:**
@@ -525,28 +527,6 @@ curl -X DELETE http://localhost:9090/telemetria/limpar \
   -H "Content-Type: application/json"
 ```
 
-### Postman
 
-A collection `SIMULADOR INVESTIMENTOS.postman_collection.json` contém exemplos configurados para estes endpoints.
 
 ---
-
-## Considerações de Segurança
-
-1. **Acesso Restrito**: Apenas ADMINs podem acessar métricas
-2. **Dados Sensíveis**: Métricas podem revelar padrões de uso
-3. **Operação Destrutiva**: Limpeza de métricas é irreversível
-4. **Monitoramento**: Acesso aos dados é logado para auditoria
-5. **Performance**: Consultas grandes podem impactar performance
-
----
-
-## Logs e Monitoramento
-
-O sistema registra:
-- Acessos aos endpoints de telemetria
-- Operações de limpeza de métricas
-- Falhas na coleta de dados
-- Performance das consultas
-
-Para logs detalhados, consulte o arquivo `LOGS.txt` do projeto.

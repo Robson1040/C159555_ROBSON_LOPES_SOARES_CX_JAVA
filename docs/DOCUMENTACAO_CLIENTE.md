@@ -4,6 +4,8 @@
 
 O `ClienteResource` é responsável por gerenciar operações CRUD (Create, Read, Update, Delete) de clientes na API de Investimentos Caixa. Oferece endpoints para criação, listagem, busca e atualização de clientes com controle de acesso baseado em roles.
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/clientes`
 
 **Formatos suportados:**
@@ -575,10 +577,6 @@ curl -X PUT http://localhost:9090/clientes/1 \
   }'
 ```
 
-### Postman
-
-A collection `SIMULADOR INVESTIMENTOS.postman_collection.json` contém exemplos configurados para todos estes endpoints.
-
 ---
 
 ## Considerações de Segurança
@@ -845,13 +843,3 @@ Todas as respostas de erro seguem o padrão:
 - **500**: Erro interno
 
 ---
-
-## Logs e Monitoramento
-
-O sistema registra:
-- Operações CRUD de clientes
-- Tentativas de acesso não autorizado
-- Falhas de validação
-- Criação de novas contas
-
-Para logs detalhados, consulte o arquivo `LOGS.txt` do projeto.

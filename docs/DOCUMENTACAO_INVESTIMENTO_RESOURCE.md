@@ -4,6 +4,8 @@
 
 O `InvestimentoResource` é responsável por registrar investimentos reais realizados pelos clientes e por consultar os investimentos associados a um cliente.
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/investimentos`
 
 **Formatos suportados:**
@@ -100,9 +102,9 @@ Content-Type: application/json
   "prazoAnos": 2,
   "data": "2025-11-15",
   "tipo": "CDB",
-  "tipo_rentabilidade": "POS_FIXADO",
+  "tipo_rentabilidade": "POS",
   "rentabilidade": 120.00,
-  "periodo_rentabilidade": "ANUAL",
+  "periodo_rentabilidade": "AO_ANO",
   "indice": "CDI",
   "liquidez": 30,
   "minimo_dias_investimento": 30,
@@ -123,9 +125,9 @@ Content-Type: application/json
 | `prazoAnos` | Integer | Prazo em anos (quando aplicável) |
 | `data` | date | Data da aplicação |
 | `tipo` | enum | Tipo do produto (ex: CDB, LCI) |
-| `tipo_rentabilidade` | enum | Tipo de rentabilidade (ex: PRE_FIXADO, POS_FIXADO) |
+| `tipo_rentabilidade` | enum | Tipo de rentabilidade (ex: PRE, POS) |
 | `rentabilidade` | BigDecimal | Valor percentual/nominal de rentabilidade |
-| `periodo_rentabilidade` | enum | Período da rentabilidade (ex: ANUAL) |
+| `periodo_rentabilidade` | enum | Período da rentabilidade (ex: AO_ANO) |
 | `indice` | enum | Índice relacionado (ex: CDI, SELIC, IPCA, NENHUM) |
 | `liquidez` | Integer | Liquidez em dias (-1 = sem liquidez) |
 | `minimo_dias_investimento` | Integer | Mínimo de dias para resgate |
@@ -179,9 +181,9 @@ Content-Type: application/json
     "prazoAnos": 2,
     "data": "2025-11-15",
     "tipo": "CDB",
-    "tipo_rentabilidade": "POS_FIXADO",
+    "tipo_rentabilidade": "POS",
     "rentabilidade": 120.00,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 30,
     "minimo_dias_investimento": 30,
@@ -274,4 +276,3 @@ Content-Type: application/json
 ---
 
 *Documento gerado para manter o mesmo padrão de `DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md`.*
-

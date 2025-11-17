@@ -4,6 +4,8 @@
 
 O `AutenticacaoResource` é responsável por gerenciar a autenticação de usuários na API de Investimentos Caixa. Atualmente possui apenas um endpoint para login de usuários.
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/`
 
 **Formatos suportados:**
@@ -261,10 +263,6 @@ curl -X POST http://localhost:9090/entrar \
   }'
 ```
 
-### Postman
-
-A collection `SIMULADOR INVESTIMENTOS.postman_collection.json` contém exemplos configurados para este endpoint na pasta "AUTENTICACAO".
-
 ---
 
 ## Considerações de Segurança
@@ -398,12 +396,3 @@ Todas as respostas de erro seguem o padrão:
 ```
 
 ---
-
-## Logs e Monitoramento  
-
-O sistema registra:
-- Tentativas de login (sucesso/falha)
-- Tokens gerados
-- Erros de autenticação
-
-Para logs detalhados, consulte o arquivo `LOGS.txt` do projeto.

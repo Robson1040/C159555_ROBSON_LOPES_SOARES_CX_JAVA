@@ -4,6 +4,8 @@
 
 O `PerfilRiscoResource` é responsável por calcular e fornecer o perfil de risco de clientes baseado em seu histórico de investimentos e simulações. Utiliza algoritmos de Machine Learning para analisar o comportamento do cliente e determinar seu perfil (Conservador, Moderado ou Agressivo).
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/perfil-risco`
 
 **Formatos suportados:**
@@ -378,79 +380,4 @@ Content-Type: application/json
 }
 ```
 
-### Postman
 
-A collection `SIMULADOR INVESTIMENTOS.postman_collection.json` pode conter exemplos para este endpoint.
-
----
-
-## Considerações de Segurança
-
-1. **Controle de Acesso**: Requer autenticação JWT válida
-2. **Roles**: Aceita USER e ADMIN (sem validação de propriedade)
-3. **Dados Sensíveis**: Perfil pode revelar comportamento financeiro
-4. **Auditoria**: Acesso aos perfis deveria ser logado
-5. **Privacidade**: Dados de investimento são confidenciais
-
-### Recomendações de Melhoria
-
-1. **Validação de Propriedade**: USERs deveriam acessar apenas seus dados
-2. **Cache**: Implementar cache para reduzir cálculos
-3. **Auditoria**: Log de acessos aos perfis
-4. **Rate Limiting**: Prevenir abuso do endpoint
-5. **Autorização Granular**: Controle mais fino de acesso
-
----
-
-## Machine Learning e Algoritmos
-
-### GeradorRecomendacaoML
-
-O sistema utiliza:
-- **Análise de frequência**: Produtos mais utilizados
-- **Ponderação por risco**: Considera nível de risco dos produtos
-- **Ordenação inteligente**: Prioriza padrões de comportamento
-- **Fallback**: Simulações como dados alternativos
-
-### Limitações Atuais
-
-- Não considera valores investidos
-- Não analisa performance histórica
-- Não considera contexto temporal
-- Algoritmo baseado apenas em frequência
-
----
-
-## Logs e Monitoramento
-
-O sistema registra:
-- Cálculos de perfil realizados
-- Clientes sem histórico suficiente
-- Erros no processamento ML
-- Performance das consultas
-
-Para logs detalhados, consulte o arquivo `LOGS.txt` do projeto.
-
----
-
-## Casos de Uso Típicos
-
-### 1. Onboarding de Cliente
-- Cliente novo faz simulações
-- Sistema calcula perfil baseado nas simulações
-- Perfil usado para recomendações iniciais
-
-### 2. Cliente Experiente
-- Cliente com histórico de investimentos
-- Perfil baseado em comportamento real
-- Maior precisão na classificação
-
-### 3. Rebalanceamento de Portfólio
-- Análise periódica do perfil
-- Verificação de mudanças comportamentais
-- Ajuste das recomendações
-
-### 4. Compliance e Suitability
-- Validação de adequação de produtos
-- Verificação de perfil vs. investimentos
-- Documentação para regulamentação

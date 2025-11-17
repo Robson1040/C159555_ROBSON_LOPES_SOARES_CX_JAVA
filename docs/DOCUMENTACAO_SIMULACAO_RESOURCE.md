@@ -4,6 +4,8 @@
 
 O `SimulacaoResource` é responsável por fornecer funcionalidades de consulta e análise agregada das simulações de investimentos realizadas na plataforma. Permite visualizar todas as simulações e obter insights através de agrupamentos por produto e período temporal.
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/simulacoes`
 
 **Formatos suportados:**
@@ -544,9 +546,7 @@ curl -X GET http://localhost:9090/simulacoes/por-produto-ano \
 }
 ```
 
-### Postman
 
-A collection `SIMULADOR INVESTIMENTOS.postman_collection.json` contém exemplos para todos estes endpoints administrativos.
 
 ---
 
@@ -621,65 +621,3 @@ GET /simulacoes → Histórico completo para auditoria
 - Valor médio final projetado
 - Distribuição por produto
 - Tendências temporais
-
-### Oportunidades de Analytics
-
-1. **Sazonalidade**: Identificar picos de simulação
-2. **Preferências**: Produtos mais populares
-3. **Ticket médio**: Evolução dos valores investidos
-4. **Comportamento**: Padrões de simulação por período
-5. **Conversão**: Correlação simulação → investimento real
-
-### Visualizações Sugeridas
-
-1. **Dashboards**: Gráficos de linha para tendências temporais
-2. **Heat maps**: Distribuição produto × período
-3. **Rankings**: Top produtos por volume/quantidade
-4. **Forecasting**: Projeções baseadas em histórico
-
----
-
-## Logs e Monitoramento
-
-### Eventos Logados
-- Consultas realizadas por administrador
-- Volume de dados retornados
-- Performance das consultas
-- Erros de processamento
-- Tentativas de acesso não autorizadas
-
-### Métricas de Performance
-- Tempo de resposta por endpoint
-- Uso de memória durante agrupamentos
-- Carga no banco de dados
-- Taxa de sucesso das consultas
-
-### Alertas Recomendados
-- Consultas muito lentas (> 5s)
-- Volume de dados muito alto (> 10k simulações)
-- Múltiplos acessos pelo mesmo admin
-- Falhas consecutivas de consulta
-- Picos anômalos de uso
-
----
-
-## Versionamento e Evolução
-
-### Versão Atual: 1.0
-- Funcionalidades básicas de consulta
-- Agrupamentos por período temporal
-- Cálculos estatísticos essenciais
-
-### Roadmap Futuro
-1. **v1.1**: Filtros por período específico
-2. **v1.2**: Paginação para grandes volumes
-3. **v1.3**: Cache inteligente de consultas
-4. **v2.0**: Exportação para Excel/PDF
-5. **v2.1**: APIs GraphQL para queries customizadas
-
-### Backward Compatibility
-- Manter compatibilidade com DTOs atuais
-- Novos campos opcionais apenas
-- Versionamento de headers quando necessário
-
-Para logs detalhados e exemplos de monitoramento, consulte o arquivo `LOGS.txt` do projeto.

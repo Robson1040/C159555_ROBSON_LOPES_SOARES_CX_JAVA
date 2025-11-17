@@ -4,6 +4,8 @@
 
 O `SimulacaoInvestimentoResource` é responsável por realizar simulações de investimentos financeiros e gerenciar o histórico de simulações dos clientes. Permite calcular projeções de rentabilidade, consultar histórico de simulações e obter estatísticas comportamentais.
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/simular-investimento`
 
 **Formatos suportados:**
@@ -55,7 +57,7 @@ Content-Type: application/json
   "prazoMeses": 12,
   "tipoProduto": "CDB",
   "produto": "CDB Premium",
-  "tipo_rentabilidade": "POS_FIXADO",
+  "tipo_rentabilidade": "POS",
   "indice": "CDI",
   "liquidez": 90,
   "fgc": true
@@ -74,9 +76,9 @@ Content-Type: application/json
 | `prazoAnos` | Integer | **Um obrigatório** | `@Min(1)`, `@Max(50)` | Prazo em anos (1 a 50) |
 | `tipoProduto` | enum | Não | - | Tipo do produto (CDB, LCI, LCA, etc.) |
 | `produto` | string | Não | - | Nome do produto para filtrar |
-| `tipo_rentabilidade` | enum | Não | - | PRE_FIXADO, POS_FIXADO |
+| `tipo_rentabilidade` | enum | Não | - | PRE, POS |
 | `indice` | enum | Não | - | CDI, SELIC, IPCA, TR, NENHUM |
-| `liquidez` | Integer | **Sim** | `@NotNull`, `@Min(-1)` | Liquidez desejada (-1 = sem liquidez, >= 0 = dias) |
+| `liquidez` | Integer | Não | `@Min(-1)` | Liquidez desejada (-1 = sem liquidez, >= 0 = dias) |
 | `fgc` | Boolean | Não | - | Protegido pelo FGC |
 
 **Regras de Validação Especiais:**
@@ -85,8 +87,8 @@ Content-Type: application/json
 2. **Liquidez**: Deve ser -1 (sem liquidez) ou >= 0 (dias de liquidez)
 3. **Prazo máximo**: Não pode exceder 20 anos (240 meses) para simulação precisa
 4. **Consistência rentabilidade/índice**:
-   - PRE_FIXADO → índice deve ser NENHUM
-   - POS_FIXADO → índice deve ser específico (CDI, SELIC, etc.)
+   - PRE → índice deve ser NENHUM
+   - POS → índice deve ser específico (CDI, SELIC, etc.)
 
 **Exemplo de Request:**
 ```json
@@ -95,7 +97,7 @@ Content-Type: application/json
   "valor": 5000.00,
   "prazoMeses": 24,
   "tipoProduto": "CDB", 
-  "tipo_rentabilidade": "POS_FIXADO",
+  "tipo_rentabilidade": "POS",
   "indice": "CDI",
   "liquidez": 30,
   "fgc": true
@@ -115,7 +117,7 @@ Content-Type: application/json
     "tipo": "CDB",
     "tipo_rentabilidade": "POS_FIXADO",
     "rentabilidade": 120.0,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 30,
     "minimo_dias_investimento": 30,
@@ -527,7 +529,6 @@ Content-Type: application/json
 **Campos obrigatórios:**
 - `"ID do cliente é obrigatório"`
 - `"Valor do investimento é obrigatório"`
-- `"Liquidez é obrigatória"`
 
 **Validações de range:**
 - `"Valor mínimo de investimento é R$ 1,00"`
@@ -577,8 +578,8 @@ Content-Type: application/json
 - `ETF`: Exchange Traded Funds
 
 ### TipoRentabilidade
-- `PRE_FIXADO`: Taxa conhecida no momento da aplicação
-- `POS_FIXADO`: Taxa vinculada a um índice
+- `PRE`: Taxa conhecida no momento da aplicação
+- `POS`: Taxa vinculada a um índice
 
 ### Indice
 - `CDI`: Certificado de Depósito Interbancário
@@ -746,9 +747,7 @@ curl -X GET http://localhost:9090/simular-investimento/estatisticas/1 \
 }
 ```
 
-### Postman
 
-A collection `SIMULADOR INVESTIMENTOS.postman_collection.json` contém exemplos para todos estes endpoints.
 
 ---
 
@@ -794,33 +793,3 @@ GET /estatisticas/1 → Métricas consolidadas
 ```
 
 ---
-
-## Considerações de Segurança
-
-1. **Controle de Acesso**: Validação rigorosa USER vs. dados próprios
-2. **Dados Financeiros**: Informações sensíveis de comportamento
-3. **Simulações**: Podem revelar estratégias de investimento
-4. **Auditoria**: Todas as simulações são logadas
-5. **Limite de Valores**: Validação de ranges realistas
-
-### Recomendações
-
-1. **Rate Limiting**: Prevenir abuso das simulações
-2. **Cache Inteligente**: Para produtos frequentemente consultados  
-3. **Auditoria Completa**: Log de todas as operações
-4. **Validação Avançada**: Verificar produtos ativos/disponíveis
-5. **Monitoramento**: Alertas para valores muito altos
-
----
-
-## Logs e Monitoramento
-
-O sistema registra:
-- Simulações realizadas por cliente
-- Produtos mais simulados
-- Valores e prazos médios
-- Erros de validação
-- Performance dos cálculos
-- Tentativas de acesso não autorizadas
-
-Para logs detalhados, consulte o arquivo `LOGS.txt` do projeto.

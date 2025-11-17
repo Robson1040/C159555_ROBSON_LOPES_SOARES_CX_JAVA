@@ -4,6 +4,8 @@
 
 O `ProdutoResource` é responsável pelo gerenciamento completo dos produtos de investimento disponíveis na plataforma. Permite consultar, criar, atualizar e filtrar produtos financeiros com diferentes características de rentabilidade, risco e liquidez.
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/produtos`
 
 **Formatos suportados:**
@@ -94,7 +96,7 @@ GET /produtos?nome=Premium
     "tipo": "CDB",
     "tipo_rentabilidade": "POS",
     "rentabilidade": 120.0,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 90,
     "minimo_dias_investimento": 30,
@@ -107,7 +109,7 @@ GET /produtos?nome=Premium
     "tipo": "LCI",
     "tipo_rentabilidade": "PRE",
     "rentabilidade": 11.5,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "NENHUM",
     "liquidez": -1,
     "minimo_dias_investimento": 90,
@@ -176,7 +178,7 @@ Content-Type: application/json
   "tipo": "CDB",
   "tipo_rentabilidade": "POS",
   "rentabilidade": 120.0,
-  "periodo_rentabilidade": "ANUAL",
+  "periodo_rentabilidade": "AO_ANO",
   "indice": "CDI",
   "liquidez": 90,
   "minimo_dias_investimento": 30,
@@ -220,7 +222,7 @@ Content-Type: application/json
   "tipo": "CDB",
   "tipo_rentabilidade": "POS",
   "rentabilidade": 125.0,
-  "periodo_rentabilidade": "ANUAL",
+  "periodo_rentabilidade": "AO_ANO",
   "indice": "CDI",
   "liquidez": 30,
   "minimo_dias_investimento": 30,
@@ -236,7 +238,7 @@ Content-Type: application/json
 | `tipo` | enum | **Sim** | `@NotNull` | Tipo de produto financeiro |
 | `tipo_rentabilidade` | enum | **Sim** | `@NotNull` | PRE ou POS |
 | `rentabilidade` | BigDecimal | **Sim** | `@NotNull`, `@DecimalMin("0.0")` | Taxa de rentabilidade (>= 0) |
-| `periodo_rentabilidade` | enum | **Sim** | `@NotNull` | DIARIO, MENSAL, ANUAL |
+| `periodo_rentabilidade` | enum | **Sim** | `@NotNull` | AO_DIA, AO_MES, AO_ANO, PERIODO_TOTAL |
 | `indice` | enum | Condicional | `@ValidRentabilidadeIndice` | Obrigatório se POS, opcional se PRE |
 | `liquidez` | Integer | **Sim** | `@NotNull`, `@Min(-1)` | -1 (sem liquidez) ou >= 0 (dias) |
 | `minimo_dias_investimento` | Integer | **Sim** | `@NotNull`, `@Min(0)` | Prazo mínimo em dias |
@@ -257,7 +259,7 @@ Content-Type: application/json
   "tipo": "LCI",
   "tipo_rentabilidade": "PRE",
   "rentabilidade": 11.0,
-  "periodo_rentabilidade": "ANUAL",
+  "periodo_rentabilidade": "AO_ANO",
   "indice": "NENHUM",
   "liquidez": -1,
   "minimo_dias_investimento": 90,
@@ -272,7 +274,7 @@ Content-Type: application/json
   "tipo": "CDB", 
   "tipo_rentabilidade": "POS",
   "rentabilidade": 110.0,
-  "periodo_rentabilidade": "ANUAL",
+  "periodo_rentabilidade": "AO_ANO",
   "indice": "CDI",
   "liquidez": 0,
   "minimo_dias_investimento": 1,
@@ -292,7 +294,7 @@ Content-Type: application/json
   "tipo": "CDB",
   "tipo_rentabilidade": "POS",
   "rentabilidade": 125.0,
-  "periodo_rentabilidade": "ANUAL",
+  "periodo_rentabilidade": "AO_ANO",
   "indice": "CDI",
   "liquidez": 30,
   "minimo_dias_investimento": 30,
@@ -346,7 +348,7 @@ Content-Type: application/json
   "tipo": "CDB",
   "tipo_rentabilidade": "POS",
   "rentabilidade": 130.0,
-  "periodo_rentabilidade": "ANUAL",
+  "periodo_rentabilidade": "AO_ANO",
   "indice": "CDI",
   "liquidez": 60,
   "minimo_dias_investimento": 30,
@@ -622,11 +624,12 @@ Content-Type: application/json
 | `POS` | Pós-fixado |
 
 ### PeriodoRentabilidade
-| Valor | Descrição |
-|-------|-----------|
-| `DIARIO` | Ao dia |
-| `MENSAL` | Ao mês |
-| `ANUAL` | Ao ano |
+| Valor | Significado |
+|-------|-------------|
+| `AO_DIA` | Ao dia |
+| `AO_MES` | Ao mês |
+| `AO_ANO` | Ao ano |
+| `PERIODO_TOTAL` | Período total |
 
 ### Indice
 | Valor | Descrição |
@@ -745,7 +748,7 @@ curl -X POST http://localhost:9090/produtos \
     "tipo": "CDB",
     "tipo_rentabilidade": "POS",
     "rentabilidade": 115.0,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 90,
     "minimo_dias_investimento": 30,
@@ -763,7 +766,7 @@ curl -X PUT http://localhost:9090/produtos/15 \
     "tipo": "CDB",
     "tipo_rentabilidade": "POS",
     "rentabilidade": 120.0,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 60,
     "minimo_dias_investimento": 30,
@@ -801,9 +804,7 @@ curl -X GET http://localhost:9090/produtos/count \
 }
 ```
 
-### Postman
 
-A collection `SIMULADOR INVESTIMENTOS.postman_collection.json` contém exemplos para todos estes endpoints.
 
 ---
 
@@ -841,53 +842,3 @@ GET /produtos?tipo_rentabilidade=PRE → Pré-fixados
 ```
 
 ---
-
-## Considerações de Segurança
-
-### Controle de Acesso
-1. **Leitura**: USERs e ADMINs podem consultar
-2. **Escrita**: Apenas ADMINs podem criar/atualizar
-3. **Dados públicos**: Produtos são informação pública na plataforma
-4. **Auditoria**: Logs de criação/alteração necessários
-
-### Validações de Segurança
-1. **Sanitização**: Validação de entrada em todos os campos
-2. **SQL Injection**: Proteção via ORM/Panache
-3. **XSS**: Escape de dados de saída
-4. **Rate Limiting**: Limitar consultas por usuário
-
-### Recomendações
-1. **Logs de Auditoria**: Registrar todas as operações ADMIN
-2. **Versionamento**: Manter histórico de alterações de produtos
-3. **Cache**: Implementar cache para consultas frequentes
-4. **Monitoramento**: Alertas para criações/alterações suspeitas
-
----
-
-## Performance e Otimização
-
-### Consultas ao Banco
-- **Índices**: Otimizar por tipo, nome, FGC, liquidez
-- **Filtros SQL**: Mover lógica de filtro para banco quando possível
-- **Paginação**: Considerar para grandes catálogos
-- **Cache**: Redis para produtos mais consultados
-
-### Recomendações
-1. **Lazy Loading**: Carregar detalhes apenas quando necessário
-2. **Compressão**: Gzip para responses grandes
-3. **CDN**: Cache estático para dados de produtos
-4. **Otimização de queries**: Uso eficiente do ORM
-
----
-
-## Logs e Monitoramento
-
-O sistema registra:
-- Consultas por filtro aplicado
-- Produtos mais visualizados
-- Criações e atualizações de produtos
-- Performance das consultas
-- Tentativas de acesso não autorizadas
-- Erros de validação por campo
-
-Para logs detalhados, consulte o arquivo `LOGS.txt` do projeto.

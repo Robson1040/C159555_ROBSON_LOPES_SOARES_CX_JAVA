@@ -4,6 +4,8 @@
 
 O `ProdutoRecomendadoResource` é responsável por fornecer recomendações personalizadas de produtos de investimento baseadas no perfil de risco e histórico comportamental dos clientes. Utiliza algoritmos de Machine Learning para analisar padrões de investimento e gerar sugestões adequadas.
 
+**Servidor:** `http://localhost:9090`
+
 **Base Path:** `/produtos-recomendados`
 
 **Formatos suportados:**
@@ -64,9 +66,9 @@ Content-Type: application/json
     "id": 1,
     "nome": "CDB Banco XYZ",
     "tipo": "CDB",
-    "tipo_rentabilidade": "POS_FIXADO",
+    "tipo_rentabilidade": "POS",
     "rentabilidade": 102.5,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 30,
     "minimo_dias_investimento": 90,
@@ -77,9 +79,9 @@ Content-Type: application/json
     "id": 5,
     "nome": "Tesouro Selic 2027",
     "tipo": "TESOURO_DIRETO",
-    "tipo_rentabilidade": "POS_FIXADO",
+    "tipo_rentabilidade": "POS",
     "rentabilidade": 100.0,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "SELIC",
     "liquidez": 1,
     "minimo_dias_investimento": 1,
@@ -96,9 +98,9 @@ Content-Type: application/json
 | `id` | Long | ID único do produto |
 | `nome` | string | Nome comercial do produto |
 | `tipo` | enum | Tipo do produto (CDB, LCI, LCA, etc.) |
-| `tipo_rentabilidade` | enum | Tipo de rentabilidade (PRE_FIXADO, POS_FIXADO) |
+| `tipo_rentabilidade` | enum | Tipo de rentabilidade (PRE, POS) |
 | `rentabilidade` | BigDecimal | Percentual de rentabilidade |
-| `periodo_rentabilidade` | enum | Período (DIARIO, MENSAL, ANUAL) |
+| `periodo_rentabilidade` | enum | Período (AO_DIA, AO_MES, AO_ANO, PERIODO_TOTAL) |
 | `indice` | enum | Índice de referência (CDI, SELIC, IPCA, etc.) |
 | `liquidez` | integer | Prazo para resgate em dias (-1 = sem liquidez) |
 | `minimo_dias_investimento` | integer | Prazo mínimo de investimento em dias |
@@ -155,9 +157,9 @@ Content-Type: application/json
     "id": 1,
     "nome": "CDB Banco ABC",
     "tipo": "CDB",
-    "tipo_rentabilidade": "POS_FIXADO",
+    "tipo_rentabilidade": "POS",
     "rentabilidade": 102.0,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 90,
     "minimo_dias_investimento": 30,
@@ -168,9 +170,9 @@ Content-Type: application/json
     "id": 3,
     "nome": "Poupança CEF",
     "tipo": "POUPANCA",
-    "tipo_rentabilidade": "POS_FIXADO",
+    "tipo_rentabilidade": "POS",
     "rentabilidade": 70.0,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "TR",
     "liquidez": 1,
     "minimo_dias_investimento": 1,
@@ -187,9 +189,9 @@ Content-Type: application/json
     "id": 8,
     "nome": "Fundo Multimercado XYZ",
     "tipo": "FUNDO",
-    "tipo_rentabilidade": "POS_FIXADO",
+    "tipo_rentabilidade": "POS",
     "rentabilidade": 150.0,
-    "periodo_rentabilidade": "ANUAL",
+    "periodo_rentabilidade": "AO_ANO",
     "indice": "CDI",
     "liquidez": 30,
     "minimo_dias_investimento": 1,
@@ -200,9 +202,9 @@ Content-Type: application/json
     "id": 10,
     "nome": "VALE3",
     "tipo": "ACAO",
-    "tipo_rentabilidade": "VARIAVEL",
+    "tipo_rentabilidade": "POS",
     "rentabilidade": 0.0,
-    "periodo_rentabilidade": "DIARIO",
+    "periodo_rentabilidade": "AO_DIA",
     "indice": null,
     "liquidez": 1,
     "minimo_dias_investimento": 1,
@@ -543,9 +545,7 @@ HTTP/1.1 400 Bad Request
 }
 ```
 
-### Postman
 
-A collection `SIMULADOR INVESTIMENTOS.postman_collection.json` pode conter exemplos para estes endpoints.
 
 ---
 
@@ -581,33 +581,3 @@ GET /produtos-recomendados/conservador  → Produtos seguros
 GET /produtos-recomendados/agressivo    → Produtos arriscados
 ```
 
----
-
-## Considerações de Segurança
-
-1. **Controle de Acesso**: Validação rigorosa USER vs ADMIN
-2. **Dados Sensíveis**: Histórico financeiro é confidencial
-3. **Autorização Granular**: USER só vê seus dados
-4. **Auditoria**: Acessos deveriam ser logados
-5. **Rate Limiting**: Prevenir abuso dos endpoints ML
-
-### Recomendações
-
-1. **Cache Inteligente**: Reduzir carga computacional
-2. **Auditoria Completa**: Log de todas as recomendações
-3. **Validação Adicional**: Verificar se produtos estão ativos
-4. **Personalização Avançada**: Considerar valores e performance
-5. **A/B Testing**: Testar diferentes algoritmos de recomendação
-
----
-
-## Logs e Monitoramento
-
-O sistema registra:
-- Recomendações geradas por cliente
-- Perfis consultados
-- Erros no processamento ML
-- Performance dos algoritmos
-- Acessos não autorizados
-
-Para logs detalhados, consulte o arquivo `LOGS.txt` do projeto.
