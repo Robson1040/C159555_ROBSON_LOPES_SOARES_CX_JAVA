@@ -15,35 +15,35 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
 ## �🚀 Funcionalidades Principais
 
 ### 🔐 Autenticação e Segurança
-- [**DOCUMENTACAO_AUTENTICACAO.md**](./DOCUMENTACAO_AUTENTICACAO.md) - Sistema de autenticação JWT e autorização baseada em roles
+- [**DOCUMENTACAO_AUTENTICACAO.md**](docs/DOCUMENTACAO_AUTENTICACAO.md) - Sistema de autenticação JWT e autorização baseada em roles
 
 ### 👥 Gestão de Clientes
-- [**DOCUMENTACAO_CLIENTE.md**](./DOCUMENTACAO_CLIENTE.md) - Operações CRUD para clientes e validações
-- [**DOCUMENTACAO_PERFIL_RISCO.md**](./DOCUMENTACAO_PERFIL_RISCO.md) - Sistema de avaliação e cálculo de perfil de risco
+- [**DOCUMENTACAO_CLIENTE.md**](docs/DOCUMENTACAO_CLIENTE.md) - Operações CRUD para clientes e validações
+- [**DOCUMENTACAO_PERFIL_RISCO.md**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - Sistema de avaliação e cálculo de perfil de risco
 
 ### 💰 Produtos Financeiros
-- [**DOCUMENTACAO_PRODUTO_RESOURCE.md**](./DOCUMENTACAO_PRODUTO_RESOURCE.md) - Gestão de produtos de investimento
-- [**DOCUMENTACAO_PRODUTO_RECOMENDADO.md**](./DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - Sistema de recomendação baseado em Machine Learning
+- [**DOCUMENTACAO_PRODUTO_RESOURCE.md**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - Gestão de produtos de investimento
+- [**DOCUMENTACAO_PRODUTO_RECOMENDADO.md**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - Sistema de recomendação baseado em Machine Learning
 
 ### 🤖 Inteligência Artificial e Machine Learning
-- [**DOCUMENTACAO_MACHINE_LEARNING.md**](./DOCUMENTACAO_MACHINE_LEARNING.md) - **🚀 Sistema de Recomendação ML com Distância Euclidiana**
+- [**DOCUMENTACAO_MACHINE_LEARNING.md**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **🚀 Sistema de Recomendação ML com Distância Euclidiana**
   - Algoritmo avançado de recomendação personalizada de produtos
   - Análise multidimensional com 8 características financeiras
   - Aprendizado baseado em histórico real de investimentos
   - Performance superior com 78% de precisão nas recomendações
 
 ### 🧮 Simulações
-- [**DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md**](./DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - Simulações de cenários de investimento
-- [**DOCUMENTACAO_SIMULACAO_RESOURCE.md**](./DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API endpoints para simulações
+- [**DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - Simulações de cenários de investimento
+- [**DOCUMENTACAO_SIMULACAO_RESOURCE.md**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API endpoints para simulações
 
 ### 📈 Monitoramento e Observabilidade
-- [**DOCUMENTACAO_TELEMETRIA.md**](./DOCUMENTACAO_TELEMETRIA.md) - Sistema de telemetria e métricas de performance
+- [**DOCUMENTACAO_TELEMETRIA.md**](docs/DOCUMENTACAO_TELEMETRIA.md) - Sistema de telemetria e métricas de performance
 
 ## 🧪 Documentação de Testes
 
 ### 📋 Testes de Integração
-- [**DOCUMENTACAO_TESTES_PRODUTO_RECOMENDADO.md**](./DOCUMENTACAO_TESTES_PRODUTO_RECOMENDADO.md) - Testes para o sistema de recomendações
-- [**DOCUMENTACAO_TESTES_TELEMETRIA.md**](./DOCUMENTACAO_TESTES_TELEMETRIA.md) - Testes para o sistema de telemetria
+- [**DOCUMENTACAO_TESTES_PRODUTO_RECOMENDADO.md**](docs/DOCUMENTACAO_TESTES_PRODUTO_RECOMENDADO.md) - Testes para o sistema de recomendações
+- [**DOCUMENTACAO_TESTES_TELEMETRIA.md**](docs/DOCUMENTACAO_TESTES_TELEMETRIA.md) - Testes para o sistema de telemetria
 
 ## 🏗️ Arquitetura do Sistema
 
@@ -75,7 +75,7 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 3. **Adaptação Contínua**: Melhora continuamente com cada interação do cliente
 4. **Escalabilidade Real**: Processa milhares de produtos em < 150ms
 
-**📚 [Veja a documentação técnica completa](./DOCUMENTACAO_MACHINE_LEARNING.md)** para entender a matemática e implementação por trás dessa inovação.
+**📚 [Veja a documentação técnica completa](docs/DOCUMENTACAO_MACHINE_LEARNING.md)** para entender a matemática e implementação por trás dessa inovação.
 
 ## 🚦 Status do Projeto
 
@@ -92,12 +92,12 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 ## 📝 Como Navegar
 
 1. **Para desenvolvedores**: 
-   - Comece pelo [**Swagger YAML**](./swagger-api-investimentos-caixa.yaml) para visão completa da API
-   - Continue pela [Autenticação](./DOCUMENTACAO_AUTENTICACAO.md) e depois explore os recursos específicos
-2. **Para arquitetos**: Veja a [Telemetria](./DOCUMENTACAO_TELEMETRIA.md) para entender o monitoramento do sistema
-3. **Para analistas**: O [Sistema de Recomendação](./DOCUMENTACAO_PRODUTO_RECOMENDADO.md) contém a lógica de ML
+   - Comece pelo [**Swagger YAML**](docs/swagger-api-investimentos-caixa.yaml) para visão completa da API
+   - Continue pela [Autenticação](docs/DOCUMENTACAO_AUTENTICACAO.md) e depois explore os recursos específicos
+2. **Para arquitetos**: Veja a [Telemetria](docs/DOCUMENTACAO_TELEMETRIA.md) para entender o monitoramento do sistema
+3. **Para analistas**: O [Sistema de Recomendação](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) contém a lógica de ML
 4. **Para QA**: As documentações de testes contêm cenários completos de validação
-5. **Para integração**: Use o [**Swagger YAML**](./swagger-api-investimentos-caixa.yaml) com ferramentas como:
+5. **Para integração**: Use o [**Swagger YAML**](docs/swagger-api-investimentos-caixa.yaml) com ferramentas como:
    - **Swagger UI** para interface interativa
    - **Postman** para importar coleção automaticamente
    - **Insomnia** para testes de API
@@ -144,14 +144,14 @@ Use o OpenAPI Generator para criar clientes em diferentes linguagens:
 npx @openapitools/openapi-generator-cli generate \
   -i swagger-api-investimentos-caixa.yaml \
   -g typescript-axios \
-  -o ./sdk-typescript
+  -o docs/sdk-typescript
 
 # Python
 pip install openapi-generator-cli
 openapi-generator generate \
   -i swagger-api-investimentos-caixa.yaml \
   -g python \
-  -o ./sdk-python
+  -o docs/sdk-python
 ```
 
 ---
