@@ -4,28 +4,30 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
 
 ## 🚀 Funcionalidades e Documentações da API
 
-### 🔐 Autenticação e Segurança
-- [**DOCUMENTACAO_AUTENTICACAO.md**](docs/DOCUMENTACAO_AUTENTICACAO.md) - Sistema de autenticação JWT e autorização baseada em roles
+###  Autenticação e Segurança
+- [**DOCUMENTACAO_AUTENTICACAO.md**](docs/DOCUMENTACAO_AUTENTICACAO.md) - API de autenticação JWT e autorização baseada em roles
 
-### 👥 Gestão de Clientes
-- [**DOCUMENTACAO_CLIENTE.md**](docs/DOCUMENTACAO_CLIENTE.md) - Operações CRUD para clientes e validações
-- [**DOCUMENTACAO_PERFIL_RISCO.md**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - Sistema de avaliação e cálculo de perfil de risco
+###  Gestão de Clientes
+- [**DOCUMENTACAO_CLIENTE.md**](docs/DOCUMENTACAO_CLIENTE.md) - API de operações CRUD para clientes
+- [**DOCUMENTACAO_PERFIL_RISCO.md**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - API de avaliação e cálculo de perfil de risco
 
-### 💰 Produtos Financeiros
-- [**DOCUMENTACAO_PRODUTO_RESOURCE.md**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - Gestão de produtos de investimento
-- [**DOCUMENTACAO_PRODUTO_RECOMENDADO.md**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - Sistema de recomendação baseado em Machine Learning
+###  Produtos Financeiros
+- [**DOCUMENTACAO_PRODUTO_RESOURCE.md**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - API de operações CRUD para produtos de investimento
+- [**DOCUMENTACAO_PRODUTO_RECOMENDADO.md**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - API de recomendações de investimentos baseado em Machine Learning
 
-### 🧮 Simulações de Investimento
-- [**DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - Simulações de cenários de investimento
-- [**DOCUMENTACAO_SIMULACAO_RESOURCE.md**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API endpoints para simulações
-- [**DOCUMENTACAO_INVESTIMENTO_RESOURCE.md**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API endpoints para investimentos (registro e consulta)
+###  Simulações de Investimento
+- [**DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento
+- [**DOCUMENTACAO_SIMULACAO_RESOURCE.md**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos
 
-### 📈 Monitoramento e Observabilidade
-- [**DOCUMENTACAO_TELEMETRIA.md**](docs/DOCUMENTACAO_TELEMETRIA.md) - Sistema de telemetria e métricas de performance
+###  Registro de Investimento
+- [**DOCUMENTACAO_INVESTIMENTO_RESOURCE.md**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos (registro e consulta)
+- 
+###  Monitoramento e Observabilidade
+- [**DOCUMENTACAO_TELEMETRIA.md**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance
 
 ## 🤖️ Inteligência Artificial e Machine Learning
 
-### 🤖Sistema de Recomendação Para Investimentos Ffinanceiros 
+### Sistema de Recomendação Para Investimentos Ffinanceiros 
 - [**DOCUMENTACAO_MACHINE_LEARNING.md**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **🚀 Sistema de Recomendação com Distância Euclidiana**
     - Algoritmo avançado de recomendação personalizada de produtos
     - Análise multidimensional com 8 características financeiras
