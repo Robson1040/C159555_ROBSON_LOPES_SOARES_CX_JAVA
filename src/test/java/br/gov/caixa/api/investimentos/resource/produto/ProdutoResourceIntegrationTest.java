@@ -399,7 +399,7 @@ class ProdutoResourceIntegrationTest {
                 TipoRentabilidade.PRE,
                 new BigDecimal("10.0"),
                 PeriodoRentabilidade.AO_ANO,
-                Indice.CDI,
+                null,
                 0,
                 30,
                 true

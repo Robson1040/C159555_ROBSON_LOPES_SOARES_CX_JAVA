@@ -36,6 +36,9 @@ public class BusinessExceptionHandler implements ExceptionMapper<RuntimeExceptio
         return message.contains("inválido") || 
                message.contains("dados inválidos") ||
                message.contains("validation") ||
+			   message.contains("não devem") ||
+			   message.contains("devem") ||
+			   message.contains("precisa") ||
                message.contains("deve ser") || message.contains("já existe ") ||
                message.contains("não pode ser");
     }

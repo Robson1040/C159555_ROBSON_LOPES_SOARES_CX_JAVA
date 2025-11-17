@@ -66,6 +66,9 @@ public class SimulacaoInvestimentoService {
     @Transactional
     public SimulacaoResponse simularInvestimento(SimulacaoRequest request)
     {
+        // Validações adicionais de negócio
+        validarRegrasNegocio(request);
+
         // 1. Encontrar o produto mais apropriado
         List<Produto> produtos = encontrarProdutoMaisApropriado(request);
         List<Produto> produtos_sugeridos = new ArrayList<Produto>();
@@ -355,5 +358,36 @@ public class SimulacaoInvestimentoService {
         SimulacaoInvestimento ultimaSimulacao = simulacaoRepository.findLastByClienteId(clienteId);
 
         return new EstatisticasCliente(totalSimulacoes, totalInvestido, mediaValorInvestido, ultimaSimulacao);
+    }
+
+    /**
+     * Validações adicionais de regras de negócio
+     */
+    private void validarRegrasNegocio(SimulacaoRequest request) {
+        // Validação: se filtrar por liquidez, o valor deve ser razoável
+        if (request.liquidez() != null && request.liquidez() < -1) {
+            throw new RuntimeException("Liquidez deve ser -1 (sem liquidos) ou o número de dias desejado.");
+        }
+
+
+
+        // Validação: prazos muito longos podem ter limitações
+        int prazoMeses = request.getPrazoEmMeses();
+        if (prazoMeses > 240) { // Mais de 20 anos
+            throw new RuntimeException("Prazo muito longo para simulação precisa. Máximo recomendado: 20 anos (240 meses)");
+        }
+
+        // Validação de consistência: se especificar índice, deve ser compatível com tipo de rentabilidade
+        if (request.tipoRentabilidade() != null && request.indice() != null) {
+            if (request.tipoRentabilidade() == TipoRentabilidade.PRE &&
+                    request.indice() != Indice.NENHUM) {
+                throw new RuntimeException("Produtos pré-fixados não devem ter índice específico. Use 'NENHUM' como índice.");
+            }
+
+            if (request.tipoRentabilidade() == TipoRentabilidade.POS &&
+                    request.indice() == Indice.NENHUM) {
+                throw new RuntimeException("Produtos pós-fixados devem ter um índice específico (CDI, SELIC, IPCA, etc.)");
+            }
+        }
     }
 }
