@@ -45,7 +45,7 @@ public class BusinessExceptionHandler implements ExceptionMapper<RuntimeExceptio
 
     private boolean isNotFoundError(RuntimeException exception) {
         String message = exception.getMessage().toLowerCase();
-        return message.contains("não encontrado") ||
+        return message.contains("não encontrad") || 
                message.contains("not found") ||
                message.contains("nenhum produto encontrado");
     }

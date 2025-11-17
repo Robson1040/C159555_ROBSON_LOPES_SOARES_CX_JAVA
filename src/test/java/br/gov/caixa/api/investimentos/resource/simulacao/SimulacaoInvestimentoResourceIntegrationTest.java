@@ -437,7 +437,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
                 .when()
                 .post("/simular-investimento")
                 .then()
-                .statusCode(anyOf(equalTo(400), equalTo(500))); // Pode ser 400 (validação) ou 500 (regra de negócio)
+                .statusCode(anyOf(equalTo(400))); // Pode ser 400 (validação) ou 500 (regra de negócio)
     }
 
     @Test
@@ -448,7 +448,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
                 .when()
                 .get("/simular-investimento/99999999")
                 .then()
-                .statusCode(anyOf(equalTo(404), equalTo(500))); // Dependendo da implementação
+                .statusCode(anyOf(equalTo(404))); // Dependendo da implementação
     }
 
     @Test

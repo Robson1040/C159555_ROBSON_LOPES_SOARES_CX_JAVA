@@ -412,7 +412,7 @@ class ProdutoResourceIntegrationTest {
                 .when()
                 .put("/produtos/99999999")
                 .then()
-                .statusCode(anyOf(equalTo(404), equalTo(500))); // pode retornar 404 ou 500 dependendo da implementação
+                .statusCode(anyOf(equalTo(404))); // pode retornar 404 ou 500 dependendo da implementação
     }
 
     @Test

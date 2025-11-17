@@ -260,7 +260,7 @@ public class TelemetriaResourceIntegrationTest {
                 .when()
                 .get("/telemetria/mais-acessados/0")
                 .then()
-                .statusCode(anyOf(equalTo(200), equalTo(500))); // Aceita 500 se limite zero causar erro
+                .statusCode(anyOf(equalTo(400))); // Aceita 400 se limite zero causar erro
 
         System.out.println("=== DEBUG: Limite zero validado corretamente");
     }
@@ -273,7 +273,7 @@ public class TelemetriaResourceIntegrationTest {
                 .when()
                 .get("/telemetria/mais-acessados/-1")
                 .then()
-                .statusCode(anyOf(equalTo(200), equalTo(400), equalTo(500))); // Aceita erro 500 também
+                .statusCode(anyOf(equalTo(200), equalTo(400))); // Aceita erro 500 também
 
         System.out.println("=== DEBUG: Limite negativo tratado");
     }

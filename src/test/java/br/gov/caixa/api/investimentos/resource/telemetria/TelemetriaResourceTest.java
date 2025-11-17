@@ -90,7 +90,7 @@ class TelemetriaResourceTest {
 
         Response response = resource.obterMaisAcessados(5);
 
-        assertEquals(500, response.getStatus());
+        assertEquals(400, response.getStatus());
         assertTrue(((String)response.getEntity()).contains("Erro ao obter endpoints mais acessados"));
     }
 

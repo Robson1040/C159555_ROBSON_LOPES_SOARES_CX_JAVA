@@ -614,7 +614,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 .when()
                 .get("/produtos-recomendados/cliente/99999")
                 .then()
-                .statusCode(anyOf(equalTo(400), equalTo(404), equalTo(500))); // Aceita vários códigos de erro
+                .statusCode(anyOf(equalTo(400), equalTo(404))); // Aceita vários códigos de erro
 
         System.out.println("=== DEBUG: Validação de cliente inexistente funcionando");
     }

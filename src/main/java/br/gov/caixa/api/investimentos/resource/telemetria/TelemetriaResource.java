@@ -63,7 +63,7 @@ public class TelemetriaResource {
             List<TelemetriaMetrica> metricas = telemetriaRepository.listarMaisAcessadas(limite);
             return Response.ok(metricas).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+            return Response.status(Response.Status.BAD_REQUEST)
                     .entity("Erro ao obter endpoints mais acessados: " + e.getMessage())
                     .build();
         }
