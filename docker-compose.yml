@@ -12,6 +12,6 @@ services:
       # Banco SQLite persistente
       - ./banco_de_dados.db:/app/banco_de_dados.db
       # Chaves JWT persistentes (não precisam ser rebuildadas)
-      - ./public-key.pem:/app/public-key.pem
-      - ./private-key.pem:/app/private-key.pem
+      #- ./public-key.pem:/app/public-key.pem
+      #- ./private-key.pem:/app/private-key.pem
     restart: unless-stopped
