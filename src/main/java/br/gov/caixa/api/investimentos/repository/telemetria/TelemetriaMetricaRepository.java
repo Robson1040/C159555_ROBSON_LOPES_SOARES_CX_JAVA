@@ -1,6 +1,5 @@
 package br.gov.caixa.api.investimentos.repository.telemetria;
 
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetrica;
@@ -11,8 +10,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class TelemetriaMetricaRepository implements PanacheRepository<TelemetriaMetrica> {
-    
+public class TelemetriaMetricaRepository implements ITelemetriaMetricaRepository {
+
     /**
      * Busca uma métrica por endpoint
      */
@@ -71,7 +70,7 @@ public class TelemetriaMetricaRepository implements PanacheRepository<Telemetria
      */
     public Set<String> obterEndpointsComMetricas() {
         return listAll().stream()
-                .map(metrica -> metrica.getEndpoint())
+                .map(TelemetriaMetrica::getEndpoint)
                 .collect(Collectors.toSet());
     }
     

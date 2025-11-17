@@ -25,7 +25,8 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
 - [**DOCUMENTACAO_INVESTIMENTO_RESOURCE**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos (registro e consulta)
 
 ###  Monitoramento e Observabilidade
-- [**DOCUMENTACAO_TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance
+ - [**DOCUMENTACAO_TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance
+ - [**DOCUMENTACAO_SISTEMA_LOGS_ACESSO**](docs/DOCUMENTACAO_SISTEMA_LOGS_ACESSO.md) - API de auditoria e registro detalhado de acessos à API
 
 ## 🤖️ Inteligência Artificial e Machine Learning
 

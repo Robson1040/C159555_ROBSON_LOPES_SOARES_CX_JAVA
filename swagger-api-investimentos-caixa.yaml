@@ -754,7 +754,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
+    delete:
+      tags:
+        - Telemetria
+      summary: Limpar métricas
+      description: Limpa todas as métricas armazenadas (apenas para ADMIN)
+      responses:
+        '204':
+          description: Métricas limpas com sucesso
+        '500':
+          description: Erro ao limpar métricas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+                
   /telemetria/detalhado:
     get:
       tags:
@@ -796,17 +810,179 @@ paths:
                 items:
                   $ref: '#/components/schemas/TelemetriaMetrica'
 
-  /telemetria:
+  # TELEMETRIA - ACESSO LOGS
+  /telemetria/acesso-logs:
+    get:
+      tags:
+        - Telemetria
+      summary: Lista todos os logs de acesso
+      description: Retorna todos os registros de acesso (apenas ADMIN). Recomendado usar filtros/paginação.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            example: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            example: 50
+      responses:
+        '200':
+          description: Lista de logs de acesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AcessoLog'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     delete:
       tags:
         - Telemetria
-      summary: Limpar métricas
-      description: Limpa todas as métricas armazenadas (apenas para ADMIN)
+      summary: Limpar TODOS os logs de acesso
+      description: Operação destrutiva que remove todo o histórico de logs (apenas ADMIN)
+      security:
+        - bearerAuth: []
       responses:
         '204':
-          description: Métricas limpas com sucesso
-        '500':
-          description: Erro ao limpar métricas
+          description: Logs removidos
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /telemetria/acesso-logs/usuario/{usuarioId}:
+    get:
+      tags:
+        - Telemetria
+      summary: Buscar logs por usuário
+      parameters:
+        - name: usuarioId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logs do usuário
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AcessoLog'
+
+  /telemetria/acesso-logs/endpoint/{endpoint}:
+    get:
+      tags:
+        - Telemetria
+      summary: Buscar logs por endpoint
+      parameters:
+        - name: endpoint
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logs do endpoint
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AcessoLog'
+
+  /telemetria/acesso-logs/erros:
+    get:
+      tags:
+        - Telemetria
+      summary: Buscar logs com erro (status >= 400)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logs com erro
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AcessoLog'
+
+  /telemetria/acesso-logs/status/{statusCode}:
+    get:
+      tags:
+        - Telemetria
+      summary: Buscar logs por status code
+      parameters:
+        - name: statusCode
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Logs filtrados por status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AcessoLog'
+
+  /telemetria/acesso-logs/estatisticas:
+    get:
+      tags:
+        - Telemetria
+      summary: Estatísticas dos logs
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Estatísticas de acesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EstatisticasAcesso'
+
+  /telemetria/acesso-logs/antigos/{diasRetencao}:
+    delete:
+      tags:
+        - Telemetria
+      summary: Limpar logs antigos
+      parameters:
+        - name: diasRetencao
+          in: path
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Logs antigos removidos
+        '400':
+          description: Parâmetros inválidos
           content:
             application/json:
               schema:
@@ -1471,6 +1647,68 @@ components:
           nullable: true
           description: Detalhes adicionais do erro
 
+    AcessoLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        usuarioId:
+          type: integer
+          format: int64
+          nullable: true
+        usuarioNome:
+          type: string
+          nullable: true
+        endpoint:
+          type: string
+        metodoHttp:
+          type: string
+        uriCompleta:
+          type: string
+        ipOrigem:
+          type: string
+        corpoRequisicao:
+          type: string
+          description: "Truncado a 10KB"
+        statusCode:
+          type: integer
+        corpoResposta:
+          type: string
+          description: "Truncado a 10KB"
+        tempoExecucaoMs:
+          type: integer
+        dataAcesso:
+          type: string
+          format: date-time
+        userAgent:
+          type: string
+        erroMessage:
+          type: string
+          nullable: true
+        erroStacktrace:
+          type: string
+          nullable: true
+
+    EstatisticasAcesso:
+      type: object
+      properties:
+        totalAcessos:
+          type: integer
+          format: int64
+        acessosComSucesso:
+          type: integer
+          format: int64
+        acessosComErro:
+          type: integer
+          format: int64
+        taxaSucesso:
+          type: number
+          format: float
+        taxaErro:
+          type: number
+          format: float
+
 tags:
   - name: Autenticação
     description: Endpoints para login e autenticação de usuários
@@ -1490,4 +1728,3 @@ tags:
     description: Relatórios e agrupamentos administrativos
   - name: Telemetria
     description: Monitoramento e métricas do sistema
-

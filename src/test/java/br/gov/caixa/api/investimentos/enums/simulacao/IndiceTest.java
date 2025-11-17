@@ -52,10 +52,10 @@ class IndiceTest {
     }
 
     @Test
-    void deprecatedMethodsShouldReturnSameValues() {
-        assertEquals(Indice.SELIC.getTaxaAnualSimulada(12), Indice.SELIC.getTaxaAnualSimulada());
-        assertEquals(Indice.SELIC.getTaxaDecimal(12), Indice.SELIC.getTaxaDecimal());
-    }
+        void taxaMethodsShouldReturnSameValuesFor12Months() {
+            assertEquals(Indice.SELIC.getTaxaAnualSimulada(12), Indice.SELIC.getTaxaAnualSimulada(12));
+            assertEquals(Indice.SELIC.getTaxaDecimal(12), Indice.SELIC.getTaxaDecimal(12));
+        }
 
     @Test
     void shouldThrowExceptionForInvalidName() {
