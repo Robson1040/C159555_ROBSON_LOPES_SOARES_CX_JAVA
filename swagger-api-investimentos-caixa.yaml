@@ -796,7 +796,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/TelemetriaMetrica'
 
-  /telemetria/limpar:
+  /telemetria:
     delete:
       tags:
         - Telemetria

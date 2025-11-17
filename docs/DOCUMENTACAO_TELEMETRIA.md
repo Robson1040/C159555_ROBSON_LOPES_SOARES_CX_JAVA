@@ -23,7 +23,7 @@ O `TelemetriaResource` é responsável por fornecer métricas e dados de monitor
 - [1. GET /telemetria](#1-get-telemetria)
 - [2. GET /telemetria/detalhado](#2-get-telemetriadetalhado)
 - [3. GET /telemetria/mais-acessados/{limite}](#3-get-telemetriamais-acessadoslimite)
-- [4. DELETE /telemetria/limpar](#4-delete-telemetrialimpar)
+- [4. DELETE /telemetria](#4-delete-telemetrialimpar)
 
 ---
 
@@ -219,10 +219,10 @@ Content-Type: application/json
 
 ---
 
-### 4. DELETE /telemetria/limpar
+### 4. DELETE /telemetria
 **Limpa todas as métricas de telemetria**
 
-`http://localhost:9090/telemetria/limpar`
+`http://localhost:9090/telemetria`
 
 #### Descrição
 Remove todas as métricas de telemetria do sistema, resetando os contadores e dados históricos. Operação irreversível.
@@ -233,7 +233,7 @@ Remove todas as métricas de telemetria do sistema, resetando os contadores e da
 
 #### Request
 
-**URL:** `DELETE /telemetria/limpar`
+**URL:** `DELETE /telemetria`
 
 **Headers obrigatórios:**
 ```
@@ -389,7 +389,7 @@ Content-Type: application/json
 
 ---
 
-### DELETE /telemetria/limpar
+### DELETE /telemetria
 
 #### Status Codes Possíveis
 | Status | Descrição | Quando Ocorre |
@@ -406,7 +406,7 @@ Content-Type: application/json
   "message": "Acesso não autorizado. É necessário fazer login para acessar este recurso.",
   "timestamp": "2025-11-15T14:30:00",
   "status": 401,
-  "path": "/telemetria/limpar",
+  "path": "/telemetria",
   "errors": null
 }
 
@@ -415,7 +415,7 @@ Content-Type: application/json
   "message": "Acesso negado. Você não possui permissão para acessar este recurso.",
   "timestamp": "2025-11-15T14:30:00",
   "status": 403,
-  "path": "/telemetria/limpar",
+  "path": "/telemetria",
   "errors": null
 }
 
@@ -424,7 +424,7 @@ Content-Type: application/json
   "message": "Erro ao limpar métricas: Transaction rollback failed",
   "timestamp": "2025-11-15T14:30:00",
   "status": 500,
-  "path": "/telemetria/limpar",
+  "path": "/telemetria",
   "errors": null
 }
 ```
@@ -438,7 +438,7 @@ Content-Type: application/json
 | Status | Nome | Ocorrência | Endpoints Afetados |
 |--------|------|------------|-------------------|
 | **200** | OK | Sucesso | GET /telemetria, GET /telemetria/detalhado, GET /telemetria/mais-acessados/{limite} |
-| **204** | No Content | Operação concluída sem conteúdo | DELETE /telemetria/limpar |
+| **204** | No Content | Operação concluída sem conteúdo | DELETE /telemetria |
 | **400** | Bad Request | Parâmetros inválidos | GET /telemetria/mais-acessados/{limite} |
 | **401** | Unauthorized | Token ausente/inválido | Todos os endpoints |
 | **403** | Forbidden | Usuário não é ADMIN | Todos os endpoints |
@@ -504,7 +504,7 @@ As métricas são armazenadas na tabela `telemetria_metrica`:
 
 ### Operação de Limpeza
 
-O endpoint DELETE `/telemetria/limpar`:
+O endpoint DELETE `/telemetria`:
 - Remove **todos** os dados de telemetria
 - Operação **irreversível**
 - Reseta contadores para zero
@@ -539,7 +539,7 @@ curl -X GET http://localhost:9090/telemetria/mais-acessados/10 \
 
 **Limpar métricas:**
 ```bash
-curl -X DELETE http://localhost:9090/telemetria/limpar \
+curl -X DELETE http://localhost:9090/telemetria \
   -H "Authorization: Bearer {admin_token}" \
   -H "Content-Type: application/json"
 ```

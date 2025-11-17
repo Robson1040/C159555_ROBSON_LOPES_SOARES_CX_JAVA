@@ -391,7 +391,7 @@ public class TelemetriaResourceIntegrationTest {
         given()
                 .header("Authorization", "Bearer " + userToken)
                 .when()
-                .delete("/telemetria/limpar")
+                .delete("/telemetria")
                 .then()
                 .statusCode(403);
 
@@ -414,7 +414,7 @@ public class TelemetriaResourceIntegrationTest {
         given()
                 .header("Authorization", "Bearer " + adminToken)
                 .when()
-                .delete("/telemetria/limpar")
+                .delete("/telemetria")
                 .then()
                 .statusCode(204); // No Content
 

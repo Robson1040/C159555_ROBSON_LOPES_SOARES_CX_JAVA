@@ -67,7 +67,6 @@ public class TelemetriaResource {
     }
     
     @DELETE
-    @Path("/limpar")
     @Produces(MediaType.APPLICATION_JSON)
     public Response limparMetricas() {
         try {
