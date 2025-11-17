@@ -23,7 +23,7 @@ public class TelemetriaService {
     public TelemetriaResponse obterTelemetria() {
         List<ServicoTelemetria> servicos = new ArrayList<>();
         
-        System.out.println("=== TelemetriaService: Coletando métricas do sistema customizado...");
+        
         
         // Obtém todos os endpoints com métricas registradas
         for (String endpoint : metricasManager.obterEndpointsComMetricas()) {
@@ -32,16 +32,11 @@ public class TelemetriaService {
             
             if (contadorExecucoes > 0) {
                 servicos.add(new ServicoTelemetria(endpoint, contadorExecucoes, tempoMedioResposta));
-                System.out.println("=== Métrica coletada: " + endpoint + 
-                                 " - Execuções: " + contadorExecucoes + 
-                                 " - Tempo médio: " + tempoMedioResposta + "ms");
+                
             }
         }
         
-        // Se não houver métricas, retorna lista vazia
-        if (servicos.isEmpty()) {
-            System.out.println("=== Nenhuma métrica encontrada, retornando lista vazia");
-        }
+        
 
         // Período baseado nas datas reais do banco de dados
         PeriodoTelemetria periodo = obterPeriodoReal();
@@ -64,15 +59,14 @@ public class TelemetriaService {
                 String inicioFormatado = dataInicio.format(formatter);
                 String fimFormatado = dataFim.format(formatter);
                 
-                System.out.println("=== Período real: " + inicioFormatado + " até " + fimFormatado);
+                
                 return new PeriodoTelemetria(inicioFormatado, fimFormatado);
             }
         } catch (Exception e) {
             System.err.println("Erro ao obter período do banco: " + e.getMessage());
         }
         
-        // Se não houver dados no banco, retorna null
-        System.out.println("=== Nenhum dado no banco, período será null");
+        
         return null;
     }
 

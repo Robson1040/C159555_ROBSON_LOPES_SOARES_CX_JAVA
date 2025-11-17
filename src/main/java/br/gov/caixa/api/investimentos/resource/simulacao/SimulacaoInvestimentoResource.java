@@ -102,7 +102,7 @@ public class SimulacaoInvestimentoResource {
             throw new RuntimeException("Simulação não encontrada com ID: " + id);
         }
 
-        System.out.println("SIMULACAO id" + simulacao.getClienteId());
+        
 
         // Verificar se o usuário pode acessar esta simulação
         authHelper.validarAcessoAoCliente(jwt, simulacao.getClienteId());
@@ -140,11 +140,7 @@ public class SimulacaoInvestimentoResource {
             throw new RuntimeException("Liquidez deve ser -1 (sem liquidos) ou o número de dias desejado.");
         }
         
-        // Validação: valores muito altos podem ter limitações
-        if (request.valor().compareTo(new java.math.BigDecimal("1000000")) > 0) {
-            // Apenas um aviso, não um erro
-            System.out.println("AVISO: Simulação com valor alto: " + request.valor());
-        }
+        
         
         // Validação: prazos muito longos podem ter limitações
         int prazoMeses = request.getPrazoEmMeses();

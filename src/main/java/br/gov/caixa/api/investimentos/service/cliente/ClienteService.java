@@ -67,14 +67,14 @@ public class ClienteService {
         // Cria a pessoa usando o mapper
         Pessoa pessoa = pessoaMapper.toEntity(request);
 
-        System.out.println("PESSOA ID" + pessoa.getId());
+       
 
         // Criptografa a senha
         pessoa.setPassword(passwordService.encryptPassword(request.password()));
 
         pessoaRepository.persist(pessoa);
 
-        System.out.println("PESSOA ID" + pessoa.getId());
+       
 
         return pessoaMapper.toClienteResponse(pessoa);
     }

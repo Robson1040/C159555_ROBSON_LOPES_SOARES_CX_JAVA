@@ -117,11 +117,11 @@ public class ProdutoService {
 
         Produto produto = produtoMapper.toEntity(request);
 
-        System.out.println("PRODUTO ID" + produto.getId());
+        
 
         produtoRepository.persist(produto);
 
-        System.out.println("PRODUTO ID" + produto.getId());
+        
 
         return produtoMapper.toResponse(produto);
     }

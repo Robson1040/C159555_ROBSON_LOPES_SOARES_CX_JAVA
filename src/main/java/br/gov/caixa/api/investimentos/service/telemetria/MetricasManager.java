@@ -34,8 +34,7 @@ public class MetricasManager {
             // Persiste no banco de dados
             try {
                 telemetriaRepository.incrementarContador(endpoint);
-                System.out.println("=== MetricasManager: Contador incrementado para " + endpoint + 
-                                 " -> Total em cache: " + contadores.get(endpoint).get());
+                
             } catch (Exception e) {
                 System.err.println("Erro ao persistir contador no banco: " + e.getMessage());
             }
@@ -59,8 +58,7 @@ public class MetricasManager {
             // Persiste no banco de dados (SEM incrementar contador)
             try {
                 telemetriaRepository.adicionarTempoExecucao(endpoint, tempoMs);
-                System.out.println("=== MetricasManager: Tempo registrado para " + endpoint + 
-                                 " -> " + tempoMs + "ms, Média em cache: " + media + "ms");
+                
             } catch (Exception e) {
                 System.err.println("Erro ao persistir tempo no banco: " + e.getMessage());
             }
@@ -127,10 +125,10 @@ public class MetricasManager {
         // Limpa banco de dados
         try {
             telemetriaRepository.limparTodasMetricas();
-            System.out.println("=== MetricasManager: Todas as métricas foram limpas (cache e banco)");
+            
         } catch (Exception e) {
             System.err.println("Erro ao limpar métricas do banco: " + e.getMessage());
-            System.out.println("=== MetricasManager: Cache limpo, mas erro no banco");
+            
         }
     }
 }

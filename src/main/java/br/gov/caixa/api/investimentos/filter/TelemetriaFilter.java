@@ -22,7 +22,7 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
     public void filter(ContainerRequestContext requestContext) throws IOException {
         // Armazena o tempo de início da requisição
         requestContext.setProperty(START_TIME_PROPERTY, System.currentTimeMillis());
-        //System.out.println("=== FILTER REQUEST === Path: " + requestContext.getUriInfo().getPath());
+        
     }
 
     @Override
@@ -33,7 +33,7 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
             String path = requestContext.getUriInfo().getPath();
             String endpoint = extractEndpointName(path);
 
-            //System.out.println("=== FILTER RESPONSE === Path: " + path + " -> Endpoint: " + endpoint + " Duration: " + duration + "ms");
+            
 
             if (endpoint != null && !endpoint.equals("telemetria")) {
                 // Incrementa contador usando nosso sistema customizado
@@ -42,7 +42,7 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
                 // Registra tempo de resposta usando nosso sistema customizado
                 metricasManager.registrarTempoResposta(endpoint, duration);
 
-                //System.out.println("=== Métricas registradas para: " + endpoint);
+               
             }
         }
     }
