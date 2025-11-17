@@ -18,6 +18,15 @@ O `SimulacaoInvestimentoResource` é responsável por realizar simulações de i
 
 ---
 
+## Sumário de Endpoints
+
+- [1. POST /simular-investimento](#1-post-simular-investimento)
+- [2. GET /simular-investimento/historico/{clienteId}](#2-get-simular-investimentohistoricoclienteid)
+- [3. GET /simular-investimento/{id}](#3-get-simular-investimentoid)
+- [4. GET /simular-investimento/estatisticas/{clienteId}](#4-get-simular-investimentoestatisticasclienteid)
+
+---
+
 ## Endpoints
 
 ### 1. POST /simular-investimento

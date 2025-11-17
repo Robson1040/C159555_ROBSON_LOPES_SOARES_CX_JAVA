@@ -18,6 +18,12 @@ O `ProdutoRecomendadoResource` é responsável por fornecer recomendações pers
 
 ---
 
+## Sumário de Endpoints
+
+- [1. GET /produtos-recomendados/cliente/{clienteId}](#1-get-produtos-recomendadosclienteclienteid)
+
+---
+
 ## Endpoints
 
 ### 1. GET /produtos-recomendados/cliente/{clienteId}

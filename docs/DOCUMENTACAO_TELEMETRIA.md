@@ -18,6 +18,15 @@ O `TelemetriaResource` é responsável por fornecer métricas e dados de monitor
 
 ---
 
+## Sumário de Endpoints
+
+- [1. GET /telemetria](#1-get-telemetria)
+- [2. GET /telemetria/detalhado](#2-get-telemetriadetalhado)
+- [3. GET /telemetria/mais-acessados/{limite}](#3-get-telemetriamais-acessadoslimite)
+- [4. DELETE /telemetria/limpar](#4-delete-telemetrialimpar)
+
+---
+
 ## Endpoints
 
 ### 1. GET /telemetria

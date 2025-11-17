@@ -19,6 +19,13 @@ O `InvestimentoResource` é responsável por registrar investimentos reais reali
 
 ---
 
+## Sumário de Endpoints
+
+- [1. POST /investimentos](#1-post-investimentos)
+- [2. GET /investimentos/{clienteId}](#2-get-investimentosclienteid)
+
+---
+
 ## Endpoints
 
 ### 1. POST /investimentos

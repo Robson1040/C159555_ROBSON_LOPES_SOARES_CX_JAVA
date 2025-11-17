@@ -18,6 +18,12 @@ O `PerfilRiscoResource` é responsável por calcular e fornecer o perfil de risc
 
 ---
 
+## Sumário de Endpoints
+
+- [1. GET /perfil-risco/{clienteId}](#1-get-perfil-riscoclienteid)
+
+---
+
 ## Endpoints
 
 ### 1. GET /perfil-risco/{clienteId}

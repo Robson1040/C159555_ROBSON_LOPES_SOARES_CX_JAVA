@@ -25,6 +25,15 @@ O `SimulacaoResource` é responsável por fornecer funcionalidades de consulta e
 
 ---
 
+## Sumário de Endpoints
+
+- [1. GET /simulacoes](#1-get-simulacoes)
+- [2. GET /simulacoes/por-produto-dia](#2-get-simulacoespor-produto-dia)
+- [3. GET /simulacoes/por-produto-mes](#3-get-simulacoespor-produto-mes)
+- [4. GET /simulacoes/por-produto-ano](#4-get-simulacoespor-produto-ano)
+
+---
+
 ## Endpoints
 
 ### 1. GET /simulacoes

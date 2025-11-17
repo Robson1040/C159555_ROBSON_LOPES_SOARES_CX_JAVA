@@ -14,6 +14,12 @@ O `AutenticacaoResource` é responsável por gerenciar a autenticação de usuá
 
 ---
 
+## Sumário de Endpoints
+
+- [1. POST /entrar](#1-post-entrar)
+
+---
+
 ## Endpoints
 
 ### 1. POST /entrar

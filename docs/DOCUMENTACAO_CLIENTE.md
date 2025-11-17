@@ -14,6 +14,17 @@ O `ClienteResource` é responsável por gerenciar operações CRUD (Create, Read
 
 ---
 
+## Sumário de Endpoints
+
+- [1. GET /clientes](#1-get-clientes)
+- [2. GET /clientes/{id}](#2-get-clientesid)
+- [3. POST /clientes](#3-post-clientes)
+- [4. PUT /clientes/{id}](#4-put-clientesid)
+- [5. GET /clientes/cpf/{cpf}](#5-get-clientescpfcpf)
+- [6. GET /clientes/username/{username}](#6-get-clientesusernameusernam)
+
+---
+
 ## Endpoints
 
 ### 1. GET /clientes

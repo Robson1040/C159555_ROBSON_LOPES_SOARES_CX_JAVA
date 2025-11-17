@@ -25,6 +25,16 @@ O `ProdutoResource` é responsável pelo gerenciamento completo dos produtos de 
 
 ---
 
+## Sumário de Endpoints
+
+- [1. GET /produtos](#1-get-produtos)
+- [2. GET /produtos/{id}](#2-get-produtosid)
+- [3. POST /produtos](#3-post-produtos)
+- [4. PUT /produtos/{id}](#4-put-produtosid)
+- [5. GET /produtos/count](#5-get-produtoscount)
+
+---
+
 ## Endpoints
 
 ### 1. GET /produtos
