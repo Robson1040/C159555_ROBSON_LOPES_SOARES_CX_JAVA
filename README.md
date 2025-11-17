@@ -123,3 +123,23 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 - [**ANALISE_ML_RESUMO**](docs/ANALISE_ML_RESUMO.md) - **Resumo executivo da análise de Machine Learning** - Validação do algoritmo de Distância Euclidiana Multidimensional e suas características técnicas
 
 **👉 Estes documentos comprovam a entrega completa de todos os requisitos do projeto.**
+
+TESTES AUTOMATIZADOS
+-----------------------------
+- TOTAL DE TESTES: **669**
+- TAXA DE SUCESSO: **100%** (669/669)
+- FALHAS: **0** | ERROS: **0** | IGNORADOS: **0**
+- TEMPO TOTAL DE EXECUÇÃO: **41,605 s**
+- TEMPO MÉDIO POR TESTE: **0,062 s**
+
+
+- TESTES DE INTEGRAÇÃO: **167**
+- TESTES UNITÁRIOS: **502**
+
+Cobertura
+----------------------
+- COVERAGE (CLASS): **100%** (95 / 95)
+- COVERAGE (METHOD): **95,5%** (557 / 583)
+- COVERAGE (LINE): **91,3%** (1940 / 2125)
+
+
