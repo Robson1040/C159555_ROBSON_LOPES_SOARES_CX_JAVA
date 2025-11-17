@@ -29,20 +29,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Testes de integração para todos os endpoints da ProdutoRecomendadoResource.
- * 
- * Os testes seguem uma ordem lógica:
- * 1. Criar produtos de diferentes níveis de risco (POST /produtos)
- * 2. Criar clientes para os investimentos (POST /clientes)
- * 3. Criar investimentos para gerar histórico (POST /investimentos)
- * 4. Testar recomendações por perfil (GET /produtos-recomendados/{perfil})
- * 5. Testar recomendações por cliente (GET /produtos-recomendados/cliente/{clienteId})
- * 6. Testes de validação e casos de erro
- * 7. Testes de autorização e segurança
- * 
- * @author GitHub Copilot
- */
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class ProdutoRecomendadoResourceIntegrationTest {

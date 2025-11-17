@@ -24,18 +24,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Testes de integração para PerfilRiscoResource (/perfil-risco)
- * 
- * Sequência de execução dos testes:
- * 1. Criar 5 produtos com diferentes níveis de risco (POST /produtos)
- * 2. Criar 1 cliente para as simulações (POST /clientes)
- * 3. Fazer 2 simulações de investimento (POST /simular-investimento)
- * 4. Calcular perfil de risco do cliente (GET /perfil-risco/{clienteId})
- * 5. Testes de casos de erro e autorização
- * 
- * @author GitHub Copilot
- */
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PerfilRiscoResourceIntegrationTest {

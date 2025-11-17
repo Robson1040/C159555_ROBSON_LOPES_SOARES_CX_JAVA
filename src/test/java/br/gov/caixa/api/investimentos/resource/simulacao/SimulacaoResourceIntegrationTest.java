@@ -25,21 +25,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Testes de integração para SimulacaoResource (/simulacoes)
- * 
- * Sequência de execução dos testes:
- * 1. Criar produtos para as simulações (POST /produtos)
- * 2. Criar clientes para as simulações (POST /clientes)
- * 3. Fazer simulações de investimento (POST /simular-investimento)
- * 4. Consultar todas as simulações (GET /simulacoes)
- * 5. Consultar agrupamentos por produto/dia (GET /simulacoes/por-produto-dia)
- * 6. Consultar agrupamentos por produto/mês (GET /simulacoes/por-produto-mes)
- * 7. Consultar agrupamentos por produto/ano (GET /simulacoes/por-produto-ano)
- * 8. Testes de casos de erro e autorização
- * 
- * @author GitHub Copilot
- */
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SimulacaoResourceIntegrationTest {

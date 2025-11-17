@@ -32,20 +32,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Testes de integração para todos os endpoints da SimulacaoInvestimentoResource.
- * 
- * Os testes seguem uma ordem lógica:
- * 1. Criar produtos necessários (POST /produtos)
- * 2. Criar cliente para as simulações (POST /clientes)
- * 3. Fazer simulações de investimento (POST /simular-investimento)
- * 4. Consultar simulação por ID (GET /simular-investimento/ID)
- * 5. Consultar histórico de simulações (GET /simular-investimento/historico/CLIENTE_ID)
- * 6. Consultar estatísticas (GET /simular-investimento/estatisticas/CLIENTE_ID)
- * 7. Testes de casos de erro
- * 
- * @author GitHub Copilot
- */
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class SimulacaoInvestimentoResourceIntegrationTest {

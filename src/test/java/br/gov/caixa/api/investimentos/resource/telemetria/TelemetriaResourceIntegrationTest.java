@@ -14,22 +14,6 @@ import org.junit.jupiter.api.Order;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-/**
- * Testes de integração para todos os endpoints da TelemetriaResource.
- * 
- * Os testes seguem uma ordem lógica:
- * 1. Gerar dados de telemetria fazendo chamadas para outros endpoints (GET /clientes)
- * 2. Testar telemetria básica (GET /telemetria)
- * 3. Testar telemetria detalhada (GET /telemetria/detalhado)
- * 4. Testar endpoints mais acessados (GET /telemetria/mais-acessados/{limite})
- * 5. Testar limpeza de métricas (DELETE /telemetria/limpar)
- * 6. Testes de validação e casos de erro
- * 7. Testes de autorização e segurança
- * 
- * Nota: A TelemetriaResource requer role ADMIN para todos os endpoints.
- * 
- * @author GitHub Copilot
- */
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class TelemetriaResourceIntegrationTest {

@@ -29,19 +29,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Testes de integração para todos os endpoints da InvestimentoResource.
- * 
- * Os testes seguem uma ordem lógica:
- * 1. Criar produtos necessários (POST /produtos)
- * 2. Criar clientes para os investimentos (POST /clientes)
- * 3. Criar investimentos reais (POST /investimentos)
- * 4. Buscar investimentos por cliente (GET /investimentos/CLIENTE_ID)
- * 5. Testes de validação e casos de erro
- * 6. Testes de autorização e segurança
- * 
- * @author GitHub Copilot
- */
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
 public class InvestimentoResourceIntegrationTest {
