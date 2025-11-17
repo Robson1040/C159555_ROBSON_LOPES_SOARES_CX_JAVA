@@ -952,7 +952,7 @@ components:
 
     ProdutoRequest:
       type: object
-      required: [nome, tipo, tipoRentabilidade, rentabilidade, periodoRentabilidade, liquidez, minimoDiasInvestimento, fgc]
+      required: [nome, tipo, tipo_rentabilidade, rentabilidade, periodo_rentabilidade, liquidez, minimo_dias_investimento, fgc]
       properties:
         nome:
           type: string
@@ -1071,23 +1071,23 @@ components:
           type: string
           format: date
           example: "2024-01-15"
-        # Dados do produto
-        tipoProduto:
+        # Dados do produto (nomes de propriedade conforme JSON do DTO)
+        tipo:
           $ref: '#/components/schemas/TipoProduto'
-        tipoRentabilidade:
+        tipo_rentabilidade:
           $ref: '#/components/schemas/TipoRentabilidade'
         rentabilidade:
           type: number
           format: decimal
           example: 10.5
-        periodoRentabilidade:
+        periodo_rentabilidade:
           $ref: '#/components/schemas/PeriodoRentabilidade'
         indice:
           $ref: '#/components/schemas/Indice'
         liquidez:
           type: integer
           example: 90
-        minimoDiasInvestimento:
+        minimo_dias_investimento:
           type: integer
           example: 90
         fgc:
@@ -1490,3 +1490,4 @@ tags:
     description: Relatórios e agrupamentos administrativos
   - name: Telemetria
     description: Monitoramento e métricas do sistema
+

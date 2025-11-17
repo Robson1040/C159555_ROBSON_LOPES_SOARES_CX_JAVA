@@ -67,7 +67,7 @@ class PerfilRiscoServiceTest {
         when(simulacaoRepository.findByClienteId(clienteId)).thenReturn(List.of(
                 mock(SimulacaoInvestimento.class)
         ));
-        when(geradorRecomendacaoML.encontrarProdutosOrdenadosPorAparicaoSimulacao(anyList(), anyList()))
+        when(geradorRecomendacaoML.encontrarProdutosOrdenadosPorAparicao(anyList(), anyList()))
                 .thenReturn(List.of(criarProduto("Produto A", NivelRisco.BAIXO, 100)));
 
         PerfilRiscoResponse response = perfilRiscoService.calcularPerfilRisco(clienteId);

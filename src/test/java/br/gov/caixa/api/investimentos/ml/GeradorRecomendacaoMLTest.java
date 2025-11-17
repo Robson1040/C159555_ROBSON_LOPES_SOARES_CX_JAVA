@@ -125,13 +125,13 @@ class GeradorRecomendacaoMLTest {
     }
 
     @Test
-    void encontrarProdutosOrdenadosPorAparicaoSimulacao_comSimulacoes_retornaOrdenado() {
+    void encontrarProdutosOrdenadosPorAparicao_comSimulacoes_retornaOrdenado() {
         // Given
         SimulacaoInvestimento sim1 = new SimulacaoInvestimento(100L, 1L, "CDB Test", BigDecimal.valueOf(30000), BigDecimal.valueOf(35000), 12, 365, 1);
         List<SimulacaoInvestimento> simulacoes = List.of(sim1);
 
         // When
-        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicaoSimulacao(simulacoes, todosProdutos);
+        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicao(simulacoes, todosProdutos);
 
         // Then
         assertNotNull(recomendados);
@@ -140,26 +140,26 @@ class GeradorRecomendacaoMLTest {
     }
 
     @Test
-    void encontrarProdutosOrdenadosPorAparicaoSimulacao_comProdutoInexistente_lancaExcecao() {
+    void encontrarProdutosOrdenadosPorAparicao_comProdutoInexistente_lancaExcecao() {
         // Given
         SimulacaoInvestimento sim = new SimulacaoInvestimento(100L, 999L, "Produto Inexistente", BigDecimal.valueOf(10000), BigDecimal.valueOf(12000), 12, 365, 1);
         List<SimulacaoInvestimento> simulacoes = List.of(sim);
 
         // When & Then
         assertThrows(IllegalArgumentException.class, () -> {
-            gerador.encontrarProdutosOrdenadosPorAparicaoSimulacao(simulacoes, todosProdutos);
+            gerador.encontrarProdutosOrdenadosPorAparicao(simulacoes, todosProdutos);
         });
     }
 
     @Test
-    void encontrarProdutosOrdenadosPorAparicaoSimulacao_comMultiplasSimulacoes_ordenaCorretamente() {
+    void encontrarProdutosOrdenadosPorAparicao_comMultiplasSimulacoes_ordenaCorretamente() {
         // Given
         SimulacaoInvestimento sim1 = new SimulacaoInvestimento(100L, 1L, "CDB High", BigDecimal.valueOf(200000), BigDecimal.valueOf(240000), 12, 365, 1);
         SimulacaoInvestimento sim2 = new SimulacaoInvestimento(101L, 2L, "LCI Low", BigDecimal.valueOf(5000), BigDecimal.valueOf(5500), 12, 365, 1);
         List<SimulacaoInvestimento> simulacoes = List.of(sim1, sim2);
 
         // When
-        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicaoSimulacao(simulacoes, todosProdutos);
+        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicao(simulacoes, todosProdutos);
 
         // Then
         assertNotNull(recomendados);
@@ -180,17 +180,9 @@ class GeradorRecomendacaoMLTest {
         assertTrue(recomendados.isEmpty());
     }
 
-    @Test
-    void encontrarProdutosOrdenadosPorAparicaoSimulacao_comListasVazias_retornaVazio() {
-        // When
-        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicaoSimulacao(List.of(), List.of());
-
-        // Then
-        assertTrue(recomendados.isEmpty());
-    }
 
     @Test
-    void encontrarProdutosOrdenadosPorAparicao_comApenasUmProduto_retornaVazio() {
+    void encontrarProdutosOrdenadosPorAparicao_comApenasUmProduto_retornaVazioInvestimento() {
         // Given
         Investimento inv = criarInvestimento(1L, BigDecimal.valueOf(10000), TipoProduto.CDB);
         List<Investimento> investimentos = List.of(inv);
@@ -204,14 +196,14 @@ class GeradorRecomendacaoMLTest {
     }
 
     @Test
-    void encontrarProdutosOrdenadosPorAparicaoSimulacao_comApenasUmProduto_retornaVazio() {
+    void encontrarProdutosOrdenadosPorAparicao_comApenasUmProduto_retornaVazioSimulacao() {
         // Given
         SimulacaoInvestimento sim = new SimulacaoInvestimento(100L, 1L, "CDB Test", BigDecimal.valueOf(10000), BigDecimal.valueOf(12000), 12, 365, 1);
         List<SimulacaoInvestimento> simulacoes = List.of(sim);
         List<Produto> apenasUmProduto = List.of(todosProdutos.get(0)); // Apenas o produto da simulação
 
         // When
-        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicaoSimulacao(simulacoes, apenasUmProduto);
+        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicao(simulacoes, apenasUmProduto);
 
         // Then
         assertTrue(recomendados.isEmpty());
@@ -339,7 +331,7 @@ class GeradorRecomendacaoMLTest {
     }
 
     @Test
-    void encontrarProdutosOrdenadosPorAparicao_comMesmosProdutoIds_testaBehavior() {
+    void encontrarProdutosOrdenadosPorAparicao_comMesmosProdutoIds_testaBehaviorInvestimento() {
         // Given - Teste com um investimento específico 
         List<Investimento> investimentos = new ArrayList<>();
         
@@ -357,7 +349,7 @@ class GeradorRecomendacaoMLTest {
     }
 
     @Test
-    void encontrarProdutosOrdenadosPorAparicaoSimulacao_comMesmosProdutoIds_testaBehavior() {
+    void encontrarProdutosOrdenadosPorAparicao_comMesmosProdutoIds_testaBehaviorSimulacao() {
         // Given - Teste com uma simulação específica
         List<SimulacaoInvestimento> simulacoes = new ArrayList<>();
         
@@ -369,7 +361,7 @@ class GeradorRecomendacaoMLTest {
         simulacoes.add(sim);
 
         // When
-        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicaoSimulacao(simulacoes, todosProdutos);
+        List<Produto> recomendados = gerador.encontrarProdutosOrdenadosPorAparicao(simulacoes, todosProdutos);
 
         // Then
         assertNotNull(recomendados);

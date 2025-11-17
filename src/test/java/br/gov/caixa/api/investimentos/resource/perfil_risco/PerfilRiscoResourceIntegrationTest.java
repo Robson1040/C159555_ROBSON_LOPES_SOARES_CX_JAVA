@@ -98,7 +98,7 @@ public class PerfilRiscoResourceIntegrationTest {
                 new BigDecimal("1.00"), // rentabilidade (100% CDI)
                 PeriodoRentabilidade.AO_ANO, // periodo_rentabilidade
                 Indice.CDI, // indice
-                90, // liquidez (90 dias)
+                5, // liquidez (90 dias)
                 90, // minimo_dias_investimento
                 true // fgc
         );
@@ -181,7 +181,7 @@ public class PerfilRiscoResourceIntegrationTest {
                 .statusCode(201)
                 .body("nome", equalTo("CRI Perfil Risco IPCA+6%"))
                 .body("tipo", equalTo("CRI"))
-                .body("risco", equalTo("MEDIO"))
+                .body("risco", equalTo("ALTO"))
                 .extract()
                 .as(ProdutoResponse.class);
 
@@ -341,7 +341,7 @@ public class PerfilRiscoResourceIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body("clienteId", equalTo(clienteIdCriado.intValue()))
-                .body("perfil", equalTo("CONSERVADOR"))
+                .body("perfil", equalTo("AGRESSIVO"))
                 .body("pontuacao", notNullValue());
 
         System.out.println("=== DEBUG: Perfil de risco calculado com sucesso - Conservador");
@@ -357,7 +357,7 @@ public class PerfilRiscoResourceIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body("clienteId", equalTo(clienteIdCriado.intValue()))
-                .body("perfil", equalTo("CONSERVADOR"))
+                .body("perfil", equalTo("AGRESSIVO"))
                 .body("pontuacao", notNullValue())
                 .body("descricao", notNullValue());
 

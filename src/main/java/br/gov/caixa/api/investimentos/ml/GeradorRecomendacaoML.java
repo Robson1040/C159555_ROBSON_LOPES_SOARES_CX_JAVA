@@ -20,112 +20,56 @@ import java.util.Objects;
 public class GeradorRecomendacaoML
 {
     /**
-     * Encontra o produto com perfil ideal para o cliente, com base nos investimentos
+     * Encontra o produto com perfil ideal para o cliente, com base em investimentos ou simulações
      */
-    public List<Produto> encontrarProdutosOrdenadosPorAparicao(List<Investimento> investimentos,
-                                                               List<Produto> todosProdutos)
-    {
-        // Validações de entrada
-        if (investimentos == null) {
-            throw new IllegalArgumentException("Lista de investimentos não pode ser nula");
+    public List<Produto> encontrarProdutosOrdenadosPorAparicao(List<?> entradas, List<Produto> todosProdutos) {
+        if (entradas == null) {
+            throw new IllegalArgumentException("Lista de entradas não pode ser nula");
         }
         if (todosProdutos == null) {
             throw new IllegalArgumentException("Lista de produtos não pode ser nula");
         }
-        
-        // Se listas estão vazias, retorna lista vazia
-        if (investimentos.isEmpty() || todosProdutos.isEmpty()) {
+        if (entradas.isEmpty() || todosProdutos.isEmpty()) {
             return List.of();
         }
 
         Map<Produto, Integer> contador = new HashMap<>();
 
-        for (Investimento investimento : investimentos) {
+        for (Object entrada : entradas) {
             Produto produtoMaisProximo = null;
             double menorDistancia = Double.MAX_VALUE;
-            // Aplicar peso logarítmico para evitar dominância excessiva de investimentos altos
-            int pesoBase = (int) (Math.log10(investimento.getValor().doubleValue() + 1) * 1000);
-            
-            // Aplicar decay temporal - investimentos recentes têm mais relevância
-            double decayFactor = 1.0; // Fator padrão se não houver data
-            if (investimento.getData() != null) {
-                long diasDesdeInvestimento = ChronoUnit.DAYS.between(investimento.getData(), LocalDate.now());
-                decayFactor = Math.exp(-diasDesdeInvestimento / 365.0); // Decay anual exponencial
+            int pesoBase = 0;
+            double decayFactor = 1.0;
+            int peso = 0;
+
+            if (entrada instanceof Investimento investimento) {
+                pesoBase = (int) (Math.log10(investimento.getValor().doubleValue() + 1) * 1000);
+                if (investimento.getData() != null) {
+                    long diasDesdeInvestimento = ChronoUnit.DAYS.between(investimento.getData(), LocalDate.now());
+                    decayFactor = Math.exp(-diasDesdeInvestimento / 365.0);
+                }
+                peso = (int) (pesoBase * decayFactor);
+            } else if (entrada instanceof SimulacaoInvestimento simulacao) {
+                pesoBase = (int) (Math.log10(simulacao.getValorInvestido().doubleValue() + 1) * 1000);
+                long diasDesdeSimulacao = ChronoUnit.DAYS.between(simulacao.getDataSimulacao().toLocalDate(), LocalDate.now());
+                decayFactor = Math.exp(-diasDesdeSimulacao / 365.0);
+                peso = (int) (pesoBase * decayFactor);
+            } else {
+                throw new IllegalArgumentException("Tipo não suportado: " + entrada.getClass());
             }
-            int peso = (int) (pesoBase * decayFactor);
 
             for (Produto produto : todosProdutos) {
-                // IGNORA o "mesmo produto"
-                if (investimento.getProdutoId().equals(produto.getId())) {
+                Long produtoId = null;
+                if (entrada instanceof Investimento investimento) {
+                    produtoId = investimento.getProdutoId();
+                } else if (entrada instanceof SimulacaoInvestimento simulacao) {
+                    produtoId = simulacao.getProdutoId();
+                }
+                if (produtoId != null && produtoId.equals(produto.getId())) {
                     continue;
                 }
 
-                double distancia = calcularDistanciaEuclidiana(investimento, produto, todosProdutos);
-
-
-                if (distancia < menorDistancia) {
-                    menorDistancia = distancia;
-                    produtoMaisProximo = produto;
-                }
-            }
-
-            if (produtoMaisProximo != null)
-            {
-                produtoMaisProximo.setPontuacao(produtoMaisProximo.getPontuacao() + peso);
-                contador.merge(produtoMaisProximo, peso, Integer::sum);
-            }
-        }
-
-        // Retorna os produtos ordenados pela contagem (decrescente)
-        return contador.entrySet()
-                .stream()
-                .sorted((a, b) -> b.getValue().compareTo(a.getValue()))
-                .map(Map.Entry::getKey)
-                .toList();
-    }
-
-    /**
-     * Calcula distância euclidiana entre investimento e produto
-     */
-    public List<Produto> encontrarProdutosOrdenadosPorAparicaoSimulacao(
-            List<SimulacaoInvestimento> investimentos,
-            List<Produto> todosProdutos)
-    {
-        // Validações de entrada
-        if (investimentos == null) {
-            throw new IllegalArgumentException("Lista de simulações não pode ser nula");
-        }
-        if (todosProdutos == null) {
-            throw new IllegalArgumentException("Lista de produtos não pode ser nula");
-        }
-        
-        // Se listas estão vazias, retorna lista vazia
-        if (investimentos.isEmpty() || todosProdutos.isEmpty()) {
-            return List.of();
-        }
-
-        Map<Produto, Integer> contador = new HashMap<>();
-
-        for (SimulacaoInvestimento simulacao : investimentos) {
-            Produto produtoMaisProximo = null;
-            double menorDistancia = Double.MAX_VALUE;
-            // Aplicar peso logarítmico para evitar dominância excessiva de investimentos altos
-            int pesoBase = (int) (Math.log10(simulacao.getValorInvestido().doubleValue() + 1) * 1000);
-            
-            // Aplicar decay temporal - simulações recentes têm mais relevância
-            long diasDesdeSimulacao = ChronoUnit.DAYS.between(simulacao.getDataSimulacao().toLocalDate(), LocalDate.now());
-            double decayFactor = Math.exp(-diasDesdeSimulacao / 365.0); // Decay anual exponencial
-            int peso = (int) (pesoBase * decayFactor);
-
-            for (Produto produto : todosProdutos) {
-                // IGNORA o "mesmo produto"
-                if (simulacao.getProdutoId().equals(produto.getId())) {
-                    continue;
-                }
-
-                double distancia = calcularDistanciaEuclidiana(simulacao, produto, todosProdutos);
-
-
+                double distancia = calcularDistanciaEuclidiana(entrada, produto, todosProdutos);
                 if (distancia < menorDistancia) {
                     menorDistancia = distancia;
                     produtoMaisProximo = produto;
@@ -138,7 +82,6 @@ public class GeradorRecomendacaoML
             }
         }
 
-        // Retorna os produtos ordenados pela contagem (decrescente)
         return contador.entrySet()
                 .stream()
                 .sorted((a, b) -> b.getValue().compareTo(a.getValue()))
@@ -226,7 +169,7 @@ public class GeradorRecomendacaoML
 
         // === Valores normais do produto ===
         // Usar rentabilidade como proxy para faixa de valor (produtos mais rentáveis atraem investimentos maiores)
-        double prodValorNorm = produto.getRentabilidade() != null ? 
+        double prodValorNorm = produto.getRentabilidade() != null ?
             normalizar(produto.getRentabilidade().doubleValue() * 10000, 0, 1_000_000) : 0.5;
         double prodTipoNorm = normalizarTipoProduto(produto.getTipo());
         double prodTipoRentNorm = normalizarTipoRentabilidade(produto.getTipoRentabilidade());

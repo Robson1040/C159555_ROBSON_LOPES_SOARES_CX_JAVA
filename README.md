@@ -2,17 +2,7 @@
 
 Este é o índice principal da documentação da API de Investimentos da Caixa. Aqui você encontrará todos os recursos, funcionalidades e guias organizados por categoria.
 
-## � Especificação da API
-
-### 🔌 OpenAPI/Swagger
-- [**swagger-api-investimentos-caixa.yaml**](./swagger-api-investimentos-caixa.yaml) - **Especificação completa da API** em formato OpenAPI 3.0.3
-  - 27 endpoints documentados com schemas detalhados
-  - Autenticação JWT e segurança por roles
-  - Exemplos práticos para todos os endpoints
-  - Validações completas com Jakarta Bean Validation
-  - Códigos de resposta HTTP apropriados
-
-## �🚀 Funcionalidades Principais
+## 🚀 Funcionalidades e Documentações da API
 
 ### 🔐 Autenticação e Segurança
 - [**DOCUMENTACAO_AUTENTICACAO.md**](docs/DOCUMENTACAO_AUTENTICACAO.md) - Sistema de autenticação JWT e autorização baseada em roles
@@ -25,25 +15,31 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
 - [**DOCUMENTACAO_PRODUTO_RESOURCE.md**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - Gestão de produtos de investimento
 - [**DOCUMENTACAO_PRODUTO_RECOMENDADO.md**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - Sistema de recomendação baseado em Machine Learning
 
-### 🤖 Inteligência Artificial e Machine Learning
-- [**DOCUMENTACAO_MACHINE_LEARNING.md**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **🚀 Sistema de Recomendação ML com Distância Euclidiana**
-  - Algoritmo avançado de recomendação personalizada de produtos
-  - Análise multidimensional com 8 características financeiras
-  - Aprendizado baseado em histórico real de investimentos
-  - Performance superior com 78% de precisão nas recomendações
-
-### 🧮 Simulações
+### 🧮 Simulações de Investimento
 - [**DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - Simulações de cenários de investimento
 - [**DOCUMENTACAO_SIMULACAO_RESOURCE.md**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API endpoints para simulações
+- [**DOCUMENTACAO_INVESTIMENTO_RESOURCE.md**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API endpoints para investimentos (registro e consulta)
 
 ### 📈 Monitoramento e Observabilidade
 - [**DOCUMENTACAO_TELEMETRIA.md**](docs/DOCUMENTACAO_TELEMETRIA.md) - Sistema de telemetria e métricas de performance
 
-## 🧪 Documentação de Testes
+## 🤖️ Inteligência Artificial e Machine Learning
 
-### 📋 Testes de Integração
-- [**DOCUMENTACAO_TESTES_PRODUTO_RECOMENDADO.md**](docs/DOCUMENTACAO_TESTES_PRODUTO_RECOMENDADO.md) - Testes para o sistema de recomendações
-- [**DOCUMENTACAO_TESTES_TELEMETRIA.md**](docs/DOCUMENTACAO_TESTES_TELEMETRIA.md) - Testes para o sistema de telemetria
+### 🤖Sistema de Recomendação Para Investimentos Ffinanceiros 
+- [**DOCUMENTACAO_MACHINE_LEARNING.md**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **🚀 Sistema de Recomendação com Distância Euclidiana**
+    - Algoritmo avançado de recomendação personalizada de produtos
+    - Análise multidimensional com 8 características financeiras
+    - Aprendizado baseado em histórico real de investimentos
+
+##  Especificação da API
+
+### 🔌 OpenAPI/Swagger
+- [**swagger-api-investimentos-caixa.yaml**](./swagger-api-investimentos-caixa.yaml) - **Especificação completa da API** em formato OpenAPI 3.0.3
+    - 27 endpoints documentados com schemas detalhados
+    - Autenticação JWT e segurança por roles
+    - Exemplos práticos para todos os endpoints
+    - Validações completas com Jakarta Bean Validation
+    - Códigos de resposta HTTP apropriados
 
 ## 🏗️ Arquitetura do Sistema
 
@@ -64,18 +60,13 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 
 - **📐 Algoritmo Matemático Avançado**: Distância Euclidiana em 8 dimensões simultâneas
 - **🧠 Aprendizado Comportamental**: Aprende com histórico real de investimentos e simulações
-- **⚡ Performance Excepcional**: 78% de precisão nas recomendações vs. 52% de sistemas tradicionais
 - **🔍 Transparência Total**: Cada recomendação possui justificativa matemática auditável
-- **📊 Resultados Comprovados**: +40% aumento de vendas e +25% retenção de clientes
-
 ### **🚀 Por Que Este Sistema é Superior?**
 
 1. **Análise Multidimensional**: Avalia valor, tipo, rentabilidade, liquidez, risco, prazo, índices e garantias simultaneamente
 2. **Ponderação Inteligente**: Produtos similares a investimentos de maior valor recebem maior peso
 3. **Adaptação Contínua**: Melhora continuamente com cada interação do cliente
 4. **Escalabilidade Real**: Processa milhares de produtos em < 150ms
-
-**📚 [Veja a documentação técnica completa](docs/DOCUMENTACAO_MACHINE_LEARNING.md)** para entender a matemática e implementação por trás dessa inovação.
 
 ## 🚦 Status do Projeto
 
@@ -92,12 +83,12 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 ## 📝 Como Navegar
 
 1. **Para desenvolvedores**: 
-   - Comece pelo [**Swagger YAML**](docs/swagger-api-investimentos-caixa.yaml) para visão completa da API
+   - Comece pelo [**Swagger YAML**](./swagger-api-investimentos-caixa.yaml) para visão completa da API
    - Continue pela [Autenticação](docs/DOCUMENTACAO_AUTENTICACAO.md) e depois explore os recursos específicos
 2. **Para arquitetos**: Veja a [Telemetria](docs/DOCUMENTACAO_TELEMETRIA.md) para entender o monitoramento do sistema
 3. **Para analistas**: O [Sistema de Recomendação](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) contém a lógica de ML
 4. **Para QA**: As documentações de testes contêm cenários completos de validação
-5. **Para integração**: Use o [**Swagger YAML**](docs/swagger-api-investimentos-caixa.yaml) com ferramentas como:
+5. **Para integração**: Use o [**Swagger YAML**](./swagger-api-investimentos-caixa.yaml) com ferramentas como:
    - **Swagger UI** para interface interativa
    - **Postman** para importar coleção automaticamente
    - **Insomnia** para testes de API
@@ -114,46 +105,12 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 - **Machine Learning** - Algoritmo personalizado de recomendações
 - **OpenAPI 3.0.3** - Especificação completa da API
 
-## 🛠️ Ferramentas de Desenvolvimento
 
-### 📡 Testando a API
-Para testar a API, você pode usar o arquivo Swagger de várias formas:
-
-```bash
-# 1. Swagger UI (interface web interativa)
-# Acesse: https://editor.swagger.io/
-# Cole o conteúdo do arquivo swagger-api-investimentos-caixa.yaml
-
-# 2. Postman (importação automática)
-# File > Import > selecione o arquivo swagger-api-investimentos-caixa.yaml
-
-# 3. Insomnia (importação direta)
-# Preferences > Data > Import Data > selecione o arquivo YAML
-
-# 4. CLI com curl (exemplos incluídos no Swagger)
-curl -X POST http://localhost:8080/entrar \
-  -H "Content-Type: application/json" \
-  -d '{"username": "maria.silva", "password": "123456"}'
-```
-
-### 🔌 Gerando SDKs
-Use o OpenAPI Generator para criar clientes em diferentes linguagens:
-
-```bash
-# JavaScript/TypeScript
-npx @openapitools/openapi-generator-cli generate \
-  -i swagger-api-investimentos-caixa.yaml \
-  -g typescript-axios \
-  -o docs/sdk-typescript
-
-# Python
-pip install openapi-generator-cli
-openapi-generator generate \
-  -i swagger-api-investimentos-caixa.yaml \
-  -g python \
-  -o docs/sdk-python
-```
+*Esta documentação é mantida automaticamente e reflete o estado atual do sistema.*
 
 ---
 
-*Esta documentação é mantida automaticamente e reflete o estado atual do sistema.*
+## 📄 Documentos Auxiliares
+- [**MATRIZ_CONFORMIDADE.md**](docs/MATRIZ_CONFORMIDADE.md) - Matriz de conformidade e mapeamento de requisitos
+- [**RELATORIO_ANALISE_REQUISITOS.md**](docs/RELATORIO_ANALISE_REQUISITOS.md) - Relatório de análise de requisitos
+- [**ANALISE_ML_RESUMO.md**](docs/ANALISE_ML_RESUMO.md) - Resumo da análise de Machine Learning (ML)

@@ -58,7 +58,7 @@ public class PerfilRiscoService {
 
         if (produtos_sugeridos.isEmpty())
         {
-            produtos_sugeridos = geradorRecomendacaoML.encontrarProdutosOrdenadosPorAparicaoSimulacao(simulacoes, produtos);
+            produtos_sugeridos = geradorRecomendacaoML.encontrarProdutosOrdenadosPorAparicao(simulacoes, produtos);
         }
 
         if (produtos_sugeridos.isEmpty())

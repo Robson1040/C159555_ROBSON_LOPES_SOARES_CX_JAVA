@@ -40,7 +40,7 @@ class PasswordServiceTest {
         String hash = passwordService.encryptPassword(password);
 
         // Modifica o hash
-        String tampered = hash.substring(0, hash.length() - 1) + "A";
+        String tampered = hash + "SJASHAJSHASHAJ";
 
         assertFalse(passwordService.verifyPassword(password, tampered));
     }
