@@ -25,6 +25,7 @@ COPY --from=build /project/target/quarkus-app /app/quarkus-app
 
 # Copia o banco SQLite para dentro do container (vai ser montado via volume também)
 COPY banco_de_dados.db /app/banco_de_dados.db
+COPY banco_de_dados_teste.db /app/banco_de_dados_teste.db
 
 EXPOSE 9090
 

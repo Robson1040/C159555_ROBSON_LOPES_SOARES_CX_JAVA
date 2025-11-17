@@ -11,6 +11,7 @@ services:
     volumes:
       # Banco SQLite persistente
       - ./banco_de_dados.db:/app/banco_de_dados.db
+      - ./banco_de_dados_teste.db:/app/banco_de_dados_teste.db
       # Chaves JWT persistentes (não precisam ser rebuildadas)
       #- ./public-key.pem:/app/public-key.pem
       #- ./private-key.pem:/app/private-key.pem
