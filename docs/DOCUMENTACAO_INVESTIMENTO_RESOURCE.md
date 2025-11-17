@@ -275,4 +275,4 @@ Content-Type: application/json
 
 ---
 
-*Documento gerado para manter o mesmo padrão de `DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md`.*
+

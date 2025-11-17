@@ -1,34 +1,36 @@
-# 📊 API Investimentos Caixa - Documentação
+#  API-INVESTIMENTOS-CAIXA - C159555
 
 Este é o índice principal da documentação da API de Investimentos da Caixa. Aqui você encontrará todos os recursos, funcionalidades e guias organizados por categoria.
 
 ## 🚀 Funcionalidades e Documentações da API
 
 ###  Autenticação e Segurança
-- [**DOCUMENTACAO_AUTENTICACAO.md**](docs/DOCUMENTACAO_AUTENTICACAO.md) - API de autenticação JWT e autorização baseada em roles
+- [**DOCUMENTACAO_AUTENTICACAO**](docs/DOCUMENTACAO_AUTENTICACAO.md) - API de autenticação JWT e autorização baseada em roles
 
 ###  Gestão de Clientes
-- [**DOCUMENTACAO_CLIENTE.md**](docs/DOCUMENTACAO_CLIENTE.md) - API de operações CRUD para clientes
-- [**DOCUMENTACAO_PERFIL_RISCO.md**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - API de avaliação e cálculo de perfil de risco
+- [**DOCUMENTACAO_CLIENTE**](docs/DOCUMENTACAO_CLIENTE.md) - API de operações CRUD para clientes
+- [**DOCUMENTACAO_PERFIL_RISCO**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - API de avaliação e cálculo de perfil de risco
 
 ###  Produtos Financeiros
-- [**DOCUMENTACAO_PRODUTO_RESOURCE.md**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - API de operações CRUD para produtos de investimento
-- [**DOCUMENTACAO_PRODUTO_RECOMENDADO.md**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - API de recomendações de investimentos baseado em Machine Learning
+- [**DOCUMENTACAO_PRODUTO_RESOURCE**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - API de operações CRUD para produtos de investimento
+
+###  Recomendações de Investimento
+- [**DOCUMENTACAO_PRODUTO_RECOMENDADO**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - API de recomendações de investimentos baseado em Machine Learning
 
 ###  Simulações de Investimento
-- [**DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento
-- [**DOCUMENTACAO_SIMULACAO_RESOURCE.md**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos
+- [**DOCUMENTACAO_SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento
+- [**DOCUMENTACAO_SIMULACAO_RESOURCE**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos
 
 ###  Registro de Investimento
-- [**DOCUMENTACAO_INVESTIMENTO_RESOURCE.md**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos (registro e consulta)
-- 
+- [**DOCUMENTACAO_INVESTIMENTO_RESOURCE**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos (registro e consulta)
+
 ###  Monitoramento e Observabilidade
-- [**DOCUMENTACAO_TELEMETRIA.md**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance
+- [**DOCUMENTACAO_TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance
 
 ## 🤖️ Inteligência Artificial e Machine Learning
 
 ### Sistema de Recomendação Para Investimentos Ffinanceiros 
-- [**DOCUMENTACAO_MACHINE_LEARNING.md**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **🚀 Sistema de Recomendação com Distância Euclidiana**
+- [**DOCUMENTACAO_MACHINE_LEARNING**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **🚀 Sistema de Recomendação com Distância Euclidiana**
     - Algoritmo avançado de recomendação personalizada de produtos
     - Análise multidimensional com 8 características financeiras
     - Aprendizado baseado em histórico real de investimentos
@@ -115,8 +117,8 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 ## 📋 Documentos de Conformidade e Análise
 
 ### ✅ Rastreabilidade de Requisitos
-- [**MATRIZ_CONFORMIDADE.md**](docs/MATRIZ_CONFORMIDADE.md) - **Matriz de conformidade completa** - Mapeamento detalhado de todos os requisitos entregues vs. especificação (demonstra cobertura 100% dos requisitos)
-- [**RELATORIO_ANALISE_REQUISITOS.md**](docs/RELATORIO_ANALISE_REQUISITOS.md) - **Relatório completo de análise de requisitos** - Análise funcional e não-funcional de cada componente entregue
-- [**ANALISE_ML_RESUMO.md**](docs/ANALISE_ML_RESUMO.md) - **Resumo executivo da análise de Machine Learning** - Validação do algoritmo de Distância Euclidiana Multidimensional e suas características técnicas
+- [**MATRIZ_CONFORMIDADE**](docs/MATRIZ_CONFORMIDADE.md) - **Matriz de conformidade completa** - Mapeamento detalhado de todos os requisitos entregues vs. especificação (demonstra cobertura 100% dos requisitos)
+- [**RELATORIO_ANALISE_REQUISITOS**](docs/RELATORIO_ANALISE_REQUISITOS.md) - **Relatório completo de análise de requisitos** - Análise funcional e não-funcional de cada componente entregue
+- [**ANALISE_ML_RESUMO**](docs/ANALISE_ML_RESUMO.md) - **Resumo executivo da análise de Machine Learning** - Validação do algoritmo de Distância Euclidiana Multidimensional e suas características técnicas
 
 **👉 Estes documentos comprovam a entrega completa de todos os requisitos do projeto.**
