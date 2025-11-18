@@ -2,6 +2,22 @@
 
 Este é o índice principal da documentação da API de Investimentos da Caixa. Aqui você encontrará todos os recursos, funcionalidades e guias organizados por categoria.
 
+##  Por Onde Começar
+
+1. Execute o comando na pasta raiz do projeto:
+   ```bash
+   docker compose up --build
+   ```
+
+2. Crie um cliente para começar:
+   - [**Criar Cliente**](docs/DOCUMENTACAO_CLIENTE.md#3-post-clientes)
+
+3. Autentique-se na API:
+   - [**Autenticação**](docs/DOCUMENTACAO_AUTENTICACAO.md#1-post-entrar)
+
+4. Explore nossa documentação ou vá direto ao Postman:
+   - [**Collection do Postman**](./API-INVESTIMENTOS-CAIXA.postman_collection)
+
 ##  Funcionalidades e Documentações da API
 
 ###  Autenticação e Segurança
@@ -40,14 +56,14 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
 
 ###  OpenAPI/Swagger
 - [**swagger-api-investimentos-caixa.yaml**](./swagger-api-investimentos-caixa.yaml) - **Especificação completa da API** em formato OpenAPI 3.0.3
-    - 27 endpoints documentados com schemas detalhados
+    - Todos os endpoints documentados com schemas detalhados
     - Autenticação JWT e segurança por roles
     - Exemplos práticos para todos os endpoints
     - Validações completas com Jakarta Bean Validation
     - Códigos de resposta HTTP apropriados
 
 ###  Postman Collection
-- [**swagger-api-investimentos-caixa.yaml**](./API-INVESTIMENTOS-CAIXA.postman_collection) - **Teste completo da API** em formato Collection V2.1
+- [**API-INVESTIMENTOS-CAIXA.postman_collection**](./API-INVESTIMENTOS-CAIXA.postman_collection) - **Teste completo da API** em formato Collection V2.1
 
 ## ️ Arquitetura do Sistema
 
