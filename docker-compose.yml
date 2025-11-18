@@ -3,7 +3,7 @@ version: "3.9"
 services:
   api-investimentos-caixa:
     build: .
-    container_name: api-investimentos-caixa
+    container_name: api-investimentos-caixa-c159555
     ports:
       - "9090:9090"
     environment:
