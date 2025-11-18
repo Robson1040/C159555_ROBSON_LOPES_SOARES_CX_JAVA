@@ -72,6 +72,7 @@ A API foi construída seguindo os princípios de:
 - **Clean Architecture** com separação clara de responsabilidades
 - **RESTful APIs** com endpoints bem definidos
 - **Segurança por Design** com JWT e autorização baseada em roles
+- **Rate Limit** requisições por IP (default 30 por segundo)
 - **Observabilidade** com sistema de telemetria integrado
 - **🚀 Machine Learning Avançado** - **Distância Euclidiana Multidimensional** para recomendações personalizadas
 - **Testes Abrangentes** com cobertura de integração
@@ -126,15 +127,15 @@ A API foi construída seguindo os princípios de:
 
 TESTES AUTOMATIZADOS
 -----------------------------
-- TOTAL DE TESTES: **670**
-- TAXA DE SUCESSO: **100%** (670/670)
+- TOTAL DE TESTES: **674**
+- TAXA DE SUCESSO: **100%** (674/674)
 - FALHAS: **0** | ERROS: **0** | IGNORADOS: **0**
 - TEMPO TOTAL DE EXECUÇÃO: **41,605 s**
 - TEMPO MÉDIO POR TESTE: **0,062 s**
 
 
 - TESTES DE INTEGRAÇÃO: **167**
-- TESTES UNITÁRIOS: **503**
+- TESTES UNITÁRIOS: **507**
 
 Cobertura
 ----------------------
