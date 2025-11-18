@@ -33,14 +33,14 @@ public class GeradorRecomendacaoML
             return List.of();
         }
 
-        Map<Produto, Integer> contador = new HashMap<>();
+        Map<Produto, Double> contador = new HashMap<>();
 
         for (Object entrada : entradas) {
             Produto produtoMaisProximo = null;
             double menorDistancia = Double.MAX_VALUE;
-            int pesoBase = 0;
+            double pesoBase = 0;
             double decayFactor = 1.0;
-            int peso = 0;
+            double peso = 0;
 
             if (entrada instanceof Investimento investimento) {
                 pesoBase = (int) (Math.log10(investimento.getValor().doubleValue() + 1) * 1000);
@@ -50,10 +50,11 @@ public class GeradorRecomendacaoML
                 }
                 peso = (int) (pesoBase * decayFactor);
             } else if (entrada instanceof SimulacaoInvestimento simulacao) {
-                pesoBase = (int) (Math.log10(simulacao.getValorInvestido().doubleValue() + 1) * 1000);
-                long diasDesdeSimulacao = ChronoUnit.DAYS.between(simulacao.getDataSimulacao().toLocalDate(), LocalDate.now());
+                pesoBase = (Math.log10(simulacao.getValorInvestido().doubleValue() + 1) * 100);
+                //pesoBase =  simulacao.getValorInvestido().doubleValue();
+                double diasDesdeSimulacao = ChronoUnit.DAYS.between(simulacao.getDataSimulacao().toLocalDate(), LocalDate.now());
                 decayFactor = Math.exp(-diasDesdeSimulacao / 365.0);
-                peso = (int) (pesoBase * decayFactor);
+                peso = (pesoBase * decayFactor);
             } else {
                 throw new IllegalArgumentException("Tipo não suportado: " + entrada.getClass());
             }
@@ -77,8 +78,9 @@ public class GeradorRecomendacaoML
             }
 
             if (produtoMaisProximo != null) {
+
                 produtoMaisProximo.setPontuacao(produtoMaisProximo.getPontuacao() + peso);
-                contador.merge(produtoMaisProximo, peso, Integer::sum);
+                contador.merge(produtoMaisProximo, peso, Double::sum);
             }
         }
 

@@ -350,6 +350,7 @@ class ProdutoMapperTest {
         // Given
         Produto produto = new Produto();
         produto.setId(1L);
+        produto.setTipo(TipoProduto.POUPANCA);
         // Todos os outros campos ficam null
 
         // When
@@ -359,7 +360,6 @@ class ProdutoMapperTest {
         assertNotNull(response);
         assertEquals(1L, response.id());
         assertNull(response.nome());
-        assertNull(response.tipo());
         assertNull(response.tipoRentabilidade());
         assertNull(response.rentabilidade());
         assertNull(response.periodoRentabilidade());

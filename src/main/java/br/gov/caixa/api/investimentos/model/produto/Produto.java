@@ -66,7 +66,7 @@ public class Produto extends PanacheEntityBase {
     private Boolean fgc;
 
     @Transient
-    private int pontuacao;
+    private double pontuacao;
 
     // Construtor padrão
     public Produto()
@@ -199,7 +199,12 @@ public class Produto extends PanacheEntityBase {
         } else {
             pontuacaoRisco += 30; // Sem garantia = risco significativo
         }
-        
+
+        if(tipo.equals(TipoProduto.TESOURO_DIRETO))
+        {
+            pontuacaoRisco += 15;
+        }
+
         // 2. ANÁLISE DE RENTABILIDADE - Princípio básico: maior retorno = maior risco
         if (rentabilidade != null) {
             double rentabilidadeAnual = rentabilidade.doubleValue();
@@ -267,11 +272,11 @@ public class Produto extends PanacheEntityBase {
         }
     }
 
-    public int getPontuacao() {
+    public double getPontuacao() {
         return pontuacao;
     }
 
-    public void setPontuacao(int pontuacao) {
+    public void setPontuacao(double pontuacao) {
         this.pontuacao = pontuacao;
     }
 }

@@ -81,6 +81,7 @@ class ProdutoTest {
         p1.setLiquidez(0);
         p1.setMinimoDiasInvestimento(0);
         p1.setTipoRentabilidade(TipoRentabilidade.PRE);
+        p1.setTipo(TipoProduto.POUPANCA);
         assertEquals(NivelRisco.BAIXO, p1.getRisco());
 
         // Produto sem FGC com baixa rentabilidade e boa liquidez = Médio risco
@@ -117,6 +118,7 @@ class ProdutoTest {
         p4.setLiquidez(180);
         p4.setMinimoDiasInvestimento(0);
         p4.setTipoRentabilidade(TipoRentabilidade.POS);
+        p4.setTipo(TipoProduto.CDB);
         assertEquals(NivelRisco.MEDIO, p4.getRisco());
 
         // Produto de médio risco - rentabilidade moderada sem FGC
@@ -129,6 +131,7 @@ class ProdutoTest {
         p5.setLiquidez(15); // 5 pontos
         p5.setMinimoDiasInvestimento(0); // 0 pontos
         p5.setTipoRentabilidade(TipoRentabilidade.PRE); // 0 pontos
+        p5.setTipo(TipoProduto.LCI);
         // Pontuação total: 30 + 15 + 5 = 50 -> MEDIO
         assertEquals(NivelRisco.MEDIO, p5.getRisco());
     }
