@@ -46,8 +46,7 @@ class InvestimentoResourceTest {
                 new BigDecimal("1000.00"), // valor
                 12,                  // prazoMeses
                 0,                   // prazoDias
-                1,                   // prazoAnos
-                LocalDate.now()      // data
+                1                // prazoAnos
         );
 
         InvestimentoResponse responseMock = new InvestimentoResponse(

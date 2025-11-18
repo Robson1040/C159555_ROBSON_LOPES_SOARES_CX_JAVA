@@ -71,8 +71,7 @@ class InvestimentoTest {
                 BigDecimal.valueOf(1000),
                 12,
                 360,
-                1,
-                LocalDate.now()
+                1
         );
 
         // Criação do produto
@@ -96,7 +95,6 @@ class InvestimentoTest {
         assertEquals(req.prazoMeses(), inv.getPrazoMeses());
         assertEquals(req.prazoDias(), inv.getPrazoDias());
         assertEquals(req.prazoAnos(), inv.getPrazoAnos());
-        assertEquals(req.data(), inv.getData());
 
         // Campos copiados do produto
         assertEquals(produto.getTipo(), inv.getTipo());

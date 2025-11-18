@@ -45,7 +45,6 @@ Registra um investimento realizado por um cliente. O endpoint persiste o investi
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** O servidor verifica se o usuário pode operar sobre o `clienteId` informado; USERS só podem operar sobre seus próprios clientes quando aplicável.
 
 #### Request
 
@@ -65,8 +64,7 @@ Content-Type: application/json
   "valor": 10000.00,
   "prazoMeses": 12,
   "prazoDias": null,
-  "prazoAnos": null,
-  "data": "2025-11-15"
+  "prazoAnos": null
 }
 ```
 
@@ -80,7 +78,6 @@ Content-Type: application/json
 | `prazoMeses` | Integer | Não* | `@Min(1)`, `@Max(600)` | Prazo em meses (1 a 600) |
 | `prazoDias` | Integer | Não* | `@Min(1)`, `@Max(18250)` | Prazo em dias (1 a 18.250) |
 | `prazoAnos` | Integer | Não* | `@Min(1)`, `@Max(50)` | Prazo em anos (1 a 50) |
-| `data` | date | **Sim** | `@NotNull` | Data da aplicação do investimento (YYYY-MM-DD) |
 
 *Regras especiais: o DTO aplica a validação `@ValidPrazo` — pelo menos um dos campos de prazo (`prazoMeses`, `prazoDias`, `prazoAnos`) deve ser informado e válido.
 
@@ -90,8 +87,7 @@ Content-Type: application/json
   "clienteId": 1,
   "produtoId": 5,
   "valor": 5000.00,
-  "prazoMeses": 24,
-  "data": "2025-11-15"
+  "prazoMeses": 24
 }
 ```
 
@@ -155,7 +151,6 @@ Retorna a lista de investimentos persistidos para o cliente informado. O endpoin
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** O recurso chama `JwtAuthorizationHelper.validarAcessoAoCliente` para garantir que o usuário autenticado pode visualizar os investimentos do `clienteId` informado.
 
 #### Request
 

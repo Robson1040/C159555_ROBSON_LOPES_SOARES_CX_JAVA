@@ -399,8 +399,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 new BigDecimal("5000.00"), // valor
                 null, // prazoMeses
                 null, // prazoDias
-                null, // prazoAnos
-                LocalDate.now() // data
+                null // prazoAnos
         );
 
         // Apenas tenta criar, aceita erro se endpoint não estiver pronto
@@ -426,8 +425,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 new BigDecimal("10000.00"), // valor
                 null, // prazoMeses
                 null, // prazoDias
-                2, // prazoAnos
-                LocalDate.now() // data
+                2 // prazoAnos
         );
 
         given()
@@ -454,8 +452,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 new BigDecimal("15000.00"), // valor
                 12, // prazoMeses - ação precisa de prazo
                 null, // prazoDias
-                null, // prazoAnos
-                LocalDate.now() // data
+                null // prazoAnos
         );
 
         given()
@@ -482,8 +479,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 new BigDecimal("5000.00"), // valor
                 6, // prazoMeses
                 null, // prazoDias
-                null, // prazoAnos
-                LocalDate.now() // data
+                null // prazoAnos
         );
 
         given()

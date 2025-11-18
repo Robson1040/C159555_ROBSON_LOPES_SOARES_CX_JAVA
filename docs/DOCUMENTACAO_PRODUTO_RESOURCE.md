@@ -55,7 +55,6 @@ Retorna uma lista de produtos de investimento disponíveis na plataforma. Suport
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** Qualquer usuário autenticado pode consultar
 
 #### Request
 
@@ -160,7 +159,6 @@ Retorna os detalhes completos de um produto específico através do seu ID únic
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** Qualquer usuário autenticado pode consultar
 
 #### Request
 
@@ -219,7 +217,6 @@ Cria um novo produto de investimento na plataforma. Realiza validações complet
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `ADMIN` **EXCLUSIVAMENTE**
-- **Validação de Acesso:** Apenas administradores podem criar produtos
 
 #### Request
 
@@ -332,7 +329,6 @@ Atualiza completamente um produto existente na plataforma. Realiza as mesmas val
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `ADMIN` **EXCLUSIVAMENTE**
-- **Validação de Acesso:** Apenas administradores podem atualizar produtos
 
 #### Request
 
@@ -388,7 +384,6 @@ Retorna o número total de produtos cadastrados na plataforma. Útil para pagina
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** Qualquer usuário autenticado pode consultar
 
 #### Request
 

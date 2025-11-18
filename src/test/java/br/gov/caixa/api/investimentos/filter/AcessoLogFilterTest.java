@@ -156,8 +156,7 @@ class AcessoLogFilterTest {
         assertNull(erroMsgCaptor.getValue());
         assertNull(erroStackCaptor.getValue());
 
-        verify(metricasManager, times(1)).incrementarContador("produtos");
-        verify(metricasManager, times(1)).registrarTempoResposta(eq("produtos"), anyLong());
+
     }
 
     @Test

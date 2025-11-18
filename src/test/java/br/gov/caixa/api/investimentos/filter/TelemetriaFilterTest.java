@@ -47,8 +47,8 @@ class TelemetriaFilterTest {
         filter.filter(requestContext, responseContext);
 
         // Verifica que os métodos do metricasManager foram chamados
-        verify(metricasManager, times(1)).incrementarContador("produtos");
-        verify(metricasManager, times(1)).registrarTempoResposta(eq("produtos"), anyLong());
+        verify(metricasManager, times(1)).incrementarContador("/produtos/listar");
+        verify(metricasManager, times(1)).registrarTempoResposta(eq("/produtos/listar"), anyLong());
     }
 
     @Test
@@ -70,12 +70,11 @@ class TelemetriaFilterTest {
         Method method = TelemetriaFilter.class.getDeclaredMethod("extractEndpointName", String.class);
         method.setAccessible(true);
 
-        assertEquals("simular-investimento", method.invoke(filter, "/simular-investimento/123"));
-        assertEquals("perfil-risco", method.invoke(filter, "/perfil-risco/detalhe"));
-        assertEquals("produtos", method.invoke(filter, "/produtos/listar"));
-        assertNull(method.invoke(filter, "/telemetria/status"));
-        assertEquals("outro", method.invoke(filter, "/outro/caminho"));
-        assertEquals("endpoint", method.invoke(filter, "/endpoint/"));
+        assertEquals("/simular-investimento", method.invoke(filter, "/simular-investimento"));
+        assertEquals("/perfil-risco/detalhe", method.invoke(filter, "/perfil-risco/detalhe/1"));
+        assertEquals("/produtos", method.invoke(filter, "/produtos"));
+        assertEquals("/outro/caminho", method.invoke(filter, "/outro/caminho"));
+        assertEquals("/endpoint", method.invoke(filter, "/endpoint/65555"));
         assertNull(method.invoke(filter, ""));
         assertNull(method.invoke(filter, (Object) null));
     }

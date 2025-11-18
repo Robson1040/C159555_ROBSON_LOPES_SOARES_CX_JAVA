@@ -26,9 +26,9 @@ class InvestimentoRequestTest {
     @Test
     void shouldPassValidationWithExactlyOnePrazo() {
         // Cenários válidos
-        InvestimentoRequest byDias = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,90,null,LocalDate.now());
-        InvestimentoRequest byMeses = new InvestimentoRequest(1L,1L,BigDecimal.TEN,12,null,null,LocalDate.now());
-        InvestimentoRequest byAnos = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,null,2,LocalDate.now());
+        InvestimentoRequest byDias = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,90,null);
+        InvestimentoRequest byMeses = new InvestimentoRequest(1L,1L,BigDecimal.TEN,12,null,null);
+        InvestimentoRequest byAnos = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,null,2);
 
         assertTrue(validator.validate(byDias).isEmpty());
         assertTrue(validator.validate(byMeses).isEmpty());
@@ -37,7 +37,7 @@ class InvestimentoRequestTest {
 
     @Test
     void shouldFailValidationWithNoPrazo() {
-        InvestimentoRequest request = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,null,null,LocalDate.now());
+        InvestimentoRequest request = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,null,null);
         Set<ConstraintViolation<InvestimentoRequest>> violations = validator.validate(request);
 
         assertFalse(violations.isEmpty());
@@ -47,9 +47,9 @@ class InvestimentoRequestTest {
 
     @Test
     void shouldFailValidationWithMultiplePrazos() {
-        InvestimentoRequest request1 = new InvestimentoRequest(1L,1L,BigDecimal.TEN,12,30,null,LocalDate.now());
-        InvestimentoRequest request2 = new InvestimentoRequest(1L,1L,BigDecimal.TEN,12,null,1,LocalDate.now());
-        InvestimentoRequest request3 = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,30,1,LocalDate.now());
+        InvestimentoRequest request1 = new InvestimentoRequest(1L,1L,BigDecimal.TEN,12,30,null);
+        InvestimentoRequest request2 = new InvestimentoRequest(1L,1L,BigDecimal.TEN,12,null,1);
+        InvestimentoRequest request3 = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,30,1);
 
         Set<ConstraintViolation<InvestimentoRequest>> violations1 = validator.validate(request1);
         Set<ConstraintViolation<InvestimentoRequest>> violations2 = validator.validate(request2);
@@ -70,17 +70,17 @@ class InvestimentoRequestTest {
     @Test
     void shouldCalculatePrazoEmDiasAndMesesCorrectly() {
         // Prazo em dias
-        InvestimentoRequest byDias = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,90,null,LocalDate.now());
+        InvestimentoRequest byDias = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,90,null);
         assertEquals(90, byDias.getPrazoEmDias());
         assertEquals(3, byDias.getPrazoEmMeses());
 
         // Prazo em meses
-        InvestimentoRequest byMeses = new InvestimentoRequest(1L,1L,BigDecimal.TEN,6,null,null,LocalDate.now());
+        InvestimentoRequest byMeses = new InvestimentoRequest(1L,1L,BigDecimal.TEN,6,null,null);
         assertEquals(180, byMeses.getPrazoEmDias());
         assertEquals(6, byMeses.getPrazoEmMeses());
 
         // Prazo em anos
-        InvestimentoRequest byAnos = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,null,2,LocalDate.now());
+        InvestimentoRequest byAnos = new InvestimentoRequest(1L,1L,BigDecimal.TEN,null,null,2);
         assertEquals(730, byAnos.getPrazoEmDias());
         assertEquals(24, byAnos.getPrazoEmMeses());
     }

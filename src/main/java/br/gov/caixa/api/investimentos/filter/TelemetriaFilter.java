@@ -32,10 +32,9 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
             long duration = System.currentTimeMillis() - startTime;
             String path = requestContext.getUriInfo().getPath();
             String endpoint = extractEndpointName(path);
-			endpoint = path;
             
 
-            if (endpoint != null && !endpoint.equals("telemetria")) {
+            if (endpoint != null && !endpoint.contains("telemetria")) {
                 
                 metricasManager.incrementarContador(endpoint);
                 
@@ -52,23 +51,22 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
             return null;
         }
 
+        // Remove barras extras no início e fim
         String cleaned = path.replaceAll("^/+", "").replaceAll("/+$", "");
 
-        if (cleaned.startsWith("simular-investimento")) {
-            return "simular-investimento";
-        } else if (cleaned.startsWith("perfil-risco")) {
-            return "perfil-risco";
-        } else if (cleaned.startsWith("produtos")) {
-            return "produtos";
-        } else if (cleaned.startsWith("telemetria")) {
-            return null; // Não registrar métricas do próprio endpoint
-        }
+
 
         String[] parts = cleaned.split("/");
         if (parts.length > 0) {
-            return parts[0];
+            // Monta até duas partes
+            StringBuilder sb = new StringBuilder("/");
+            sb.append(parts[0]);
+            if (parts.length > 1 && !parts[1].matches("\\d+")) { // ignora se for número
+                sb.append("/").append(parts[1]);
+            }
+            return sb.toString();
         }
 
-        return cleaned;
+        return "/" + cleaned;
     }
 }

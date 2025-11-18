@@ -43,7 +43,6 @@ Analisa o histórico de investimentos e simulações de um cliente específico p
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** USERs só podem acessar seus próprios dados, ADMINs têm acesso irrestrito
 
 #### Request
 
@@ -131,7 +130,6 @@ Retorna todos os produtos adequados para um perfil de risco específico. Não re
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** Não há validação específica de cliente
 
 #### Request
 

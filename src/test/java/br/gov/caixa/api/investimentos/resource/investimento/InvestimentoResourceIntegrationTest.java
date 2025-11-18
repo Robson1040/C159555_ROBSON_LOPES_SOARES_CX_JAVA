@@ -225,8 +225,7 @@ public class InvestimentoResourceIntegrationTest {
                 new BigDecimal("1000.00"), // valor
                 null, // prazoMeses - poupança sem prazo
                 365, // prazoDias
-                null, // prazoAnos
-                LocalDate.now() // data
+                null // prazoAnos
         );
 
         InvestimentoResponse investimentoResponse = given()
@@ -259,8 +258,7 @@ public class InvestimentoResourceIntegrationTest {
                 new BigDecimal("5000.00"), // valor
                 12, // prazoMeses
                 null, // prazoDias
-                null, // prazoAnos
-                LocalDate.now() // data
+                null // prazoAnos
         );
 
         InvestimentoResponse investimentoResponse = given()
@@ -294,8 +292,7 @@ public class InvestimentoResourceIntegrationTest {
                 new BigDecimal("10000.00"), // valor
                 null, // prazoMeses
                 null, // prazoDias
-                2, // prazoAnos
-                LocalDate.now() // data
+                2 // prazoAnos
         );
 
         InvestimentoResponse investimentoResponse = given()
@@ -416,8 +413,7 @@ public class InvestimentoResourceIntegrationTest {
                 null, // clienteId inválido
                 produtoIdPoupanca,
                 new BigDecimal("0.50"), // valor muito baixo
-                null, null, null,
-                LocalDate.now()
+                null, null, null
         );
 
         given()
@@ -439,8 +435,7 @@ public class InvestimentoResourceIntegrationTest {
                 99999L, // clienteId que não existe
                 produtoIdPoupanca,
                 new BigDecimal("1000.00"),
-                null, null, null,
-                LocalDate.now()
+                null, null, null
         );
 
         given()
@@ -462,8 +457,7 @@ public class InvestimentoResourceIntegrationTest {
                 clienteIdInvestidor1,
                 99999L, // produtoId que não existe
                 new BigDecimal("1000.00"),
-                null, null, null,
-                LocalDate.now()
+                null, null, null
         );
 
         given()

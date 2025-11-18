@@ -172,8 +172,7 @@ class InvestimentoMapperTest {
                 new BigDecimal("8000.00"),
                 18,
                 540,
-                1,
-                LocalDate.of(2024, 2, 20)
+                1
         );
 
         Produto produto = new Produto(
@@ -200,7 +199,6 @@ class InvestimentoMapperTest {
         assertEquals(18, investimento.getPrazoMeses());
         assertEquals(540, investimento.getPrazoDias());
         assertEquals(1, investimento.getPrazoAnos());
-        assertEquals(LocalDate.of(2024, 2, 20), investimento.getData());
         
         // Dados do produto copiados
         assertEquals(TipoProduto.CDB, investimento.getTipo());
@@ -234,8 +232,7 @@ class InvestimentoMapperTest {
                 new BigDecimal("5000.00"),
                 12,
                 365,
-                1,
-                LocalDate.now()
+                1
         );
 
         // When
@@ -270,8 +267,7 @@ class InvestimentoMapperTest {
                 new BigDecimal("25000.00"),
                 24,
                 730,
-                2,
-                LocalDate.of(2024, 3, 15)
+                2
         );
 
         Produto novoProduto = new Produto(
@@ -300,7 +296,6 @@ class InvestimentoMapperTest {
         assertEquals(24, investimento.getPrazoMeses());
         assertEquals(730, investimento.getPrazoDias());
         assertEquals(2, investimento.getPrazoAnos());
-        assertEquals(LocalDate.of(2024, 3, 15), investimento.getData());
         
         // Dados do produto atualizados
         assertEquals(TipoProduto.LCI, investimento.getTipo());
@@ -322,8 +317,7 @@ class InvestimentoMapperTest {
                 new BigDecimal("5000.00"),
                 12,
                 365,
-                1,
-                LocalDate.now()
+                1
         );
         Produto produto = new Produto();
 
@@ -366,8 +360,7 @@ class InvestimentoMapperTest {
                 new BigDecimal("10000.00"),
                 12,
                 365,
-                1,
-                LocalDate.now()
+                1
         );
         
         Long clienteIdOriginal = investimento.getClienteId();
@@ -395,8 +388,7 @@ class InvestimentoMapperTest {
                 null, // valor null
                 null, // prazoMeses null
                 null, // prazoDias null
-                null, // prazoAnos null
-                null  // data null
+                null // prazoAnos null
         );
 
         Produto produto = new Produto(
@@ -422,7 +414,6 @@ class InvestimentoMapperTest {
         assertNull(investimento.getPrazoMeses());
         assertNull(investimento.getPrazoDias());
         assertNull(investimento.getPrazoAnos());
-        assertNull(investimento.getData());
         
         // Dados do produto devem ser copiados mesmo com request null
         assertEquals(TipoProduto.CDB, investimento.getTipo());
@@ -449,7 +440,6 @@ class InvestimentoMapperTest {
         assertNull(response.prazoMeses());
         assertNull(response.prazoDias());
         assertNull(response.prazoAnos());
-        assertNull(response.data());
         assertNull(response.tipo());
         assertNull(response.tipoRentabilidade());
         assertNull(response.rentabilidade());
@@ -474,7 +464,6 @@ class InvestimentoMapperTest {
                 null,
                 null,
                 null,
-                null,
                 null
         );
 
@@ -494,7 +483,6 @@ class InvestimentoMapperTest {
         assertNull(investimento.getPrazoMeses());
         assertNull(investimento.getPrazoDias());
         assertNull(investimento.getPrazoAnos());
-        assertNull(investimento.getData());
         
         // Dados do produto null
         assertNull(investimento.getTipo());

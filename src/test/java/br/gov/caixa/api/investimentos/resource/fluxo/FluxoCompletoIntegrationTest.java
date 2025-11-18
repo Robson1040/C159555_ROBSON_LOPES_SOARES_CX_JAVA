@@ -171,8 +171,7 @@ class FluxoCompletoIntegrationTest {
                 new BigDecimal("5000.00"), // valor do investimento
                 24, // prazo em meses
                 null,  // prazo em dias
-                null,  // prazo em anos
-                LocalDate.now()
+                null  // prazo em anos
         );
 
         InvestimentoResponse investimentoResponse = given()
@@ -257,8 +256,7 @@ class FluxoCompletoIntegrationTest {
                 999L, // ID de outro cliente fictício
                 produtoId,
                 new BigDecimal("1000.00"),
-                12, null, null,
-                LocalDate.now()
+                12, null, null
         );
 
         given()
@@ -283,8 +281,7 @@ class FluxoCompletoIntegrationTest {
                 clienteId,
                 produtoId,
                 new BigDecimal("2000.00"),
-                12, null, null,
-                LocalDate.now()
+                12, null, null
         );
 
         given()

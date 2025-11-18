@@ -47,7 +47,6 @@ Retorna uma lista completa de todas as simulações de investimentos realizadas 
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `ADMIN` **EXCLUSIVAMENTE**
-- **Validação de Acesso:** Apenas administradores podem acessar dados consolidados
 
 #### Request
 

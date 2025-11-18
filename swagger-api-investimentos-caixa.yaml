@@ -887,29 +887,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/AcessoLog'
 
-  /telemetria/acesso-logs/endpoint/{endpoint}:
-    get:
-      tags:
-        - Telemetria
-      summary: Buscar logs por endpoint
-      parameters:
-        - name: endpoint
-          in: path
-          required: true
-          schema:
-            type: string
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Logs do endpoint
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AcessoLog'
-
   /telemetria/acesso-logs/erros:
     get:
       tags:
@@ -1210,10 +1187,6 @@ components:
           minimum: 1
           maximum: 50
           example: 1
-        data:
-          type: string
-          format: date
-          example: "2024-01-15"
 
     InvestimentoResponse:
       type: object

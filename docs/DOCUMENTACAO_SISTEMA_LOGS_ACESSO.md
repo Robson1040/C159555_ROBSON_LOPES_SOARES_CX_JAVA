@@ -22,12 +22,11 @@ Sistema completo de auditoria que registra **todos os acessos** aos endpoints da
 
 - [1. GET /telemetria/acesso-logs](#1-get-telemetriaacesso-logs)
 - [2. GET /telemetria/acesso-logs/usuario/{usuarioId}](#2-get-telemetriaacesso-logsusuariousuarioid)
-- [3. GET /telemetria/acesso-logs/endpoint/{endpoint}](#3-get-telemetriaacesso-logsendpointendpoint)
-- [4. GET /telemetria/acesso-logs/erros](#4-get-telemetriaacesso-logserros)
-- [5. GET /telemetria/acesso-logs/status/{statusCode}](#5-get-telemetriaacesso-logsstatusstatuscode)
-- [6. GET /telemetria/acesso-logs/estatisticas](#6-get-telemetriaacesso-logsestatisticas)
-- [7. DELETE /telemetria/acesso-logs](#7-delete-telemetriaacesso-logs)
-- [8. DELETE /telemetria/acesso-logs/antigos/{diasRetencao}](#8-delete-telemetriaacesso-logsantigosdiasretencao)
+- [3. GET /telemetria/acesso-logs/erros](#4-get-telemetriaacesso-logserros)
+- [4. GET /telemetria/acesso-logs/status/{statusCode}](#5-get-telemetriaacesso-logsstatusstatuscode)
+- [5. GET /telemetria/acesso-logs/estatisticas](#6-get-telemetriaacesso-logsestatisticas)
+- [6. DELETE /telemetria/acesso-logs](#7-delete-telemetriaacesso-logs)
+- [7. DELETE /telemetria/acesso-logs/antigos/{diasRetencao}](#8-delete-telemetriaacesso-logsantigosdiasretencao)
 
 ---
 
@@ -100,32 +99,8 @@ Authorization: Bearer {token}
 
 ---
 
-### 3. GET /telemetria/acesso-logs/endpoint/{endpoint}
-**Busca logs de um endpoint específico**
 
-`http://localhost:9090/telemetria/acesso-logs/endpoint/{endpoint}`
-
-#### Descrição
-Retorna todos os acessos a um endpoint específico. Útil para monitorar e auditar endpoints críticos.
-
-#### Path Parameters
-| Parâmetro | Tipo | Obrigatório | Descrição |
-|-----------|------|-------------|-----------|
-| `endpoint` | string | Sim | Nome simplificado do endpoint (ex: `clientes`, `investimentos`) |
-
-#### Endpoints válidos (exemplos):
-- `autenticacao` - POST /entrar
-- `clientes` - GET/POST/PUT /clientes e sub-endpoints
-- `investimentos` - POST/GET /investimentos
-- `produtos` - GET/POST/PUT /produtos
-- `perfil-risco` - GET /perfil-risco
-- `produtos-recomendados` - GET /produtos-recomendados
-- `simular-investimento` - POST/GET /simular-investimento
-- `simulacoes` - GET /simulacoes e sub-endpoints
-
----
-
-### 4. GET /telemetria/acesso-logs/erros
+### 3. GET /telemetria/acesso-logs/erros
 **Busca logs com erro (status >= 400)**
 
 `http://localhost:9090/telemetria/acesso-logs/erros`
@@ -135,7 +110,7 @@ Retorna registros onde a resposta da API teve código de erro (>= 400). Útil pa
 
 ---
 
-### 5. GET /telemetria/acesso-logs/status/{statusCode}
+### 4. GET /telemetria/acesso-logs/status/{statusCode}
 **Busca logs por código de status HTTP**
 
 `http://localhost:9090/telemetria/acesso-logs/status/{statusCode}`
@@ -145,7 +120,7 @@ Filtro para buscar acessos que resultaram em um código HTTP específico.
 
 ---
 
-### 6. GET /telemetria/acesso-logs/estatisticas
+### 5. GET /telemetria/acesso-logs/estatisticas
 **Retorna estatísticas dos logs**
 
 `http://localhost:9090/telemetria/acesso-logs/estatisticas`
@@ -166,7 +141,7 @@ Retorna estatísticas agregadas dos logs, como total de acessos, taxa de sucesso
 
 ---
 
-### 7. DELETE /telemetria/acesso-logs
+### 6. DELETE /telemetria/acesso-logs
 **Limpa TODOS os logs de acesso**
 
 `http://localhost:9090/telemetria/acesso-logs`
@@ -182,7 +157,7 @@ Authorization: Bearer {token}
 
 ---
 
-### 8. DELETE /telemetria/acesso-logs/antigos/{diasRetencao}
+### 7. DELETE /telemetria/acesso-logs/antigos/{diasRetencao}
 **Limpa logs com mais de N dias**
 
 `http://localhost:9090/telemetria/acesso-logs/antigos/{diasRetencao}`
@@ -288,19 +263,5 @@ curl -X DELETE http://localhost:9090/telemetria/acesso-logs/antigos/90 \
 3. **Segurança**: Nunca compartilhe logs que contêm dados sensíveis; truncar campos sensíveis antes de exportar.
 
 4. **Performance**: Use filtros específicos em vez de buscar todos os logs.
-
----
-
-## Observações Técnicas
-
-- Os corpos de requisição e resposta são truncados por padrão a 10KB para evitar consumo excessivo de armazenamento.
-- Logs de requests não autenticados são registrados com `usuarioId` = null e `usuarioNome` = "ANONIMO".
-- Recomenda-se criar índices nas colunas `usuarioId`, `endpoint`, `statusCode` e `dataAcesso` para consultas rápidas.
-
----
-
-## Referências
-- Documento de arquitetura do módulo de telemetria
-- Políticas internas de retenção de dados
 
 ---

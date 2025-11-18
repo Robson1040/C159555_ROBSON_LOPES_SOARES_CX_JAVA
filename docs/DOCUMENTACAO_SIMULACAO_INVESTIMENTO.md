@@ -47,7 +47,6 @@ Calcula a projeção de rentabilidade de um investimento baseado nos parâmetros
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** Não há validação específica de propriedade
 
 #### Request
 
@@ -180,7 +179,6 @@ Retorna todas as simulações realizadas por um cliente específico, ordenadas p
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** USERs só podem acessar seus próprios dados, ADMINs têm acesso irrestrito
 
 #### Request
 
@@ -255,7 +253,6 @@ Retorna os detalhes de uma simulação específica pelo seu ID. Inclui validaç�
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** Baseada no clienteId da simulação vs. userId do JWT
 
 #### Request
 
@@ -312,7 +309,6 @@ Retorna estatísticas consolidadas das simulações de um cliente, incluindo tot
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
 - **Roles permitidas:** `USER`, `ADMIN`
-- **Validação de Acesso:** USERs só podem acessar suas próprias estatísticas
 
 #### Request
 

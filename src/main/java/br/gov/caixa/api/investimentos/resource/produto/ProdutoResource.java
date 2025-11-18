@@ -83,7 +83,8 @@ public class ProdutoResource {
      */
     @POST
     @RolesAllowed({"ADMIN"})
-    public Response criarProduto(@Valid @NotNull ProdutoRequest request) {
+    public Response criarProduto(@Valid @NotNull ProdutoRequest request)
+    {
         ProdutoResponse produto = produtoService.criar(request);
         return Response.status(Response.Status.CREATED)
                 .entity(produto)

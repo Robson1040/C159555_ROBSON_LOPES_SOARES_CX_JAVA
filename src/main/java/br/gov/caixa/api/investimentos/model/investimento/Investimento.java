@@ -89,7 +89,10 @@ public class Investimento extends PanacheEntityBase {
     @Column(name = "fgc", nullable = false)
     private Boolean fgc;
 
-    public Investimento() {}
+    public Investimento() 
+	{
+		this.data = LocalDate.now();
+	}
 
     public Long getId() {
         return id;

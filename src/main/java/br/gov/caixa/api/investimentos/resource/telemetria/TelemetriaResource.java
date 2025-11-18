@@ -121,25 +121,7 @@ public class TelemetriaResource {
                     .build();
         }
     }
-
-    /**
-     * GET /telemetria/acesso-logs/endpoint/{endpoint}
-     * Lista logs de acesso a um endpoint específico
-     */
-    @GET
-    @Path("/acesso-logs/endpoint/{endpoint}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response listarLogsAcessoPorEndpoint(@PathParam("endpoint") String endpoint) {
-        try {
-            List<AcessoLogDTO> logs = acessoLogService.buscarLogsPorEndpoint(endpoint);
-            return Response.ok(logs).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao listar logs do endpoint: " + e.getMessage())
-                    .build();
-        }
-    }
-
+	
     /**
      * GET /telemetria/acesso-logs/erros
      * Lista logs de acesso com erro (status >= 400)

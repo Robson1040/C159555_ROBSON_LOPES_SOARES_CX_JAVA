@@ -69,7 +69,6 @@ public class InvestimentoMapper {
         inv.setPrazoMeses(request.prazoMeses());
         inv.setPrazoDias(request.prazoDias());
         inv.setPrazoAnos(request.prazoAnos());
-        inv.setData(request.data());
         inv.setTipo(produto.getTipo());
         inv.setTipoRentabilidade(produto.getTipoRentabilidade());
         inv.setRentabilidade(produto.getRentabilidade());
@@ -95,7 +94,6 @@ public class InvestimentoMapper {
         investimento.setPrazoMeses(request.prazoMeses());
         investimento.setPrazoDias(request.prazoDias());
         investimento.setPrazoAnos(request.prazoAnos());
-        investimento.setData(request.data());
         
         // Atualizar informações do produto (snapshot)
         investimento.setTipo(produto.getTipo());

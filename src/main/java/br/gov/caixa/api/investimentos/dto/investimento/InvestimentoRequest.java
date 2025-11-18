@@ -39,11 +39,7 @@ public record InvestimentoRequest(
         @JsonProperty("prazoAnos")
         @Min(value = 1, message = "Prazo em anos deve ser no mínimo 1")
         @Max(value = 50, message = "Prazo em anos deve ser no máximo 50")
-        Integer prazoAnos,
-
-        @NotNull(message = "Data do investimento é obrigatória")
-        @JsonProperty("data")
-        LocalDate data
+        Integer prazoAnos
 ) {
     public int getPrazoEmDias() {
         if (prazoDias != null && prazoDias > 0) return prazoDias;

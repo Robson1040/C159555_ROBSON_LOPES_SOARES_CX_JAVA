@@ -63,8 +63,7 @@ class InvestimentoServiceTest {
                 new BigDecimal("10000.00"), // valor
                 12, // prazoMeses
                 null, // prazoDias
-                null, // prazoAnos
-                LocalDate.now() // data
+                null // prazoAnos
         );
 
         validProduto = new Produto(
@@ -178,8 +177,7 @@ class InvestimentoServiceTest {
                 1L, 2L, new BigDecimal("10000.00"),
                 null, // prazoMeses
                 60, // prazoDias menor que mínimo (90)
-                null, // prazoAnos
-                LocalDate.now()
+                null // prazoAnos
         );
 
         when(produtoRepository.findById(2L)).thenReturn(validProduto);
@@ -205,8 +203,7 @@ class InvestimentoServiceTest {
                 1L, 2L, new BigDecimal("10000.00"),
                 null, // prazoMeses
                 null, // prazoDias (será 0)
-                null, // prazoAnos
-                LocalDate.now()
+                null // prazoAnos
         );
 
         when(produtoRepository.findById(2L)).thenReturn(validProduto);
@@ -229,8 +226,7 @@ class InvestimentoServiceTest {
                 1L, 2L, new BigDecimal("10000.00"),
                 null, // prazoMeses
                 90, // prazoDias igual ao mínimo
-                null, // prazoAnos
-                LocalDate.now()
+                null // prazoAnos
         );
 
         when(produtoRepository.findById(2L)).thenReturn(validProduto);
@@ -253,8 +249,7 @@ class InvestimentoServiceTest {
                 1L, 2L, new BigDecimal("10000.00"),
                 null, // prazoMeses
                 180, // prazoDias maior que mínimo
-                null, // prazoAnos
-                LocalDate.now()
+                null // prazoAnos
         );
 
         when(produtoRepository.findById(2L)).thenReturn(validProduto);
@@ -404,8 +399,7 @@ class InvestimentoServiceTest {
                 1L, 2L, new BigDecimal("10000.00"),
                 4, // 4 meses = 120 dias
                 null, // prazoDias
-                null, // prazoAnos
-                LocalDate.now()
+                null // prazoAnos
         );
 
         when(produtoRepository.findById(2L)).thenReturn(validProduto);
@@ -429,8 +423,7 @@ class InvestimentoServiceTest {
                 1L, 2L, new BigDecimal("10000.00"),
                 null, // prazoMeses
                 null, // prazoDias
-                1, // 1 ano = 365 dias
-                LocalDate.now()
+                1// 1 ano = 365 dias
         );
 
         when(produtoRepository.findById(2L)).thenReturn(validProduto);

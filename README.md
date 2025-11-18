@@ -46,6 +46,9 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
     - Validações completas com Jakarta Bean Validation
     - Códigos de resposta HTTP apropriados
 
+###  Postman Collection
+- [**swagger-api-investimentos-caixa.yaml**](./API-INVESTIMENTOS-CAIXA.postman_collection) - **Teste completo da API** em formato Collection V2.1
+
 ## ️ Arquitetura do Sistema
 
 A API foi construída seguindo os princípios de:
@@ -107,15 +110,15 @@ A API foi construída seguindo os princípios de:
 
 TESTES AUTOMATIZADOS
 -----------------------------
-- TOTAL DE TESTES: **669**
-- TAXA DE SUCESSO: **100%** (669/669)
+- TOTAL DE TESTES: **670**
+- TAXA DE SUCESSO: **100%** (670/670)
 - FALHAS: **0** | ERROS: **0** | IGNORADOS: **0**
 - TEMPO TOTAL DE EXECUÇÃO: **41,605 s**
 - TEMPO MÉDIO POR TESTE: **0,062 s**
 
 
 - TESTES DE INTEGRAÇÃO: **167**
-- TESTES UNITÁRIOS: **502**
+- TESTES UNITÁRIOS: **503**
 
 Cobertura
 ----------------------
