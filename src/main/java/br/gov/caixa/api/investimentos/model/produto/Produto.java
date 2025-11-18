@@ -174,23 +174,31 @@ public class Produto extends PanacheEntityBase {
         this.fgc = fgc;
     }
 
-    /**
-     * Método derivado que calcula o nível de risco do produto de forma mais precisa,
-     * considerando múltiplos fatores além do FGC e tipo de renda
-     * 
-     * @return NivelRisco calculado baseado em análise abrangente
-     */
-    /**
-     * Calcula o nível de risco do produto baseado em critérios de mercado
-     * sem depender do tipo específico do produto, usando apenas:
-     * - FGC (garantia governamental)
-     * - Rentabilidade (quanto maior, maior o risco)
-     * - Liquidez (quanto menor, maior o risco)
-     * - Tipo de rentabilidade (pós-fixado tem mais volatilidade)
-     * - Mínimo de dias de investimento (carência afeta liquidez)
-     */
-    public NivelRisco getRisco() {
-        // Sistema de pontuação de risco (0-100, onde maior = mais arriscado)
+    public NivelRisco getRisco()
+    {
+        if(tipo.equals(TipoProduto.TESOURO_DIRETO))
+        {
+            return NivelRisco.BAIXO;
+        }
+
+        if(tipo.equals(TipoProduto.POUPANCA)){
+            return NivelRisco.BAIXO;
+        }
+
+        if(tipo.equals(TipoProduto.ACAO) || tipo.equals(TipoProduto.FUNDO)){
+            return NivelRisco.ALTO;
+        }
+
+        if(tipo.equals(TipoProduto.CDB) && Boolean.TRUE.equals(fgc) && tipoRentabilidade.equals(TipoRentabilidade.POS) && indice.equals(Indice.CDI))
+        {
+            return NivelRisco.BAIXO;
+        }
+
+        if(tipo.equals(TipoProduto.CDB) && Boolean.TRUE.equals(fgc) &&  tipoRentabilidade.equals(TipoRentabilidade.POS) && indice.equals(Indice.IPCA))
+        {
+            return NivelRisco.MEDIO;
+        }
+
         int pontuacaoRisco = 0;
         
         // 1. ANÁLISE FGC (Fundo Garantidor de Créditos) - Fator mais importante
@@ -200,75 +208,49 @@ public class Produto extends PanacheEntityBase {
             pontuacaoRisco += 30; // Sem garantia = risco significativo
         }
 
-        if(tipo.equals(TipoProduto.TESOURO_DIRETO))
-        {
-            pontuacaoRisco += 15;
-        }
-
-        // 2. ANÁLISE DE RENTABILIDADE - Princípio básico: maior retorno = maior risco
-        if (rentabilidade != null) {
-            double rentabilidadeAnual = rentabilidade.doubleValue();
-            
-            // Ajustar rentabilidade para base anual se necessário
-            if (periodoRentabilidade == PeriodoRentabilidade.AO_MES) {
-                rentabilidadeAnual = rentabilidadeAnual * 12;
-            } else if (periodoRentabilidade == PeriodoRentabilidade.AO_DIA) {
-                rentabilidadeAnual = rentabilidadeAnual * 365;
-            }
-            
-            // Escalas baseadas em taxas de mercado brasileiro (Nov 2025)
-            if (rentabilidadeAnual <= 6.0) {
-                pontuacaoRisco += 0;  // Conservador (≤ SELIC)
-            } else if (rentabilidadeAnual <= 12.0) {
-                pontuacaoRisco += 15; // Moderado (até 2x SELIC)
-            } else if (rentabilidadeAnual <= 20.0) {
-                pontuacaoRisco += 30; // Agressivo (até 3x SELIC)
-            } else {
-                pontuacaoRisco += 45; // Muito arriscado (>3x SELIC)
-            }
-        }
-        
         // 3. ANÁLISE DE LIQUIDEZ - Capacidade de conversão em dinheiro
         if (liquidez != null) {
             if (liquidez == -1) {
-                pontuacaoRisco += 25; // Sem liquidez = risco alto
+                pontuacaoRisco += 25; 
             } else if (liquidez == 0) {
-                pontuacaoRisco += 0;  // Liquidez imediata = sem risco
+                pontuacaoRisco += 0;  
             } else if (liquidez <= 30) {
-                pontuacaoRisco += 5;  // Liquidez mensal = risco baixo
+                pontuacaoRisco += 5;  
             } else if (liquidez <= 180) {
-                pontuacaoRisco += 10; // Liquidez semestral = risco moderado
+                pontuacaoRisco += 15; 
             } else if (liquidez <= 365) {
-                pontuacaoRisco += 15; // Liquidez anual = risco médio
+                pontuacaoRisco += 15; 
             } else {
-                pontuacaoRisco += 20; // Liquidez > 1 ano = risco alto
+                pontuacaoRisco += 25; 
             }
         }
         
-        // 4. ANÁLISE TIPO DE RENTABILIDADE - Volatilidade da taxa
+        //Volatilidade da taxa
         if (tipoRentabilidade == TipoRentabilidade.POS) {
-            pontuacaoRisco += 10; // Pós-fixado = sujeito a variações
+            pontuacaoRisco += 30;
         }
-        // PRE-fixado não adiciona risco (taxa conhecida)
-        
-        // 5. ANÁLISE DE CARÊNCIA - Impacto na liquidez
+
         if (minimoDiasInvestimento != null && minimoDiasInvestimento > 0) {
             if (minimoDiasInvestimento <= 30) {
-                pontuacaoRisco += 2;  // Carência curta = risco mínimo
+                pontuacaoRisco += 0;
             } else if (minimoDiasInvestimento <= 180) {
-                pontuacaoRisco += 5;  // Carência média = risco baixo
+                pontuacaoRisco += 15;
             } else {
-                pontuacaoRisco += 8;  // Carência longa = risco moderado
+                pontuacaoRisco += 25;
             }
         }
         
+		System.out.println("RISCO: " + pontuacaoRisco);
+		System.out.println("RISCO: " + fgc);
+		System.out.println("RISCO: " + Boolean.TRUE.equals(fgc));
+		
         // 6. CLASSIFICAÇÃO FINAL baseada na pontuação total
-        if (pontuacaoRisco <= 20) {
-            return NivelRisco.BAIXO;   // 0-20: Produtos conservadores, garantidos
-        } else if (pontuacaoRisco <= 50) {
-            return NivelRisco.MEDIO;   // 21-50: Produtos moderados, algum risco
+        if (pontuacaoRisco <= 30) {
+            return NivelRisco.BAIXO;
+        } else if (pontuacaoRisco <= 70) {
+            return NivelRisco.MEDIO;
         } else {
-            return NivelRisco.ALTO;    // 51+: Produtos arriscados, sem garantias
+            return NivelRisco.ALTO;
         }
     }
 

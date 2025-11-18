@@ -133,9 +133,9 @@ public class PerfilRiscoResourceIntegrationTest {
                 new BigDecimal("8.00"), // rentabilidade (8% ao ano)
                 PeriodoRentabilidade.AO_ANO, // periodo_rentabilidade
                 null, // indice (pré-fixado)
-                90, // liquidez (90 dias) - melhor liquidez para risco médio
+                180, // liquidez (90 dias) - melhor liquidez para risco médio
                 30, // minimo_dias_investimento
-                true // fgc (com garantia) - reduz risco significativamente
+                false // fgc (com garantia) - reduz risco significativamente
         );
 
         ProdutoResponse produtoResponse = given()

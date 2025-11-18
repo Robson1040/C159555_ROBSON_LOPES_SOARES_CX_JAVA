@@ -119,6 +119,7 @@ class ProdutoTest {
         p4.setMinimoDiasInvestimento(0);
         p4.setTipoRentabilidade(TipoRentabilidade.POS);
         p4.setTipo(TipoProduto.CDB);
+        p4.setIndice(Indice.CDI);
         assertNotNull(p4.getRisco());
 
         // Produto de médio risco - rentabilidade moderada sem FGC

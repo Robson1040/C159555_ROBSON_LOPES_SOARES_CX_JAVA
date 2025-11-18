@@ -144,7 +144,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 null, // pré-fixado
                 90, // liquidez 90 dias - boa liquidez
                 30, // carência 30 dias
-                true // FGC - reduz risco para médio
+                false // FGC - reduz risco para médio
         );
 
         ProdutoResponse produtoResponse = given()
@@ -178,7 +178,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 null, // pré-fixado
                 120, // liquidez 120 dias
                 60, // carência 60 dias
-                true // FGC - reduz risco para médio
+                false // FGC - reduz risco para médio
         );
 
         ProdutoResponse produtoResponse = given()
@@ -244,7 +244,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 new BigDecimal("10.00"), // 10% ao ano esperado
                 PeriodoRentabilidade.AO_ANO,
                 Indice.IBOVESPA,
-                0, // liquidez imediata (bolsa)
+                180,
                 0, // sem carência
                 false // sem FGC
         );
