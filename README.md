@@ -63,7 +63,7 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
     - Códigos de resposta HTTP apropriados
 
 ###  Postman Collection
-- [**API-INVESTIMENTOS-CAIXA.postman_collection**](./API-INVESTIMENTOS-CAIXA.postman_collection) - **Teste completo da API** em formato Collection V2.1
+- [**API-INVESTIMENTOS-CAIXA.postman_collection**](./API-INVESTIMENTOS-CAIXA.postman_collection.json) - **Teste completo da API** em formato Collection V2.1
 
 ## ️ Arquitetura do Sistema
 
