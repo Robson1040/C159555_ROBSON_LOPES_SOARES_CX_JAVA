@@ -60,7 +60,7 @@ public class AcessoLog extends PanacheEntityBase {
 
     // Construtores
     public AcessoLog() {
-       // this.dataAcesso = LocalDateTime.now();
+       this.dataAcesso = LocalDateTime.now();
     }
 
     public AcessoLog(Long usuarioId, String endpoint, String metodoHttp,

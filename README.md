@@ -2,7 +2,7 @@
 
 Este é o índice principal da documentação da API de Investimentos da Caixa. Aqui você encontrará todos os recursos, funcionalidades e guias organizados por categoria.
 
-## 🚀 Funcionalidades e Documentações da API
+##  Funcionalidades e Documentações da API
 
 ###  Autenticação e Segurança
 - [**DOCUMENTACAO_AUTENTICACAO**](docs/DOCUMENTACAO_AUTENTICACAO.md) - API de autenticação JWT e autorização baseada em roles
@@ -38,7 +38,7 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
 
 ##  Especificação da API
 
-### 🔌 OpenAPI/Swagger
+###  OpenAPI/Swagger
 - [**swagger-api-investimentos-caixa.yaml**](./swagger-api-investimentos-caixa.yaml) - **Especificação completa da API** em formato OpenAPI 3.0.3
     - 27 endpoints documentados com schemas detalhados
     - Autenticação JWT e segurança por roles
@@ -46,7 +46,7 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
     - Validações completas com Jakarta Bean Validation
     - Códigos de resposta HTTP apropriados
 
-## 🏗️ Arquitetura do Sistema
+## ️ Arquitetura do Sistema
 
 A API foi construída seguindo os princípios de:
 
@@ -57,23 +57,22 @@ A API foi construída seguindo os princípios de:
 - **🚀 Machine Learning Avançado** - **Distância Euclidiana Multidimensional** para recomendações personalizadas
 - **Testes Abrangentes** com cobertura de integração
 
-## 🌟 **Diferencial Tecnológico: Sistema de Recomendação ML**
+##  **Diferencial Tecnológico: Sistema de Recomendação ML**
 
-A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário** que representa o estado da arte em recomendação de produtos financeiros:
 
-### **🎯 Características Únicas**
+###  Características Únicas
 
-- **📐 Algoritmo Matemático Avançado**: Distância Euclidiana em 8 dimensões simultâneas
-- **🧠 Aprendizado Comportamental**: Aprende com histórico real de investimentos e simulações
-- **🔍 Transparência Total**: Cada recomendação possui justificativa matemática auditável
-### **🚀 Por Que Este Sistema é Superior?**
+- **Algoritmo Matemático Avançado**: Distância Euclidiana em 8 dimensões simultâneas
+- **Aprendizado Comportamental**: Aprende com histórico real de investimentos e simulações
+- **Transparência Total**: Cada recomendação possui justificativa matemática auditável
 
-1. **Análise Multidimensional**: Avalia valor, tipo, rentabilidade, liquidez, risco, prazo, índices e garantias simultaneamente
+###  Por Que Este Sistema é Superior?
+
+1. **Análise Multidimensional**: Avalia valor, tipo, rentabilidade, liquidez, risco, prazo, índices simultaneamente
 2. **Ponderação Inteligente**: Produtos similares a investimentos de maior valor recebem maior peso
-3. **Adaptação Contínua**: Melhora continuamente com cada interação do cliente
-4. **Escalabilidade Real**: Processa milhares de produtos em < 150ms
+3. **Adaptação Contínua**: Melhora continuamente com cada investimento ou simulação do cliente
 
-## 🚦 Status do Projeto
+##  Status do Projeto
 
 - ✅ **Autenticação JWT** - Implementado e testado
 - ✅ **Gestão de Clientes** - CRUD completo com validações
@@ -85,21 +84,7 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 - ✅ **Testes de Integração** - Cobertura abrangente
 - ✅ **Documentação Técnica ML** - Especificação completa do sistema inteligente
 
-## 📝 Como Navegar
-
-1. **Para desenvolvedores**: 
-   - Comece pelo [**Swagger YAML**](./swagger-api-investimentos-caixa.yaml) para visão completa da API
-   - Continue pela [Autenticação](docs/DOCUMENTACAO_AUTENTICACAO.md) e depois explore os recursos específicos
-2. **Para arquitetos**: Veja a [Telemetria](docs/DOCUMENTACAO_TELEMETRIA.md) para entender o monitoramento do sistema
-3. **Para analistas**: O [Sistema de Recomendação](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) contém a lógica de ML
-4. **Para QA**: As documentações de testes contêm cenários completos de validação
-5. **Para integração**: Use o [**Swagger YAML**](./swagger-api-investimentos-caixa.yaml) com ferramentas como:
-   - **Swagger UI** para interface interativa
-   - **Postman** para importar coleção automaticamente
-   - **Insomnia** para testes de API
-   - Geradores de código para SDKs em diferentes linguagens
-
-## 🔧 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 - **Quarkus 3.24.3** - Framework Java nativo para nuvem
 - **JAX-RS** - APIs RESTful
@@ -110,19 +95,15 @@ A API Investimentos CAIXA possui um **sistema de Machine Learning proprietário*
 - **Machine Learning** - Algoritmo personalizado de recomendações
 - **OpenAPI 3.0.3** - Especificação completa da API
 
-
-*Esta documentação é mantida automaticamente e reflete o estado atual do sistema.*
-
 ---
 
-## 📋 Documentos de Conformidade e Análise
+## Documentos de Conformidade e Análise
 
 ### ✅ Rastreabilidade de Requisitos
 - [**MATRIZ_CONFORMIDADE**](docs/MATRIZ_CONFORMIDADE.md) - **Matriz de conformidade completa** - Mapeamento detalhado de todos os requisitos entregues vs. especificação (demonstra cobertura 100% dos requisitos)
 - [**RELATORIO_ANALISE_REQUISITOS**](docs/RELATORIO_ANALISE_REQUISITOS.md) - **Relatório completo de análise de requisitos** - Análise funcional e não-funcional de cada componente entregue
 - [**ANALISE_ML_RESUMO**](docs/ANALISE_ML_RESUMO.md) - **Resumo executivo da análise de Machine Learning** - Validação do algoritmo de Distância Euclidiana Multidimensional e suas características técnicas
 
-**👉 Estes documentos comprovam a entrega completa de todos os requisitos do projeto.**
 
 TESTES AUTOMATIZADOS
 -----------------------------

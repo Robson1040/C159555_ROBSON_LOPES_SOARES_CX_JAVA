@@ -32,14 +32,14 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
             long duration = System.currentTimeMillis() - startTime;
             String path = requestContext.getUriInfo().getPath();
             String endpoint = extractEndpointName(path);
-
+			endpoint = path;
             
 
             if (endpoint != null && !endpoint.equals("telemetria")) {
-                // Incrementa contador usando nosso sistema customizado
+                
                 metricasManager.incrementarContador(endpoint);
                 
-                // Registra tempo de resposta usando nosso sistema customizado
+                
                 metricasManager.registrarTempoResposta(endpoint, duration);
 
                

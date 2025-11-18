@@ -125,10 +125,7 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
                             erroStacktrace
                     );
 
-                    if (!endpoint.equals("telemetria")) {
-                        metricasManager.incrementarContador(endpoint);
-                        metricasManager.registrarTempoResposta(endpoint, tempoExecucao);
-                    }
+                    
                 }
 
             }
