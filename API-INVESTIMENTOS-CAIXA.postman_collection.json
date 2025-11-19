@@ -19,7 +19,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"nome\": \"Usuário de teste\",\n  \"cpf\": \"51499092032\",\n  \"username\": \"usuario01\",\n  \"password\": \"usuario01\",\n  \"role\": \"USER\"\n}",
+									"raw": "{\n  \"nome\": \"Usuário de teste\",\n  \"cpf\": \"04285873052\",\n  \"username\": \"usuario01\",\n  \"password\": \"usuario01\",\n  \"role\": \"USER\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -47,7 +47,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"nome\": \"Administrador de teste\",\n  \"cpf\": \"36400691022\",\n  \"username\": \"admin01\",\n  \"password\": \"admin01\",\n  \"role\": \"ADMIN\"\n}",
+									"raw": "{\n  \"nome\": \"Administrador de teste\",\n  \"cpf\": \"94703408090\",\n  \"username\": \"admin02\",\n  \"password\": \"admin02\",\n  \"role\": \"ADMIN\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -133,12 +133,31 @@
 							"name": "CLIENTES",
 							"item": [
 								{
+									"name": "OBTER TODOS OS CLIENTES",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/clientes",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"clientes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "OBTER CLIENTE POR ID",
 									"request": {
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:9090/clientes/2",
+											"raw": "http://localhost:9090/clientes/1",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -146,7 +165,7 @@
 											"port": "9090",
 											"path": [
 												"clientes",
-												"2"
+												"1"
 											]
 										}
 									},
@@ -179,7 +198,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:9090/clientes/cpf/36400691022",
+											"raw": "http://localhost:9090/clientes/cpf/94703408090",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -188,7 +207,7 @@
 											"path": [
 												"clientes",
 												"cpf",
-												"36400691022"
+												"94703408090"
 											]
 										}
 									},
@@ -218,25 +237,6 @@
 											"path": [
 												"clientes",
 												"1"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "OBTER TODOS OS CLIENTES",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "http://localhost:9090/clientes",
-											"protocol": "http",
-											"host": [
-												"localhost"
-											],
-											"port": "9090",
-											"path": [
-												"clientes"
 											]
 										}
 									},
@@ -290,7 +290,7 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:9090/produtos/24",
+											"raw": "http://localhost:9090/produtos/1",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -298,7 +298,27 @@
 											"port": "9090",
 											"path": [
 												"produtos",
-												"24"
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "OBTER A QUANTIDADE DE PRODUTOS CADASTRADOS",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/produtos/count",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"produtos",
+												"count"
 											]
 										}
 									},
@@ -310,9 +330,9 @@
 							"name": "TELEMETRIA",
 							"item": [
 								{
-									"name": "APAGAR TELEMETRIA",
+									"name": "OBTER RESUMO DA TELEMETRIA",
 									"request": {
-										"method": "DELETE",
+										"method": "GET",
 										"header": [],
 										"url": {
 											"raw": "http://localhost:9090/telemetria",
@@ -323,6 +343,26 @@
 											"port": "9090",
 											"path": [
 												"telemetria"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "OBTER TELEMETRIA DETALHADA",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/telemetria/detalhado",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"telemetria",
+												"detalhado"
 											]
 										}
 									},
@@ -350,20 +390,19 @@
 									"response": []
 								},
 								{
-									"name": "OBTER TELEMETRIA DETALHADA",
+									"name": "APAGAR TELEMETRIA",
 									"request": {
-										"method": "GET",
+										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:9090/telemetria/detalhado",
+											"raw": "http://localhost:9090/telemetria",
 											"protocol": "http",
 											"host": [
 												"localhost"
 											],
 											"port": "9090",
 											"path": [
-												"telemetria",
-												"detalhado"
+												"telemetria"
 											]
 										}
 									},
@@ -373,7 +412,156 @@
 						},
 						{
 							"name": "LOGS DE ACESSO",
-							"item": []
+							"item": [
+								{
+									"name": "GET LOGS DE ACESSO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/telemetria/acesso-logs",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"telemetria",
+												"acesso-logs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET LOGS DE ACESSO POR CLIENTE",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/telemetria/acesso-logs/usuario/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"telemetria",
+												"acesso-logs",
+												"usuario",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET LOGS DE ACESSO COM ERRO (>=400)",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/telemetria/acesso-logs/erros",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"telemetria",
+												"acesso-logs",
+												"erros"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET LOGS DE ACESSO POR STATUS CODE",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/telemetria/acesso-logs/status/201",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"telemetria",
+												"acesso-logs",
+												"status",
+												"201"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET LOGS DE ACESSO - ESTATÍSTICAS",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/telemetria/acesso-logs/estatisticas",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"telemetria",
+												"acesso-logs",
+												"estatisticas"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE LOGS DE ACESSO",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/telemetria/acesso-logs",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"telemetria",
+												"acesso-logs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DELETE LOGS DE ACESSO ANTIGOS",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/telemetria/acesso-logs/antigos/30",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"telemetria",
+												"acesso-logs",
+												"antigos",
+												"30"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						},
 						{
 							"name": "SIMULAÇÕES",
@@ -417,12 +605,72 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "GET POR PRODUTO E ANO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/simulacoes/por-produto-ano",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"simulacoes",
+												"por-produto-ano"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET SIMULACOES",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/simulacoes",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"simulacoes"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
 						{
 							"name": "PERFIL DE RISCO",
-							"item": []
+							"item": [
+								{
+									"name": "GET PERFIL DE RISCO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/perfil-risco/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"perfil-risco",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					],
 					"auth": {
@@ -430,7 +678,7 @@
 						"bearer": [
 							{
 								"key": "token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktaW52ZXN0aW1lbnRvcy1jYWl4YSIsInN1YiI6ImFkbWluMDEiLCJncm91cHMiOlsiQURNSU4iXSwibm9tZSI6IkFkbWluaXN0cmFkb3IgZGUgdGVzdGUiLCJjcGYiOiIzNjQwMDY5MTAyMiIsInVzZXJJZCI6MiwiaWF0IjoxNzYzNDY5MzA0LCJleHAiOjE3NjM0NzI5MDQsImp0aSI6ImUyZmYwMWNmLThlMGUtNDAwZS05NzkxLWM4MjA2NjQ1ZjAyYyJ9.G5YBxFQIN2C9CeITpBTzhasIZd0Z-K3vXtRV4t5vtBjzA1Y4qFxFqxAcFmFmbTTWvAufn0RM10W4xavvr8mceigv13EBnMbTdApETfSdoV4Vz_3qWz3dsrGB45gc1Q_U150waaK-BGdR6SjRbP0-rDR0inTlswusrk-FywRRrbEoVtA-y2kwBJahoGeyOV0_-M-bQfM6L1kdJB_DJHSchbnjrO99rSBJc2WY6KX9Uhuky5xIyr_BHAzRI1G89AqbDw01eAY8XIexxCa0yftD-4wkIK4Y3e9k7EwiE8PDWjMNlNfwXUIHraDPAlxSAV5k6dAKUnqAMuR0yC8X1Ci0mQ",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktaW52ZXN0aW1lbnRvcy1jYWl4YSIsInN1YiI6ImFkbWluMDEiLCJncm91cHMiOlsiQURNSU4iXSwibm9tZSI6IkFkbWluaXN0cmFkb3IgZGUgdGVzdGUiLCJjcGYiOiI0OTI0MjQ1NTAwOCIsInVzZXJJZCI6MiwiaWF0IjoxNzYzNTU3MTU4LCJleHAiOjE3NjM1NjA3NTgsImp0aSI6IjBjMTUwYTg4LTIzMDAtNDg4MC1iZGNlLTE1ZTkyYzFjNmRlNCJ9.ZWbm0sEBSvMINTKZ3LY8stoD05uC5NGZQDx1e5pf8qrC8EQ5my5UpKvSbEmo0mFPuMLcaTAqtTcnK7uVbeLmquggiAi33U-1zna4Yx0KzbSrhtVyj_QDusXsJ5_FaDvLX6DSNky-0-8_PqNOmBzgI37oe11TY96EXD9wDrILQu9RbPjB00UAQBIfuc5hSRo3rvh3pw6oBdxkUdKfkfd7vNIEcAaM5ZwvQh6Avef6mQi0VGhqb5hLVlXyCncAkHiNevBnk9pL94ZyJWcfYO1lr3b9hn_N85Se8lAt_0kuU78Bx4Wh5OVBTNDrtdKKH35EGDPte1ggD7iWbvuJCPXrMA",
 								"type": "string"
 							}
 						]
@@ -465,7 +713,47 @@
 					"item": [
 						{
 							"name": "PRODUTOS",
-							"item": []
+							"item": [
+								{
+									"name": "GET PRODUTOS",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/produtos",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"produtos"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET PRODUTO ID",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/produtos/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"produtos",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						},
 						{
 							"name": "RECOMENDAÇÕES",
@@ -529,6 +817,27 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "GET PRODUTOS RECOMENDADOS PARA CLIENTE",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/produtos-recomendados/cliente/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"produtos-recomendados",
+												"cliente",
+												"1"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -536,13 +845,13 @@
 							"name": "SIMULAÇÕES",
 							"item": [
 								{
-									"name": "POST SIMULAR INVESTIMENTO",
+									"name": "POST SIMULAR INVESTIMENTO (POR CRITERIO)",
 									"request": {
 										"method": "POST",
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000.00,\n  \"prazoMeses\": 12,\n  \"prazoDias\": null,\n  \"prazoAnos\": null,\n  \"tipoProduto\": \"CDB\",\n  \"tipo_rentabilidade\": \"POS\",\n  \"indice\": \"CDI\",\n  \"liquidez\": 30,\n  \"fgc\": true\n}",
+											"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000.00,\n  \"prazoMeses\": 12,\n  \"tipoProduto\": \"CDB\",\n  \"tipo_rentabilidade\": \"POS\",\n  \"indice\": \"CDI\",\n  \"liquidez\": 30,\n  \"fgc\": true\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -564,7 +873,35 @@
 									"response": []
 								},
 								{
-									"name": "GET HISTÓRICO SIMULAÇÕES CLIENTE",
+									"name": "POST SIMULAR INVESTIMENTO (POR PRODUTO ID)",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000.45,\n  \"prazoAnos\": 3,\n  \"produto_id\": 2,\n  \"fgc\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:9090/simular-investimento",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"simular-investimento"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET SIMULAÇÕES",
 									"request": {
 										"method": "GET",
 										"header": [],
@@ -578,6 +915,26 @@
 											"path": [
 												"simular-investimento",
 												"historico",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GET SIMULACAO ID",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/simular-investimento/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"simular-investimento",
 												"1"
 											]
 										}
@@ -617,7 +974,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"clienteId\": 1,\n  \"produtoId\": 16,\n  \"valor\": 1500.50,\n  \"prazoMeses\": 12,\n  \"prazoDias\": null,\n  \"prazoAnos\": null\n}",
+											"raw": "{\n  \"clienteId\": 1,\n  \"produtoId\": 1,\n  \"valor\": 1500.50,\n  \"prazoMeses\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -659,6 +1016,31 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "PERFIL DE RISCO",
+							"item": [
+								{
+									"name": "GET PERFIL DE RISCO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9090/perfil-risco/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"perfil-risco",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					],
 					"auth": {
@@ -666,7 +1048,7 @@
 						"bearer": [
 							{
 								"key": "token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktaW52ZXN0aW1lbnRvcy1jYWl4YSIsInN1YiI6InVzdWFyaW8wMSIsImdyb3VwcyI6WyJVU0VSIl0sIm5vbWUiOiJVc3XDoXJpbyBkZSB0ZXN0ZSIsImNwZiI6IjUxNDk5MDkyMDMyIiwidXNlcklkIjoxLCJpYXQiOjE3NjM0NjkyMjMsImV4cCI6MTc2MzQ3MjgyMywianRpIjoiODlhZDVhMDgtMzkwNy00ZmVhLTk5MDctMjc2Yzg1Y2UyY2VmIn0.Gm6UOmKxjPWAH-TrF5CccJAD46T8t99Zbu-Zgu-PxLeedl0F4b9xm7oPkydRUGHa7HqF7Qrnsv7M8iZrE4hHIZZxPKDFvS0EmiUr9rYA6mqhQ0yCMxjGGDmuBhaBS8bVPhBVQJ9ThAvllT-D-tIn-j6ufqtM-ewseGUcJ6f9854moTsPp83JlPJEETBOBFoSmxTevv2Gm3mBCme8xeVTrIp5K6yg7a49bRBk7LWk7fw9paX-QLtt5eC1-YYFESq0H8ZD1579kGb_IXBZvSBlGkPk5LVfCW9JXUCTDjqdynBKorOWRjUP_FwEb1cSXvgYY8XQWVh6ejdd_MRcJr9Dyg",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktaW52ZXN0aW1lbnRvcy1jYWl4YSIsInN1YiI6InVzdWFyaW8wMSIsImdyb3VwcyI6WyJVU0VSIl0sIm5vbWUiOiJVc3XDoXJpbyBkZSB0ZXN0ZSIsImNwZiI6IjA0Mjg1ODczMDUyIiwidXNlcklkIjoxLCJpYXQiOjE3NjM1NTcxMDgsImV4cCI6MTc2MzU2MDcwOCwianRpIjoiZjM3YTU0YjMtOTZkNS00NGRiLThiMzctYTkxNDk4MmMwNWE2In0.KKIodR0GU0pS3PQPH2YxaUV8Hegor2KJz5ofDejudzB1W5Npv8e6jsOyY7rC6hISPxHMsjz4USEYexjK-wi3zOG8qhEOrgf3HV9OJFkuWniLOAdvxgKaNoj77mpNPCuvNmmhN3Nfbo4axHlr9WBUVGBFGPCwHZkjS3OQBMQIy1xlzCx8_OSK2B9NEg_df6IBmCLmj94S5PRXym81BpN3A0FGCyfnpNFMzaNEqLMQLdOCTZa2rBpmHwJflUg0qpZy3RU4sMSxEfSGHKtTKteEIdFwbDr8ns3BJo3HZ0T72AQ99_ACQXV1Ir6ejJV2g0i7Ww_QjH5rmtvfGQTcmq7STw",
 								"type": "string"
 							}
 						]
