@@ -1,0 +1,107 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IPessoaRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.repository.cliente</a>
+</div>
+
+<h1>Coverage Summary for Class: IPessoaRepository (br.gov.caixa.api.investimentos.repository.cliente)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">IPessoaRepository$MockitoMock$keYRf0ZE</td>
+  </tr>
+  <tr>
+    <td class="name">IPessoaRepository$MockitoMock$keYRf0ZE$auxiliary$CAGvOR0f</td>
+  </tr>
+  <tr>
+    <td class="name">IPessoaRepository$MockitoMock$keYRf0ZE$auxiliary$SaXhHchQ</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.repository.cliente;
+&nbsp;
+&nbsp;import br.gov.caixa.api.investimentos.model.cliente.Pessoa;
+&nbsp;import io.quarkus.hibernate.orm.panache.PanacheRepository;
+&nbsp;
+&nbsp;/**
+&nbsp; * Interface para operações de banco de dados da entidade Pessoa
+&nbsp; */
+&nbsp;public interface IPessoaRepository extends PanacheRepository&lt;Pessoa&gt; {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca pessoa por CPF
+&nbsp;     */
+&nbsp;    Pessoa findByCpf(String cpf);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca pessoa por username
+&nbsp;     */
+&nbsp;    Pessoa findByUsername(String username);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Verifica se CPF já existe
+&nbsp;     */
+&nbsp;    boolean existsByCpf(String cpf);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Verifica se username já existe
+&nbsp;     */
+&nbsp;    boolean existsByUsername(String username);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-19 07:07</div>
+</div>
+</body>
+</html>

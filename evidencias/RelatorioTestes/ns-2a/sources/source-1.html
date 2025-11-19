@@ -1,0 +1,332 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ProdutoService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.service.produto</a>
+</div>
+
+<h1>Coverage Summary for Class: ProdutoService (br.gov.caixa.api.investimentos.service.produto)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProdutoService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97,4%
+  </span>
+  <span class="absValue">
+    (37/38)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (60/60)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.service.produto;
+&nbsp;
+&nbsp;import jakarta.enterprise.context.ApplicationScoped;
+&nbsp;import jakarta.inject.Inject;
+&nbsp;import jakarta.transaction.Transactional;
+&nbsp;import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
+&nbsp;import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+&nbsp;import br.gov.caixa.api.investimentos.exception.produto.ProdutoNotFoundException;
+&nbsp;import br.gov.caixa.api.investimentos.mapper.ProdutoMapper;
+&nbsp;import br.gov.caixa.api.investimentos.model.produto.Produto;
+&nbsp;import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@ApplicationScoped
+<b class="fc">&nbsp;public class ProdutoService {</b>
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    ProdutoMapper produtoMapper;
+&nbsp;
+&nbsp;    @Inject
+&nbsp;    IProdutoRepository produtoRepository;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Lista todos os produtos
+&nbsp;     */
+&nbsp;    public List&lt;ProdutoResponse&gt; listarTodos() {
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.listAll();</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca produto por ID
+&nbsp;     */
+&nbsp;    public Optional&lt;ProdutoResponse&gt; buscarPorId(Long id) {
+<b class="fc">&nbsp;        if (id == null) {</b>
+<b class="fc">&nbsp;            return Optional.empty();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return Produto.&lt;Produto&gt;findByIdOptional(id)</b>
+<b class="fc">&nbsp;                .map(produtoMapper::toResponse);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca produtos por tipo
+&nbsp;     */
+&nbsp;    public List&lt;ProdutoResponse&gt; buscarPorTipo(TipoProduto tipo) {
+<b class="fc">&nbsp;        if (tipo == null) {</b>
+<b class="fc">&nbsp;            return List.of();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByTipo(tipo);</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca produtos por tipo de rentabilidade
+&nbsp;     */
+&nbsp;    public List&lt;ProdutoResponse&gt; buscarPorTipoRentabilidade(TipoRentabilidade tipoRentabilidade) {
+<b class="fc">&nbsp;        if (tipoRentabilidade == null) {</b>
+<b class="fc">&nbsp;            return List.of();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByTipoRentabilidade(tipoRentabilidade);</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca produtos protegidos pelo FGC
+&nbsp;     */
+&nbsp;    public List&lt;ProdutoResponse&gt; buscarProdutosComFgc() {
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByFgc(true);</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca produtos com liquidez imediata (0 dias)
+&nbsp;     */
+&nbsp;    public List&lt;ProdutoResponse&gt; buscarProdutosComLiquidezImediata() {
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findComLiquidezImediata();</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca produtos sem liquidez
+&nbsp;     */
+&nbsp;    public List&lt;ProdutoResponse&gt; buscarProdutosSemLiquidez() {
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findSemLiquidez();</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Busca produtos por nome (busca parcial)
+&nbsp;     */
+&nbsp;    public List&lt;ProdutoResponse&gt; buscarPorNome(String nome) {
+<b class="fc">&nbsp;        if (nome == null || nome.trim().isEmpty()) {</b>
+<b class="fc">&nbsp;            return List.of();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Produto&gt; produtos = produtoRepository.findByNomeContaining(nome.trim());</b>
+<b class="fc">&nbsp;        return produtoMapper.toResponseList(produtos);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Cria um novo produto
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    public ProdutoResponse criar(ProdutoRequest request) {
+<b class="fc">&nbsp;        if (request == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Dados do produto não podem ser nulos&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        validarDadosProduto(request);</b>
+&nbsp;
+<b class="fc">&nbsp;        Produto produto = produtoMapper.toEntity(request);</b>
+&nbsp;
+&nbsp;        
+&nbsp;
+<b class="fc">&nbsp;        produtoRepository.persist(produto);</b>
+&nbsp;
+&nbsp;        
+&nbsp;
+<b class="fc">&nbsp;        return produtoMapper.toResponse(produto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Atualiza um produto existente
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    public ProdutoResponse atualizar(Long id, ProdutoRequest request) {
+<b class="fc">&nbsp;        if (id == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;ID não pode ser nulo&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if (request == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Dados do produto não podem ser nulos&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        validarDadosProduto(request);</b>
+&nbsp;
+<b class="fc">&nbsp;        Produto produto = produtoRepository.findById(id);</b>
+<b class="fc">&nbsp;        if (produto == null) {</b>
+<b class="fc">&nbsp;            throw new ProdutoNotFoundException(&quot;Produto não encontrado com ID: &quot; + id);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        produtoMapper.updateEntityFromRequest(produto, request);</b>
+<b class="fc">&nbsp;        produtoRepository.persist(produto);</b>
+&nbsp;        
+<b class="fc">&nbsp;        return produtoMapper.toResponse(produto);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Remove um produto
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    public void remover(Long id) {
+<b class="fc">&nbsp;        if (id == null) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;ID não pode ser nulo&quot;);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        boolean removido = produtoRepository.deleteById(id);</b>
+<b class="fc">&nbsp;        if (!removido) {</b>
+<b class="fc">&nbsp;            throw new ProdutoNotFoundException(&quot;Produto não encontrado com ID: &quot; + id);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Verifica se existe produto com ID
+&nbsp;     */
+&nbsp;    public boolean existePorId(Long id) {
+<b class="fc">&nbsp;        if (id == null) {</b>
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return produtoRepository.findByIdOptional(id).isPresent();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Conta total de produtos
+&nbsp;     */
+&nbsp;    public long contarTodos() {
+<b class="fc">&nbsp;        return produtoRepository.count();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Remove todos os produtos (para testes)
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    public void limparTodos() {
+<b class="fc">&nbsp;        produtoRepository.deleteAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Validações de negócio específicas
+&nbsp;     */
+&nbsp;    private void validarDadosProduto(ProdutoRequest request) {
+&nbsp;        // Validação: Se for pós-fixado, deve ter um índice válido (não null e diferente de NENHUM)
+<b class="fc">&nbsp;        if (request.tipoRentabilidade() == TipoRentabilidade.POS &amp;&amp; </b>
+<b class="pc">&nbsp;            (request.indice() == null || request.indice().name().equals(&quot;NENHUM&quot;))) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Produtos pós-fixados devem ter um índice válido&quot;);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Validação: Se for pré-fixado, o índice deve ser null ou NENHUM
+<b class="fc">&nbsp;        if (request.tipoRentabilidade() == TipoRentabilidade.PRE &amp;&amp; </b>
+<b class="fc">&nbsp;            request.indice() != null &amp;&amp; !request.indice().name().equals(&quot;NENHUM&quot;)) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Produtos pré-fixados não devem ter índice&quot;);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Validação: Liquidez deve ser -1 ou &gt;= 0
+<b class="fc">&nbsp;        if (request.liquidez() &lt; -1) {</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Liquidez deve ser -1 (sem liquidez) ou &gt;= 0&quot;);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-19 07:07</div>
+</div>
+</body>
+</html>

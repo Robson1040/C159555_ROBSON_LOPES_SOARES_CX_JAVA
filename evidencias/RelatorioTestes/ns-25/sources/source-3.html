@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PasswordService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.service.autenticacao</a>
+</div>
+
+<h1>Coverage Summary for Class: PasswordService (br.gov.caixa.api.investimentos.service.autenticacao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PasswordService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91,7%
+  </span>
+  <span class="absValue">
+    (22/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.service.autenticacao;
+&nbsp;
+&nbsp;import jakarta.enterprise.context.ApplicationScoped;
+&nbsp;import java.security.MessageDigest;
+&nbsp;import java.security.NoSuchAlgorithmException;
+&nbsp;import java.security.SecureRandom;
+&nbsp;import java.util.Base64;
+&nbsp;
+&nbsp;/**
+&nbsp; * Serviço para criptografia de senhas
+&nbsp; */
+&nbsp;@ApplicationScoped
+<b class="fc">&nbsp;public class PasswordService {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Criptografa uma senha usando SHA-256 com salt
+&nbsp;     */
+&nbsp;    public String encryptPassword(String password) {
+&nbsp;        try {
+&nbsp;            // Gera um salt aleatório
+<b class="fc">&nbsp;            SecureRandom random = new SecureRandom();</b>
+<b class="fc">&nbsp;            byte[] salt = new byte[16];</b>
+<b class="fc">&nbsp;            random.nextBytes(salt);</b>
+&nbsp;            
+&nbsp;            // Combina password + salt
+<b class="fc">&nbsp;            MessageDigest md = MessageDigest.getInstance(&quot;SHA-256&quot;);</b>
+<b class="fc">&nbsp;            md.update(salt);</b>
+<b class="fc">&nbsp;            byte[] hashedPassword = md.digest(password.getBytes());</b>
+&nbsp;            
+&nbsp;            // Combina salt + hash para armazenar
+<b class="fc">&nbsp;            byte[] combined = new byte[salt.length + hashedPassword.length];</b>
+<b class="fc">&nbsp;            System.arraycopy(salt, 0, combined, 0, salt.length);</b>
+<b class="fc">&nbsp;            System.arraycopy(hashedPassword, 0, combined, salt.length, hashedPassword.length);</b>
+&nbsp;            
+<b class="fc">&nbsp;            return Base64.getEncoder().encodeToString(combined);</b>
+&nbsp;            
+<b class="nc">&nbsp;        } catch (NoSuchAlgorithmException e) {</b>
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;Erro ao criptografar senha&quot;, e);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    
+&nbsp;    /**
+&nbsp;     * Verifica se uma senha corresponde ao hash armazenado
+&nbsp;     */
+&nbsp;    public boolean verifyPassword(String password, String hashedPassword) {
+&nbsp;        try {
+<b class="fc">&nbsp;            byte[] combined = Base64.getDecoder().decode(hashedPassword);</b>
+&nbsp;            
+&nbsp;            // Extrai o salt (primeiros 16 bytes)
+<b class="fc">&nbsp;            byte[] salt = new byte[16];</b>
+<b class="fc">&nbsp;            System.arraycopy(combined, 0, salt, 0, 16);</b>
+&nbsp;            
+&nbsp;            // Extrai o hash (restante dos bytes)
+<b class="fc">&nbsp;            byte[] storedHash = new byte[combined.length - 16];</b>
+<b class="fc">&nbsp;            System.arraycopy(combined, 16, storedHash, 0, storedHash.length);</b>
+&nbsp;            
+&nbsp;            // Calcula o hash da senha fornecida com o mesmo salt
+<b class="fc">&nbsp;            MessageDigest md = MessageDigest.getInstance(&quot;SHA-256&quot;);</b>
+<b class="fc">&nbsp;            md.update(salt);</b>
+<b class="fc">&nbsp;            byte[] computedHash = md.digest(password.getBytes());</b>
+&nbsp;            
+&nbsp;            // Compara os hashes
+<b class="fc">&nbsp;            return MessageDigest.isEqual(computedHash, storedHash);</b>
+&nbsp;            
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-19 07:07</div>
+</div>
+</body>
+</html>

@@ -63,9 +63,9 @@ graph TD
     F --> G[Lista Personalizada de Produtos]
 ```
 
-### **Dimensões Analisadas - Versão 2.0**
+### **Dimensões Analisadas **
 
-| Dimensão | Peso | Normalização | Impacto | **🆕 Melhoria** |
+| Dimensão | Peso | Normalização | Impacto | **Característica** |
 |----------|------|--------------|---------|----------------|
 | **Valor Investido** | Alto | 0 → 1M | Define capacidade financeira | **✅ Peso logarítmico + Decay temporal** |
 | **Tipo de Produto** | Crítico | Enum → Numérico | Caracteriza classe de ativo | **✅ Consistente entre investimentos/produtos** |

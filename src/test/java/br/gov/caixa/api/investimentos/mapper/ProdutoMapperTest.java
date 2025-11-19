@@ -115,7 +115,7 @@ class ProdutoMapperTest {
         ProdutoResponse response2 = responses.get(1);
         assertEquals(2L, response2.id());
         assertEquals("LCI 1", response2.nome());
-        assertEquals(NivelRisco.MEDIO, response2.risco());
+        assertEquals(NivelRisco.BAIXO, response2.risco());
     }
 
     @Test

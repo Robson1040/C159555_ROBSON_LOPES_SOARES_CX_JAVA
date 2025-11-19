@@ -174,85 +174,81 @@ public class Produto extends PanacheEntityBase {
         this.fgc = fgc;
     }
 
-    public NivelRisco getRisco()
-    {
-        if(tipo.equals(TipoProduto.TESOURO_DIRETO))
-        {
-            return NivelRisco.BAIXO;
-        }
+	public NivelRisco getRisco() 
+	{
+		// --- 1. Regras Absolutas ---
+		if (tipo == TipoProduto.TESOURO_DIRETO
+				|| tipo == TipoProduto.POUPANCA) {
+			return NivelRisco.BAIXO;
+		}
 
-        if(tipo.equals(TipoProduto.POUPANCA)){
-            return NivelRisco.BAIXO;
-        }
+		if (tipo == TipoProduto.ACAO
+				|| tipo == TipoProduto.FUNDO || tipo == TipoProduto.DEBENTURE || tipo == TipoProduto.CRI) {
+			return NivelRisco.ALTO;
+		}
 
-        if(tipo.equals(TipoProduto.ACAO) || tipo.equals(TipoProduto.FUNDO)){
-            return NivelRisco.ALTO;
-        }
+		if (tipo == TipoProduto.LCI
+				|| tipo == TipoProduto.LCA) {
+			return NivelRisco.BAIXO;
+		}
 
-        if(tipo.equals(TipoProduto.CDB) && Boolean.TRUE.equals(fgc) && tipoRentabilidade.equals(TipoRentabilidade.POS) && indice.equals(Indice.CDI))
-        {
-            return NivelRisco.BAIXO;
-        }
+		// --- 2. Regras Absolutas Específicas (CDB com FGC) ---
+		if (tipo == TipoProduto.CDB && Boolean.TRUE.equals(fgc)) {
+			if (tipoRentabilidade == TipoRentabilidade.POS && indice == Indice.CDI) {
+				return NivelRisco.BAIXO;
+			}
+			if (tipoRentabilidade == TipoRentabilidade.POS && indice == Indice.IPCA) {
+				return NivelRisco.MEDIO;
+			}
+		}
 
-        if(tipo.equals(TipoProduto.CDB) && Boolean.TRUE.equals(fgc) &&  tipoRentabilidade.equals(TipoRentabilidade.POS) && indice.equals(Indice.IPCA))
-        {
-            return NivelRisco.MEDIO;
-        }
+		// --- 3. Pontuação Geral Dinâmica Ajustada ---
+		int p = 0;
 
-        int pontuacaoRisco = 0;
-        
-        // 1. ANÁLISE FGC (Fundo Garantidor de Créditos) - Fator mais importante
-        if (Boolean.TRUE.equals(fgc)) {
-            pontuacaoRisco += 0; // Garantia governamental = sem risco adicional
-        } else {
-            pontuacaoRisco += 30; // Sem garantia = risco significativo
-        }
+		// === 3.1 Risco do emissor ===
+		if (Boolean.TRUE.equals(fgc)) {
+			p += 0; // maior redução para produtos com FGC
+		} else {
+			p += 20; // sem FGC aumenta risco
+		}
 
-        // 3. ANÁLISE DE LIQUIDEZ - Capacidade de conversão em dinheiro
-        if (liquidez != null) {
-            if (liquidez == -1) {
-                pontuacaoRisco += 25; 
-            } else if (liquidez == 0) {
-                pontuacaoRisco += 0;  
-            } else if (liquidez <= 30) {
-                pontuacaoRisco += 5;  
-            } else if (liquidez <= 180) {
-                pontuacaoRisco += 15; 
-            } else if (liquidez <= 365) {
-                pontuacaoRisco += 15; 
-            } else {
-                pontuacaoRisco += 25; 
-            }
-        }
-        
-        //Volatilidade da taxa
-        if (tipoRentabilidade == TipoRentabilidade.POS) {
-            pontuacaoRisco += 30;
-        }
+		// === 3.2 Indexador ===
+		if (tipo == TipoProduto.CDB)
+		{
+			if (tipoRentabilidade == TipoRentabilidade.POS) 
+			{
+				switch (indice) {
+					case CDI -> p   += 0;
+					case IPCA -> p  += 5;
+					case IGP_M -> p += 10;
+				}
+			}
+		}
+		else
+		{
+			p += 5;
+		}
 
-        if (minimoDiasInvestimento != null && minimoDiasInvestimento > 0) {
-            if (minimoDiasInvestimento <= 30) {
-                pontuacaoRisco += 0;
-            } else if (minimoDiasInvestimento <= 180) {
-                pontuacaoRisco += 15;
-            } else {
-                pontuacaoRisco += 25;
-            }
-        }
-        
-		System.out.println("RISCO: " + pontuacaoRisco);
-		System.out.println("RISCO: " + fgc);
-		System.out.println("RISCO: " + Boolean.TRUE.equals(fgc));
-		
-        // 6. CLASSIFICAÇÃO FINAL baseada na pontuação total
-        if (pontuacaoRisco <= 30) {
-            return NivelRisco.BAIXO;
-        } else if (pontuacaoRisco <= 70) {
-            return NivelRisco.MEDIO;
-        } else {
-            return NivelRisco.ALTO;
-        }
-    }
+		// === 3.3 Liquidez (peso menor) ===
+		if (liquidez != null) {
+			if (liquidez <= 0)         p += 0;
+			else if (liquidez <= 30)   p += 2;
+			else if (liquidez <= 180)  p += 6;
+			else                       p += 10;
+		}
+
+		// === 3.4 Prazo mínimo (peso menor) ===
+		if (minimoDiasInvestimento != null && minimoDiasInvestimento > 0) {
+			if (minimoDiasInvestimento <= 30)       p += 0;
+			else if (minimoDiasInvestimento <= 180) p += 5;
+			else                                    p += 10;
+		}
+
+		// --- 4. Faixas Finais Ajustadas ---
+		if (p <= 15) return NivelRisco.BAIXO;
+		if (p <= 35) return NivelRisco.MEDIO;
+		return NivelRisco.ALTO;
+	}
 
     public double getPontuacao() {
         return pontuacao;

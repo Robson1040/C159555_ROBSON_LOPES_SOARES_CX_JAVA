@@ -1,0 +1,399 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > GeradorRecomendacaoML</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.ml</a>
+</div>
+
+<h1>Coverage Summary for Class: GeradorRecomendacaoML (br.gov.caixa.api.investimentos.ml)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GeradorRecomendacaoML</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    84%
+  </span>
+  <span class="absValue">
+    (68/81)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94,7%
+  </span>
+  <span class="absValue">
+    (107/113)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GeradorRecomendacaoML$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    84%
+  </span>
+  <span class="absValue">
+    (68/81)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94,8%
+  </span>
+  <span class="absValue">
+    (109/115)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.ml;
+&nbsp;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+&nbsp;import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+&nbsp;import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+&nbsp;import br.gov.caixa.api.investimentos.model.investimento.Investimento;
+&nbsp;import br.gov.caixa.api.investimentos.model.produto.Produto;
+&nbsp;import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
+&nbsp;import jakarta.enterprise.context.ApplicationScoped;
+&nbsp;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.temporal.ChronoUnit;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;@ApplicationScoped
+<b class="fc">&nbsp;public class GeradorRecomendacaoML</b>
+&nbsp;{
+&nbsp;    /**
+&nbsp;     * Encontra o produto com perfil ideal para o cliente, com base em investimentos ou simulações
+&nbsp;     */
+&nbsp;    public List&lt;Produto&gt; encontrarProdutosOrdenadosPorAparicao(List&lt;?&gt; entradas, List&lt;Produto&gt; todosProdutos) {
+<b class="pc">&nbsp;        if (entradas == null) {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Lista de entradas não pode ser nula&quot;);</b>
+&nbsp;        }
+<b class="pc">&nbsp;        if (todosProdutos == null) {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Lista de produtos não pode ser nula&quot;);</b>
+&nbsp;        }
+<b class="pc">&nbsp;        if (entradas.isEmpty() || todosProdutos.isEmpty()) {</b>
+<b class="fc">&nbsp;            return List.of();</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Map&lt;Produto, Double&gt; contador = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Object entrada : entradas) {</b>
+<b class="fc">&nbsp;            Produto produtoMaisProximo = null;</b>
+<b class="fc">&nbsp;            double menorDistancia = Double.MAX_VALUE;</b>
+<b class="fc">&nbsp;            double pesoBase = 0;</b>
+<b class="fc">&nbsp;            double decayFactor = 1.0;</b>
+<b class="fc">&nbsp;            double peso = 0;</b>
+&nbsp;
+<b class="fc">&nbsp;            if (entrada instanceof Investimento investimento) {</b>
+<b class="fc">&nbsp;                pesoBase = (int) (Math.log10(investimento.getValor().doubleValue() + 1) * 1000);</b>
+<b class="pc">&nbsp;                if (investimento.getData() != null) {</b>
+<b class="fc">&nbsp;                    long diasDesdeInvestimento = ChronoUnit.DAYS.between(investimento.getData(), LocalDate.now());</b>
+<b class="fc">&nbsp;                    decayFactor = Math.exp(-diasDesdeInvestimento / 365.0);</b>
+&nbsp;                }
+<b class="fc">&nbsp;                peso = (int) (pesoBase * decayFactor);</b>
+<b class="pc">&nbsp;            } else if (entrada instanceof SimulacaoInvestimento simulacao) {</b>
+<b class="fc">&nbsp;                pesoBase = (Math.log10(simulacao.getValorInvestido().doubleValue() + 1) * 100);</b>
+&nbsp;                //pesoBase =  simulacao.getValorInvestido().doubleValue();
+<b class="fc">&nbsp;                double diasDesdeSimulacao = ChronoUnit.DAYS.between(simulacao.getDataSimulacao().toLocalDate(), LocalDate.now());</b>
+<b class="fc">&nbsp;                decayFactor = Math.exp(-diasDesdeSimulacao / 365.0);</b>
+<b class="fc">&nbsp;                peso = (pesoBase * decayFactor);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                throw new IllegalArgumentException(&quot;Tipo não suportado: &quot; + entrada.getClass());</b>
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            for (Produto produto : todosProdutos) {</b>
+<b class="fc">&nbsp;                Long produtoId = null;</b>
+<b class="fc">&nbsp;                if (entrada instanceof Investimento investimento) {</b>
+<b class="fc">&nbsp;                    produtoId = investimento.getProdutoId();</b>
+<b class="pc">&nbsp;                } else if (entrada instanceof SimulacaoInvestimento simulacao) {</b>
+<b class="fc">&nbsp;                    produtoId = simulacao.getProdutoId();</b>
+&nbsp;                }
+<b class="pc">&nbsp;                if (produtoId != null &amp;&amp; produtoId.equals(produto.getId())) {</b>
+&nbsp;                    continue;
+&nbsp;                }
+&nbsp;
+<b class="fc">&nbsp;                double distancia = calcularDistanciaEuclidiana(entrada, produto, todosProdutos);</b>
+<b class="fc">&nbsp;                if (distancia &lt; menorDistancia) {</b>
+<b class="fc">&nbsp;                    menorDistancia = distancia;</b>
+<b class="fc">&nbsp;                    produtoMaisProximo = produto;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            if (produtoMaisProximo != null) {</b>
+&nbsp;
+<b class="fc">&nbsp;                produtoMaisProximo.setPontuacao(produtoMaisProximo.getPontuacao() + peso);</b>
+<b class="fc">&nbsp;                contador.merge(produtoMaisProximo, peso, Double::sum);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return contador.entrySet()</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .sorted((a, b) -&gt; b.getValue().compareTo(a.getValue()))</b>
+<b class="fc">&nbsp;                .map(Map.Entry::getKey)</b>
+<b class="fc">&nbsp;                .toList();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calcula distância euclidiana entre simulação e produto
+&nbsp;     */
+&nbsp;    private double calcularDistanciaEuclidiana(Object entrada, Produto produto, List&lt;Produto&gt; todoProdutos)
+&nbsp;    {
+&nbsp;        double valorNorm;
+&nbsp;        double tipoNorm;
+&nbsp;        double tipoRentNorm;
+&nbsp;        double periodoRentNorm;
+&nbsp;        double indiceNorm;
+&nbsp;        double liquidezNorm;
+&nbsp;        double fgcNorm;
+&nbsp;        double minimoInvNorm;
+&nbsp;
+&nbsp;        // === CASO 1: Investimento real ===
+<b class="fc">&nbsp;        if (entrada instanceof Investimento investimento)</b>
+&nbsp;        {
+<b class="fc">&nbsp;            valorNorm = normalizar(investimento.getValor().doubleValue(), 0, 1_000_000);</b>
+<b class="fc">&nbsp;            tipoNorm = normalizarTipoProduto(investimento.getTipo());</b>
+<b class="fc">&nbsp;            tipoRentNorm = normalizarTipoRentabilidade(investimento.getTipoRentabilidade());</b>
+<b class="fc">&nbsp;            periodoRentNorm = normalizarPeriodoRentabilidade(investimento.getPeriodoRentabilidade());</b>
+<b class="fc">&nbsp;            indiceNorm = normalizarIndice(investimento.getIndice());</b>
+<b class="fc">&nbsp;            liquidezNorm = normalizar(</b>
+<b class="fc">&nbsp;                    investimento.getLiquidez() != null ? investimento.getLiquidez() : 0,</b>
+&nbsp;                    -1, 365
+&nbsp;            );
+<b class="fc">&nbsp;            fgcNorm = investimento.getFgc() != null &amp;&amp; investimento.getFgc() ? 1.0 : 0.0;</b>
+<b class="fc">&nbsp;            minimoInvNorm = normalizar(</b>
+<b class="fc">&nbsp;                    investimento.getMinimoDiasInvestimento() != null ? investimento.getMinimoDiasInvestimento() : 0,</b>
+&nbsp;                    0, 1800
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+&nbsp;        // === CASO 2: Simulação ===
+<b class="pc">&nbsp;        else if (entrada instanceof SimulacaoInvestimento simulacao)</b>
+&nbsp;        {
+<b class="fc">&nbsp;            valorNorm = normalizar(simulacao.getValorInvestido().doubleValue(), 0, 1_000_000);</b>
+&nbsp;
+<b class="fc">&nbsp;            Produto p = null;</b>
+&nbsp;
+<b class="fc">&nbsp;            for (Produto todoProduto : todoProdutos) {</b>
+<b class="fc">&nbsp;                if (Objects.equals(simulacao.getProdutoId(), todoProduto.getId()))</b>
+&nbsp;                {
+<b class="fc">&nbsp;                    p = todoProduto;</b>
+&nbsp;                    break;
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            if(p == null)</b>
+&nbsp;            {
+<b class="fc">&nbsp;                throw new IllegalArgumentException(</b>
+<b class="fc">&nbsp;                        &quot;Produto não encontrado para simulação com produtoId: &quot; + simulacao.getProdutoId()</b>
+&nbsp;                );
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            tipoNorm = p.getTipo().getValor();</b>
+&nbsp;            // Usar características do produto simulado ao invés de valores neutros
+<b class="fc">&nbsp;            tipoRentNorm = normalizarTipoRentabilidade(p.getTipoRentabilidade());</b>
+<b class="fc">&nbsp;            periodoRentNorm = normalizarPeriodoRentabilidade(p.getPeriodoRentabilidade());</b>
+<b class="fc">&nbsp;            indiceNorm = normalizarIndice(p.getIndice());</b>
+<b class="fc">&nbsp;            liquidezNorm = normalizar(</b>
+<b class="pc">&nbsp;                    p.getLiquidez() != null ? p.getLiquidez() : 0,</b>
+&nbsp;                    -1, 365
+&nbsp;            );
+<b class="pc">&nbsp;            fgcNorm = p.getFgc() != null &amp;&amp; p.getFgc() ? 1.0 : 0.0;</b>
+<b class="fc">&nbsp;            minimoInvNorm = normalizar(</b>
+<b class="pc">&nbsp;                    p.getMinimoDiasInvestimento() != null ? p.getMinimoDiasInvestimento() : 0,</b>
+&nbsp;                    0, 1800
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+&nbsp;        else
+&nbsp;        {
+<b class="nc">&nbsp;            throw new IllegalArgumentException(</b>
+<b class="nc">&nbsp;                    &quot;Tipo não suportado: &quot; + entrada.getClass()</b>
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+&nbsp;        // === Valores normais do produto ===
+&nbsp;        // Usar rentabilidade como proxy para faixa de valor (produtos mais rentáveis atraem investimentos maiores)
+<b class="fc">&nbsp;        double prodValorNorm = produto.getRentabilidade() != null ?</b>
+<b class="fc">&nbsp;            normalizar(produto.getRentabilidade().doubleValue() * 10000, 0, 1_000_000) : 0.5;</b>
+<b class="fc">&nbsp;        double prodTipoNorm = normalizarTipoProduto(produto.getTipo());</b>
+<b class="fc">&nbsp;        double prodTipoRentNorm = normalizarTipoRentabilidade(produto.getTipoRentabilidade());</b>
+<b class="fc">&nbsp;        double prodPeriodoRentNorm = normalizarPeriodoRentabilidade(produto.getPeriodoRentabilidade());</b>
+<b class="fc">&nbsp;        double prodIndiceNorm = normalizarIndice(produto.getIndice());</b>
+<b class="fc">&nbsp;        double prodLiquidezNorm = normalizar(produto.getLiquidez(), -1, 365);</b>
+<b class="fc">&nbsp;        double prodFgcNorm = produto.getFgc() ? 1.0 : 0.0;</b>
+<b class="fc">&nbsp;        double prodMinimoInvNorm = normalizar(produto.getMinimoDiasInvestimento(), 0, 1800);</b>
+&nbsp;
+&nbsp;        // === Distância final ===
+<b class="fc">&nbsp;        return Math.sqrt(</b>
+<b class="fc">&nbsp;                Math.pow(valorNorm - prodValorNorm, 2) +</b>
+<b class="fc">&nbsp;                        Math.pow(tipoNorm - prodTipoNorm, 2) +</b>
+<b class="fc">&nbsp;                        Math.pow(tipoRentNorm - prodTipoRentNorm, 2) +</b>
+<b class="fc">&nbsp;                        Math.pow(periodoRentNorm - prodPeriodoRentNorm, 2) +</b>
+<b class="fc">&nbsp;                        Math.pow(indiceNorm - prodIndiceNorm, 2) +</b>
+<b class="fc">&nbsp;                        Math.pow(liquidezNorm - prodLiquidezNorm, 2) +</b>
+<b class="fc">&nbsp;                        Math.pow(fgcNorm - prodFgcNorm, 2) +</b>
+<b class="fc">&nbsp;                        Math.pow(minimoInvNorm - prodMinimoInvNorm, 2)</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Normaliza valores para escala 0-1
+&nbsp;     */
+&nbsp;    private double normalizar(double valor, double min, double max) {
+<b class="pc">&nbsp;        if (max == min) return 0.5;</b>
+<b class="fc">&nbsp;        return Math.max(0, Math.min(1, (valor - min) / (max - min)));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Normaliza tipo de produto para valor numérico
+&nbsp;     */
+&nbsp;    private double normalizarTipoProduto(TipoProduto tipo) {
+<b class="fc">&nbsp;        return tipo.getValor();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Normaliza tipo de rentabilidade para valor numérico
+&nbsp;     */
+&nbsp;    private double normalizarTipoRentabilidade(TipoRentabilidade tipo) {
+<b class="fc">&nbsp;        if (tipo == null) return 0.5;</b>
+<b class="fc">&nbsp;        return tipo == TipoRentabilidade.PRE ? 0.0 : 1.0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Normaliza período de rentabilidade para valor numérico
+&nbsp;     */
+&nbsp;    private double normalizarPeriodoRentabilidade(PeriodoRentabilidade periodo) {
+<b class="fc">&nbsp;        if (periodo == null) return 0.5;</b>
+<b class="pc">&nbsp;        return switch (periodo) {</b>
+<b class="fc">&nbsp;            case AO_DIA -&gt; 0.0;</b>
+<b class="fc">&nbsp;            case AO_MES -&gt; 0.33;</b>
+<b class="fc">&nbsp;            case AO_ANO -&gt; 0.66;</b>
+<b class="fc">&nbsp;            case PERIODO_TOTAL -&gt; 1.0;</b>
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Normaliza índice para valor numérico
+&nbsp;     */
+&nbsp;    private double normalizarIndice(Indice indice) {
+<b class="fc">&nbsp;        if (indice == null || indice == Indice.NENHUM) return 0.0;</b>
+<b class="pc">&nbsp;        return switch (indice) {</b>
+<b class="fc">&nbsp;            case SELIC -&gt; 0.2;</b>
+<b class="fc">&nbsp;            case CDI -&gt; 0.4;</b>
+<b class="fc">&nbsp;            case IPCA -&gt; 0.6;</b>
+<b class="fc">&nbsp;            case IGP_M -&gt; 0.8;</b>
+<b class="fc">&nbsp;            case IBOVESPA -&gt; 1.0;</b>
+<b class="nc">&nbsp;            default -&gt; 0.0;</b>
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-19 07:07</div>
+</div>
+</body>
+</html>

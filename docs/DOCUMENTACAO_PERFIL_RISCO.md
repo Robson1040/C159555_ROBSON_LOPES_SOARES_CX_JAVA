@@ -86,7 +86,7 @@ Content-Type: application/json
 |-------|------|-----------|
 | `clienteId` | Long | ID do cliente analisado |
 | `perfil` | string | Perfil de risco: "CONSERVADOR", "MODERADO", "AGRESSIVO" |
-| `pontuacao` | integer | Pontuação calculada (0-100) baseada no algoritmo |
+| `pontuacao` | integer | Precisão da informação calculada (0-100) baseada no algoritmo |
 | `descricao` | string | Descrição detalhada do perfil |
 
 **Exemplos por Perfil:**

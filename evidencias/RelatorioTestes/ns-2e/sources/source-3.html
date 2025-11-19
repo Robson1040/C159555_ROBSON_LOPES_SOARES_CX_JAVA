@@ -1,0 +1,187 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ValidPrazoValidator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.validation</a>
+</div>
+
+<h1>Coverage Summary for Class: ValidPrazoValidator (br.gov.caixa.api.investimentos.validation)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ValidPrazoValidator</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    84,4%
+  </span>
+  <span class="absValue">
+    (27/32)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94,3%
+  </span>
+  <span class="absValue">
+    (33/35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.validation;
+&nbsp;
+&nbsp;import jakarta.validation.ConstraintValidator;
+&nbsp;import jakarta.validation.ConstraintValidatorContext;
+&nbsp;import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
+&nbsp;import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
+&nbsp;
+&nbsp;/**
+&nbsp; * Implementação da validação customizada para prazo.
+&nbsp; * Agora reutilizável para SimulacaoRequest e InvestimentoRequest.
+&nbsp; */
+<b class="fc">&nbsp;public class ValidPrazoValidator implements ConstraintValidator&lt;ValidPrazo, Object&gt; {</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void initialize(ValidPrazo constraintAnnotation) {
+&nbsp;        // Nenhuma inicialização necessária
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public boolean isValid(Object value, ConstraintValidatorContext context) {
+<b class="pc">&nbsp;        if (value == null) {</b>
+<b class="nc">&nbsp;            return true; // @NotNull deve tratar null quando aplicável</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Integer prazoMeses = null;</b>
+<b class="fc">&nbsp;        Integer prazoDias = null;</b>
+<b class="fc">&nbsp;        Integer prazoAnos = null;</b>
+&nbsp;
+<b class="fc">&nbsp;        if (value instanceof SimulacaoRequest req) {</b>
+<b class="fc">&nbsp;            prazoMeses = req.prazoMeses();</b>
+<b class="fc">&nbsp;            prazoDias = req.prazoDias();</b>
+<b class="fc">&nbsp;            prazoAnos = req.prazoAnos();</b>
+<b class="pc">&nbsp;        } else if (value instanceof InvestimentoRequest req) {</b>
+<b class="fc">&nbsp;            prazoMeses = req.prazoMeses();</b>
+<b class="fc">&nbsp;            prazoDias = req.prazoDias();</b>
+<b class="fc">&nbsp;            prazoAnos = req.prazoAnos();</b>
+&nbsp;        } else {
+&nbsp;            // Tipo não suportado, consideramos válido para não quebrar outros usos
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+<b class="pc">&nbsp;        boolean hasPrazoMeses = prazoMeses != null &amp;&amp; prazoMeses &gt; 0;</b>
+<b class="pc">&nbsp;        boolean hasPrazoDias = prazoDias != null &amp;&amp; prazoDias &gt; 0;</b>
+<b class="pc">&nbsp;        boolean hasPrazoAnos = prazoAnos != null &amp;&amp; prazoAnos &gt; 0;</b>
+&nbsp;
+<b class="fc">&nbsp;        boolean isValid = hasPrazoMeses || hasPrazoDias || hasPrazoAnos;</b>
+&nbsp;
+<b class="fc">&nbsp;        if (!isValid) {</b>
+<b class="fc">&nbsp;            context.disableDefaultConstraintViolation();</b>
+<b class="fc">&nbsp;            context.buildConstraintViolationWithTemplate(</b>
+&nbsp;                    &quot;Informe pelo menos um prazo: &#39;prazoMeses&#39; (1-600), &#39;prazoDias&#39; (1-18250) ou &#39;prazoAnos&#39; (1-50)&quot;
+<b class="fc">&nbsp;            ).addConstraintViolation();</b>
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        int prazosInformados = 0;</b>
+<b class="fc">&nbsp;        if (hasPrazoMeses) prazosInformados++;</b>
+<b class="fc">&nbsp;        if (hasPrazoDias) prazosInformados++;</b>
+<b class="fc">&nbsp;        if (hasPrazoAnos) prazosInformados++;</b>
+&nbsp;
+<b class="fc">&nbsp;        if (prazosInformados &gt; 1) {</b>
+<b class="fc">&nbsp;            context.disableDefaultConstraintViolation();</b>
+<b class="fc">&nbsp;            context.buildConstraintViolationWithTemplate(</b>
+&nbsp;                    &quot;Informe apenas UM tipo de prazo (prazoMeses, prazoDias ou prazoAnos)&quot;
+<b class="fc">&nbsp;            ).addConstraintViolation();</b>
+<b class="fc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-19 07:07</div>
+</div>
+</body>
+</html>

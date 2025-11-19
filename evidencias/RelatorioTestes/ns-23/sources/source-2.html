@@ -1,0 +1,393 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SimulacaoResource</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">br.gov.caixa.api.investimentos.resource.simulacao</a>
+</div>
+
+<h1>Coverage Summary for Class: SimulacaoResource (br.gov.caixa.api.investimentos.resource.simulacao)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SimulacaoResource</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (18/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94,1%
+  </span>
+  <span class="absValue">
+    (112/119)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">SimulacaoResource$quarkusrestinvoker$agruparPorProdutoEAno_309a14fbc90ba2cc00d4554d9ab4beb50b8ac2ca</td>
+  </tr>
+  <tr>
+    <td class="name">SimulacaoResource$quarkusrestinvoker$agruparPorProdutoEAnoMes_b9276f3fbbde2dddf2f09dcecf10c1ec5f89ae4f</td>
+  </tr>
+  <tr>
+    <td class="name">SimulacaoResource$quarkusrestinvoker$agruparPorProdutoEDia_b429b1a1dc8b2a9a7cc66f8e5355d9f0050a10d3</td>
+  </tr>
+  <tr>
+    <td class="name">SimulacaoResource$quarkusrestinvoker$listarTodasSimulacoes_c34a82f3a56c7f30fef78184c1647679b10e2581</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (18/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94,1%
+  </span>
+  <span class="absValue">
+    (112/119)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package br.gov.caixa.api.investimentos.resource.simulacao;
+&nbsp;
+&nbsp;import jakarta.annotation.security.RolesAllowed;
+&nbsp;import jakarta.ws.rs.*;
+&nbsp;import jakarta.ws.rs.core.MediaType;
+&nbsp;import jakarta.ws.rs.core.Response;
+&nbsp;import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoDataDTO;
+&nbsp;import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoMesDTO;
+&nbsp;import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoAnoDTO;
+&nbsp;import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponseDTO;
+&nbsp;import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
+&nbsp;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;/**
+&nbsp; * Resource para consultar simulações de investimentos realizadas
+&nbsp; */
+&nbsp;@Path(&quot;/simulacoes&quot;)
+&nbsp;@Produces(MediaType.APPLICATION_JSON)
+&nbsp;@RolesAllowed({&quot;ADMIN&quot;})
+<b class="fc">&nbsp;public class SimulacaoResource {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * GET /simulacoes
+&nbsp;     * Retorna todas as simulações de investimento realizadas
+&nbsp;     */
+&nbsp;    @GET
+&nbsp;    public Response listarTodasSimulacoes() {
+<b class="fc">&nbsp;        List&lt;SimulacaoInvestimento&gt; simulacoes = SimulacaoInvestimento.listAll();</b>
+&nbsp;        
+<b class="fc">&nbsp;        List&lt;SimulacaoResponseDTO&gt; response = simulacoes.stream()</b>
+<b class="fc">&nbsp;                .map(this::toResponseDTO)</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;        
+<b class="fc">&nbsp;        return Response.ok(response).build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * GET /simulacoes/por-produto-dia
+&nbsp;     * Retorna agrupamento de simulações por produto e data
+&nbsp;     */
+&nbsp;    @GET
+&nbsp;    @Path(&quot;/por-produto-dia&quot;)
+&nbsp;    public Response agruparPorProdutoEDia() {
+<b class="fc">&nbsp;        List&lt;SimulacaoInvestimento&gt; simulacoes = SimulacaoInvestimento.listAll();</b>
+&nbsp;        
+&nbsp;        // Agrupa por produto e data (sem horário)
+<b class="fc">&nbsp;        Map&lt;String, Map&lt;java.time.LocalDate, List&lt;SimulacaoInvestimento&gt;&gt;&gt; agrupamento = </b>
+<b class="fc">&nbsp;            simulacoes.stream()</b>
+<b class="pc">&nbsp;                .filter(s -&gt; s != null &amp;&amp; s.getProduto() != null &amp;&amp; s.getDataSimulacao() != null) // Filtra simulações nulas, sem produto ou data</b>
+<b class="fc">&nbsp;                .collect(Collectors.groupingBy(</b>
+<b class="fc">&nbsp;                    s -&gt; s.getProduto(),</b>
+<b class="fc">&nbsp;                    Collectors.groupingBy(s -&gt; s.getDataSimulacao().toLocalDate())</b>
+&nbsp;                ));
+&nbsp;        
+<b class="fc">&nbsp;        List&lt;AgrupamentoProdutoDataDTO&gt; response = agrupamento.entrySet().stream()</b>
+<b class="fc">&nbsp;            .flatMap(produtoEntry -&gt; {</b>
+<b class="fc">&nbsp;                String produto = produtoEntry.getKey();</b>
+<b class="fc">&nbsp;                return produtoEntry.getValue().entrySet().stream()</b>
+<b class="fc">&nbsp;                    .map(dataEntry -&gt; {</b>
+<b class="fc">&nbsp;                        java.time.LocalDate data = dataEntry.getKey();</b>
+<b class="fc">&nbsp;                        List&lt;SimulacaoInvestimento&gt; simulacoesDoDia = dataEntry.getValue();</b>
+&nbsp;                        
+<b class="fc">&nbsp;                        int quantidadeSimulacoes = simulacoesDoDia.size();</b>
+&nbsp;                        
+<b class="fc">&nbsp;                        java.math.BigDecimal somaValorInvestido = simulacoesDoDia.stream()</b>
+<b class="fc">&nbsp;                            .map(s -&gt; s.getValorInvestido())</b>
+<b class="fc">&nbsp;                            .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);</b>
+&nbsp;                        
+<b class="fc">&nbsp;                        java.math.BigDecimal somaValorFinal = simulacoesDoDia.stream()</b>
+<b class="fc">&nbsp;                            .map(s -&gt; s.getValorFinal())</b>
+<b class="fc">&nbsp;                            .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);</b>
+&nbsp;                        
+<b class="pc">&nbsp;                        java.math.BigDecimal mediaValorInvestido = quantidadeSimulacoes &gt; 0 ? </b>
+<b class="fc">&nbsp;                            somaValorInvestido.divide(java.math.BigDecimal.valueOf(quantidadeSimulacoes), 2, java.math.RoundingMode.HALF_UP) :</b>
+<b class="nc">&nbsp;                            java.math.BigDecimal.ZERO;</b>
+&nbsp;                            
+<b class="pc">&nbsp;                        java.math.BigDecimal mediaValorFinal = quantidadeSimulacoes &gt; 0 ?</b>
+<b class="fc">&nbsp;                            somaValorFinal.divide(java.math.BigDecimal.valueOf(quantidadeSimulacoes), 2, java.math.RoundingMode.HALF_UP) :</b>
+<b class="nc">&nbsp;                            java.math.BigDecimal.ZERO;</b>
+&nbsp;                        
+<b class="fc">&nbsp;                        return new AgrupamentoProdutoDataDTO(</b>
+&nbsp;                            produto, 
+&nbsp;                            data, 
+<b class="fc">&nbsp;                            Long.valueOf(quantidadeSimulacoes), </b>
+&nbsp;                            mediaValorInvestido,
+&nbsp;                            mediaValorFinal
+&nbsp;                        );
+&nbsp;                    });
+&nbsp;            })
+<b class="fc">&nbsp;            .sorted((a, b) -&gt; {</b>
+&nbsp;                // Ordena por produto e depois por data
+<b class="fc">&nbsp;                int produtoComparison = a.produto().compareTo(b.produto());</b>
+<b class="pc">&nbsp;                return produtoComparison != 0 ? produtoComparison : a.data().compareTo(b.data());</b>
+&nbsp;            })
+<b class="fc">&nbsp;            .collect(Collectors.toList());</b>
+&nbsp;        
+<b class="fc">&nbsp;        return Response.ok(response).build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * GET /simulacoes/por-produto-mes
+&nbsp;     * Retorna agrupamento de simulações por produto e mês
+&nbsp;     */
+&nbsp;    @GET
+&nbsp;    @Path(&quot;/por-produto-mes&quot;)
+&nbsp;    public Response agruparPorProdutoEAnoMes() {
+<b class="fc">&nbsp;        List&lt;SimulacaoInvestimento&gt; simulacoes = SimulacaoInvestimento.listAll();</b>
+&nbsp;
+&nbsp;        // Agrupa por produto e ano-mês
+<b class="fc">&nbsp;        Map&lt;String, Map&lt;java.time.YearMonth, List&lt;SimulacaoInvestimento&gt;&gt;&gt; agrupamento =</b>
+<b class="fc">&nbsp;                simulacoes.stream()</b>
+<b class="pc">&nbsp;                        .filter(s -&gt; s != null &amp;&amp; s.getProduto() != null &amp;&amp; s.getDataSimulacao() != null)</b>
+<b class="fc">&nbsp;                        .collect(Collectors.groupingBy(</b>
+<b class="fc">&nbsp;                                s -&gt; s.getProduto(),</b>
+<b class="fc">&nbsp;                                Collectors.groupingBy(s -&gt; java.time.YearMonth.from(s.getDataSimulacao()))</b>
+&nbsp;                        ));
+&nbsp;
+<b class="fc">&nbsp;        List&lt;AgrupamentoProdutoMesDTO&gt; response = agrupamento.entrySet().stream()</b>
+<b class="fc">&nbsp;                .flatMap(produtoEntry -&gt; {</b>
+<b class="fc">&nbsp;                    String produto = produtoEntry.getKey();</b>
+<b class="fc">&nbsp;                    return produtoEntry.getValue().entrySet().stream()</b>
+<b class="fc">&nbsp;                            .map(anoMesEntry -&gt; {</b>
+<b class="fc">&nbsp;                                java.time.YearMonth anoMes = anoMesEntry.getKey();</b>
+<b class="fc">&nbsp;                                List&lt;SimulacaoInvestimento&gt; simulacoesDoPeriodo = anoMesEntry.getValue();</b>
+&nbsp;
+<b class="fc">&nbsp;                                int quantidadeSimulacoes = simulacoesDoPeriodo.size();</b>
+&nbsp;
+<b class="fc">&nbsp;                                java.math.BigDecimal somaValorInvestido = simulacoesDoPeriodo.stream()</b>
+<b class="fc">&nbsp;                                        .map(s -&gt; s.getValorInvestido())</b>
+<b class="fc">&nbsp;                                        .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);</b>
+&nbsp;
+<b class="fc">&nbsp;                                java.math.BigDecimal somaValorFinal = simulacoesDoPeriodo.stream()</b>
+<b class="fc">&nbsp;                                        .map(s -&gt; s.getValorFinal())</b>
+<b class="fc">&nbsp;                                        .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);</b>
+&nbsp;
+<b class="pc">&nbsp;                                java.math.BigDecimal mediaValorInvestido = quantidadeSimulacoes &gt; 0 ?</b>
+<b class="fc">&nbsp;                                        somaValorInvestido.divide(java.math.BigDecimal.valueOf(quantidadeSimulacoes), 2, java.math.RoundingMode.HALF_UP) :</b>
+<b class="nc">&nbsp;                                        java.math.BigDecimal.ZERO;</b>
+&nbsp;
+<b class="pc">&nbsp;                                java.math.BigDecimal mediaValorFinal = quantidadeSimulacoes &gt; 0 ?</b>
+<b class="fc">&nbsp;                                        somaValorFinal.divide(java.math.BigDecimal.valueOf(quantidadeSimulacoes), 2, java.math.RoundingMode.HALF_UP) :</b>
+<b class="nc">&nbsp;                                        java.math.BigDecimal.ZERO;</b>
+&nbsp;
+&nbsp;                                // Retorna DTO com YearMonth (ano e mês juntos)
+<b class="fc">&nbsp;                                return new AgrupamentoProdutoMesDTO(</b>
+&nbsp;                                        produto,
+&nbsp;                                        anoMes,
+<b class="fc">&nbsp;                                        Long.valueOf(quantidadeSimulacoes),</b>
+&nbsp;                                        mediaValorInvestido,
+&nbsp;                                        mediaValorFinal
+&nbsp;                                );
+&nbsp;                            });
+&nbsp;                })
+<b class="fc">&nbsp;                .sorted((a, b) -&gt; {</b>
+&nbsp;                    // Ordena por produto, depois por ano e mês
+<b class="fc">&nbsp;                    int produtoComparison = a.produto().compareTo(b.produto());</b>
+<b class="pc">&nbsp;                    if (produtoComparison != 0) return produtoComparison;</b>
+<b class="nc">&nbsp;                    return a.mes().compareTo(b.mes()); // mes() retorna YearMonth</b>
+&nbsp;                })
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;
+<b class="fc">&nbsp;        return Response.ok(response).build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * GET /simulacoes/por-produto-ano
+&nbsp;     * Retorna agrupamento de simulações por produto e ano
+&nbsp;     */
+&nbsp;    @GET
+&nbsp;    @Path(&quot;/por-produto-ano&quot;)
+&nbsp;    public Response agruparPorProdutoEAno() {
+<b class="fc">&nbsp;        List&lt;SimulacaoInvestimento&gt; simulacoes = SimulacaoInvestimento.listAll();</b>
+&nbsp;        
+&nbsp;        // Agrupa por produto e ano
+<b class="fc">&nbsp;        Map&lt;String, Map&lt;java.time.Year, List&lt;SimulacaoInvestimento&gt;&gt;&gt; agrupamento = </b>
+<b class="fc">&nbsp;            simulacoes.stream()</b>
+<b class="pc">&nbsp;                .filter(s -&gt; s != null &amp;&amp; s.getProduto() != null &amp;&amp; s.getDataSimulacao() != null) // Filtra simulações nulas, sem produto ou data</b>
+<b class="fc">&nbsp;                .collect(Collectors.groupingBy(</b>
+<b class="fc">&nbsp;                    s -&gt; s.getProduto(),</b>
+<b class="fc">&nbsp;                    Collectors.groupingBy(s -&gt; java.time.Year.from(s.getDataSimulacao()))</b>
+&nbsp;                ));
+&nbsp;        
+<b class="fc">&nbsp;        List&lt;AgrupamentoProdutoAnoDTO&gt; response = agrupamento.entrySet().stream()</b>
+<b class="fc">&nbsp;            .flatMap(produtoEntry -&gt; {</b>
+<b class="fc">&nbsp;                String produto = produtoEntry.getKey();</b>
+<b class="fc">&nbsp;                return produtoEntry.getValue().entrySet().stream()</b>
+<b class="fc">&nbsp;                    .map(anoEntry -&gt; {</b>
+<b class="fc">&nbsp;                        java.time.Year ano = anoEntry.getKey();</b>
+<b class="fc">&nbsp;                        List&lt;SimulacaoInvestimento&gt; simulacoesDoAno = anoEntry.getValue();</b>
+&nbsp;                        
+<b class="fc">&nbsp;                        int quantidadeSimulacoes = simulacoesDoAno.size();</b>
+&nbsp;                        
+<b class="fc">&nbsp;                        java.math.BigDecimal somaValorInvestido = simulacoesDoAno.stream()</b>
+<b class="fc">&nbsp;                            .map(s -&gt; s.getValorInvestido())</b>
+<b class="fc">&nbsp;                            .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);</b>
+&nbsp;                        
+<b class="fc">&nbsp;                        java.math.BigDecimal somaValorFinal = simulacoesDoAno.stream()</b>
+<b class="fc">&nbsp;                            .map(s -&gt; s.getValorFinal())</b>
+<b class="fc">&nbsp;                            .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add);</b>
+&nbsp;                        
+<b class="pc">&nbsp;                        java.math.BigDecimal mediaValorInvestido = quantidadeSimulacoes &gt; 0 ? </b>
+<b class="fc">&nbsp;                            somaValorInvestido.divide(java.math.BigDecimal.valueOf(quantidadeSimulacoes), 2, java.math.RoundingMode.HALF_UP) :</b>
+<b class="nc">&nbsp;                            java.math.BigDecimal.ZERO;</b>
+&nbsp;                            
+<b class="pc">&nbsp;                        java.math.BigDecimal mediaValorFinal = quantidadeSimulacoes &gt; 0 ?</b>
+<b class="fc">&nbsp;                            somaValorFinal.divide(java.math.BigDecimal.valueOf(quantidadeSimulacoes), 2, java.math.RoundingMode.HALF_UP) :</b>
+<b class="nc">&nbsp;                            java.math.BigDecimal.ZERO;</b>
+&nbsp;                        
+<b class="fc">&nbsp;                        return new AgrupamentoProdutoAnoDTO(</b>
+&nbsp;                            produto, 
+&nbsp;                            ano, 
+<b class="fc">&nbsp;                            Long.valueOf(quantidadeSimulacoes), </b>
+&nbsp;                            mediaValorInvestido,
+&nbsp;                            mediaValorFinal
+&nbsp;                        );
+&nbsp;                    });
+&nbsp;            })
+<b class="fc">&nbsp;            .sorted((a, b) -&gt; {</b>
+&nbsp;                // Ordena por produto e depois por ano
+<b class="fc">&nbsp;                int produtoComparison = a.produto().compareTo(b.produto());</b>
+<b class="pc">&nbsp;                return produtoComparison != 0 ? produtoComparison : a.ano().compareTo(b.ano());</b>
+&nbsp;            })
+<b class="fc">&nbsp;            .collect(Collectors.toList());</b>
+&nbsp;        
+<b class="fc">&nbsp;        return Response.ok(response).build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Converte SimulacaoInvestimento para o formato de resposta
+&nbsp;     */
+&nbsp;    private SimulacaoResponseDTO toResponseDTO(SimulacaoInvestimento simulacao) {
+<b class="fc">&nbsp;        return new SimulacaoResponseDTO(</b>
+<b class="fc">&nbsp;                simulacao.getId(),</b>
+<b class="fc">&nbsp;                simulacao.getClienteId(),</b>
+<b class="fc">&nbsp;                simulacao.getProduto(),</b>
+<b class="fc">&nbsp;                simulacao.getValorInvestido(),</b>
+<b class="fc">&nbsp;                simulacao.getValorFinal(),</b>
+<b class="fc">&nbsp;                simulacao.getPrazoMeses(),</b>
+<b class="fc">&nbsp;                simulacao.getPrazoDias(),</b>
+<b class="fc">&nbsp;                simulacao.getPrazoAnos(),</b>
+<b class="fc">&nbsp;                simulacao.getDataSimulacao()</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-11-19 07:07</div>
+</div>
+</body>
+</html>
