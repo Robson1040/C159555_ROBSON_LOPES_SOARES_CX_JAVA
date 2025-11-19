@@ -1,5 +1,7 @@
 package br.gov.caixa.api.investimentos.service.simulacao;
 
+import br.gov.caixa.api.investimentos.client.SimuladorIndices;
+import br.gov.caixa.api.investimentos.client.SimuladorMercado;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;

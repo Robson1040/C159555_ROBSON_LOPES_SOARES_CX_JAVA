@@ -114,8 +114,8 @@ INSERT INTO produto VALUES (9, TRUE, 1, 0, 13.63, 'IPCA', 'Tesouro Selic 2042', 
 INSERT INTO produto VALUES (10, TRUE, 1, 90, 6.07, 'NENHUM', 'Poupança Caixa Fácil', 'AO_ANO', 'POUPANCA', 'POS');
 INSERT INTO produto VALUES (11, TRUE, 1, 90, 13.59, 'CDI', 'CDB Liquidez Diária', 'AO_ANO', 'CDB', 'POS');
 INSERT INTO produto VALUES (12, TRUE, 7, 30, 6.32, 'NENHUM', 'Poupança 2.0 Caixa', 'AO_ANO', 'POUPANCA', 'POS');
-INSERT INTO produto VALUES (13, TRUE, 7, 30, 6.17, 'NENHUM', 'Poupança Tradicional ABC', 'AO_ANO', 'POUPANCA', 'POS');
-INSERT INTO produto VALUES (14, TRUE, 0, 60, 6.2, 'NENHUM', 'Poupança Tradicional XYZ', 'AO_ANO', 'POUPANCA', 'POS');
+INSERT INTO produto VALUES (13, TRUE, 7, 30, 6.17, 'NENHUM', 'Poupança Simples ABC', 'AO_ANO', 'POUPANCA', 'POS');
+INSERT INTO produto VALUES (14, TRUE, 0, 60, 6.2, 'NENHUM', 'Poupança Rende Mais XYZ', 'AO_ANO', 'POUPANCA', 'POS');
 INSERT INTO produto VALUES (15, TRUE, 30, 60, 12.89, 'CDI', 'CDB Liquidez Diária', 'AO_ANO', 'CDB', 'POS');
 INSERT INTO produto VALUES (16, TRUE, 1, 60, 12.77, 'CDI', 'LCI Banco XC', 'AO_ANO', 'LCI', 'POS');
 INSERT INTO produto VALUES (17, TRUE, 30, 30, 12.85, 'CDI', 'LCI Banco XC', 'AO_ANO', 'LCI', 'POS');

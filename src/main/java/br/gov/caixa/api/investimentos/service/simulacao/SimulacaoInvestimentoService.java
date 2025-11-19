@@ -1,5 +1,7 @@
 package br.gov.caixa.api.investimentos.service.simulacao;
 
+import br.gov.caixa.api.investimentos.client.SimuladorIndices;
+import br.gov.caixa.api.investimentos.client.SimuladorMercado;
 import br.gov.caixa.api.investimentos.ml.GeradorRecomendacaoML;
 import br.gov.caixa.api.investimentos.model.investimento.Investimento;
 import br.gov.caixa.api.investimentos.repository.investimento.IInvestimentoRepository;
