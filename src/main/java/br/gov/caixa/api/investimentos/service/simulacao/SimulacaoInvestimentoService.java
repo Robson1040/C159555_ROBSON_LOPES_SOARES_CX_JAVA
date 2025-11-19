@@ -370,4 +370,9 @@ public class SimulacaoInvestimentoService {
             }
         }
     }
+
+    public  List<SimulacaoInvestimento> listarTodasSimulacoes()
+    {
+        return simulacaoRepository.listAll();
+    }
 }

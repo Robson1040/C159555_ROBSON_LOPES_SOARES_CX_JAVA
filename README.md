@@ -16,9 +16,10 @@ oferecer opção de cadastro de cliente, cadastro de produtos, simulação de in
 3. Autentique-se na API:
    - [**Autenticação**](docs/DOCUMENTACAO_AUTENTICACAO.md#1-post-entrar)
 
-4. Explore nossa documentação abaixo ou explore a API pelo Postman:
+4. Explore a documentação:
    - [**Documentação**](#funcionalidades-e-documentações-da-api)
    - [**Collection do Postman**](./API-INVESTIMENTOS-CAIXA.postman_collection.json)
+   - [**OpenAPI/Swagger**](./swagger-api-investimentos-caixa.yaml)
 
 ##  Evidências
 
@@ -41,7 +42,7 @@ oferecer opção de cadastro de cliente, cadastro de produtos, simulação de in
 - [**PRODUTO_RECOMENDADO**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - API de recomendações de investimentos 
 
 ###  Simulações de Investimento
-- [**_SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento 
+- [**SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento 
 - [**CONSULTA_SIMULACAO**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos 
 
 ###  Registro de Investimento
@@ -139,20 +140,27 @@ A API foi construída seguindo os princípios de:
 
 TESTES AUTOMATIZADOS
 -----------------------------
-- TOTAL DE TESTES: **678**
-- TAXA DE SUCESSO: **100%** (678/678)
+- TOTAL DE TESTES: **697**
+- TAXA DE SUCESSO: **100%** (697/697)
 - FALHAS: **0** | ERROS: **0** | IGNORADOS: **0**
 - TEMPO TOTAL DE EXECUÇÃO: **41,605 s**
 - TEMPO MÉDIO POR TESTE: **0,062 s**
 
 
 - TESTES DE INTEGRAÇÃO: **167**
-- TESTES UNITÁRIOS: **511**
+- TESTES UNITÁRIOS: **530**
 
-Cobertura
+Cobertura (IntelliJ Test Report)
 ----------------------
-- COVERAGE (CLASS): **98%** (97 / 95)
-- COVERAGE (METHOD): **95%** (557 / 583)
-- COVERAGE (LINE): **91%** (1940 / 2125)
+- COVERAGE (CLASS): **97%**
+- COVERAGE (METHOD): **96%**
+- COVERAGE (LINE): **91%**
 
 
+Cobertura (SONARQube Cloud)
+----------------------
+- COVERAGE: **85%**
+
+Quality Gate (SONARQube Cloud)
+----------------------
+- Passed

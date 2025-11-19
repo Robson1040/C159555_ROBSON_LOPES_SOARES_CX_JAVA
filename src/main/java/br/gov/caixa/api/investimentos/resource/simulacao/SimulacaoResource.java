@@ -1,6 +1,9 @@
 package br.gov.caixa.api.investimentos.resource.simulacao;
 
+import br.gov.caixa.api.investimentos.mapper.SimulacaoInvestimentoMapper;
+import br.gov.caixa.api.investimentos.service.simulacao.SimulacaoInvestimentoService;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -21,11 +24,16 @@ import java.util.stream.Collectors;
 @RolesAllowed({"ADMIN"})
 public class SimulacaoResource {
 
-    
+    @Inject
+    SimulacaoInvestimentoService simulacaoInvestimentoService;
+
+    @Inject
+    SimulacaoInvestimentoMapper simulacaoMapper;
+
     @GET
     public Response listarTodasSimulacoes() {
-        List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.listAll();
-        
+        List<SimulacaoInvestimento> simulacoes = simulacaoInvestimentoService.listarTodasSimulacoes();
+
         List<SimulacaoResponseDTO> response = simulacoes.stream()
                 .map(this::toResponseDTO)
                 .collect(Collectors.toList());
@@ -37,7 +45,7 @@ public class SimulacaoResource {
     @GET
     @Path("/por-produto-dia")
     public Response agruparPorProdutoEDia() {
-        List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.listAll();
+        List<SimulacaoInvestimento> simulacoes = simulacaoInvestimentoService.listarTodasSimulacoes();
         
         
         Map<String, Map<java.time.LocalDate, List<SimulacaoInvestimento>>> agrupamento = 
@@ -97,7 +105,7 @@ public class SimulacaoResource {
     @GET
     @Path("/por-produto-mes")
     public Response agruparPorProdutoEAnoMes() {
-        List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.listAll();
+        List<SimulacaoInvestimento> simulacoes = simulacaoInvestimentoService.listarTodasSimulacoes();
 
         
         Map<String, Map<java.time.YearMonth, List<SimulacaoInvestimento>>> agrupamento =
@@ -159,7 +167,7 @@ public class SimulacaoResource {
     @GET
     @Path("/por-produto-ano")
     public Response agruparPorProdutoEAno() {
-        List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.listAll();
+        List<SimulacaoInvestimento> simulacoes = simulacaoInvestimentoService.listarTodasSimulacoes();
         
         
         Map<String, Map<java.time.Year, List<SimulacaoInvestimento>>> agrupamento = 

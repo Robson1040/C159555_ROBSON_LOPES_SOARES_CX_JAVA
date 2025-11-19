@@ -1,95 +1,139 @@
-/*
 package br.gov.caixa.api.investimentos.resource.simulacao;
+
 
 import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoDataDTO;
 import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoMesDTO;
 import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoAnoDTO;
+import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponseDTO;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
-import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
-
+import br.gov.caixa.api.investimentos.service.simulacao.SimulacaoInvestimentoService;
+import jakarta.ws.rs.core.Response;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.time.Year;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class SimulacaoResourceTest {
+public class SimulacaoResourceTest {
 
+    @Mock
+    private SimulacaoInvestimentoService simulacaoInvestimentoService;
+
+    @InjectMocks
     private SimulacaoResource resource;
-    private MockedStatic<SimulacaoInvestimento> simulacaoStaticMock;
 
     @BeforeEach
     void setUp() {
-        resource = new SimulacaoResource();
-
-        simulacaoStaticMock = mockStatic(SimulacaoInvestimento.class);
-
-        // Mockando listAll() com construtor completo
-        simulacaoStaticMock.when(SimulacaoInvestimento::listAll).thenReturn(List.of(
-                new SimulacaoInvestimento(
-                        10L, 100L, "ProdutoA", new BigDecimal("1000"), new BigDecimal("1100"),
-                        12, 0, 1,
-                        new BigDecimal("0.10"), new BigDecimal("100"), true, "Cenário 1"
-                ),
-                new SimulacaoInvestimento(
-                        11L, 100L, "ProdutoA", new BigDecimal("2000"), new BigDecimal("2200"),
-                        12, 0, 1,
-                        new BigDecimal("0.10"), new BigDecimal("200"), true, "Cenário 2"
-                ),
-                new SimulacaoInvestimento(
-                        12L, 101L, "ProdutoB", new BigDecimal("1500"), new BigDecimal("1650"),
-                        24, 0, 2,
-                        new BigDecimal("0.10"), new BigDecimal("150"), true, "Cenário 3"
-                )
-        ));
-    }
-
-    @AfterEach
-    void tearDown() {
-        simulacaoStaticMock.close();
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void testListarTodasSimulacoes() {
-        var response = resource.listarTodasSimulacoes();
+    void deveListarTodasSimulacoes() {
+        SimulacaoInvestimento simulacao = new SimulacaoInvestimento();
+        simulacao.setId(1L);
+        simulacao.setClienteId(2L);
+        simulacao.setProduto("CDB");
+        simulacao.setValorInvestido(BigDecimal.valueOf(1000));
+        simulacao.setValorFinal(BigDecimal.valueOf(1100));
+        simulacao.setPrazoMeses(12);
+        simulacao.setPrazoDias(0);
+        simulacao.setPrazoAnos(1);
+        simulacao.setDataSimulacao(LocalDateTime.of(2025, 11, 19, 10, 0));
+
+        when(simulacaoInvestimentoService.listarTodasSimulacoes()).thenReturn(List.of(simulacao));
+
+        Response response = resource.listarTodasSimulacoes();
         assertEquals(200, response.getStatus());
-        var body = response.getEntity();
+        List<SimulacaoResponseDTO> body = (List<SimulacaoResponseDTO>) response.getEntity();
         assertNotNull(body);
-        var list = (List<?>) body;
-        assertEquals(3, list.size());
+        assertEquals(1, body.size());
+        assertEquals("CDB", body.get(0).produto());
     }
 
     @Test
-    void testAgruparPorProdutoEDia() {
-        var response = resource.agruparPorProdutoEDia();
+    void deveAgruparPorProdutoEDia() {
+        SimulacaoInvestimento simulacao1 = new SimulacaoInvestimento();
+        simulacao1.setProduto("LCI");
+        simulacao1.setDataSimulacao(LocalDateTime.of(2025, 11, 19, 10, 0));
+        simulacao1.setValorInvestido(BigDecimal.valueOf(500));
+        simulacao1.setValorFinal(BigDecimal.valueOf(550));
+
+        SimulacaoInvestimento simulacao2 = new SimulacaoInvestimento();
+        simulacao2.setProduto("LCI");
+        simulacao2.setDataSimulacao(LocalDateTime.of(2025, 11, 19, 15, 0));
+        simulacao2.setValorInvestido(BigDecimal.valueOf(700));
+        simulacao2.setValorFinal(BigDecimal.valueOf(770));
+
+        when(simulacaoInvestimentoService.listarTodasSimulacoes()).thenReturn(List.of(simulacao1, simulacao2));
+
+        Response response = resource.agruparPorProdutoEDia();
         assertEquals(200, response.getStatus());
-        var body = (List<AgrupamentoProdutoDataDTO>) response.getEntity();
-        assertEquals(3, body.size());
-        assertTrue(body.stream().anyMatch(dto -> dto.produto().equals("ProdutoA")));
+        List<AgrupamentoProdutoDataDTO> body = (List<AgrupamentoProdutoDataDTO>) response.getEntity();
+        assertNotNull(body);
+        assertEquals(1, body.size());
+        AgrupamentoProdutoDataDTO agrupamento = body.get(0);
+        assertEquals("LCI", agrupamento.produto());
+        assertEquals(2L, agrupamento.quantidadeSimulacoes());
+        assertEquals(new BigDecimal("600.00"), agrupamento.mediaValorInvestido());
     }
 
     @Test
-    void testAgruparPorProdutoEAnoMes() {
-        var response = resource.agruparPorProdutoEAnoMes();
+    void deveAgruparPorProdutoEAnoMes() {
+        SimulacaoInvestimento simulacao1 = new SimulacaoInvestimento();
+        simulacao1.setProduto("CDB");
+        simulacao1.setDataSimulacao(LocalDateTime.of(2025, 11, 19, 10, 0));
+        simulacao1.setValorInvestido(BigDecimal.valueOf(1000));
+        simulacao1.setValorFinal(BigDecimal.valueOf(1100));
+
+        when(simulacaoInvestimentoService.listarTodasSimulacoes()).thenReturn(List.of(simulacao1));
+
+        Response response = resource.agruparPorProdutoEAnoMes();
         assertEquals(200, response.getStatus());
-        var body = (List<AgrupamentoProdutoMesDTO>) response.getEntity();
-        assertEquals(2, body.size()); // ProdutoA (Jan 2025), ProdutoB (mes diferente simulado)
-        var produtoA = body.stream().filter(dto -> dto.produto().equals("ProdutoA")).findFirst().orElseThrow();
-        assertEquals(YearMonth.from(produtoA.mes()), produtoA.mes());
-        assertEquals(new BigDecimal("1500.00"), produtoA.mediaValorInvestido());
+        List<AgrupamentoProdutoMesDTO> body = (List<AgrupamentoProdutoMesDTO>) response.getEntity();
+        assertNotNull(body);
+        assertEquals(1, body.size());
+        AgrupamentoProdutoMesDTO agrupamento = body.get(0);
+        assertEquals("CDB", agrupamento.produto());
+        assertEquals(1L, agrupamento.quantidadeSimulacoes());
+        assertEquals(new BigDecimal("1000.00"), agrupamento.mediaValorInvestido());
     }
 
     @Test
-    void testAgruparPorProdutoEAno() {
-        var response = resource.agruparPorProdutoEAno();
+    void deveAgruparPorProdutoEAno() {
+        SimulacaoInvestimento simulacao1 = new SimulacaoInvestimento();
+        simulacao1.setProduto("CDB");
+        simulacao1.setDataSimulacao(LocalDateTime.of(2025, 11, 19, 10, 0));
+        simulacao1.setValorInvestido(BigDecimal.valueOf(1000));
+        simulacao1.setValorFinal(BigDecimal.valueOf(1100));
+
+        when(simulacaoInvestimentoService.listarTodasSimulacoes()).thenReturn(List.of(simulacao1));
+
+        Response response = resource.agruparPorProdutoEAno();
         assertEquals(200, response.getStatus());
-        var body = (List<AgrupamentoProdutoAnoDTO>) response.getEntity();
-        assertEquals(2, body.size());
-        var produtoA = body.stream().filter(dto -> dto.produto().equals("ProdutoA")).findFirst().orElseThrow();
-        assertEquals(Year.of(produtoA.ano().getValue()), produtoA.ano());
+        List<AgrupamentoProdutoAnoDTO> body = (List<AgrupamentoProdutoAnoDTO>) response.getEntity();
+        assertNotNull(body);
+        assertEquals(1, body.size());
+        AgrupamentoProdutoAnoDTO agrupamento = body.get(0);
+        assertEquals("CDB", agrupamento.produto());
+        assertEquals(1L, agrupamento.quantidadeSimulacoes());
+        assertEquals(new BigDecimal("1000.00"), agrupamento.mediaValorInvestido());
+    }
+
+    @Test
+    void deveRetornarListaVaziaQuandoNaoHaSimulacoes() {
+        when(simulacaoInvestimentoService.listarTodasSimulacoes()).thenReturn(List.of());
+
+        Response response = resource.listarTodasSimulacoes();
+        assertEquals(200, response.getStatus());
+        List<SimulacaoResponseDTO> body = (List<SimulacaoResponseDTO>) response.getEntity();
+        assertNotNull(body);
+        assertTrue(body.isEmpty());
     }
 }
-*/
