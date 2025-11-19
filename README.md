@@ -41,11 +41,11 @@ oferecer opção de cadastro de cliente, cadastro de produtos, simulação de in
 - [**PRODUTO_RECOMENDADO**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - API de recomendações de investimentos 
 
 ###  Simulações de Investimento
-- [**INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento 
-- [**SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos 
+- [**_SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento 
+- [**CONSULTA_SIMULACAO**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos 
 
 ###  Registro de Investimento
-- [**INVESTIMENTO_RESOURCE**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos
+- [**INVESTIMENTO**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos
 
 ###  Monitoramento e Observabilidade
  - [**TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance

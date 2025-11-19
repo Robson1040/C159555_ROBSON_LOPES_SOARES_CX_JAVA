@@ -9,6 +9,7 @@
 3. [Arquitetura do Algoritmo](#-arquitetura-do-algoritmo)
 4. [Implementação Técnica](#-implementação-técnica)
 7. [Validação Científica](#-validação-científica)
+8. [Endpoints com Machine Learning](#-endpoints-com-machine-learning)
 
 ---
 
@@ -22,7 +23,7 @@ O **GeradorRecomendacaoML** é o núcleo de inteligência artificial da API de I
 ✅ **Aprendizado Comportamental**: Aprende com histórico real de investimentos e simulações  
 ✅ **Personalização Dinâmica**: Adapta recomendações ao perfil único de cada cliente  
 ✅ **Ponderação Inteligente**: Considera valores investidos como peso na tomada de decisão  
-✅ **Escalabilidade**: Processa milhares de produtos e históricos em tempo real  
+✅ **Escalabilidade**: Permite a inclusão de  novas dimensões, permitindo maior acurácia nas sugestões.
 
 ---
 
@@ -180,3 +181,8 @@ contador.merge(produtoMaisProximo, peso, Integer::sum);
 
 ---
 
+### Endpoints com Machine Learning
+- [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid)
+- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid)
+- [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Quando não informado PRODUTO_ID*.
+	
