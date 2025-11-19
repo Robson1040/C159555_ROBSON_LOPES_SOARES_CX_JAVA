@@ -16,9 +16,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.List;
 
-/**
- * Resource REST para operações CRUD de clientes
- */
+
 @Path("/clientes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -33,9 +31,7 @@ public class ClienteResource {
     @Inject
     JwtAuthorizationHelper authHelper;
 
-    /**
-     * GET /clientes - Lista todos os clientes
-     */
+    
     @GET
     @RolesAllowed({"ADMIN"})
     public Response listarTodos() {
@@ -43,24 +39,19 @@ public class ClienteResource {
         return Response.ok(clientes).build();
     }
 
-    /**
-     * GET /clientes/{id} - Busca cliente por ID
-     * ADMIN pode buscar qualquer cliente, USER só pode buscar seus próprios dados
-     */
+    
     @GET
     @Path("/{id}")
     @RolesAllowed({"USER", "ADMIN"})
     public Response buscarPorId(@PathParam("id") Long id) {
-        // Verificar autorização baseada no JWT
+        
         authHelper.validarAcessoAoCliente(jwt, id);
         
         ClienteResponse cliente = clienteService.buscarPorId(id);
         return Response.ok(cliente).build();
     }
 
-    /**
-     * POST /clientes - Cria um novo cliente
-     */
+    
     @POST
     @PermitAll
     public Response criar(@Valid ClienteRequest request) {
@@ -68,24 +59,19 @@ public class ClienteResource {
         return Response.status(Response.Status.CREATED).entity(cliente).build();
     }
 
-    /**
-     * PUT /clientes/{id} - Atualiza um cliente existente
-     * USER só pode atualizar seus próprios dados
-     */
+    
     @PUT
     @Path("/{id}")
     @RolesAllowed({"USER", "ADMIN"})
     public Response atualizar(@PathParam("id") Long id, @Valid ClienteUpdateRequest request) {
-        // Verificar autorização baseada no JWT
+        
         authHelper.validarAcessoAoCliente(jwt, id);
         
         ClienteResponse cliente = clienteService.atualizar(id, request);
         return Response.ok(cliente).build();
     }
 
-    /**
-     * GET /clientes/cpf/{cpf} - Busca cliente por CPF
-     */
+    
     @GET
     @Path("/cpf/{cpf}")
     @RolesAllowed({"ADMIN"})
@@ -94,9 +80,7 @@ public class ClienteResource {
         return Response.ok(cliente).build();
     }
 
-    /**
-     * GET /clientes/username/{username} - Busca cliente por username
-     */
+    
     @GET
     @Path("/username/{username}")
     @RolesAllowed({"ADMIN"})

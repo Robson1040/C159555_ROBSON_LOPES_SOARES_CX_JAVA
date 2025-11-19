@@ -49,7 +49,7 @@ public class InvestimentoService {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + request.clienteId());
         }
 
-        // Validação de prazo mínimo vs produto
+        
         int prazoDias = request.getPrazoEmDias();
         if (prazoDias > 0 && prazoDias < produto.getMinimoDiasInvestimento()) {
             throw new IllegalArgumentException("Prazo informado é menor que o mínimo do produto: " + produto.getMinimoDiasInvestimento() + " dias");
@@ -61,15 +61,13 @@ public class InvestimentoService {
         return investimentoMapper.toResponse(investimento);
     }
 
-    /**
-     * Busca todos os investimentos de um cliente
-     */
+    
     public List<InvestimentoResponse> buscarPorCliente(Long clienteId) {
         if (clienteId == null) {
             throw new IllegalArgumentException("ID do cliente não pode ser nulo");
         }
 
-        // Verifica se o cliente existe
+        
         Pessoa cliente = pessoaRepository.findById(clienteId);
         if (cliente == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + clienteId);

@@ -4,10 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-/**
- * Entidade que registra todos os acessos aos endpoints
- * Armazena informações detalhadas de quem acessou o quê e quando
- */
+
 @Entity
 @Table(name = "acesso_log")
 public class AcessoLog extends PanacheEntityBase {
@@ -58,7 +55,7 @@ public class AcessoLog extends PanacheEntityBase {
     @Column(name = "erro_stacktrace", columnDefinition = "TEXT")
     private String erroStacktrace;
 
-    // Construtores
+    
     public AcessoLog() {
        this.dataAcesso = LocalDateTime.now();
     }
@@ -74,7 +71,7 @@ public class AcessoLog extends PanacheEntityBase {
         this.corpoRequisicao = corpoRequisicao;
     }
 
-    // Getters e Setters
+    
     public Long getId() {
         return id;
     }

@@ -3,9 +3,7 @@ package br.gov.caixa.api.investimentos.dto.cliente;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Size;
 
-/**
- * DTO para atualização de cliente
- */
+
 public record ClienteUpdateRequest(
         @JsonProperty("nome")
         @Size(min = 2, max = 100, message = "Nome deve ter entre 2 e 100 caracteres")

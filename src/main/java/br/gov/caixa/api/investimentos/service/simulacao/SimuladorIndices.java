@@ -7,22 +7,13 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
 
-/**
- * Simulador de índices econômicos que varia os valores baseado no período
- * e adiciona volatilidade realista aos cálculos
- */
+
 @ApplicationScoped
 public class SimuladorIndices {
 
     private final Random random = new Random();
 
-    /**
-     * Obtém a taxa simulada do índice considerando o período do investimento
-     * 
-     * @param indice Índice a ser simulado
-     * @param prazoMeses Prazo do investimento em meses
-     * @return Taxa anual simulada com variação baseada no período
-     */
+    
     public BigDecimal getTaxaSimulada(Indice indice, int prazoMeses) {
         BigDecimal taxaBase = getTaxaBase(indice);
         BigDecimal variacao = calcularVariacaoPorPeriodo(indice, prazoMeses);
@@ -30,9 +21,7 @@ public class SimuladorIndices {
         return taxaBase.add(variacao).max(BigDecimal.ZERO);
     }
 
-    /**
-     * Define as taxas base para cada índice (valores médios anuais)
-     */
+    
     private BigDecimal getTaxaBase(Indice indice) {
         return switch (indice) {
             case SELIC -> new BigDecimal("10.75");
@@ -44,69 +33,59 @@ public class SimuladorIndices {
         };
     }
 
-    /**
-     * Calcula variação baseada no período e volatilidade do índice
-     */
+    
     private BigDecimal calcularVariacaoPorPeriodo(Indice indice, int prazoMeses) {
         double volatilidade = getVolatilidadeIndice(indice);
         double fatorTempo = calcularFatorTempo(prazoMeses);
         double fatorCicloEconomico = calcularCicloEconomico(prazoMeses);
         
-        // Variação = volatilidade * fator_tempo * fator_ciclo * aleatoriedade
+        
         double variacao = volatilidade * fatorTempo * fatorCicloEconomico * 
-                         (random.nextGaussian() * 0.5); // Distribuição normal
+                         (random.nextGaussian() * 0.5); 
         
         return new BigDecimal(variacao).setScale(2, RoundingMode.HALF_UP);
     }
 
-    /**
-     * Define a volatilidade histórica de cada índice
-     */
+    
     private double getVolatilidadeIndice(Indice indice) {
         return switch (indice) {
-            case SELIC -> 0.8;   // Baixa volatilidade
-            case CDI -> 0.7;     // Baixa volatilidade
-            case IPCA -> 1.2;    // Volatilidade moderada
-            case IGP_M -> 1.5;   // Volatilidade moderada-alta
-            case IBOVESPA -> 3.0; // Alta volatilidade
+            case SELIC -> 0.8;   
+            case CDI -> 0.7;     
+            case IPCA -> 1.2;    
+            case IGP_M -> 1.5;   
+            case IBOVESPA -> 3.0; 
             case NENHUM -> 0.0;
         };
     }
 
-    /**
-     * Calcula fator baseado no tempo - períodos mais longos têm mais variação
-     */
+    
     private double calcularFatorTempo(int prazoMeses) {
-        if (prazoMeses <= 6) return 0.3;      // Curto prazo - menor variação
-        if (prazoMeses <= 12) return 0.6;     // Médio prazo
-        if (prazoMeses <= 24) return 0.9;     // Longo prazo
-        return 1.2;                           // Muito longo prazo - maior variação
+        if (prazoMeses <= 6) return 0.3;      
+        if (prazoMeses <= 12) return 0.6;     
+        if (prazoMeses <= 24) return 0.9;     
+        return 1.2;                           
     }
 
-    /**
-     * Simula ciclos econômicos baseado no período
-     */
+    
     private double calcularCicloEconomico(int prazoMeses) {
-        // Simula tendências econômicas baseadas no período
+        
         if (prazoMeses <= 3) {
-            return 1.0; // Curto prazo - sem ajuste de ciclo
+            return 1.0; 
         } else if (prazoMeses <= 12) {
-            // Médio prazo - pequena tendência
-            return 0.8 + (random.nextDouble() * 0.4); // Entre 0.8 e 1.2
+            
+            return 0.8 + (random.nextDouble() * 0.4); 
         } else if (prazoMeses <= 24) {
-            // Longo prazo - possível recessão ou crescimento
+            
             return random.nextBoolean() ? 
-                   0.6 + (random.nextDouble() * 0.3) :  // Cenário pessimista (0.6-0.9)
-                   1.1 + (random.nextDouble() * 0.4);   // Cenário otimista (1.1-1.5)
+                   0.6 + (random.nextDouble() * 0.3) :  
+                   1.1 + (random.nextDouble() * 0.4);   
         } else {
-            // Muito longo prazo - ciclos completos
-            return 0.5 + (random.nextDouble() * 1.0); // Entre 0.5 e 1.5
+            
+            return 0.5 + (random.nextDouble() * 1.0); 
         }
     }
 
-    /**
-     * Obtém cenário descritivo para o índice no período
-     */
+    
     public String getCenarioSimulado(Indice indice, int prazoMeses, BigDecimal taxaSimulada) {
         BigDecimal taxaBase = getTaxaBase(indice);
         BigDecimal diferenca = taxaSimulada.subtract(taxaBase);
@@ -134,9 +113,7 @@ public class SimuladorIndices {
         return "muito longo prazo";
     }
 
-    /**
-     * Verifica se o valor é simulado (sempre true para esta implementação)
-     */
+    
     public boolean isValorSimulado() {
         return true;
     }

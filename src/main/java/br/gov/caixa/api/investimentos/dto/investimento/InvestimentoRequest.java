@@ -7,9 +7,7 @@ import br.gov.caixa.api.investimentos.validation.ValidPrazo;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * DTO para criação de um Investimento real (não apenas simulação)
- */
+
 @ValidPrazo
 public record InvestimentoRequest(
         @NotNull(message = "ID do cliente é obrigatório")

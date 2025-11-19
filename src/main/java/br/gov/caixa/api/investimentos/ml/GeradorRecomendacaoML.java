@@ -19,9 +19,7 @@ import java.util.Objects;
 @ApplicationScoped
 public class GeradorRecomendacaoML
 {
-    /**
-     * Encontra o produto com perfil ideal para o cliente, com base em investimentos ou simulações
-     */
+    
     public List<Produto> encontrarProdutosOrdenadosPorAparicao(List<?> entradas, List<Produto> todosProdutos) {
         if (entradas == null) {
             throw new IllegalArgumentException("Lista de entradas não pode ser nula");
@@ -51,7 +49,7 @@ public class GeradorRecomendacaoML
                 peso = (int) (pesoBase * decayFactor);
             } else if (entrada instanceof SimulacaoInvestimento simulacao) {
                 pesoBase = (Math.log10(simulacao.getValorInvestido().doubleValue() + 1) * 100);
-                //pesoBase =  simulacao.getValorInvestido().doubleValue();
+                
                 double diasDesdeSimulacao = ChronoUnit.DAYS.between(simulacao.getDataSimulacao().toLocalDate(), LocalDate.now());
                 decayFactor = Math.exp(-diasDesdeSimulacao / 365.0);
                 peso = (pesoBase * decayFactor);
@@ -91,9 +89,7 @@ public class GeradorRecomendacaoML
                 .toList();
     }
 
-    /**
-     * Calcula distância euclidiana entre simulação e produto
-     */
+    
     private double calcularDistanciaEuclidiana(Object entrada, Produto produto, List<Produto> todoProdutos)
     {
         double valorNorm;
@@ -105,7 +101,7 @@ public class GeradorRecomendacaoML
         double fgcNorm;
         double minimoInvNorm;
 
-        // === CASO 1: Investimento real ===
+        
         if (entrada instanceof Investimento investimento)
         {
             valorNorm = normalizar(investimento.getValor().doubleValue(), 0, 1_000_000);
@@ -124,7 +120,7 @@ public class GeradorRecomendacaoML
             );
         }
 
-        // === CASO 2: Simulação ===
+        
         else if (entrada instanceof SimulacaoInvestimento simulacao)
         {
             valorNorm = normalizar(simulacao.getValorInvestido().doubleValue(), 0, 1_000_000);
@@ -147,7 +143,7 @@ public class GeradorRecomendacaoML
             }
 
             tipoNorm = p.getTipo().getValor();
-            // Usar características do produto simulado ao invés de valores neutros
+            
             tipoRentNorm = normalizarTipoRentabilidade(p.getTipoRentabilidade());
             periodoRentNorm = normalizarPeriodoRentabilidade(p.getPeriodoRentabilidade());
             indiceNorm = normalizarIndice(p.getIndice());
@@ -169,8 +165,8 @@ public class GeradorRecomendacaoML
             );
         }
 
-        // === Valores normais do produto ===
-        // Usar rentabilidade como proxy para faixa de valor (produtos mais rentáveis atraem investimentos maiores)
+        
+        
         double prodValorNorm = produto.getRentabilidade() != null ?
             normalizar(produto.getRentabilidade().doubleValue() * 10000, 0, 1_000_000) : 0.5;
         double prodTipoNorm = normalizarTipoProduto(produto.getTipo());
@@ -181,7 +177,7 @@ public class GeradorRecomendacaoML
         double prodFgcNorm = produto.getFgc() ? 1.0 : 0.0;
         double prodMinimoInvNorm = normalizar(produto.getMinimoDiasInvestimento(), 0, 1800);
 
-        // === Distância final ===
+        
         return Math.sqrt(
                 Math.pow(valorNorm - prodValorNorm, 2) +
                         Math.pow(tipoNorm - prodTipoNorm, 2) +
@@ -194,32 +190,24 @@ public class GeradorRecomendacaoML
         );
     }
 
-    /**
-     * Normaliza valores para escala 0-1
-     */
+    
     private double normalizar(double valor, double min, double max) {
         if (max == min) return 0.5;
         return Math.max(0, Math.min(1, (valor - min) / (max - min)));
     }
 
-    /**
-     * Normaliza tipo de produto para valor numérico
-     */
+    
     private double normalizarTipoProduto(TipoProduto tipo) {
         return tipo.getValor();
     }
 
-    /**
-     * Normaliza tipo de rentabilidade para valor numérico
-     */
+    
     private double normalizarTipoRentabilidade(TipoRentabilidade tipo) {
         if (tipo == null) return 0.5;
         return tipo == TipoRentabilidade.PRE ? 0.0 : 1.0;
     }
 
-    /**
-     * Normaliza período de rentabilidade para valor numérico
-     */
+    
     private double normalizarPeriodoRentabilidade(PeriodoRentabilidade periodo) {
         if (periodo == null) return 0.5;
         return switch (periodo) {
@@ -230,9 +218,7 @@ public class GeradorRecomendacaoML
         };
     }
 
-    /**
-     * Normaliza índice para valor numérico
-     */
+    
     private double normalizarIndice(Indice indice) {
         if (indice == null || indice == Indice.NENHUM) return 0.0;
         return switch (indice) {

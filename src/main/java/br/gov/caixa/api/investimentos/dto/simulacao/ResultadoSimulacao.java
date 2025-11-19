@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 
-/**
- * DTO para o resultado da simulação financeira
- */
+
 public record ResultadoSimulacao(
         @JsonProperty("valorFinal")
         BigDecimal valorFinal,

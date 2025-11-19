@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * DTO padronizado para respostas de erro da API
- * Centraliza o formato de erro em toda a aplicação
- */
+
 public record ErrorResponse(
         @JsonProperty("message")
         String message,
@@ -26,22 +23,22 @@ public record ErrorResponse(
         List<String> errors
 ) {
     
-    // Construtor simples com timestamp automático
+    
     public ErrorResponse(String message) {
         this(message, LocalDateTime.now(), null, null, null);
     }
 
-    // Construtor com status
+    
     public ErrorResponse(String message, Integer status) {
         this(message, LocalDateTime.now(), status, null, null);
     }
 
-    // Construtor completo sem errors
+    
     public ErrorResponse(String message, Integer status, String path) {
         this(message, LocalDateTime.now(), status, path, null);
     }
 
-    // Métodos estáticos para criar respostas comuns
+    
     public static ErrorResponse badRequest(String message) {
         return new ErrorResponse(message, LocalDateTime.now(), 400, null, null);
     }

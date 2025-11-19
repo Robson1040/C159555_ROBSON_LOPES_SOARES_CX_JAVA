@@ -10,10 +10,7 @@ import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Handler global para exceções de validação Bean Validation
- * Centraliza o tratamento de erros de validação em toda a aplicação
- */
+
 @Provider
 public class ValidationExceptionHandler implements ExceptionMapper<ConstraintViolationException> {
 
@@ -39,7 +36,7 @@ public class ValidationExceptionHandler implements ExceptionMapper<ConstraintVio
         String message = violation.getMessage();
         Object invalidValue = violation.getInvalidValue();
         
-        // Remove prefixos do método se existirem (ex: simularInvestimento.request.)
+        
         String fieldName = propertyPath.contains(".") ? 
                 propertyPath.substring(propertyPath.lastIndexOf('.') + 1) : 
                 propertyPath;

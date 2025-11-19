@@ -19,17 +19,17 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class RateLimitByIpFilter implements ContainerRequestFilter {
 
 
-    // Configuração do rate limit
+    
     @ConfigProperty(name = "rate.limit.requests_per_minute", defaultValue = "30")
-    private int REQUESTS; // 30 requisições por minuto
+    private int REQUESTS; 
 
-    private static final long WINDOW_MS = 60_000; // 1 minuto
-    private static final long EXPIRE_MS = 3_600_000; // 1 hora para expirar IPs
+    private static final long WINDOW_MS = 60_000; 
+    private static final long EXPIRE_MS = 3_600_000; 
 
     @Inject
-    HttpServerRequest vertxRequest; // Injetado pelo Quarkus
+    HttpServerRequest vertxRequest; 
 
-    // Estrutura para armazenar contadores por IP
+    
     private static class IpBucket {
         int count;
         long windowStart;
@@ -45,7 +45,7 @@ public class RateLimitByIpFilter implements ContainerRequestFilter {
         IpBucket bucket = buckets.compute(ip, (k, b) -> {
             long now = Instant.now().toEpochMilli();
             if (b == null || (now - b.windowStart) > WINDOW_MS) {
-                // Nova janela
+                
                 b = new IpBucket();
                 b.count = 1;
                 b.windowStart = now;

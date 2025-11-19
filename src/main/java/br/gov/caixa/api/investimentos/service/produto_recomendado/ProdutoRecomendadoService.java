@@ -18,9 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Serviço para recomendação de produtos baseado no perfil de risco
- */
+
 @ApplicationScoped
 public class ProdutoRecomendadoService {
 
@@ -42,12 +40,7 @@ public class ProdutoRecomendadoService {
     @Inject
     GeradorRecomendacaoML geradorRecomendacaoML;
 
-    /**
-     * Busca produtos recomendados baseado no perfil de risco
-     * 
-     * @param perfil Perfil de risco (Conservador, Moderado, Agressivo)
-     * @return Lista de produtos recomendados
-     */
+    
     public List<ProdutoResponse> buscarProdutosPorPerfil(String perfil) {
         if (perfil == null || perfil.trim().isEmpty()) {
             throw new IllegalArgumentException("Perfil não pode ser nulo ou vazio");
@@ -55,7 +48,7 @@ public class ProdutoRecomendadoService {
 
         NivelRisco nivelRisco = mapearPerfilParaNivelRisco(perfil.trim());
         
-        // Buscar todos os produtos e filtrar por nível de risco
+        
         List<Produto> todosProdutos = produtoRepository.listAll();
         
         List<Produto> produtosFiltrados = todosProdutos.stream()
@@ -65,25 +58,19 @@ public class ProdutoRecomendadoService {
         return produtoMapper.toResponseList(produtosFiltrados);
     }
 
-    /**
-     * Busca produtos recomendados baseado no histórico do cliente
-     * Método equivalente ao calcularPerfilRisco, retornando produtos_sugeridos
-     * 
-     * @param clienteId ID do cliente
-     * @return Lista de produtos recomendados baseados no histórico
-     */
+    
     public List<ProdutoResponse> buscarProdutosPorCliente(Long clienteId) {
         if (clienteId == null) {
             throw new IllegalArgumentException("Cliente ID não pode ser nulo");
         }
 
-        // Validar se o cliente existe
+        
         clienteService.buscarPorId(clienteId);
 
         List<Produto> produtos_sugeridos = new ArrayList<>();
         List<Produto> produtos = produtoRepository.listAll();
 
-        // Buscar histórico de investimentos
+        
         List<Investimento> investimentos = investimentoRepository.findByClienteId(clienteId);
         List<SimulacaoInvestimento> simulacoes = simulacaoRepository.findByClienteId(clienteId);
 
@@ -102,12 +89,7 @@ public class ProdutoRecomendadoService {
         return produtoMapper.toResponseList(produtos_sugeridos);
     }
 
-    /**
-     * Mapeia o perfil de risco para o enum NivelRisco
-     * 
-     * @param perfil String do perfil (Conservador, Moderado, Agressivo)
-     * @return NivelRisco correspondente
-     */
+    
     private NivelRisco mapearPerfilParaNivelRisco(String perfil) {
         return switch (perfil.toLowerCase()) {
             case "conservador" -> NivelRisco.BAIXO;

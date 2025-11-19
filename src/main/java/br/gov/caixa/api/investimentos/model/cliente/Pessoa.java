@@ -6,10 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-/**
- * Entidade JPA para representar uma Pessoa no sistema
- * Utilizada para clientes e administradores
- */
+
 @Entity
 @Table(name = "pessoa")
 public class Pessoa extends PanacheEntityBase {
@@ -44,14 +41,10 @@ public class Pessoa extends PanacheEntityBase {
     @Column(name = "role", nullable = false, length = 10)
     private String role;
 
-    /**
-     * Construtor padrão
-     */
+    
     public Pessoa() {}
 
-    /**
-     * Construtor completo
-     */
+    
     public Pessoa(String nome, String cpf, String username, String password, String role) {
         this.nome = nome;
         this.cpf = cpf;

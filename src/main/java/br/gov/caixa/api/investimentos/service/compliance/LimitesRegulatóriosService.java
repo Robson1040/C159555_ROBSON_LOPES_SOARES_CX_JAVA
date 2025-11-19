@@ -7,14 +7,11 @@ import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 
 import java.math.BigDecimal;
 
-/**
- * Serviço para controle de limites regulatórios
- * Implementa regras FGC, BACEN e CVM
- */
+
 @ApplicationScoped
 public class LimitesRegulatóriosService {
 
-    // Limites FGC por CPF por instituição
+    
     private static final BigDecimal LIMITE_FGC_GERAL = new BigDecimal("250000.00");
     private static final BigDecimal LIMITE_FGC_POUPANCA = new BigDecimal("250000.00");
     private static final BigDecimal LIMITE_FGC_LCI_LCA = new BigDecimal("250000.00");
@@ -22,12 +19,10 @@ public class LimitesRegulatóriosService {
     @Inject
     IInvestimentoRepository investimentoRepository;
 
-    /**
-     * Verifica se o novo investimento respeita os limites FGC
-     */
+    
     public boolean validarLimiteFGC(String cpf, TipoProduto tipoProduto, BigDecimal valorNovo) {
         if (!temProtecaoFGC(tipoProduto)) {
-            return true; // Sem limite se não tem FGC
+            return true; 
         }
 
         BigDecimal totalAtual = calcularTotalFGCPorCpf(cpf, tipoProduto);
@@ -36,18 +31,14 @@ public class LimitesRegulatóriosService {
         return novoTotal.compareTo(getLimiteFGC(tipoProduto)) <= 0;
     }
 
-    /**
-     * Calcula total investido com proteção FGC por CPF
-     */
+    
     private BigDecimal calcularTotalFGCPorCpf(String cpf, TipoProduto tipoProduto) {
-        // Implementar consulta ao repositório
-        // Somar todos os investimentos do CPF com FGC do mesmo tipo
-        return BigDecimal.ZERO; // Placeholder
+        
+        
+        return BigDecimal.ZERO; 
     }
 
-    /**
-     * Verifica se produto tem proteção FGC
-     */
+    
     private boolean temProtecaoFGC(TipoProduto tipoProduto) {
         return switch (tipoProduto) {
             case CDB, LCI, LCA, POUPANCA -> true;
@@ -55,9 +46,7 @@ public class LimitesRegulatóriosService {
         };
     }
 
-    /**
-     * Retorna limite FGC específico por tipo de produto
-     */
+    
     private BigDecimal getLimiteFGC(TipoProduto tipoProduto) {
         return switch (tipoProduto) {
             case POUPANCA -> LIMITE_FGC_POUPANCA;
@@ -66,12 +55,10 @@ public class LimitesRegulatóriosService {
         };
     }
 
-    /**
-     * Calcula valor disponível para investimento respeitando FGC
-     */
+    
     public BigDecimal calcularValorDisponivelFGC(String cpf, TipoProduto tipoProduto) {
         if (!temProtecaoFGC(tipoProduto)) {
-            return new BigDecimal("999999999.99"); // Sem limite
+            return new BigDecimal("999999999.99"); 
         }
 
         BigDecimal totalAtual = calcularTotalFGCPorCpf(cpf, tipoProduto);

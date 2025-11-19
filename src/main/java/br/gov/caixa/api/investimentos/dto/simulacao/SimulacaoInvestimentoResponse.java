@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * DTO para resposta de simulações persistidas
- * Usado nos endpoints de consulta de histórico
- */
+
 public record SimulacaoInvestimentoResponse(
         @JsonProperty("id")
         Long id,

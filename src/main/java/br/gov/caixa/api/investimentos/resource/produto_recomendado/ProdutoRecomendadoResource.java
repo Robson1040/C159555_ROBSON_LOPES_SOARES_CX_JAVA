@@ -14,9 +14,7 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.List;
 
-/**
- * Resource REST para recomendação de produtos baseado no perfil de risco
- */
+
 @Path("/produtos-recomendados")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -32,20 +30,12 @@ public class ProdutoRecomendadoResource {
     @Inject
     JwtAuthorizationHelper authHelper;
 
-    /**
-     * GET /produtos-recomendados/cliente/{clienteId} - Retorna produtos recomendados baseado no histórico do cliente
-     * 
-     * Este endpoint analisa o histórico de investimentos e simulações do cliente
-     * para recomendar produtos usando machine learning. 
-     * 
-     * @param clienteId ID do cliente para buscar recomendações
-     * @return Lista de produtos recomendados baseados no histórico do cliente
-     */
+    
     @GET
     @Path("/cliente/{clienteId}")
     public Response buscarProdutosPorCliente(@PathParam("clienteId") @Positive Long clienteId) {
         try {
-            // Verificar autorização baseada no JWT
+            
             authHelper.validarAcessoAoCliente(jwt, clienteId);
 
             List<ProdutoResponse> produtos = produtoRecomendadoService.buscarProdutosPorCliente(clienteId);
@@ -73,17 +63,7 @@ public class ProdutoRecomendadoResource {
         }
     }
 
-    /**
-     * GET /produtos-recomendados/{perfil} - Retorna produtos recomendados baseado no perfil de risco
-     * 
-     * Perfis aceitos:
-     * - Conservador: produtos de risco BAIXO (com garantia FGC)
-     * - Moderado: produtos de risco MÉDIO (renda fixa sem FGC)
-     * - Agressivo: produtos de risco ALTO (renda variável sem FGC)
-     * 
-     * @param perfil Perfil de risco do cliente (Conservador, Moderado, Agressivo)
-     * @return Lista de produtos recomendados
-     */
+    
     @GET
     @Path("/{perfil}")
     public Response buscarProdutosPorPerfil(@PathParam("perfil") String perfil) {

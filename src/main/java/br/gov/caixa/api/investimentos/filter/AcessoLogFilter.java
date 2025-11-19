@@ -13,10 +13,7 @@ import br.gov.caixa.api.investimentos.service.telemetria.MetricasManager;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-/**
- * Filtro que registra todos os acessos aos endpoints com detalhes completos
- * Captura: usuário, endpoint, método, IP, corpo da requisição, resposta, status e tempo de execução
- */
+
 @Provider
 public class AcessoLogFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
@@ -26,7 +23,7 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
     @Inject
     MetricasManager metricasManager;
 
-    // Injeção opcional usando Instance
+    
     @Inject
     jakarta.enterprise.inject.Instance<JsonWebToken> jwtInstance;
 
@@ -136,58 +133,26 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
         }
     }
 
-    /**
-     * Extrai o corpo da requisição
-     */
+    
     private String extrairCorpoRequisicao(ContainerRequestContext requestContext) throws IOException {
-        return null; //Checar LGPD
-        /*)
-        if (!temCorpoRequisicao(requestContext)) {
-            return null;
-        }
-
-        try {
-            byte[] body = readInputStream(requestContext.getEntityStream());
-            requestContext.setEntityStream(new ByteArrayInputStream(body));
-            return new String(body, StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            return null;
-        }
-         */
+        return null; 
+        
     }
 
-    /**
-     * Extrai o corpo da resposta
-     */
+    
     private String extrairCorpoResposta(ContainerResponseContext responseContext) {
-        return null; //Checar LGPD
-        /*
-        try {
-            if (responseContext.getEntity() != null) {
-                // Se a entidade já é String
-                if (responseContext.getEntity() instanceof String) {
-                    return (String) responseContext.getEntity();
-                }
-                // Caso contrário, converte para JSON
-                return responseContext.getEntity().toString();
-            }
-        } catch (Exception e) {
-            // Falha silenciosa
-        }
-        return null;
-         */
+        return null; 
+        
     }
 
-    /**
-     * Extrai mensagem de erro da resposta
-     */
+    
     private String extrairMensagemErro(String corpoResposta) {
         if (corpoResposta == null) {
             return null;
         }
 
         try {
-            // Tenta extrair campo "message" de JSON simples
+            
             if (corpoResposta.contains("\"message\"")) {
                 int inicio = corpoResposta.indexOf("\"message\":");
                 int fim = corpoResposta.indexOf(",", inicio);
@@ -200,14 +165,12 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
                 }
             }
         } catch (Exception e) {
-            // Falha silenciosa
+            
         }
         return null;
     }
 
-    /**
-     * Extrai endpoint da URI
-     */
+    
     private String extrairEndpoint(String path) {
         if (path == null || path.isEmpty()) {
             return "root";
@@ -239,9 +202,7 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
         return parts.length > 0 ? parts[0] : cleaned;
     }
 
-    /**
-     * Obtém IP de origem da requisição
-     */
+    
     private String obterIpOrigem(ContainerRequestContext requestContext) {
         String xForwardedFor = requestContext.getHeaderString("X-Forwarded-For");
         if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
@@ -253,23 +214,19 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
             return xRealIp;
         }
 
-        // Fallback para remote address (em Docker pode não funcionar bem)
+        
         return requestContext.getHeaderString("Host") != null ?
                requestContext.getHeaderString("Host").split(":")[0] :
                "desconhecido";
     }
 
-    /**
-     * Verifica se a requisição tem corpo
-     */
+    
     private boolean temCorpoRequisicao(ContainerRequestContext requestContext) {
         String metodo = requestContext.getMethod();
         return metodo.equals("POST") || metodo.equals("PUT") || metodo.equals("PATCH");
     }
 
-    /**
-     * Lê um InputStream
-     */
+    
     private byte[] readInputStream(InputStream inputStream) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         byte[] data = new byte[1024];

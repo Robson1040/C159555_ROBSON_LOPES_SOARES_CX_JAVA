@@ -13,25 +13,22 @@ public class MetricasManager {
     @Inject
     TelemetriaMetricaRepository telemetriaRepository;
     
-    // Armazena contadores de execução por endpoint
+    
     private final ConcurrentHashMap<String, AtomicLong> contadores = new ConcurrentHashMap<>();
     
-    // Armazena tempos totais de resposta por endpoint
+    
     private final ConcurrentHashMap<String, LongAdder> temposTotais = new ConcurrentHashMap<>();
     
-    // Armazena número total de chamadas para calcular média
+    
     private final ConcurrentHashMap<String, AtomicLong> totalChamadas = new ConcurrentHashMap<>();
     
-    /**
-     * Incrementa o contador de execução para um endpoint
-     * Persiste tanto em memória (cache) quanto no banco de dados
-     */
+    
     public void incrementarContador(String endpoint) {
         if (endpoint != null && !endpoint.isEmpty()) {
-            // Mantém cache em memória para performance
+            
             contadores.computeIfAbsent(endpoint, k -> new AtomicLong(0)).incrementAndGet();
             
-            // Persiste no banco de dados
+            
             try {
                 telemetriaRepository.incrementarContador(endpoint);
                 
@@ -41,21 +38,17 @@ public class MetricasManager {
         }
     }
     
-    /**
-     * Registra o tempo de resposta para um endpoint
-     * Persiste tanto em memória (cache) quanto no banco de dados
-     * NÃO incrementa contador (isso é feito separadamente)
-     */
+    
     public void registrarTempoResposta(String endpoint, long tempoMs) {
         if (endpoint != null && !endpoint.isEmpty()) {
-            // Mantém cache em memória para performance
+            
             temposTotais.computeIfAbsent(endpoint, k -> new LongAdder()).add(tempoMs);
             totalChamadas.computeIfAbsent(endpoint, k -> new AtomicLong(0)).incrementAndGet();
             
             long total = totalChamadas.get(endpoint).get();
             double media = (double) temposTotais.get(endpoint).sum() / total;
             
-            // Persiste no banco de dados (SEM incrementar contador)
+            
             try {
                 telemetriaRepository.adicionarTempoExecucao(endpoint, tempoMs);
                 
@@ -65,10 +58,7 @@ public class MetricasManager {
         }
     }
     
-    /**
-     * Obtém o contador de execuções para um endpoint
-     * Prioriza dados do banco de dados, fallback para cache em memória
-     */
+    
     public long obterContadorExecucoes(String endpoint) {
         try {
             return telemetriaRepository.obterContadorExecucoes(endpoint);
@@ -79,10 +69,7 @@ public class MetricasManager {
         }
     }
     
-    /**
-     * Obtém o tempo médio de resposta para um endpoint
-     * Prioriza dados do banco de dados, fallback para cache em memória
-     */
+    
     public double obterTempoMedioResposta(String endpoint) {
         try {
             return telemetriaRepository.obterTempoMedioResposta(endpoint);
@@ -99,10 +86,7 @@ public class MetricasManager {
         }
     }
     
-    /**
-     * Lista todos os endpoints que têm métricas registradas
-     * Prioriza dados do banco de dados, fallback para cache em memória
-     */
+    
     public java.util.Set<String> obterEndpointsComMetricas() {
         try {
             return telemetriaRepository.obterEndpointsComMetricas();
@@ -112,17 +96,14 @@ public class MetricasManager {
         }
     }
     
-    /**
-     * Limpa todas as métricas (útil para testes)
-     * Remove dados tanto do cache quanto do banco de dados
-     */
+    
     public void limparMetricas() {
-        // Limpa cache em memória
+        
         contadores.clear();
         temposTotais.clear();
         totalChamadas.clear();
         
-        // Limpa banco de dados
+        
         try {
             telemetriaRepository.limparTodasMetricas();
             

@@ -60,16 +60,14 @@ public class SimulacaoInvestimentoService {
     @Inject
     GeradorRecomendacaoML geradorRecomendacaoML;
 
-    /**
-     * Realiza a simulação de investimento e persiste o resultado
-     */
+    
     @Transactional
     public SimulacaoResponse simularInvestimento(SimulacaoRequest request)
     {
-        // Validações adicionais de negócio
+        
         validarRegrasNegocio(request);
 
-        // 1. Encontrar o produto mais apropriado
+        
         List<Produto> produtos = encontrarProdutoMaisApropriado(request);
         List<Produto> produtos_sugeridos = new ArrayList<Produto>();
 
@@ -98,13 +96,13 @@ public class SimulacaoInvestimentoService {
 
         Produto produto = produtos_sugeridos.getFirst();
 
-        // 2. Calcular a simulação
+        
         ResultadoSimulacao resultado = calcularSimulacao(request, produto);
 
-        // 3. Persistir a simulação no banco de dados
+        
         SimulacaoInvestimento simulacaoPersistida = persistirSimulacao(request, produto, resultado);
 
-        // 4. Montar a resposta
+        
         ProdutoResponse produtoResponse = produtoMapper.toResponse(produto);
         
         return new SimulacaoResponse(
@@ -112,16 +110,14 @@ public class SimulacaoInvestimentoService {
                 resultado,
                 LocalDateTime.now(),
                 request.clienteId(),
-                simulacaoPersistida.getId() // Incluir ID da simulação persistida
+                simulacaoPersistida.getId() 
         );
     }
 
-    /**
-     * Encontra o produto mais apropriado baseado nos filtros da request
-     */
+    
     private List<Produto> encontrarProdutoMaisApropriado(SimulacaoRequest request)
     {
-        // Se request possui produtoId, busca direto
+        
         if (request.produtoId() != null)
         {
             Produto produto = produtoRepository.findById(request.produtoId());
@@ -135,9 +131,9 @@ public class SimulacaoInvestimentoService {
 
         List<Produto> produtos = produtoRepository.listAll();
 
-        // Aplica filtros se informados - primeiro filtra produtos null
+        
         return produtos.stream()
-                .filter(Objects::nonNull) // Remove produtos null
+                .filter(Objects::nonNull) 
                 .filter(produto -> filtrarPorNome(produto, request.nome()))
                 .filter(produto -> filtrarPorTipo(produto, request.tipoProduto()))
                 .filter(produto -> filtrarPorTipoRentabilidade(produto, request.tipoRentabilidade()))
@@ -145,25 +141,23 @@ public class SimulacaoInvestimentoService {
                 .filter(produto -> filtrarPorLiquidez(produto, request.liquidez()))
                 .filter(produto -> filtrarPorFgc(produto, request.fgc()))
                 .filter(produto -> filtrarPorPrazoMinimo(produto, request.getPrazoEmDias()))
-                // Ordena por melhor rentabilidade e menor risco
+                
                 .sorted(this::compararProdutos)
                 .toList();
     }
 
-    /**
-     * Calcula o resultado da simulação financeira
-     */
+    
     private ResultadoSimulacao calcularSimulacao(SimulacaoRequest request, Produto produto) {
         BigDecimal valorInicial = request.valor();
         int prazoMeses = request.getPrazoEmMeses();
 
-        // Gera cenário de mercado para o período
+        
         SimuladorMercado.CenarioMercado cenario = simuladorMercado.gerarCenario(produto.getTipo(), prazoMeses);
         
-        // Calcula a rentabilidade efetiva com simulação dinâmica
+        
         BigDecimal rentabilidadeEfetiva = calcularRentabilidadeEfetiva(produto, prazoMeses, cenario);
         
-        // Calcula o valor final baseado no período de rentabilidade
+        
         BigDecimal valorFinal = calcularValorFinal(valorInicial, rentabilidadeEfetiva, 
                                                   produto.getPeriodoRentabilidade(), prazoMeses);
 
@@ -177,27 +171,25 @@ public class SimulacaoInvestimentoService {
                 request.prazoAnos(),
                 valorInicial,
                 rendimento.setScale(2, RoundingMode.HALF_UP),
-                true, // valorSimulado = true (valores são simulados dinamicamente)
-                cenario.getDescricao() // descrição do cenário simulado
+                true, 
+                cenario.getDescricao() 
         );
     }
 
-    /**
-     * Calcula a rentabilidade efetiva considerando o índice e simulação dinâmica
-     */
+    
     private BigDecimal calcularRentabilidadeEfetiva(Produto produto, int prazoMeses, 
                                                    SimuladorMercado.CenarioMercado cenario) {
         BigDecimal rentabilidadeBase = produto.getRentabilidade();
 
-        // Se for pós-fixado e tiver índice, usa simulação dinâmica
+        
         if (TipoRentabilidade.POS.equals(produto.getTipoRentabilidade()) && 
             produto.getIndice() != null && !Indice.NENHUM.equals(produto.getIndice())) {
             
-            // Para pós-fixado: usa simulação dinâmica do índice
-            // Ex: 105% do CDI simulado = rentabilidade * taxa_simulada_do_cdi
+            
+            
             BigDecimal taxaIndiceSimulada = simuladorIndices.getTaxaSimulada(produto.getIndice(), prazoMeses);
             
-            // Aplica o cenário de mercado à taxa simulada
+            
             BigDecimal taxaAjustada = simuladorMercado.ajustarRentabilidadePorCenario(
                 taxaIndiceSimulada, cenario, produto.getTipoRentabilidade()
             );
@@ -205,15 +197,13 @@ public class SimulacaoInvestimentoService {
             return rentabilidadeBase.multiply(taxaAjustada).divide(new BigDecimal("100"), 4, RoundingMode.HALF_UP);
         }
 
-        // Para pré-fixado, ainda aplica o cenário de mercado
+        
         return simuladorMercado.ajustarRentabilidadePorCenario(
             rentabilidadeBase, cenario, produto.getTipoRentabilidade()
         );
     }
 
-    /**
-     * Calcula o valor final baseado na rentabilidade e período
-     */
+    
     private BigDecimal calcularValorFinal(BigDecimal valorInicial, BigDecimal rentabilidade,
                                           PeriodoRentabilidade periodo, int prazoMeses) {
         
@@ -221,7 +211,7 @@ public class SimulacaoInvestimentoService {
         
         switch (periodo) {
             case AO_DIA:
-                // Juros compostos diários
+                
                 int dias = prazoMeses * 30;
                 BigDecimal taxaDiaria = taxaDecimal.divide(new BigDecimal("365"), 8, RoundingMode.HALF_UP);
                 return valorInicial.multiply(
@@ -229,21 +219,21 @@ public class SimulacaoInvestimentoService {
                 );
                 
             case AO_MES:
-                // Juros compostos mensais
+                
                 BigDecimal taxaMensal = taxaDecimal.divide(new BigDecimal("12"), 6, RoundingMode.HALF_UP);
                 return valorInicial.multiply(
                     BigDecimal.ONE.add(taxaMensal).pow(prazoMeses)
                 );
                 
             case AO_ANO:
-                // Juros compostos anuais
+                
                 double anos = prazoMeses / 12.0;
                 return valorInicial.multiply(
                     BigDecimal.ONE.add(taxaDecimal).pow((int)Math.ceil(anos))
                 );
                 
             case PERIODO_TOTAL:
-                // Rentabilidade sobre o período total
+                
                 return valorInicial.multiply(BigDecimal.ONE.add(taxaDecimal));
                 
             default:
@@ -251,7 +241,7 @@ public class SimulacaoInvestimentoService {
         }
     }
 
-    // Métodos de filtro
+    
     private boolean filtrarPorNome(Produto produto, String nome)
     {
         if (produto == null) return false;
@@ -288,25 +278,21 @@ public class SimulacaoInvestimentoService {
         return produto.getMinimoDiasInvestimento() <= prazoDias;
     }
 
-    /**
-     * Compara produtos para encontrar o melhor (maior rentabilidade, menor risco)
-     */
+    
     private int compararProdutos(Produto p1, Produto p2) {
-        // Prioridade: 1. Menor risco, 2. Maior rentabilidade
+        
         int risco1 = p1.getRisco().ordinal();
         int risco2 = p2.getRisco().ordinal();
         
         if (risco1 != risco2) {
-            return Integer.compare(risco1, risco2); // Menor risco primeiro
+            return Integer.compare(risco1, risco2); 
         }
         
-        // Se mesmo risco, maior rentabilidade primeiro
+        
         return p2.getRentabilidade().compareTo(p1.getRentabilidade());
     }
 
-    /**
-     * Persiste a simulação realizada no banco de dados
-     */
+    
     private SimulacaoInvestimento persistirSimulacao(SimulacaoRequest request, 
                                                    Produto produto, 
                                                    ResultadoSimulacao resultado) {
@@ -319,29 +305,23 @@ public class SimulacaoInvestimentoService {
                 resultado
         );
         
-        // Persiste no banco
+        
         simulacaoRepository.persist(simulacao);
         
         return simulacao;
     }
 
-    /**
-     * Busca histórico de simulações de um cliente
-     */
+    
     public List<SimulacaoInvestimento> buscarSimulacoesPorCliente(Long clienteId) {
         return simulacaoRepository.findByClienteIdOrderByDate(clienteId);
     }
 
-    /**
-     * Busca uma simulação específica por ID
-     */
+    
     public SimulacaoInvestimento buscarSimulacaoPorId(Long id) {
         return simulacaoRepository.findById(id);
     }
 
-    /**
-     * Estatísticas de simulações por cliente
-     */
+    
     public record EstatisticasCliente(
             Long totalSimulacoes,
             BigDecimal totalInvestido,
@@ -360,24 +340,22 @@ public class SimulacaoInvestimentoService {
         return new EstatisticasCliente(totalSimulacoes, totalInvestido, mediaValorInvestido, ultimaSimulacao);
     }
 
-    /**
-     * Validações adicionais de regras de negócio
-     */
+    
     private void validarRegrasNegocio(SimulacaoRequest request) {
-        // Validação: se filtrar por liquidez, o valor deve ser razoável
+        
         if (request.liquidez() != null && request.liquidez() < -1) {
             throw new RuntimeException("Liquidez deve ser -1 (sem liquidos) ou o número de dias desejado.");
         }
 
 
 
-        // Validação: prazos muito longos podem ter limitações
+        
         int prazoMeses = request.getPrazoEmMeses();
-        if (prazoMeses > 240) { // Mais de 20 anos
+        if (prazoMeses > 240) { 
             throw new RuntimeException("Prazo muito longo para simulação precisa. Máximo recomendado: 20 anos (240 meses)");
         }
 
-        // Validação de consistência: se especificar índice, deve ser compatível com tipo de rentabilidade
+        
         if (request.tipoRentabilidade() != null && request.indice() != null) {
             if (request.tipoRentabilidade() == TipoRentabilidade.PRE &&
                     request.indice() != Indice.NENHUM) {

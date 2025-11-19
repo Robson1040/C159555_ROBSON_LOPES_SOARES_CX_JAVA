@@ -6,20 +6,17 @@ import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 
-/**
- * Handler específico para WebApplicationException
- * Trata erros de JSON malformado e outras exceções HTTP
- */
+
 @Provider
 public class WebApplicationExceptionHandler implements ExceptionMapper<WebApplicationException> {
 
     @Override
     public Response toResponse(WebApplicationException exception) {
-        // Log da exceção para debugging
+        
         System.err.println("WebApplicationException: " + exception.getMessage());
         exception.printStackTrace();
 
-        // Se é erro 400 (Bad Request), mantém como 400
+        
         if (exception.getResponse().getStatus() == Response.Status.BAD_REQUEST.getStatusCode()) {
             ErrorResponse errorResponse = ErrorResponse.badRequest(
                     "Dados da requisição inválidos: formato JSON incorreto"
@@ -30,7 +27,7 @@ public class WebApplicationExceptionHandler implements ExceptionMapper<WebApplic
                     .build();
         }
         
-        // Se é erro 401 (Unauthorized), retorna mensagem amigável
+        
         if (exception.getResponse().getStatus() == Response.Status.UNAUTHORIZED.getStatusCode()) {
             ErrorResponse errorResponse = ErrorResponse.unauthorized(
                     "Acesso não autorizado. É necessário fazer login para acessar este recurso."
@@ -41,7 +38,7 @@ public class WebApplicationExceptionHandler implements ExceptionMapper<WebApplic
                     .build();
         }
         
-        // Se é erro 403 (Forbidden), retorna mensagem amigável
+        
         if (exception.getResponse().getStatus() == Response.Status.FORBIDDEN.getStatusCode()) {
             ErrorResponse errorResponse = ErrorResponse.forbidden(
                     "Acesso negado. Você não possui permissão para acessar este recurso."
@@ -52,7 +49,7 @@ public class WebApplicationExceptionHandler implements ExceptionMapper<WebApplic
                     .build();
         }
         
-        // Para outros casos, verifica se é erro de parsing JSON
+        
         if (isJsonParsingError(exception)) {
             ErrorResponse errorResponse = ErrorResponse.badRequest(
                     "Formato JSON inválido"
@@ -63,7 +60,7 @@ public class WebApplicationExceptionHandler implements ExceptionMapper<WebApplic
                     .build();
         }
 
-        // Para outros WebApplicationException, mantém o status original mas com formato padronizado
+        
         ErrorResponse errorResponse = new ErrorResponse(
                 "Erro na requisição: " + exception.getMessage(),
                 exception.getResponse().getStatus()

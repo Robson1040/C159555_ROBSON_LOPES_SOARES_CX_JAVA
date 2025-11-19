@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.Year;
 
-/**
- * DTO para resposta do endpoint GET /simulacoes/por-produto-ano
- * Representa um agrupamento de simulações por produto e ano
- */
+
 public record AgrupamentoProdutoAnoDTO(
         @JsonProperty("produto")
         String produto,

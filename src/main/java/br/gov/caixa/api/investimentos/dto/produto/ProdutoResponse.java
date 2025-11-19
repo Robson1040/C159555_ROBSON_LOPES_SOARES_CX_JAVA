@@ -9,9 +9,7 @@ import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 
 import java.math.BigDecimal;
 
-/**
- * DTO para respostas de produtos
- */
+
 public record ProdutoResponse(
         Long id,
         String nome,

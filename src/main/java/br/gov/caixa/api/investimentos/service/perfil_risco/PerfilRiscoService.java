@@ -16,10 +16,7 @@ import br.gov.caixa.api.investimentos.service.cliente.ClienteService;
 
 import java.util.*;
 
-/**
- * Serviço responsável pelo cálculo do perfil de risco do cliente
- * baseado no histórico de investimentos ou simulações
- */
+
 @ApplicationScoped
 public class PerfilRiscoService {
 
@@ -37,17 +34,15 @@ public class PerfilRiscoService {
 
     @Inject
     GeradorRecomendacaoML geradorRecomendacaoML;
-    /**
-     * Calcula o perfil de risco de um cliente
-     */
+    
     public PerfilRiscoResponse calcularPerfilRisco(Long clienteId) {
-        // 1. Validar se o cliente existe
+        
         validarCliente(clienteId);
 
         List<Produto> produtos_sugeridos = new ArrayList<>();
         List<Produto> produtos = produtoRepository.listAll();
 
-        // 2. Buscar histórico de investimentos
+        
         List<Investimento> investimentos = investimentoRepository.findByClienteId(clienteId);
         List<SimulacaoInvestimento> simulacoes = simulacaoRepository.findByClienteId(clienteId);
 
@@ -71,9 +66,7 @@ public class PerfilRiscoService {
         return determinarPerfilFinal(clienteId, contarNivelRisco(produtos_sugeridos, produtos_sugeridos.getFirst().getRisco()), contarTotal(produtos_sugeridos), produtos_sugeridos.getFirst());
     }
 
-    /**
-     * Valida se o cliente existe no sistema
-     */
+    
     private void validarCliente(Long clienteId)
     {
         try {
@@ -83,9 +76,7 @@ public class PerfilRiscoService {
         }
     }
 
-    /**
-     * Determina o perfil final baseado na contagem de riscos
-     */
+    
 
     private int contarNivelRisco(List<Produto> produtos, NivelRisco nivel)
     {
@@ -118,7 +109,7 @@ public class PerfilRiscoService {
 
         int pontuacao = total == 0 ? 0 : (aparicoes * 100) / total;
 
-        // Determinar perfil pela maioria
+        
         if (produto.getRisco().equals(NivelRisco.BAIXO))
         {
             return PerfilRiscoResponse.conservador(clienteId, pontuacao);

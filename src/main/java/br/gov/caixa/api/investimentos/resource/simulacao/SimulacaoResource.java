@@ -15,18 +15,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Resource para consultar simulações de investimentos realizadas
- */
+
 @Path("/simulacoes")
 @Produces(MediaType.APPLICATION_JSON)
 @RolesAllowed({"ADMIN"})
 public class SimulacaoResource {
 
-    /**
-     * GET /simulacoes
-     * Retorna todas as simulações de investimento realizadas
-     */
+    
     @GET
     public Response listarTodasSimulacoes() {
         List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.listAll();
@@ -38,19 +33,16 @@ public class SimulacaoResource {
         return Response.ok(response).build();
     }
 
-    /**
-     * GET /simulacoes/por-produto-dia
-     * Retorna agrupamento de simulações por produto e data
-     */
+    
     @GET
     @Path("/por-produto-dia")
     public Response agruparPorProdutoEDia() {
         List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.listAll();
         
-        // Agrupa por produto e data (sem horário)
+        
         Map<String, Map<java.time.LocalDate, List<SimulacaoInvestimento>>> agrupamento = 
             simulacoes.stream()
-                .filter(s -> s != null && s.getProduto() != null && s.getDataSimulacao() != null) // Filtra simulações nulas, sem produto ou data
+                .filter(s -> s != null && s.getProduto() != null && s.getDataSimulacao() != null) 
                 .collect(Collectors.groupingBy(
                     s -> s.getProduto(),
                     Collectors.groupingBy(s -> s.getDataSimulacao().toLocalDate())
@@ -92,7 +84,7 @@ public class SimulacaoResource {
                     });
             })
             .sorted((a, b) -> {
-                // Ordena por produto e depois por data
+                
                 int produtoComparison = a.produto().compareTo(b.produto());
                 return produtoComparison != 0 ? produtoComparison : a.data().compareTo(b.data());
             })
@@ -101,16 +93,13 @@ public class SimulacaoResource {
         return Response.ok(response).build();
     }
 
-    /**
-     * GET /simulacoes/por-produto-mes
-     * Retorna agrupamento de simulações por produto e mês
-     */
+    
     @GET
     @Path("/por-produto-mes")
     public Response agruparPorProdutoEAnoMes() {
         List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.listAll();
 
-        // Agrupa por produto e ano-mês
+        
         Map<String, Map<java.time.YearMonth, List<SimulacaoInvestimento>>> agrupamento =
                 simulacoes.stream()
                         .filter(s -> s != null && s.getProduto() != null && s.getDataSimulacao() != null)
@@ -145,7 +134,7 @@ public class SimulacaoResource {
                                         somaValorFinal.divide(java.math.BigDecimal.valueOf(quantidadeSimulacoes), 2, java.math.RoundingMode.HALF_UP) :
                                         java.math.BigDecimal.ZERO;
 
-                                // Retorna DTO com YearMonth (ano e mês juntos)
+                                
                                 return new AgrupamentoProdutoMesDTO(
                                         produto,
                                         anoMes,
@@ -156,29 +145,26 @@ public class SimulacaoResource {
                             });
                 })
                 .sorted((a, b) -> {
-                    // Ordena por produto, depois por ano e mês
+                    
                     int produtoComparison = a.produto().compareTo(b.produto());
                     if (produtoComparison != 0) return produtoComparison;
-                    return a.mes().compareTo(b.mes()); // mes() retorna YearMonth
+                    return a.mes().compareTo(b.mes()); 
                 })
                 .collect(Collectors.toList());
 
         return Response.ok(response).build();
     }
 
-    /**
-     * GET /simulacoes/por-produto-ano
-     * Retorna agrupamento de simulações por produto e ano
-     */
+    
     @GET
     @Path("/por-produto-ano")
     public Response agruparPorProdutoEAno() {
         List<SimulacaoInvestimento> simulacoes = SimulacaoInvestimento.listAll();
         
-        // Agrupa por produto e ano
+        
         Map<String, Map<java.time.Year, List<SimulacaoInvestimento>>> agrupamento = 
             simulacoes.stream()
-                .filter(s -> s != null && s.getProduto() != null && s.getDataSimulacao() != null) // Filtra simulações nulas, sem produto ou data
+                .filter(s -> s != null && s.getProduto() != null && s.getDataSimulacao() != null) 
                 .collect(Collectors.groupingBy(
                     s -> s.getProduto(),
                     Collectors.groupingBy(s -> java.time.Year.from(s.getDataSimulacao()))
@@ -220,7 +206,7 @@ public class SimulacaoResource {
                     });
             })
             .sorted((a, b) -> {
-                // Ordena por produto e depois por ano
+                
                 int produtoComparison = a.produto().compareTo(b.produto());
                 return produtoComparison != 0 ? produtoComparison : a.ano().compareTo(b.ano());
             })
@@ -229,9 +215,7 @@ public class SimulacaoResource {
         return Response.ok(response).build();
     }
 
-    /**
-     * Converte SimulacaoInvestimento para o formato de resposta
-     */
+    
     private SimulacaoResponseDTO toResponseDTO(SimulacaoInvestimento simulacao) {
         return new SimulacaoResponseDTO(
                 simulacao.getId(),

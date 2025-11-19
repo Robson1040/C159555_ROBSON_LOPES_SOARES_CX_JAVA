@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * DTO para resposta do endpoint GET /simulacoes
- * Representa uma simulação de investimento
- */
+
 public record SimulacaoResponseDTO(
         @JsonProperty("id")
         Long id,

@@ -26,10 +26,7 @@ public class ProdutoResource {
     @Inject
     ProdutoService produtoService;
 
-    /**
-     * GET /produtos - Lista todos os produtos
-     * Suporta filtros opcionais via query parameters
-     */
+    
     @GET
     @RolesAllowed({"USER", "ADMIN"})
     public Response listarProdutos(
@@ -42,7 +39,7 @@ public class ProdutoResource {
     ) {
         List<ProdutoResponse> produtos;
 
-        // Aplicar filtros baseados nos query parameters
+        
         if (tipo != null) {
             produtos = produtoService.buscarPorTipo(tipo);
         } else if (tipoRentabilidade != null) {
@@ -62,9 +59,7 @@ public class ProdutoResource {
         return Response.ok(produtos).build();
     }
 
-    /**
-     * GET /produtos/{id} - Busca produto por ID
-     */
+    
     @GET
     @Path("/{id}")
     @RolesAllowed({"USER", "ADMIN"})
@@ -78,9 +73,7 @@ public class ProdutoResource {
         }
     }
 
-    /**
-     * POST /produtos - Cria um novo produto
-     */
+    
     @POST
     @RolesAllowed({"ADMIN"})
     public Response criarProduto(@Valid @NotNull ProdutoRequest request)
@@ -91,9 +84,7 @@ public class ProdutoResource {
                 .build();
     }
 
-    /**
-     * PUT /produtos/{id} - Atualiza um produto existente
-     */
+    
     @PUT
     @Path("/{id}")
     @RolesAllowed({"ADMIN"})
@@ -102,9 +93,7 @@ public class ProdutoResource {
         return Response.ok(produto).build();
     }
 
-    /**
-     * GET /produtos/count - Conta total de produtos
-     */
+    
     @GET
     @Path("/count")
     @RolesAllowed({"USER", "ADMIN"})
@@ -113,9 +102,7 @@ public class ProdutoResource {
         return Response.ok(new CountResponse(total)).build();
     }
 
-    /**
-     * Classe para resposta de contagem
-     */
+    
     public static class CountResponse {
         private long total;
 

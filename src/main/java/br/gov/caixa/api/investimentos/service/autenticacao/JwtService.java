@@ -9,24 +9,20 @@ import java.util.Set;
 @ApplicationScoped
 public class JwtService {
 
-    /**
-     * Gera token usando automaticamente a PRIVATE KEY configurada no application.properties
-     */
+    
     public String generateToken(Pessoa usuario) {
 
         return Jwt.issuer("api-investimentos-caixa")
                 .subject(usuario.getUsername())
-                .groups(Set.of(usuario.getRole()))   // vira o campo "groups" -> usado no @RolesAllowed
+                .groups(Set.of(usuario.getRole()))   
                 .claim("nome", usuario.getNome())
                 .claim("cpf", usuario.getCpf())
                 .claim("userId", usuario.getId())
-                .expiresIn(3600) // 1 hora
+                .expiresIn(3600) 
                 .sign();
     }
 
-    /**
-     * Gera token simples para testes
-     */
+    
     public String gerarToken(String email, String role) {
 
         return Jwt.issuer("api-investimentos-caixa")
@@ -38,9 +34,7 @@ public class JwtService {
                 .sign();
     }
 
-    /**
-     * Gera token para testes com userId específico
-     */
+    
     public String gerarToken(String email, String role, Long userId) {
 
         return Jwt.issuer("api-investimentos-caixa")

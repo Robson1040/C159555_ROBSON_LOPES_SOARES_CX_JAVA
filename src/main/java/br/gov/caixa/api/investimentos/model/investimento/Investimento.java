@@ -11,9 +11,7 @@ import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Entidade que representa um investimento efetivado
- */
+
 @Entity
 @Table(name = "investimento")
 public class Investimento extends PanacheEntityBase {
@@ -50,7 +48,7 @@ public class Investimento extends PanacheEntityBase {
     @Column(name = "data", nullable = false)
     private LocalDate data;
 
-    // Campos copiados do Produto para snapshot
+    
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)

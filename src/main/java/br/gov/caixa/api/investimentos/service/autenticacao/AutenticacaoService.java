@@ -22,30 +22,28 @@ public class AutenticacaoService {
     @Inject
     IPessoaRepository pessoaRepository;
 
-    /**
-     * Autentica um usuário com username e password
-     */
+    
     public LoginResponse autenticar(LoginRequest loginRequest) {
-        // Buscar usuário por username
+        
         Pessoa usuario = pessoaRepository.findByUsername(loginRequest.username());
         
         if (usuario == null) {
             throw new ClienteNotFoundException("Credenciais inválidas");
         }
 
-        // Verificar password
+        
         if (!passwordService.verifyPassword(loginRequest.password(), usuario.getPassword())) {
             throw new ClienteNotFoundException("Credenciais inválidas");
         }
 
-        // Gerar token JWT
+        
         String token = jwtService.generateToken(usuario);
         
-        // Retornar resposta com token
+        
         return new LoginResponse(
             token,
             "Bearer",
-            LocalDateTime.now().plusHours(1), // Expira em 1 hora
+            LocalDateTime.now().plusHours(1), 
             usuario.getUsername(),
             usuario.getRole()
         );

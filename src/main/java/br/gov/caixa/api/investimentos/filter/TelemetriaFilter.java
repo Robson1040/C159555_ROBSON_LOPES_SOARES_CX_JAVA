@@ -20,7 +20,7 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
-        // Armazena o tempo de início da requisição
+        
         requestContext.setProperty(START_TIME_PROPERTY, System.currentTimeMillis());
         
     }
@@ -51,17 +51,17 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
             return null;
         }
 
-        // Remove barras extras no início e fim
+        
         String cleaned = path.replaceAll("^/+", "").replaceAll("/+$", "");
 
 
 
         String[] parts = cleaned.split("/");
         if (parts.length > 0) {
-            // Monta até duas partes
+            
             StringBuilder sb = new StringBuilder("/");
             sb.append(parts[0]);
-            if (parts.length > 1 && !parts[1].matches("\\d+")) { // ignora se for número
+            if (parts.length > 1 && !parts[1].matches("\\d+")) { 
                 sb.append("/").append(parts[1]);
             }
             return sb.toString();

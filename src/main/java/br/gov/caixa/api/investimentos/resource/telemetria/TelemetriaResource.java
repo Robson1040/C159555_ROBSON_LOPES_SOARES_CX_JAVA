@@ -84,12 +84,9 @@ public class TelemetriaResource {
         }
     }
 
-    // ==================== ENDPOINTS DE LOGS DE ACESSO ====================
+    
 
-    /**
-     * GET /telemetria/acesso-logs
-     * Lista todos os logs de acesso aos endpoints
-     */
+    
     @GET
     @Path("/acesso-logs")
     @Produces(MediaType.APPLICATION_JSON)
@@ -104,10 +101,7 @@ public class TelemetriaResource {
         }
     }
 
-    /**
-     * GET /telemetria/acesso-logs/usuario/{usuarioId}
-     * Lista logs de acesso de um usuário específico
-     */
+    
     @GET
     @Path("/acesso-logs/usuario/{usuarioId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -122,10 +116,7 @@ public class TelemetriaResource {
         }
     }
 	
-    /**
-     * GET /telemetria/acesso-logs/erros
-     * Lista logs de acesso com erro (status >= 400)
-     */
+    
     @GET
     @Path("/acesso-logs/erros")
     @Produces(MediaType.APPLICATION_JSON)
@@ -140,10 +131,7 @@ public class TelemetriaResource {
         }
     }
 
-    /**
-     * GET /telemetria/acesso-logs/status/{statusCode}
-     * Lista logs por código de status HTTP
-     */
+    
     @GET
     @Path("/acesso-logs/status/{statusCode}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -158,10 +146,7 @@ public class TelemetriaResource {
         }
     }
 
-    /**
-     * GET /telemetria/acesso-logs/estatisticas
-     * Retorna estatísticas dos logs de acesso
-     */
+    
     @GET
     @Path("/acesso-logs/estatisticas")
     @Produces(MediaType.APPLICATION_JSON)
@@ -176,10 +161,7 @@ public class TelemetriaResource {
         }
     }
 
-    /**
-     * DELETE /telemetria/acesso-logs
-     * Limpa todos os logs de acesso
-     */
+    
     @DELETE
     @Path("/acesso-logs")
     @Produces(MediaType.APPLICATION_JSON)
@@ -194,10 +176,7 @@ public class TelemetriaResource {
         }
     }
 
-    /**
-     * DELETE /telemetria/acesso-logs/antigos/{diasRetencao}
-     * Limpa logs com mais de N dias
-     */
+    
     @DELETE
     @Path("/acesso-logs/antigos/{diasRetencao}")
     @Produces(MediaType.APPLICATION_JSON)

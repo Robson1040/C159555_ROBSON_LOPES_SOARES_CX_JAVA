@@ -11,9 +11,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class ProdutoMapper {
 
-    /**
-     * Converte uma entidade Produto para ProdutoResponse
-     */
+    
     public ProdutoResponse toResponse(Produto produto) {
         if (produto == null) {
             return null;
@@ -34,24 +32,20 @@ public class ProdutoMapper {
         );
     }
 
-    /**
-     * Converte uma lista de entidades Produto para uma lista de ProdutoResponse
-     */
+    
     public List<ProdutoResponse> toResponseList(List<Produto> produtos) {
         if (produtos == null) {
             return null;
         }
 
-        // Filtrar itens null que podem vir do Hibernate
+        
         return produtos.stream()
                 .filter(produto -> produto != null)
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Converte um ProdutoRequest para entidade Produto
-     */
+    
     public Produto toEntity(ProdutoRequest request) {
         if (request == null) {
             return null;
@@ -70,9 +64,7 @@ public class ProdutoMapper {
         );
     }
 
-    /**
-     * Atualiza uma entidade Produto existente com dados de um ProdutoRequest
-     */
+    
     public void updateEntityFromRequest(Produto produto, ProdutoRequest request) {
         if (produto == null || request == null) {
             return;

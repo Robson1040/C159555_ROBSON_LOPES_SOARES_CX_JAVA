@@ -9,10 +9,7 @@ import br.gov.caixa.api.investimentos.validation.ValidPrazo;
 
 import java.math.BigDecimal;
 
-/**
- * DTO para simulação de investimento
- * Todos os campos de filtro são opcionais, exceto clienteId e valor
- */
+
 @ValidPrazo
 public record SimulacaoRequest(
         @NotNull(message = "ID do cliente é obrigatório")
@@ -27,7 +24,7 @@ public record SimulacaoRequest(
         @DecimalMax(value = "999999999.99", message = "Valor máximo de investimento é R$ 999.999.999,99")
         BigDecimal valor,
 
-        // Prazo - apenas um dos três pode ser informado
+        
         @JsonProperty("prazoMeses")
         @Min(value = 1, message = "Prazo em meses deve ser no mínimo 1")
         @Max(value = 600, message = "Prazo em meses deve ser no máximo 600 (50 anos)")
@@ -43,7 +40,7 @@ public record SimulacaoRequest(
         @Max(value = 50, message = "Prazo em anos deve ser no máximo 50")
         Integer prazoAnos,
 
-        // Filtros opcionais do produto
+        
         @JsonProperty("tipoProduto")
         TipoProduto tipoProduto,
 
@@ -56,43 +53,37 @@ public record SimulacaoRequest(
         Indice indice,
 
         @JsonProperty("liquidez")
-        //@NotNull(message = "Liquidez é obrigatória")
+        
         @Min(value = -1, message = "Liquidez deve ser -1 (sem liquidez) ou >= 0")
         Integer liquidez,
 
         Boolean fgc
 ) {
-    /**
-     * Calcula o prazo em dias baseado no campo informado
-     * @return prazo em dias
-     */
+    
     public int getPrazoEmDias() {
         if (prazoDias != null && prazoDias > 0) {
             return prazoDias;
         }
         if (prazoMeses != null && prazoMeses > 0) {
-            return prazoMeses * 30; // Aproximação
+            return prazoMeses * 30; 
         }
         if (prazoAnos != null && prazoAnos > 0) {
-            return prazoAnos * 365; // Aproximação
+            return prazoAnos * 365; 
         }
-        return 365; // Default 1 ano
+        return 365; 
     }
 
-    /**
-     * Calcula o prazo em meses baseado no campo informado
-     * @return prazo em meses
-     */
+    
     public int getPrazoEmMeses() {
         if (prazoMeses != null && prazoMeses > 0) {
             return prazoMeses;
         }
         if (prazoDias != null && prazoDias > 0) {
-            return Math.max(1, prazoDias / 30); // Pelo menos 1 mês
+            return Math.max(1, prazoDias / 30); 
         }
         if (prazoAnos != null && prazoAnos > 0) {
             return prazoAnos * 12;
         }
-        return 12; // Default 1 ano
+        return 12; 
     }
 }

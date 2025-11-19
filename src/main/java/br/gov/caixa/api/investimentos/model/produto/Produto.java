@@ -68,13 +68,13 @@ public class Produto extends PanacheEntityBase {
     @Transient
     private double pontuacao;
 
-    // Construtor padrão
+    
     public Produto()
     {
         this.pontuacao = 0;
     }
 
-    // Construtor com parâmetros
+    
     public Produto(String nome, TipoProduto tipo, TipoRentabilidade tipoRentabilidade,
                    BigDecimal rentabilidade, PeriodoRentabilidade periodoRentabilidade,
                    Indice indice, Integer liquidez, Integer minimoDiasInvestimento, Boolean fgc) {
@@ -93,7 +93,7 @@ public class Produto extends PanacheEntityBase {
 
 
 
-    // Getters e Setters
+    
     public Long getId() {
         return id;
     }
@@ -176,7 +176,7 @@ public class Produto extends PanacheEntityBase {
 
 	public NivelRisco getRisco() 
 	{
-		// --- 1. Regras Absolutas ---
+		
 		if (tipo == TipoProduto.TESOURO_DIRETO
 				|| tipo == TipoProduto.POUPANCA) {
 			return NivelRisco.BAIXO;
@@ -192,7 +192,7 @@ public class Produto extends PanacheEntityBase {
 			return NivelRisco.BAIXO;
 		}
 
-		// --- 2. Regras Absolutas Específicas (CDB com FGC) ---
+		
 		if (tipo == TipoProduto.CDB && Boolean.TRUE.equals(fgc)) {
 			if (tipoRentabilidade == TipoRentabilidade.POS && indice == Indice.CDI) {
 				return NivelRisco.BAIXO;
@@ -202,17 +202,17 @@ public class Produto extends PanacheEntityBase {
 			}
 		}
 
-		// --- 3. Pontuação Geral Dinâmica Ajustada ---
+		
 		int p = 0;
 
-		// === 3.1 Risco do emissor ===
+		
 		if (Boolean.TRUE.equals(fgc)) {
-			p += 0; // maior redução para produtos com FGC
+			p += 0; 
 		} else {
-			p += 20; // sem FGC aumenta risco
+			p += 20; 
 		}
 
-		// === 3.2 Indexador ===
+		
 		if (tipo == TipoProduto.CDB)
 		{
 			if (tipoRentabilidade == TipoRentabilidade.POS) 
@@ -229,7 +229,7 @@ public class Produto extends PanacheEntityBase {
 			p += 5;
 		}
 
-		// === 3.3 Liquidez (peso menor) ===
+		
 		if (liquidez != null) {
 			if (liquidez <= 0)         p += 0;
 			else if (liquidez <= 30)   p += 2;
@@ -237,14 +237,14 @@ public class Produto extends PanacheEntityBase {
 			else                       p += 10;
 		}
 
-		// === 3.4 Prazo mínimo (peso menor) ===
+		
 		if (minimoDiasInvestimento != null && minimoDiasInvestimento > 0) {
 			if (minimoDiasInvestimento <= 30)       p += 0;
 			else if (minimoDiasInvestimento <= 180) p += 5;
 			else                                    p += 10;
 		}
 
-		// --- 4. Faixas Finais Ajustadas ---
+		
 		if (p <= 15) return NivelRisco.BAIXO;
 		if (p <= 35) return NivelRisco.MEDIO;
 		return NivelRisco.ALTO;

@@ -30,25 +30,21 @@ public class InvestimentoResource {
     @Inject
     JwtAuthorizationHelper authHelper;
 
-    /**
-     * POST /investimentos - registra um novo investimento
-     */
+    
     @POST
     public Response criar(@Valid @NotNull InvestimentoRequest request) {
-        // Verificar se o usuário pode criar investimento para o cliente especificado
+        
         authHelper.validarAcessoAoCliente(jwt, request.clienteId());
         
         InvestimentoResponse response = investimentoService.criar(request);
         return Response.status(Response.Status.CREATED).entity(response).build();
     }
 
-    /**
-     * GET /investimentos/{clienteId} - busca todos os investimentos de um cliente
-     */
+    
     @GET
     @Path("/{clienteId}")
     public Response buscarPorCliente(@PathParam("clienteId") @NotNull Long clienteId) {
-        // Verificar se o usuário pode acessar os investimentos do cliente especificado
+        
         authHelper.validarAcessoAoCliente(jwt, clienteId);
         
         List<InvestimentoResponse> investimentos = investimentoService.buscarPorCliente(clienteId);

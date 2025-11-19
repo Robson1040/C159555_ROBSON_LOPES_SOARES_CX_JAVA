@@ -3,9 +3,7 @@ package br.gov.caixa.api.investimentos.dto.telemetria;
 
 import java.time.LocalDateTime;
 
-/**
- * DTO para exibição de logs de acesso
- */
+
 public record AcessoLogDTO(
     Long id,
     Long usuarioId,

@@ -9,9 +9,7 @@ import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * DTO de resposta após criação de Investimento
- */
+
 public record InvestimentoResponse(
         Long id,
         @JsonProperty("clienteId") Long clienteId,

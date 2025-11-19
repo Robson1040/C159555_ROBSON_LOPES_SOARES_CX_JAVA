@@ -6,20 +6,17 @@ import jakarta.ws.rs.ext.Provider;
 import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 import br.gov.caixa.api.investimentos.exception.auth.AccessDeniedException;
 
-/**
- * Handler global para RuntimeExceptions gerais
- * Trata erros de regras de negócio e exceções não mapeadas
- */
+
 @Provider
 public class BusinessExceptionHandler implements ExceptionMapper<RuntimeException> {
 
     @Override
     public Response toResponse(RuntimeException exception) {
-        // Log da exceção para debugging
+        
         System.err.println("BusinessException: " + exception.getMessage());
         exception.printStackTrace();
 
-        // Identifica tipo de erro baseado na exceção específica
+        
         if (exception instanceof AccessDeniedException) {
             return createForbiddenResponse(exception);
         } else if (isValidationError(exception)) {

@@ -10,10 +10,7 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * Entidade para persistir simulações de investimento realizadas
- * Armazena o histórico completo de todas as simulações feitas pelos clientes
- */
+
 @Entity
 @Table(name = "simulacao_investimento")
 public class SimulacaoInvestimento extends PanacheEntityBase {
@@ -71,12 +68,12 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
     @Column(name = "cenario_simulacao", length = 500)
     private String cenarioSimulacao;
 
-    // Construtor padrão
+    
     public SimulacaoInvestimento() {
         this.dataSimulacao = LocalDateTime.now();
     }
 
-    // Construtor com parâmetros principais
+    
     public SimulacaoInvestimento(Long clienteId, Long produtoId, String produto, BigDecimal valorInvestido,
                                BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias, 
                                Integer prazoAnos) {
@@ -91,7 +88,7 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
         this.setPrazoAnos(prazoAnos);
     }
 
-    // Construtor completo
+    
     public SimulacaoInvestimento(Long clienteId, Long produtoId, String produto, BigDecimal valorInvestido,
                                BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias,
                                Integer prazoAnos, BigDecimal rentabilidadeEfetiva, 

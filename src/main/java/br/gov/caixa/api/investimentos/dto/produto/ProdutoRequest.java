@@ -10,9 +10,7 @@ import br.gov.caixa.api.investimentos.validation.ValidRentabilidadeIndice;
 
 import java.math.BigDecimal;
 
-/**
- * DTO para requisições de criação/atualização de produtos
- */
+
 @ValidRentabilidadeIndice
 public record ProdutoRequest(
         @NotBlank(message = "Nome é obrigatório")

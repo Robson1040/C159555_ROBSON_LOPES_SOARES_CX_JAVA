@@ -24,17 +24,13 @@ public class ProdutoService {
     @Inject
     IProdutoRepository produtoRepository;
 
-    /**
-     * Lista todos os produtos
-     */
+    
     public List<ProdutoResponse> listarTodos() {
         List<Produto> produtos = produtoRepository.listAll();
         return produtoMapper.toResponseList(produtos);
     }
 
-    /**
-     * Busca produto por ID
-     */
+    
     public Optional<ProdutoResponse> buscarPorId(Long id) {
         if (id == null) {
             return Optional.empty();
@@ -44,9 +40,7 @@ public class ProdutoService {
                 .map(produtoMapper::toResponse);
     }
 
-    /**
-     * Busca produtos por tipo
-     */
+    
     public List<ProdutoResponse> buscarPorTipo(TipoProduto tipo) {
         if (tipo == null) {
             return List.of();
@@ -56,9 +50,7 @@ public class ProdutoService {
         return produtoMapper.toResponseList(produtos);
     }
 
-    /**
-     * Busca produtos por tipo de rentabilidade
-     */
+    
     public List<ProdutoResponse> buscarPorTipoRentabilidade(TipoRentabilidade tipoRentabilidade) {
         if (tipoRentabilidade == null) {
             return List.of();
@@ -68,33 +60,25 @@ public class ProdutoService {
         return produtoMapper.toResponseList(produtos);
     }
 
-    /**
-     * Busca produtos protegidos pelo FGC
-     */
+    
     public List<ProdutoResponse> buscarProdutosComFgc() {
         List<Produto> produtos = produtoRepository.findByFgc(true);
         return produtoMapper.toResponseList(produtos);
     }
 
-    /**
-     * Busca produtos com liquidez imediata (0 dias)
-     */
+    
     public List<ProdutoResponse> buscarProdutosComLiquidezImediata() {
         List<Produto> produtos = produtoRepository.findComLiquidezImediata();
         return produtoMapper.toResponseList(produtos);
     }
 
-    /**
-     * Busca produtos sem liquidez
-     */
+    
     public List<ProdutoResponse> buscarProdutosSemLiquidez() {
         List<Produto> produtos = produtoRepository.findSemLiquidez();
         return produtoMapper.toResponseList(produtos);
     }
 
-    /**
-     * Busca produtos por nome (busca parcial)
-     */
+    
     public List<ProdutoResponse> buscarPorNome(String nome) {
         if (nome == null || nome.trim().isEmpty()) {
             return List.of();
@@ -104,9 +88,7 @@ public class ProdutoService {
         return produtoMapper.toResponseList(produtos);
     }
 
-    /**
-     * Cria um novo produto
-     */
+    
     @Transactional
     public ProdutoResponse criar(ProdutoRequest request) {
         if (request == null) {
@@ -126,9 +108,7 @@ public class ProdutoService {
         return produtoMapper.toResponse(produto);
     }
 
-    /**
-     * Atualiza um produto existente
-     */
+    
     @Transactional
     public ProdutoResponse atualizar(Long id, ProdutoRequest request) {
         if (id == null) {
@@ -151,9 +131,7 @@ public class ProdutoService {
         return produtoMapper.toResponse(produto);
     }
 
-    /**
-     * Remove um produto
-     */
+    
     @Transactional
     public void remover(Long id) {
         if (id == null) {
@@ -166,9 +144,7 @@ public class ProdutoService {
         }
     }
 
-    /**
-     * Verifica se existe produto com ID
-     */
+    
     public boolean existePorId(Long id) {
         if (id == null) {
             return false;
@@ -176,38 +152,32 @@ public class ProdutoService {
         return produtoRepository.findByIdOptional(id).isPresent();
     }
 
-    /**
-     * Conta total de produtos
-     */
+    
     public long contarTodos() {
         return produtoRepository.count();
     }
 
-    /**
-     * Remove todos os produtos (para testes)
-     */
+    
     @Transactional
     public void limparTodos() {
         produtoRepository.deleteAll();
     }
 
-    /**
-     * Validações de negócio específicas
-     */
+    
     private void validarDadosProduto(ProdutoRequest request) {
-        // Validação: Se for pós-fixado, deve ter um índice válido (não null e diferente de NENHUM)
+        
         if (request.tipoRentabilidade() == TipoRentabilidade.POS && 
             (request.indice() == null || request.indice().name().equals("NENHUM"))) {
             throw new IllegalArgumentException("Produtos pós-fixados devem ter um índice válido");
         }
 
-        // Validação: Se for pré-fixado, o índice deve ser null ou NENHUM
+        
         if (request.tipoRentabilidade() == TipoRentabilidade.PRE && 
             request.indice() != null && !request.indice().name().equals("NENHUM")) {
             throw new IllegalArgumentException("Produtos pré-fixados não devem ter índice");
         }
 
-        // Validação: Liquidez deve ser -1 ou >= 0
+        
         if (request.liquidez() < -1) {
             throw new IllegalArgumentException("Liquidez deve ser -1 (sem liquidez) ou >= 0");
         }

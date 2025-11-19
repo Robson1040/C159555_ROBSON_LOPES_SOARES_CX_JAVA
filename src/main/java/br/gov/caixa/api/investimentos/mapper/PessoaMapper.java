@@ -12,9 +12,7 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class PessoaMapper {
 
-    /**
-     * Converte uma entidade Pessoa para ClienteResponse
-     */
+    
     public ClienteResponse toClienteResponse(Pessoa pessoa) {
         if (pessoa == null) {
             return null;
@@ -29,9 +27,7 @@ public class PessoaMapper {
         );
     }
 
-    /**
-     * Converte uma lista de entidades Pessoa para uma lista de ClienteResponse
-     */
+    
     public List<ClienteResponse> toClienteResponseList(List<Pessoa> pessoas) {
         if (pessoas == null) {
             return null;
@@ -43,9 +39,7 @@ public class PessoaMapper {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Converte um ClienteRequest para entidade Pessoa
-     */
+    
     public Pessoa toEntity(ClienteRequest request) {
         if (request == null) {
             return null;
@@ -60,9 +54,7 @@ public class PessoaMapper {
         );
     }
 
-    /**
-     * Atualiza uma entidade Pessoa existente com dados de um ClienteUpdateRequest
-     */
+    
     public void updateEntityFromRequest(Pessoa pessoa, ClienteUpdateRequest request) {
         if (pessoa == null || request == null) {
             return;

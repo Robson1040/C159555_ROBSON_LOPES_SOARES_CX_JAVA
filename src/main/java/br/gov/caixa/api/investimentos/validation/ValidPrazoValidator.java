@@ -5,21 +5,18 @@ import jakarta.validation.ConstraintValidatorContext;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 
-/**
- * Implementação da validação customizada para prazo.
- * Agora reutilizável para SimulacaoRequest e InvestimentoRequest.
- */
+
 public class ValidPrazoValidator implements ConstraintValidator<ValidPrazo, Object> {
 
     @Override
     public void initialize(ValidPrazo constraintAnnotation) {
-        // Nenhuma inicialização necessária
+        
     }
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         if (value == null) {
-            return true; // @NotNull deve tratar null quando aplicável
+            return true; 
         }
 
         Integer prazoMeses = null;
@@ -35,7 +32,7 @@ public class ValidPrazoValidator implements ConstraintValidator<ValidPrazo, Obje
             prazoDias = req.prazoDias();
             prazoAnos = req.prazoAnos();
         } else {
-            // Tipo não suportado, consideramos válido para não quebrar outros usos
+            
             return true;
         }
 

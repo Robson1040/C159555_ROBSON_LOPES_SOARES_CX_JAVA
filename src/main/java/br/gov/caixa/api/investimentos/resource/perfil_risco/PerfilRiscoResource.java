@@ -10,9 +10,7 @@ import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
 import br.gov.caixa.api.investimentos.service.perfil_risco.PerfilRiscoService;
 
-/**
- * Resource REST para operações relacionadas ao perfil de risco do cliente
- */
+
 @Path("/perfil-risco")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -22,16 +20,7 @@ public class PerfilRiscoResource {
     @Inject
     PerfilRiscoService perfilRiscoService;
 
-    /**
-     * GET /perfil-risco/{clienteId} - Calcula e retorna o perfil de risco do cliente
-     * 
-     * O perfil é calculado baseado no histórico de investimentos do cliente.
-     * Se não houver investimentos, usa o histórico de simulações.
-     * Se não houver nenhum histórico, retorna erro 400.
-     * 
-     * @param clienteId ID do cliente para calcular o perfil
-     * @return PerfilRiscoResponse com perfil, pontuação e descrição
-     */
+    
     @GET
     @Path("/{clienteId}")
     public Response calcularPerfilRisco(@PathParam("clienteId") Long clienteId) {

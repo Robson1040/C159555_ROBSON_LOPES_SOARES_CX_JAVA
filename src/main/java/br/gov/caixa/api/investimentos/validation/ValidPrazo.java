@@ -5,10 +5,7 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-/**
- * Validação customizada para garantir que pelo menos um campo de prazo seja informado
- * na SimulacaoRequest (prazoMeses, prazoDias ou prazoAnos)
- */
+
 @Documented
 @Constraint(validatedBy = ValidPrazoValidator.class)
 @Target({ElementType.TYPE})

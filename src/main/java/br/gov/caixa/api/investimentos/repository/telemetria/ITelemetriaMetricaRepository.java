@@ -7,9 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Interface para operações de banco de dados da entidade TelemetriaMetrica
- */
+
 public interface ITelemetriaMetricaRepository extends PanacheRepository<TelemetriaMetrica> {
 
     TelemetriaMetrica findByEndpoint(String endpoint);
