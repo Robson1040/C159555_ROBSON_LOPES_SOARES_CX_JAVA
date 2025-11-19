@@ -485,12 +485,6 @@ Content-Type: application/json
 - **GeradorRecomendacaoML**: Algoritmo de machine learning
 - **ProdutoMapper**: Conversão entidade → DTO
 
-### Performance
-
-- **Cache**: Não implementado (consulta sempre atualizada)
-- **ML Processing**: Pode ser intensivo com histórico extenso
-- **Database Queries**: Múltiplas consultas por request
-- **Complexidade**: O(n) onde n = tamanho do histórico
 
 ---
 

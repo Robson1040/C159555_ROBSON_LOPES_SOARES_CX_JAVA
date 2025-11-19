@@ -55,7 +55,7 @@
 - [**MACHINE_LEARNING**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **Recomendação com Distância Euclidiana com 8 dimensões**
     - Algoritmo avançado de recomendação personalizada de produtos
     - Análise multidimensional com 8 características financeiras
-    - Aprendizado baseado em histórico real de investimentos
+    - Aprendizado baseado em histórico real de investimentos ou simulações
 	
 ### Endpoints com Machine Learning
 - [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid)

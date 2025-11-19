@@ -2,9 +2,6 @@
 
 ## Legenda
 - ✅ **Completo** - Requisito 100% implementado e testado
-- ⚠️ **Parcial** - Requisito com 90%+ implementado
-- ❌ **Não Implementado** - Requisito não abordado
-- 🔄 **Em Progresso** - Trabalho em andamento
 
 ---
 

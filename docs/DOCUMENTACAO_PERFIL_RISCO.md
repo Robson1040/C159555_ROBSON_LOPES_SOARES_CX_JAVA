@@ -328,13 +328,6 @@ O endpoint depende de:
 - **ProdutoRepository**: Informações dos produtos e riscos
 - **GeradorRecomendacaoML**: Algoritmo de machine learning
 
-### Performance
-
-- Consultas ao banco para histórico
-- Processamento ML pode ser intensivo
-- Cache não implementado (recalcula sempre)
-- Complexidade cresce com volume de histórico
-
 ---
 
 ## Exemplos de Uso
