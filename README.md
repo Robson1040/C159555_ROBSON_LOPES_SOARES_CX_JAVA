@@ -15,8 +15,14 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
 3. Autentique-se na API:
    - [**Autenticação**](docs/DOCUMENTACAO_AUTENTICACAO.md#1-post-entrar)
 
-4. Explore nossa documentação ou vá direto ao Postman:
+4. Explore nossa documentação abaixo ou explore a API pelo Postman:
    - [**Collection do Postman**](./API-INVESTIMENTOS-CAIXA.postman_collection.json)
+
+##  Evidências
+
+   Confira as evidências de funcionamento, relatório de testes e análise do SONAR na pasta
+   - [**EVIDENCIAS**](./evidencias)
+
 
 ##  Funcionalidades e Documentações da API
 
