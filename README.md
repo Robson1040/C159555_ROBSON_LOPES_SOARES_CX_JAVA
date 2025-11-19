@@ -16,6 +16,7 @@
    - [**Autenticação**](docs/DOCUMENTACAO_AUTENTICACAO.md#1-post-entrar)
 
 4. Explore nossa documentação abaixo ou explore a API pelo Postman:
+   - [**Documentação**](#funcionalidades-e-documentações-da-api)
    - [**Collection do Postman**](./API-INVESTIMENTOS-CAIXA.postman_collection.json)
 
 ##  Evidências
