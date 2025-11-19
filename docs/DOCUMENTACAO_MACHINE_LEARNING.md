@@ -9,7 +9,7 @@
 3. [Arquitetura do Algoritmo](#-arquitetura-do-algoritmo)
 4. [Implementação Técnica](#-implementação-técnica)
 7. [Validação Científica](#-validação-científica)
-8. [Endpoints com Machine Learning](#-endpoints-com-machine-learning)
+8. [Endpoints com Machine Learning](#endpoints-com-machine-learning)
 
 ---
 
