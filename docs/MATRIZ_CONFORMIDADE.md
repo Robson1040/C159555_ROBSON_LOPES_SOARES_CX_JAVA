@@ -376,24 +376,13 @@ Conformidade Final:         █████████████████�
   GET /perfil-risco/{clienteId}                         
                                                          
  Perfis Calculados:                                      
-  ✓ CONSERVADOR (0-35 pts)   - Baixo risco/liquidez   
-  ✓ MODERADO (35-65 pts)     - Equilíbrio             
-  ✓ AGRESSIVO (65-100 pts)   - Alto retorno/risco     
-                                                         
- Fatores de Cálculo:                                     
-  ✓ Liquidez (25%)                                      
-  ✓ Rentabilidade (25%)                                
-  ✓ Volume investido (20%)                             
-  ✓ Frequência movimentações (15%)                     
-  ✓ Garantia FGC (10%)                                 
-  ✓ Variação tipo produto (5%)                        
-                                                         
+  ✓ CONSERVADOR 
+  ✓ MODERADO          
+  ✓ AGRESSIVO                      
+                                                        
  Fonte de Dados (prioridade):                            
   1. Investimentos reais (histórico)                    
-  2. Simulações (se sem investimentos)                  
-                                                         
- Teste: PerfilRiscoServiceTest (5+ casos)             
-       PerfilRiscoResourceIntegrationTest              
+  2. Simulações (se sem investimentos)
 └─────────────────────────────────────────────────────────┘
 ```
 

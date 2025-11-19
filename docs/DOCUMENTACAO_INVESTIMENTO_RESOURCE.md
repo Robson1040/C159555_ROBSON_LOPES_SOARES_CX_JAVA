@@ -211,6 +211,7 @@ Content-Type: application/json
 | **400** | Bad Request | Validações falharam, regras de negócio violadas (ex: ausência de prazo válido, valor fora dos limites) |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Usuário não autorizado a criar investimento para o cliente informado |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno do sistema |
 
 #### Mensagens de Erro Possíveis
@@ -255,6 +256,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Usuário não autorizado a visualizar os investimentos deste cliente |
 | **404** | Not Found | Cliente não encontrado (dependendo da implementação do serviço) |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno do sistema |
 
 #### Mensagens de Erro Possíveis

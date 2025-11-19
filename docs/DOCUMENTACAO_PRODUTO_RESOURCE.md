@@ -426,6 +426,7 @@ Content-Type: application/json
 | **200** | OK | Consulta executada com sucesso (mesmo se retornar lista vazia) |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Role não autorizada |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno do sistema |
 
 #### Mensagens de Erro Possíveis
@@ -453,6 +454,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Role não autorizada |
 | **404** | Not Found | Produto não encontrado |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno |
 
 #### Mensagens de Erro Possíveis
@@ -479,6 +481,7 @@ Content-Type: application/json
 | **400** | Bad Request | Validações falharam, dados inválidos |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Role não é ADMIN |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno |
 
 #### Mensagens de Erro Possíveis
@@ -532,6 +535,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Role não é ADMIN |
 | **404** | Not Found | Produto não encontrado para atualizar |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno |
 
 #### Mensagens de Erro Possíveis
@@ -557,6 +561,7 @@ Content-Type: application/json
 | **200** | OK | Contagem obtida com sucesso |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Role não autorizada |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno |
 
 ---
@@ -573,6 +578,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token inválido | Todos |
 | **403** | Forbidden | Role não autorizada | Todos |
 | **404** | Not Found | Produto não encontrado | GET /{id}, PUT |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno | Todos |
 
 ### Categorias de Mensagens de Erro

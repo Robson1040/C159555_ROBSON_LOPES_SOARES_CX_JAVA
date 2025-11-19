@@ -123,9 +123,9 @@ Content-Type: application/json
 Retorna todos os produtos adequados para um perfil de risco específico. Não requer histórico do cliente, sendo baseado apenas na classificação de risco dos produtos disponíveis.
 
 #### Perfis Aceitos
-- **conservador**: Produtos de risco BAIXO (garantidos pelo FGC)
-- **moderado**: Produtos de risco MÉDIO (renda fixa sem FGC)
-- **agressivo**: Produtos de risco ALTO (renda variável sem FGC)
+- **conservador**: Produtos de risco BAIXO 
+- **moderado**: Produtos de risco MÉDIO 
+- **agressivo**: Produtos de risco ALTO 
 
 #### Autenticação
 - **Token JWT:** OBRIGATÓRIO
@@ -234,6 +234,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | USER tentando acessar dados de outro cliente |
 | **404** | Not Found | Cliente não encontrado |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno do sistema |
 
 #### Mensagens de Erro Possíveis
@@ -306,6 +307,7 @@ Content-Type: application/json
 | **400** | Bad Request | Perfil inválido |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Role não autorizada |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno do sistema |
 
 #### Mensagens de Erro Possíveis
@@ -369,6 +371,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token ausente/inválido | Ambos |
 | **403** | Forbidden | Sem permissão | Ambos |
 | **404** | Not Found | Cliente não encontrado | GET /cliente/{clienteId} apenas |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno | Ambos |
 
 ### Categorias de Mensagens de Erro
@@ -424,15 +427,14 @@ Content-Type: application/json
 
 ### Mapeamento de Perfis
 
-| Perfil | Nível de Risco | Características | Produtos Típicos |
-|--------|----------------|----------------|------------------|
-| **Conservador** | BAIXO | Garantia FGC, baixa volatilidade | CDB, LCI, LCA, Poupança, Tesouro Direto |
-| **Moderado** | MÉDIO | Renda fixa sem FGC | Debêntures, CRI, Fundos DI |
-| **Agressivo** | ALTO | Renda variável, alta volatilidade | Ações, FII, Fundos Multimercado, ETFs |
+| Perfil | Nível de Risco |
+|--------|----------------|
+| **Conservador** | BAIXO |
+| **Moderado** | MÉDIO | 
+| **Agressivo** | ALTO |
 
 ### Tipos de Produtos Disponíveis
 
-#### Renda Fixa (Baixo/Médio Risco)
 - **CDB**: Certificado de Depósito Bancário
 - **LCI**: Letra de Crédito Imobiliário
 - **LCA**: Letra de Crédito do Agronegócio
@@ -440,8 +442,6 @@ Content-Type: application/json
 - **POUPANCA**: Caderneta de Poupança
 - **DEBENTURE**: Debêntures corporativas
 - **CRI**: Certificado de Recebíveis Imobiliários
-
-#### Renda Variável (Alto Risco)
 - **FUNDO**: Fundos de Investimento
 - **FII**: Fundos de Investimento Imobiliário
 - **ACAO**: Ações de empresas

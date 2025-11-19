@@ -359,6 +359,7 @@ Content-Type: application/json
 | **200** | OK | Consulta executada com sucesso |
 | **401** | Unauthorized | Token JWT ausente, inválido ou expirado |
 | **403** | Forbidden | Role diferente de ADMIN ou token sem permissões |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno do sistema ou banco de dados |
 
 #### Mensagens de Erro Possíveis
@@ -437,6 +438,7 @@ Content-Type: application/json
 | **200** | OK | Consulta bem-sucedida | ✅ |
 | **401** | Unauthorized | Token ausente/inválido | ✅ |
 | **403** | Forbidden | Role não autorizada (não-ADMIN) | ✅ |
+| **429** | Too Many Requests | Rate Limit | ✅ |
 | **500** | Internal Server Error | Erro interno/banco | ✅ |
 
 ### Categorias de Mensagens de Erro

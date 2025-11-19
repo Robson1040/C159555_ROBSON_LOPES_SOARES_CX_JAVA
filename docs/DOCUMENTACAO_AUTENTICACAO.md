@@ -292,6 +292,7 @@ curl -X POST http://localhost:9090/entrar \
 | **200** | OK | Sucesso | Login realizado com sucesso |
 | **400** | Bad Request | Dados inválidos | JSON malformado, validações falharam |
 | **401** | Unauthorized | Não autorizado | Credenciais inválidas |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno | Falha no servidor/banco |
 
 ### Mensagens de Erro por Categoria

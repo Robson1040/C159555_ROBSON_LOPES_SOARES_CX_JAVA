@@ -261,6 +261,7 @@ Content-Type: application/json
 | **200** | OK | Telemetria obtida com sucesso |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Usuário não é ADMIN |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro no serviço/banco |
 
 #### Mensagens de Erro Possíveis
@@ -303,6 +304,7 @@ Content-Type: application/json
 | **200** | OK | Telemetria detalhada obtida |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Usuário não é ADMIN |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro no banco/repository |
 
 #### Mensagens de Erro Possíveis
@@ -346,6 +348,7 @@ Content-Type: application/json
 | **400** | Bad Request | Parâmetro limite inválido |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Usuário não é ADMIN |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro na consulta |
 
 #### Mensagens de Erro Possíveis
@@ -397,6 +400,7 @@ Content-Type: application/json
 | **204** | No Content | Métricas limpas com sucesso |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Usuário não é ADMIN |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro na operação de limpeza |
 
 #### Mensagens de Erro Possíveis
@@ -442,6 +446,7 @@ Content-Type: application/json
 | **400** | Bad Request | Parâmetros inválidos | GET /telemetria/mais-acessados/{limite} |
 | **401** | Unauthorized | Token ausente/inválido | Todos os endpoints |
 | **403** | Forbidden | Usuário não é ADMIN | Todos os endpoints |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erros internos | Todos os endpoints |
 
 ### Categorias de Mensagens de Erro

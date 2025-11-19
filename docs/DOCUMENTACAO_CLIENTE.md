@@ -627,6 +627,7 @@ curl -X PUT http://localhost:9090/clientes/1 \
 | **403** | Forbidden | Sem permissão | Todos autenticados |
 | **404** | Not Found | Recurso não encontrado | GET por ID, CPF, username |
 | **409** | Conflict | Dados duplicados | POST, PUT |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno | Todos |
 
 ### Mensagens de Erro por Categoria

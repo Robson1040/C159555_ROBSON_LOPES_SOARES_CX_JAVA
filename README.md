@@ -1,6 +1,6 @@
 #  API-INVESTIMENTOS-CAIXA - C159555
 
-Este é o índice principal da documentação da API de Investimentos da Caixa. Aqui você encontrará todos os recursos, funcionalidades e guias organizados por categoria.
+
 
 ##  Por Onde Começar
 
@@ -20,44 +20,48 @@ Este é o índice principal da documentação da API de Investimentos da Caixa. 
 
 ##  Evidências
 
-   Confira as evidências de funcionamento, relatório de testes e análise do SONAR na pasta
-   - [**EVIDENCIAS**](./evidencias)
+   Confira as evidências de funcionamento, relatório de testes e análise do SONAR na pasta: [**EVIDENCIAS**](./evidencias)
 
 
 ##  Funcionalidades e Documentações da API
 
 ###  Autenticação e Segurança
-- [**DOCUMENTACAO_AUTENTICACAO**](docs/DOCUMENTACAO_AUTENTICACAO.md) - API de autenticação JWT e autorização baseada em roles
+- [**AUTENTICACAO**](docs/DOCUMENTACAO_AUTENTICACAO.md) - API de autenticação JWT e autorização baseada em roles
 
 ###  Gestão de Clientes
-- [**DOCUMENTACAO_CLIENTE**](docs/DOCUMENTACAO_CLIENTE.md) - API de operações CRUD para clientes
-- [**DOCUMENTACAO_PERFIL_RISCO**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - API de avaliação e cálculo de perfil de risco
+- [**CLIENTE**](docs/DOCUMENTACAO_CLIENTE.md) - API de operações CRUD para clientes
+- [**PERFIL_RISCO**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - API de avaliação e cálculo de perfil de risco 
 
-###  Produtos Financeiros
-- [**DOCUMENTACAO_PRODUTO_RESOURCE**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - API de operações CRUD para produtos de investimento
+###  Gestão de Produtos Financeiros
+- [**PRODUTO**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - API de operações CRUD para produtos de investimento
 
 ###  Recomendações de Investimento
-- [**DOCUMENTACAO_PRODUTO_RECOMENDADO**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - API de recomendações de investimentos baseado em Machine Learning
+- [**PRODUTO_RECOMENDADO**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - API de recomendações de investimentos 
 
 ###  Simulações de Investimento
-- [**DOCUMENTACAO_SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento
-- [**DOCUMENTACAO_SIMULACAO_RESOURCE**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos
+- [**INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento 
+- [**SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos 
 
 ###  Registro de Investimento
-- [**DOCUMENTACAO_INVESTIMENTO_RESOURCE**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos (registro e consulta)
+- [**INVESTIMENTO_RESOURCE**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos
 
 ###  Monitoramento e Observabilidade
- - [**DOCUMENTACAO_TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance
- - [**DOCUMENTACAO_SISTEMA_LOGS_ACESSO**](docs/DOCUMENTACAO_SISTEMA_LOGS_ACESSO.md) - API de auditoria e registro detalhado de acessos à API
+ - [**TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance
+ - [**LOGS_ACESSO**](docs/DOCUMENTACAO_SISTEMA_LOGS_ACESSO.md) - API de auditoria e registro detalhado de acessos à API
 
-## 🤖️ Inteligência Artificial e Machine Learning
+## 🤖️ Machine Learning
 
 ### Sistema de Recomendação Para Investimentos Ffinanceiros 
-- [**DOCUMENTACAO_MACHINE_LEARNING**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **🚀 Sistema de Recomendação com Distância Euclidiana**
+- [**MACHINE_LEARNING**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **Recomendação com Distância Euclidiana com 8 dimensões**
     - Algoritmo avançado de recomendação personalizada de produtos
     - Análise multidimensional com 8 características financeiras
     - Aprendizado baseado em histórico real de investimentos
-
+	
+### Endpoints com Machine Learning
+- [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid)
+- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid)
+- [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Quando não informado PRODUTO_ID*.
+	
 ##  Especificação da API
 
 ###  OpenAPI/Swagger
@@ -80,7 +84,7 @@ A API foi construída seguindo os princípios de:
 - **Segurança por Design** com JWT e autorização baseada em roles
 - **Rate Limit** requisições por IP (default 30 por segundo)
 - **Observabilidade** com sistema de telemetria integrado
-- **🚀 Machine Learning Avançado** - **Distância Euclidiana Multidimensional** para recomendações personalizadas
+- **Machine Learning Avançado** - **Distância Euclidiana Multidimensional** para recomendações personalizadas
 - **Testes Abrangentes** com cobertura de integração
 
 ##  **Diferencial Tecnológico: Sistema de Recomendação ML**
@@ -103,7 +107,7 @@ A API foi construída seguindo os princípios de:
 - ✅ **Autenticação JWT** - Implementado e testado
 - ✅ **Gestão de Clientes** - CRUD completo com validações
 - ✅ **Produtos Financeiros** - Gestão completa de produtos
-- ✅ **🌟 Sistema de Recomendação ML** - **Algoritmo avançado com Distância Euclidiana Multidimensional**
+- ✅ **Sistema de Recomendação ML** - **Algoritmo avançado com Distância Euclidiana Multidimensional**
 - ✅ **Perfil de Risco** - Cálculo baseado em fatores de mercado
 - ✅ **Simulações** - Cenários completos de investimento
 - ✅ **Telemetria** - Monitoramento em tempo real
@@ -147,6 +151,6 @@ Cobertura
 ----------------------
 - COVERAGE (CLASS): **98%** (97 / 95)
 - COVERAGE (METHOD): **95%** (557 / 583)
-- COVERAGE (LINE): **913%** (1940 / 2125)
+- COVERAGE (LINE): **91%** (1940 / 2125)
 
 

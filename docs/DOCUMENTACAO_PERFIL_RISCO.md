@@ -135,6 +135,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Token válido mas sem permissão |
 | **404** | Not Found | Cliente não encontrado |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno do sistema |
 
 #### Mensagens de Erro Possíveis
@@ -219,6 +220,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token inválido | Não autenticado |
 | **403** | Forbidden | Sem permissão | Role não autorizada |
 | **404** | Not Found | Cliente não existe | ID inválido |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno | Falhas do sistema |
 
 ### Categorias de Mensagens de Erro
@@ -292,9 +294,9 @@ Content-Type: application/json
 
 | Nível | Enum | Características |
 |-------|------|----------------|
-| **BAIXO** | `NivelRisco.BAIXO` | Produtos garantidos pelo FGC |
-| **MÉDIO** | `NivelRisco.MEDIO` | Renda fixa não garantida pelo FGC |
-| **ALTO** | `NivelRisco.ALTO` | Renda variável, sem garantias |
+| **BAIXO** | `NivelRisco.BAIXO` | Para clientes com perfil conservador |
+| **MÉDIO** | `NivelRisco.MEDIO` | Para clietes com perfil moderado |
+| **ALTO** | `NivelRisco.ALTO` | Para clientes com perfil agressivo |
 
 ### Casos Especiais
 

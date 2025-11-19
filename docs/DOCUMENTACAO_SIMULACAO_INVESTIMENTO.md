@@ -379,6 +379,7 @@ Content-Type: application/json
 | **400** | Bad Request | Validações falharam, regras de negócio violadas |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Role não autorizada |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno do sistema |
 
 #### Mensagens de Erro Possíveis
@@ -440,6 +441,7 @@ Content-Type: application/json
 | **400** | Bad Request | clienteId inválido (não positivo) |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | USER tentando acessar dados de outro cliente |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno |
 
 #### Mensagens de Erro Possíveis
@@ -467,6 +469,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Tentativa de acessar simulação de outro cliente |
 | **404** | Not Found | Simulação não encontrada |
+| **429** | Too Many Requests | Rate Limit | 
 | **500** | Internal Server Error | Erro interno |
 
 #### Mensagens de Erro Possíveis
@@ -504,6 +507,7 @@ Content-Type: application/json
 | **400** | Bad Request | clienteId inválido |
 | **401** | Unauthorized | Token ausente/inválido |
 | **403** | Forbidden | Acesso negado aos dados do cliente |
+| **429** | Too Many Requests | Rate Limit |
 | **500** | Internal Server Error | Erro interno |
 
 #### Mensagens de Erro Possíveis
@@ -533,6 +537,7 @@ Content-Type: application/json
 | **401** | Unauthorized | Token inválido | Todos |
 | **403** | Forbidden | Sem permissão específica | Todos autenticados |
 | **404** | Not Found | Simulação não encontrada | GET /{id} |
+| **429** | Too Many Requests | Rate Limit | Todos |
 | **500** | Internal Server Error | Erro interno | Todos |
 
 ### Categorias de Mensagens de Erro
@@ -602,9 +607,9 @@ Content-Type: application/json
 - `NENHUM`: Produtos pré-fixados
 
 ### NivelRisco
-- `BAIXO`: Produtos garantidos pelo FGC
-- `MEDIO`: Renda fixa sem garantia FGC
-- `ALTO`: Renda variável sem garantias
+- `BAIXO`: Para clientes com perfil conservador
+- `MEDIO`: Para clietes com perfil moderado
+- `ALTO`: Para clientes com perfil agressivo
 
 ---
 

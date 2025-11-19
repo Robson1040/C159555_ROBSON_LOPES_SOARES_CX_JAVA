@@ -204,6 +204,7 @@ Remove registros com idade superior a `diasRetencao` dias, permitindo políticas
 | **401** | Unauthorized |
 | **403** | Forbidden |
 | **404** | Not Found |
+| **429** | Too Many Requests | 
 | **500** | Internal Server Error |
 
 ### Exemplos de Erro (401/403)
