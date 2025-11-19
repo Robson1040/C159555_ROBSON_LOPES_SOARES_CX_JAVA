@@ -1,6 +1,7 @@
 #  API-INVESTIMENTOS-CAIXA - C159555
 
-
+API que analisa o comportamento financeiro do cliente e ajusta seu perfil de risco, sugerindo produtos de investimento, com base em [**machine learning avançado**](#sistema-de-recomendação-para-investimentos-financeiros), além de 
+oferecer opção de cadastro de cliente, cadastro de produtos, simulação de investimentos, realização de investimentos, calculo de perfil de risco, sugestão de investimentos por perfil e por cliente, telemetria e, log de acessos.
 
 ##  Por Onde Começar
 
