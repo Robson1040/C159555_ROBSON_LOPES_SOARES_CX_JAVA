@@ -51,7 +51,7 @@
 
 ## 🤖️ Machine Learning
 
-### Sistema de Recomendação Para Investimentos Ffinanceiros 
+### Sistema de Recomendação Para Investimentos Financeiros 
 - [**MACHINE_LEARNING**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **Recomendação com Distância Euclidiana com 8 dimensões**
     - Algoritmo avançado de recomendação personalizada de produtos
     - Análise multidimensional com 8 características financeiras
