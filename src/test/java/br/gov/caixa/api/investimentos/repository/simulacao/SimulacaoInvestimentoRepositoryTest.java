@@ -132,4 +132,50 @@ class SimulacaoInvestimentoRepositoryTest {
         assertEquals(BigDecimal.ZERO, repository.getTotalInvestidoByClienteId(2L));
     }
     */
+
+
+
+    @Test
+    void deveRetornarZeroQuandoNaoHaInvestimentos() {
+        PanacheQuery<SimulacaoInvestimento> query = mock(PanacheQuery.class);
+        when(query.singleResult()).thenReturn(null);
+        doReturn(query).when(repository).find(anyString(), (Object) anyLong());
+
+        BigDecimal total = repository.getTotalInvestidoByClienteId(1L);
+        assertEquals(BigDecimal.ZERO, total);
+    }
+
+    @Test
+    void deveRetornarValorQuandoInvestimentoExiste() {
+        PanacheQuery<SimulacaoInvestimento> query = mock(PanacheQuery.class);
+        when(query.singleResult()).thenReturn(BigDecimal.valueOf(1000));
+        doReturn(query).when(repository).find(anyString(), (Object) anyLong());
+
+        BigDecimal total = repository.getTotalInvestidoByClienteId(1L);
+        assertEquals(BigDecimal.valueOf(1000), total);
+    }
+
+    @Test
+    void deveConverterQuandoTipoEhDouble() {
+        @SuppressWarnings("unchecked")
+        PanacheQuery<SimulacaoInvestimento> query = (PanacheQuery<SimulacaoInvestimento>) mock(PanacheQuery.class);
+        when(query.singleResult()).thenReturn(1000.50);
+        doReturn(query).when(repository).find(anyString(), (Object) anyLong());
+
+        BigDecimal total = repository.getTotalInvestidoByClienteId(1L);
+        assertEquals(BigDecimal.valueOf(1000.50), total);
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoTipoInesperado() {
+        PanacheQuery<SimulacaoInvestimento> query = mock(PanacheQuery.class);
+        when(query.singleResult()).thenReturn("valor-invalido");
+        doReturn(query).when(repository).find(anyString(), (Object) anyLong());
+
+        assertThrows(IllegalStateException.class, () -> repository.getTotalInvestidoByClienteId(1L));
+    }
+
+
+
+
 }

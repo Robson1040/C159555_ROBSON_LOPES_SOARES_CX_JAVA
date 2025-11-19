@@ -133,20 +133,20 @@ A API foi construída seguindo os princípios de:
 
 TESTES AUTOMATIZADOS
 -----------------------------
-- TOTAL DE TESTES: **674**
-- TAXA DE SUCESSO: **100%** (674/674)
+- TOTAL DE TESTES: **678**
+- TAXA DE SUCESSO: **100%** (678/678)
 - FALHAS: **0** | ERROS: **0** | IGNORADOS: **0**
 - TEMPO TOTAL DE EXECUÇÃO: **41,605 s**
 - TEMPO MÉDIO POR TESTE: **0,062 s**
 
 
 - TESTES DE INTEGRAÇÃO: **167**
-- TESTES UNITÁRIOS: **507**
+- TESTES UNITÁRIOS: **511**
 
 Cobertura
 ----------------------
-- COVERAGE (CLASS): **100%** (95 / 95)
-- COVERAGE (METHOD): **95,5%** (557 / 583)
-- COVERAGE (LINE): **91,3%** (1940 / 2125)
+- COVERAGE (CLASS): **98%** (97 / 95)
+- COVERAGE (METHOD): **95%** (557 / 583)
+- COVERAGE (LINE): **913%** (1940 / 2125)
 
 
