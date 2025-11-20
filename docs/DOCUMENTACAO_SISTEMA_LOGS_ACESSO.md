@@ -65,9 +65,7 @@ Accept: application/json
     "metodoHttp": "POST",
     "uriCompleta": "http://localhost:9090/clientes",
     "ipOrigem": "192.168.1.100",
-    "corpoRequisicao": "{...}",
     "statusCode": 201,
-    "corpoResposta": "{...}",
     "tempoExecucaoMs": 45,
     "dataAcesso": "2025-11-17T10:30:45",
     "userAgent": "Mozilla/...",
@@ -182,9 +180,7 @@ Remove registros com idade superior a `diasRetencao` dias, permitindo políticas
 | `metodoHttp` | Método HTTP utilizado | "POST" |
 | `uriCompleta` | URL completa da requisição | "http://localhost:9090/clientes/1" |
 | `ipOrigem` | IP de origem do cliente | "192.168.1.100" |
-| `corpoRequisicao` | Body da requisição (truncado a 10KB) | JSON da requisição |
 | `statusCode` | Código de status HTTP da resposta | 201 |
-| `corpoResposta` | Body da resposta (truncado a 10KB) | JSON da resposta |
 | `tempoExecucaoMs` | Tempo total em milissegundos | 45 |
 | `dataAcesso` | Data e hora do acesso | "2025-11-17T10:30:45" |
 | `userAgent` | User-Agent do cliente | "Mozilla/5.0..." |

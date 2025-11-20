@@ -1,4 +1,4 @@
-# 🤖 **Sistema de Recomendação ML - GeradorRecomendacaoML**
+# 🤖 **Sistema de Recomendação - GeradorRecomendacaoML**
 
 > *"O coração inteligente da API Investimentos CAIXA: Machine Learning aplicado à recomendação personalizada de produtos financeiros"*
 

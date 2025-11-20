@@ -68,14 +68,14 @@ Content-Type: application/json
 
 **Query Parameters (todos opcionais):**
 
-| Parâmetro | Tipo | Descrição | Valores Possíveis |
-|-----------|------|-----------|-------------------|
+| Parâmetro | Tipo | Descrição | Valores Possíveis                                                              |
+|-----------|------|-----------|--------------------------------------------------------------------------------|
 | `tipo` | enum | Filtra por tipo de produto | CDB, LCI, LCA, TESOURO_DIRETO, POUPANCA, DEBENTURE, CRI, FUNDO, FII, ACAO, ETF |
-| `tipo_rentabilidade` | enum | Filtra por tipo de rentabilidade | PRE, POS |
-| `fgc` | boolean | Produtos protegidos pelo FGC | true, false |
-| `liquidez_imediata` | boolean | Produtos com liquidez imediata | true, false |
-| `sem_liquidez` | boolean | Produtos sem liquidez | true, false |
-| `nome` | string | Busca por nome (contém texto) | Qualquer texto não vazio |
+| `tipo_rentabilidade` | enum | Filtra por tipo de rentabilidade | PRE, POS **(Em rentabilidade POS o sistema simulará os valores dos índices.)** |
+| `fgc` | boolean | Produtos protegidos pelo FGC | true, false                                                                    |
+| `liquidez_imediata` | boolean | Produtos com liquidez imediata | true, false                                                                    |
+| `sem_liquidez` | boolean | Produtos sem liquidez | true, false                                                                    |
+| `nome` | string | Busca por nome (contém texto) | Qualquer texto não vazio                                                       |
 
 **Exemplos de URLs:**
 ```
@@ -137,7 +137,7 @@ GET /produtos?nome=Premium
 | `id` | Long | ID único do produto |
 | `nome` | String | Nome completo do produto |
 | `tipo` | enum | Tipo de produto financeiro |
-| `tipo_rentabilidade` | enum | PRE (pré-fixado) ou POS (pós-fixado) |
+| `tipo_rentabilidade` | enum | PRE (pré-fixado) ou POS (pós-fixado) **(Em rentabilidade POS o sistema simulará os valores dos índices.)**|
 | `rentabilidade` | BigDecimal | Taxa/percentual de rentabilidade |
 | `periodo_rentabilidade` | enum | Periodicidade da rentabilidade |
 | `indice` | enum | Índice de referência (CDI, SELIC, etc.) |
@@ -249,7 +249,7 @@ Content-Type: application/json
 |-------|------|-------------|-----------|-----------|
 | `nome` | String | **Sim** | `@NotBlank`, `@Size(min=2, max=255)` | Nome do produto (2-255 caracteres) |
 | `tipo` | enum | **Sim** | `@NotNull` | Tipo de produto financeiro |
-| `tipo_rentabilidade` | enum | **Sim** | `@NotNull` | PRE ou POS |
+| `tipo_rentabilidade` | enum | **Sim** | `@NotNull` | PRE ou POS **(Em rentabilidade POS o sistema simulará os valores dos índices.)**|
 | `rentabilidade` | BigDecimal | **Sim** | `@NotNull`, `@DecimalMin("0.0")` | Taxa de rentabilidade (>= 0) |
 | `periodo_rentabilidade` | enum | **Sim** | `@NotNull` | AO_DIA, AO_MES, AO_ANO, PERIODO_TOTAL |
 | `indice` | enum | Condicional | `@ValidRentabilidadeIndice` | Obrigatório se POS, opcional se PRE |
@@ -263,6 +263,8 @@ Content-Type: application/json
    - Se `tipo_rentabilidade = "POS"` → `indice` deve ser diferente de `null` e `"NENHUM"`
    - Se `tipo_rentabilidade = "PRE"` → `indice` pode ser `null` ou `"NENHUM"`
 
+    
+2. **Em rentabilidade POS o sistema simulará os valores dos índices.**
 **Exemplos de Requests Válidos:**
 
 *Produto pré-fixado:*

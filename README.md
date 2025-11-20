@@ -1,7 +1,6 @@
 #  API-INVESTIMENTOS-CAIXA - C159555
 
-API que analisa o comportamento financeiro do cliente e ajusta seu perfil de risco, sugerindo produtos de investimento, com base em [**machine learning avançado**](#sistema-de-recomendação-para-investimentos-financeiros), além de 
-oferecer opção de cadastro de cliente, cadastro de produtos, simulação de investimentos, realização de investimentos, calculo de perfil de risco, sugestão de investimentos por perfil e por cliente, telemetria e, log de acessos.
+Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do cliente e ajusta seu perfil de risco, sugerindo produtos de investimento com base em [**MACHINE LEARNING AVANÇADA**](#sistema-de-recomendação-para-investimentos-financeiros).
 
 ##  Por Onde Começar
 
@@ -11,7 +10,7 @@ oferecer opção de cadastro de cliente, cadastro de produtos, simulação de in
    ```
 
 2. Crie um cliente para começar:
-   - [**Criar Cliente**](docs/DOCUMENTACAO_CLIENTE.md#3-post-clientes)
+   - [**Criar Usuário**](docs/DOCUMENTACAO_CLIENTE.md#3-post-clientes)
 
 3. Autentique-se na API:
    - [**Autenticação**](docs/DOCUMENTACAO_AUTENTICACAO.md#1-post-entrar)
@@ -29,28 +28,28 @@ oferecer opção de cadastro de cliente, cadastro de produtos, simulação de in
 ##  Funcionalidades e Documentações da API
 
 ###  Autenticação e Segurança
-- [**AUTENTICACAO**](docs/DOCUMENTACAO_AUTENTICACAO.md) - API de autenticação JWT e autorização baseada em roles
+- [**AUTENTICACAO**](docs/DOCUMENTACAO_AUTENTICACAO.md) - Documentação da API de autenticação JWT e autorização baseada em roles
 
 ###  Gestão de Clientes
-- [**CLIENTE**](docs/DOCUMENTACAO_CLIENTE.md) - API de operações CRUD para clientes
-- [**PERFIL_RISCO**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - API de avaliação e cálculo de perfil de risco 
+- [**CLIENTE**](docs/DOCUMENTACAO_CLIENTE.md) - Documentação da API de operações para gestão do cadastro de clientes
+- [**PERFIL_RISCO**](docs/DOCUMENTACAO_PERFIL_RISCO.md) - Documentação da API de avaliação e cálculo de perfil de risco 
 
 ###  Gestão de Produtos Financeiros
-- [**PRODUTO**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - API de operações CRUD para produtos de investimento
+- [**PRODUTO**](docs/DOCUMENTACAO_PRODUTO_RESOURCE.md) - Documentação da API de operações para gestão do cadastro de produtos de investimento
 
 ###  Recomendações de Investimento
-- [**PRODUTO_RECOMENDADO**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - API de recomendações de investimentos 
+- [**PRODUTO_RECOMENDADO**](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md) - Documentação da API de recomendações de investimentos 
 
 ###  Simulações de Investimento
-- [**SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - API de simulações de cenários de investimento 
-- [**CONSULTA_SIMULACAO**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - API de consulta de simulações de investimentos 
+- [**SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - Documentação da API de simulações de cenários de investimento 
+- [**CONSULTA_SIMULACAO**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - Documentação da API de consulta de simulações de investimentos 
 
 ###  Registro de Investimento
-- [**INVESTIMENTO**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - API de realização de investimentos
+- [**INVESTIMENTO**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - Documentação da API de realização de investimentos
 
 ###  Monitoramento e Observabilidade
- - [**TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - API de consulta de telemetria e métricas de performance
- - [**LOGS_ACESSO**](docs/DOCUMENTACAO_SISTEMA_LOGS_ACESSO.md) - API de auditoria e registro detalhado de acessos à API
+ - [**TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - Documentação da API de consulta de telemetria e métricas de performance
+ - [**LOGS_ACESSO**](docs/DOCUMENTACAO_SISTEMA_LOGS_ACESSO.md) - Documentação da API de auditoria e registro detalhado de acessos à API
 
 ## 🤖️ Machine Learning
 
@@ -90,7 +89,7 @@ A API foi construída seguindo os princípios de:
 - **Machine Learning Avançado** - **Distância Euclidiana Multidimensional** para recomendações personalizadas
 - **Testes Abrangentes** com cobertura de integração
 
-##  **Diferencial Tecnológico: Sistema de Recomendação ML**
+##  **Diferencial Tecnológico: Sistema de Recomendação**
 
 
 ###  Características Únicas
@@ -110,12 +109,12 @@ A API foi construída seguindo os princípios de:
 - ✅ **Autenticação JWT** - Implementado e testado
 - ✅ **Gestão de Clientes** - CRUD completo com validações
 - ✅ **Produtos Financeiros** - Gestão completa de produtos
-- ✅ **Sistema de Recomendação ML** - **Algoritmo avançado com Distância Euclidiana Multidimensional**
+- ✅ **Sistema de Recomendação** - **Algoritmo avançado com Distância Euclidiana Multidimensional**
 - ✅ **Perfil de Risco** - Cálculo baseado em fatores de mercado
 - ✅ **Simulações** - Cenários completos de investimento
 - ✅ **Telemetria** - Monitoramento em tempo real
 - ✅ **Testes de Integração** - Cobertura abrangente
-- ✅ **Documentação Técnica ML** - Especificação completa do sistema inteligente
+- ✅ **Documentação Técnica** - Especificação completa do sistema inteligente
 
 ##  Tecnologias Utilizadas
 

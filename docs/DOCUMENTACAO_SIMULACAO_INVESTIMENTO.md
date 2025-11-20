@@ -62,7 +62,7 @@ Content-Type: application/json
 ```json
 {
   "clienteId": 1,
-  "produto_id": 5,
+  "produtoId": 5,
   "valor": 10000.00,
   "prazoMeses": 12,
   "tipoProduto": "CDB",
@@ -79,14 +79,14 @@ Content-Type: application/json
 | Campo | Tipo | Obrigatório | Validação | Descrição |
 |-------|------|-------------|-----------|-----------|
 | `clienteId` | Long | **Sim** | `@NotNull` | ID do cliente |
-| `produto_id` | Long | Não | - | ID específico do produto (opcional) |
+| `produtoId` | Long | Não | - | ID específico do produto (opcional) |
 | `valor` | BigDecimal | **Sim** | `@NotNull`, `@DecimalMin("1.00")`, `@DecimalMax("999999999.99")` | Valor do investimento (R$ 1,00 a R$ 999.999.999,99) |
 | `prazoMeses` | Integer | **Um obrigatório** | `@Min(1)`, `@Max(600)` | Prazo em meses (1 a 600) |
 | `prazoDias` | Integer | **Um obrigatório** | `@Min(1)`, `@Max(18250)` | Prazo em dias (1 a 18.250) |
 | `prazoAnos` | Integer | **Um obrigatório** | `@Min(1)`, `@Max(50)` | Prazo em anos (1 a 50) |
 | `tipoProduto` | enum | Não | - | Tipo do produto (CDB, LCI, LCA, etc.) |
 | `produto` | string | Não | - | Nome do produto para filtrar |
-| `tipo_rentabilidade` | enum | Não | - | PRE, POS |
+| `tipo_rentabilidade` | enum | Não | - | PRE, POS **(Em rentabilidade POS o sistema simulará os valores dos índices.)**|
 | `indice` | enum | Não | - | CDI, SELIC, IPCA, TR, NENHUM |
 | `liquidez` | Integer | Não | `@Min(-1)` | Liquidez desejada (-1 = sem liquidez, >= 0 = dias) |
 | `fgc` | Boolean | Não | - | Protegido pelo FGC |
@@ -207,7 +207,7 @@ Content-Type: application/json
 [
   {
     "id": 123,
-    "produto_id": 1,
+    "produtoId": 1,
     "clienteId": 1,
     "produto": "CDB Banco XYZ 120% CDI",
     "valorInvestido": 5000.00,
@@ -223,7 +223,7 @@ Content-Type: application/json
   },
   {
     "id": 122,
-    "produto_id": 3,
+    "produtoId": 3,
     "clienteId": 1,
     "produto": "LCI Banco ABC 95% CDI",
     "valorInvestido": 10000.00,
@@ -280,7 +280,7 @@ Content-Type: application/json
 ```json
 {
   "id": 123,
-  "produto_id": 1,
+  "produtoId": 1,
   "clienteId": 1,
   "produto": "CDB Banco XYZ 120% CDI",
   "valorInvestido": 5000.00,
@@ -340,7 +340,7 @@ Content-Type: application/json
   "mediaValorInvestido": 8333.33,
   "ultimaSimulacao": {
     "id": 123,
-    "produto_id": 1,
+    "produtoId": 1,
     "clienteId": 1,
     "produto": "CDB Banco XYZ 120% CDI",
     "valorInvestido": 5000.00,
@@ -624,7 +624,7 @@ Content-Type: application/json
 
 2. **Busca de Produtos**
    - Filtragem por critérios informados
-   - Priorização por produto_id se especificado
+   - Priorização por produtoId se especificado
    - Fallback para produtos compatíveis
 
 3. **Cálculos Financeiros**
@@ -788,7 +788,7 @@ curl -X GET http://localhost:9090/simular-investimento/estatisticas/1 \
 ```json
 {
   "clienteId": 1,
-  "produto_id": 5,
+  "produtoId": 5,
   "valor": 10000.00,
   "prazoAnos": 2
 }
