@@ -4,7 +4,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
 
 ##  Por Onde Começar
 
-1. Execute o comando na pasta raiz do projeto:
+1. Use Docker Composer e execute o comando abaixo na pasta raiz do projeto:
    ```bash
    docker compose up --build
    ```
@@ -60,9 +60,9 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
     - Aprendizado baseado em histórico real de investimentos ou simulações
 	
 ### Endpoints com Machine Learning
-- [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid)
-- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid)
-- [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Quando não informado PRODUTO_ID*.
+- [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid) *Usa ML para definir o perfil de risco do cliente e mostra probabilidade de acerto.*
+- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid) *Oferece produtos ao cliente usando ML, com base no histórico do cliente.*
+- [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Caso critério de busca retorne mais de 1 produto, o ML decide qual o melhor*.
 	
 ##  Especificação da API
 

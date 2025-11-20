@@ -1257,7 +1257,7 @@ components:
           type: number
           format: decimal
           example: 25.5
-          description: Pontuação de risco calculada
+          description: Probabilidade do perfil estar correto
         descricao:
           type: string
           example: "Perfil conservador baseado em histórico de produtos de baixo risco"

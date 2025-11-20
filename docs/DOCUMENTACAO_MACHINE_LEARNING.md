@@ -8,7 +8,6 @@
 2. [Fundamentos Teóricos](#-fundamentos-teóricos)
 3. [Arquitetura do Algoritmo](#-arquitetura-do-algoritmo)
 4. [Implementação Técnica](#-implementação-técnica)
-7. [Validação Científica](#-validação-científica)
 8. [Endpoints com Machine Learning](#endpoints-com-machine-learning)
 
 ---
@@ -157,32 +156,8 @@ contador.merge(produtoMaisProximo, peso, Integer::sum);
 
 ---
 
-## 📚 **Validação Científica**
-
-### **Estudos Acadêmicos Correlatos**
-
-#### **1. Sistemas de Recomendação Financeira**
-
-> **"Collaborative Filtering for Financial Services"** - MIT Technology Review (2019)
-> - Confirma superioridade da distância euclidiana em espaços financeiros multidimensionais
-> - Demonstra 23% de melhoria na precisão vs. métodos tradicionais
-
-#### **2. Machine Learning em FinTech**
-
-> **"Machine Learning Applications in Financial Product Recommendation"** - Journal of Financial Technology (2021)
-> - Validação empírica: algoritmos baseados em similaridade euclidiana superam regras de negócio em 31%
-> - Redução de 47% no tempo de descoberta de produtos adequados
-
-#### **3. Análise Comportamental de Investimentos**
-
-> **"Behavioral Pattern Recognition in Investment Decisions"** - Quantitative Finance Journal (2020)
-> - Histórico de investimentos é preditor 85% mais eficaz que questionários de perfil
-> - Distância euclidiana captura nuances comportamentais invisíveis a análises tradicionais
-
----
-
 ### Endpoints com Machine Learning
-- [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid)
-- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid)
-- [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Quando não informado PRODUTO_ID*.
+- [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid) *Usa ML para definir o perfil de risco do cliente e mostra probabilidade de acerto.*
+- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid) *Oferece produtos ao cliente usando ML, com base no histórico do cliente.*
+- [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Caso critério de busca retorne mais de 1 produto, o ML decide qual o melhor*.
 	
