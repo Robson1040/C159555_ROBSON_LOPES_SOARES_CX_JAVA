@@ -7,6 +7,8 @@ import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetrica;
 import br.gov.caixa.api.investimentos.repository.telemetria.TelemetriaMetricaRepository;
 import br.gov.caixa.api.investimentos.service.telemetria.AcessoLogService;
 import br.gov.caixa.api.investimentos.service.telemetria.TelemetriaService;
+import io.quarkus.cache.CacheInvalidateAll;
+import io.quarkus.cache.CacheResult;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -14,9 +16,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
-
-import io.quarkus.cache.CacheResult;
-import io.quarkus.cache.CacheInvalidateAll;
 
 @Path("/telemetria")
 @RolesAllowed({"ADMIN"})
