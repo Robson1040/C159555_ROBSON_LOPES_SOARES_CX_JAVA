@@ -2,6 +2,19 @@
 
 Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do cliente e ajusta seu perfil de risco, sugerindo produtos de investimento com base em [**MACHINE LEARNING AVANÇADO**](#sistema-de-recomendação-para-investimentos-financeiros).
 
+## 🤖️ Machine Learning
+
+### Sistema de Recomendação Para Investimentos Financeiros 
+- [**MACHINE_LEARNING**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **Recomendação com Distância Euclidiana com 8 dimensões**
+    - Algoritmo avançado de recomendação personalizada de produtos
+    - Análise multidimensional com 8 características financeiras
+    - Aprendizado baseado em histórico real de investimentos ou simulações
+	
+### Endpoints com Machine Learning
+- [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid) *Usa ML para definir o perfil de risco do cliente e mostra probabilidade de acerto.*
+- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid) *Oferece produtos ao cliente usando ML, com base no histórico do cliente.*
+- [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Caso critério de busca retorne mais de 1 produto, o ML decide qual o melhor*.
+	
 ##  Por Onde Começar
 
 1. Use Docker Composer e execute o comando abaixo na pasta raiz do projeto:
@@ -51,19 +64,6 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
  - [**TELEMETRIA**](docs/DOCUMENTACAO_TELEMETRIA.md) - Documentação da API de consulta de telemetria e métricas de performance
  - [**LOGS_ACESSO**](docs/DOCUMENTACAO_SISTEMA_LOGS_ACESSO.md) - Documentação da API de auditoria e registro detalhado de acessos à API
 
-## 🤖️ Machine Learning
-
-### Sistema de Recomendação Para Investimentos Financeiros 
-- [**MACHINE_LEARNING**](docs/DOCUMENTACAO_MACHINE_LEARNING.md) - **Recomendação com Distância Euclidiana com 8 dimensões**
-    - Algoritmo avançado de recomendação personalizada de produtos
-    - Análise multidimensional com 8 características financeiras
-    - Aprendizado baseado em histórico real de investimentos ou simulações
-	
-### Endpoints com Machine Learning
-- [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid) *Usa ML para definir o perfil de risco do cliente e mostra probabilidade de acerto.*
-- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid) *Oferece produtos ao cliente usando ML, com base no histórico do cliente.*
-- [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Caso critério de busca retorne mais de 1 produto, o ML decide qual o melhor*.
-	
 ##  Especificação da API
 
 ###  OpenAPI/Swagger
