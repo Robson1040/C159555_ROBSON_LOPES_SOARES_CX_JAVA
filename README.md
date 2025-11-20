@@ -78,7 +78,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
     - Códigos de resposta HTTP apropriados
 
 ###  Postman Collection
-- [**API-INVESTIMENTOS-CAIXA.postman_collection**](docs/API-INVESTIMENTOS-CAIXA.postman_collection.json) - **Teste completo da API** em formato Collection V2.1
+- [**API-INVESTIMENTOS-CAIXA.postman_collection**](docs/API-INVESTIMENTOS-CAIXA.postman_collection.json) - **Collection completo da API** em formato V2.1
     - Exemplos práticos para todos os endpoints
 	
 ## ️ Arquitetura do Sistema
