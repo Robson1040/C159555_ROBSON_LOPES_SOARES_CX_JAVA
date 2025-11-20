@@ -519,7 +519,7 @@ Conformidade Final:         █████████████████�
   ✓ MATRIZ_CONFORMIDADE.md                            
                                                          
  Swagger (OpenAPI 3.0.3):                               
-  ✓ 27+ endpoints documentados                         
+  ✓ Todos endpoints documentados                         
   ✓ Schemas JSON definidos                             
   ✓ Exemplos de requisição/resposta                    
   ✓ Códigos HTTP apropriados                           
