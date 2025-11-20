@@ -12,7 +12,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
 	
 ### Endpoints com Machine Learning
 - [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid) *Usa ML para definir o perfil de risco do cliente e mostra probabilidade de acerto.*
-- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid) *Oferece produtos ao cliente usando ML, com base no histórico de investimentos ou simulações.*
+- [2. GET /produtos-recomendados/cliente/{clienteId}](docs/DOCUMENTACAO_PRODUTO_RECOMENDADO.md#1-get-produtos-recomendadosclienteclienteid) *Oferece usando ML, com base no histórico de investimentos ou simulações.*
 - [3. POST /simular-investimento](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md#1-post-simular-investimento) *Caso critério de busca retorne mais de 1 produto, usa ML para decidr qual melhor opção.*
 	
 ##  Por Onde Começar
