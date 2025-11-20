@@ -502,7 +502,7 @@ Conformidade Final:         █████████████████�
  Documentação:                                           
   ✓ README.md - Visão geral e índice                   
   ✓ DOCUMENTACAO_AUTENTICACAO.md - JWT                 
-  ✓ DOCUMENTACAO_CLIENTE.md - CRUD clientes            
+  ✓ DOCUMENTACAO_CLIENTE.md - Clientes            
   ✓ DOCUMENTACAO_PERFIL_RISCO.md - Perfil             
   ✓ DOCUMENTACAO_PRODUTO_RESOURCE.md - Produtos       
   ✓ DOCUMENTACAO_PRODUTO_RECOMENDADO.md - ML          

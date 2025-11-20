@@ -88,7 +88,7 @@ A API foi construída seguindo os princípios de:
 - **Observabilidade** com sistema de telemetria integrado
 - **Machine Learning Avançado** - **Distância Euclidiana Multidimensional** para recomendações personalizadas
 - **Testes Abrangentes** com cobertura de integração
-- **Caffeine Cache** na Telemetria e Logs de Acesso para otimização de performance
+- **Cache** na Telemetria e Logs de Acesso para otimização de performance
 
 ##  **Diferencial Tecnológico: Sistema de Recomendação**
 
@@ -108,7 +108,7 @@ A API foi construída seguindo os princípios de:
 ##  Status do Projeto
 
 - ✅ **Autenticação JWT** - Implementado e testado
-- ✅ **Gestão de Clientes** - CRUD completo com validações
+- ✅ **Gestão de Clientes** - Cadastro completo com validações
 - ✅ **Produtos Financeiros** - Gestão completa de produtos
 - ✅ **Sistema de Recomendação** - **Algoritmo avançado com Distância Euclidiana Multidimensional**
 - ✅ **Perfil de Risco** - Cálculo baseado em fatores de mercado
@@ -127,7 +127,7 @@ A API foi construída seguindo os princípios de:
 - **JUnit 5 + RestAssured** - Testes automatizados
 - **Machine Learning** - Algoritmo personalizado de recomendações
 - **OpenAPI 3.0.3** - Especificação completa da API
---**Caffeine Cache** - Cache de alta performance
+-**Caffeine Cache** - Cache de alta performance
 ---
 
 ## Documentos de Conformidade e Análise

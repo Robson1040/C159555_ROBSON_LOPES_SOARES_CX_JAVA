@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-O `ClienteResource` é responsável por gerenciar operações CRUD (Create, Read, Update, Delete) de clientes na API de Investimentos Caixa. Oferece endpoints para criação, listagem, busca e atualização de clientes com controle de acesso baseado em roles.
+O `ClienteResource` é responsável por gerenciar operações no cadastro de clientes na API de Investimentos Caixa. Oferece endpoints para criação, listagem, busca e atualização de clientes com controle de acesso baseado em roles.
 
 **Servidor:** `http://localhost:9090`
 

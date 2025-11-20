@@ -17,7 +17,7 @@ O `ProdutoResource` é responsável pelo gerenciamento completo dos produtos de 
 - **Roles permitidas:** Varia por endpoint (USER/ADMIN)
 
 **Características:**
-- **CRUD completo**: Criar, ler, atualizar e contar produtos
+- **Cadastro completo**: Criar, ler, atualizar e contar produtos
 - **Filtros avançados**: Busca por múltiplos critérios
 - **Validações rigorosas**: Bean Validation + validação customizada
 - **Controle de acesso**: Operações de escrita restritas a ADMIN
