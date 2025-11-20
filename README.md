@@ -29,7 +29,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
    - [**Autenticação**](docs/DOCUMENTACAO_AUTENTICACAO.md#1-post-entrar)
 
 4. Explore a documentação:
-   - [**Documentação detalhada dos endpoints e funcionalidades**](#funcionalidades-e-documentações-da-api)
+   - [**Documentação completa dos endpoints e funcionalidades**](#funcionalidades-e-documentações-da-api)
    - [**Collection do Postman**](docs/API-INVESTIMENTOS-CAIXA.postman_collection.json)
    - [**OpenAPI/Swagger**](docs/swagger-api-investimentos-caixa.yaml)
 
