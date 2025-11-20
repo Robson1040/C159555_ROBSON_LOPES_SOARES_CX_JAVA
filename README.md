@@ -9,6 +9,9 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
     - Algoritmo avançado de recomendação personalizada de produtos
     - Análise multidimensional com 8 características financeiras
     - Aprendizado baseado em histórico real de investimentos ou simulações
+	- Decay Temporal: Investimentos recentes têm mais relevância na recomendação
+	- Ponderação Inteligente por Investimento
+	- Peso Logarítmico: Evita dominância excessiva de investimentos de alto valor
 	- Expansível para N dimensões
 	
 ### Endpoints com Machine Learning
