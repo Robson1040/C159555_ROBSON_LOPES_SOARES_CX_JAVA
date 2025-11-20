@@ -274,7 +274,6 @@ curl -X POST http://localhost:9090/entrar \
 ---
 
 
----
 
 ## Referência Completa de Status Codes e Mensagens de Erro
 

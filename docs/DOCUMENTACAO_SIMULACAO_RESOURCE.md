@@ -600,5 +600,3 @@ GET /simulacoes → Histórico completo para auditoria
 ---
 
 
----
-

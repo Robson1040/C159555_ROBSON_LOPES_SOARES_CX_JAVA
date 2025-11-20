@@ -603,8 +603,6 @@ curl -X PUT http://localhost:9090/clientes/1 \
 ---
 
 
----
-
 ## Referência Completa de Status Codes e Mensagens de Erro
 
 ### Status Codes Possíveis
