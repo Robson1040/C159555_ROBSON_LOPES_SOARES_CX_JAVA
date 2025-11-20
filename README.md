@@ -1,6 +1,6 @@
 #  API-INVESTIMENTOS-CAIXA - C159555
 
-Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do cliente e ajusta seu perfil de risco, sugerindo produtos de investimento com base em [**MACHINE LEARNING AVANÇADO**](#sistema-de-recomendação-para-investimentos-financeiros).
+Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do cliente e ajusta seu perfil de risco, sugerindo produtos de investimento com base em **MACHINE LEARNING AVANÇADO**.
 
 ## 🤖️ Machine Learning
 
