@@ -25,7 +25,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
 2. Crie um usuário para começar:
    - [**Criar Usuário**](docs/DOCUMENTACAO_CLIENTE.md#3-post-clientes)
 
-3. Autentique-se na API:
+3. Autentique o usuário na API:
    - [**Autenticação**](docs/DOCUMENTACAO_AUTENTICACAO.md#1-post-entrar)
 
 4. Explore a documentação:
