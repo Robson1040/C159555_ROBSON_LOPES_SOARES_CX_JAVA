@@ -17,8 +17,8 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
 
 4. Explore a documentação:
    - [**Documentação**](#funcionalidades-e-documentações-da-api)
-   - [**Collection do Postman**](./API-INVESTIMENTOS-CAIXA.postman_collection.json)
-   - [**OpenAPI/Swagger**](./swagger-api-investimentos-caixa.yaml)
+   - [**Collection do Postman**](docs/API-INVESTIMENTOS-CAIXA.postman_collection.json)
+   - [**OpenAPI/Swagger**](docs/swagger-api-investimentos-caixa.yaml)
 
 ##  Evidências
 
@@ -67,7 +67,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
 ##  Especificação da API
 
 ###  OpenAPI/Swagger
-- [**swagger-api-investimentos-caixa.yaml**](./swagger-api-investimentos-caixa.yaml) - **Especificação completa da API** em formato OpenAPI 3.0.3
+- [**swagger-api-investimentos-caixa**](docs/swagger-api-investimentos-caixa.yaml) - **Especificação completa da API** em formato OpenAPI 3.0.3
     - Todos os endpoints documentados com schemas detalhados
     - Autenticação JWT e segurança por roles
     - Exemplos práticos para todos os endpoints
@@ -75,7 +75,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
     - Códigos de resposta HTTP apropriados
 
 ###  Postman Collection
-- [**API-INVESTIMENTOS-CAIXA.postman_collection**](./API-INVESTIMENTOS-CAIXA.postman_collection.json) - **Teste completo da API** em formato Collection V2.1
+- [**API-INVESTIMENTOS-CAIXA.postman_collection**](docs/API-INVESTIMENTOS-CAIXA.postman_collection.json) - **Teste completo da API** em formato Collection V2.1
 
 ## ️ Arquitetura do Sistema
 
