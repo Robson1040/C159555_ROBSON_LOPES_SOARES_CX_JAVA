@@ -42,7 +42,6 @@ SCORE GERAL           ████████░ 8.6/10  ✅ MUITO BOM
 
 ### 4. Escalabilidade ⭐⭐⭐⭐⭐
 - Complexidade O(n×m) razoável
-- < 150ms para 1000 produtos
 - Score: 9/10
 
 ### 5. Robustez ⭐⭐⭐⭐

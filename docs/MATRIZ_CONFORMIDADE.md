@@ -355,8 +355,7 @@ Conformidade Final:         █████████████████�
   ✓ Produtos similares ganham peso                     
   ✓ Histórico real tem prioridade                      
                                                          
- Performance:                                                                            
-  ✓ Tempo: < 150ms para 1000 produtos                 
+ Performance:                                                                                        
   ✓ Scalável para N produtos                          
                                                          
  Teste: GeradorRecomendacaoMLTest (8+ casos)          

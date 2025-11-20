@@ -9,7 +9,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
    docker compose up --build
    ```
 
-2. Crie um cliente para começar:
+2. Crie um usuário para começar:
    - [**Criar Usuário**](docs/DOCUMENTACAO_CLIENTE.md#3-post-clientes)
 
 3. Autentique-se na API:
