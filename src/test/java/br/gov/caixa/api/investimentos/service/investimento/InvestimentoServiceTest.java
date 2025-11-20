@@ -2,6 +2,10 @@ package br.gov.caixa.api.investimentos.service.investimento;
 
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
 import br.gov.caixa.api.investimentos.exception.produto.ProdutoNotFoundException;
 import br.gov.caixa.api.investimentos.mapper.InvestimentoMapper;
@@ -11,10 +15,6 @@ import br.gov.caixa.api.investimentos.model.produto.Produto;
 import br.gov.caixa.api.investimentos.repository.cliente.IPessoaRepository;
 import br.gov.caixa.api.investimentos.repository.investimento.IInvestimentoRepository;
 import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
-import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
-import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -132,7 +132,7 @@ class InvestimentoServiceTest {
         });
 
         assertEquals("Dados do investimento não podem ser nulos", exception.getMessage());
-        
+
         verifyNoInteractions(produtoRepository, pessoaRepository, investimentoRepository, investimentoMapper);
     }
 
@@ -147,7 +147,7 @@ class InvestimentoServiceTest {
         });
 
         assertEquals("Produto não encontrado com ID: 2", exception.getMessage());
-        
+
         verify(produtoRepository).findById(2L);
         verifyNoInteractions(pessoaRepository, investimentoRepository, investimentoMapper);
     }
@@ -164,7 +164,7 @@ class InvestimentoServiceTest {
         });
 
         assertEquals("Cliente não encontrado com ID: 1", exception.getMessage());
-        
+
         verify(produtoRepository).findById(2L);
         verify(pessoaRepository).findById(1L);
         verifyNoInteractions(investimentoRepository, investimentoMapper);
@@ -190,7 +190,7 @@ class InvestimentoServiceTest {
 
         assertTrue(exception.getMessage().contains("Prazo informado é menor que o mínimo do produto"));
         assertTrue(exception.getMessage().contains("90 dias"));
-        
+
         verify(produtoRepository).findById(2L);
         verify(pessoaRepository).findById(1L);
         verifyNoInteractions(investimentoRepository, investimentoMapper);
@@ -297,7 +297,7 @@ class InvestimentoServiceTest {
         });
 
         assertEquals("ID do cliente não pode ser nulo", exception.getMessage());
-        
+
         verifyNoInteractions(pessoaRepository, investimentoRepository, investimentoMapper);
     }
 
@@ -313,7 +313,7 @@ class InvestimentoServiceTest {
         });
 
         assertEquals("Cliente não encontrado com ID: 999", exception.getMessage());
-        
+
         verify(pessoaRepository).findById(clienteId);
         verifyNoInteractions(investimentoRepository, investimentoMapper);
     }
@@ -345,7 +345,7 @@ class InvestimentoServiceTest {
     void buscarPorCliente_WithMultipleInvestimentos_ShouldReturnAllInvestimentos() {
         // Given
         Long clienteId = 1L;
-        
+
         Investimento inv1 = new Investimento();
         inv1.setId(1L);
         inv1.setClienteId(clienteId);

@@ -1,8 +1,8 @@
 package br.gov.caixa.api.investimentos.service.compliance;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
@@ -169,7 +169,7 @@ class TributacaoServiceTest {
 
         // When
         BigDecimal rendimentoLiquido = tributacaoService.calcularRendimentoLiquido(rendimentoBruto, prazoDias);
-        
+
         // Cálculo manual para verificação
         BigDecimal irEsperado = tributacaoService.calcularIR(rendimentoBruto, prazoDias);
         BigDecimal iofEsperado = tributacaoService.calcularIOF(rendimentoBruto, prazoDias);
@@ -189,7 +189,7 @@ class TributacaoServiceTest {
 
         // When
         BigDecimal rendimentoLiquido = tributacaoService.calcularRendimentoLiquido(rendimentoBruto, prazoDias);
-        
+
         // Cálculo manual
         BigDecimal liquidoEsperado = new BigDecimal("850.00"); // 1000 - 150 (IR 15%) - 0 (sem IOF)
 
@@ -213,14 +213,14 @@ class TributacaoServiceTest {
         assertNotNull(ir);
         assertNotNull(iof);
         assertNotNull(liquido);
-        
+
         // Verifica se tem 2 casas decimais
         assertEquals(2, ir.scale());
         assertEquals(2, liquido.scale());
-        
+
         // IOF deve ser zero para prazo > 30 dias
         assertEquals(BigDecimal.ZERO, iof);
-        
+
         // IR deve ser 17,5% para prazo de 365 dias
         BigDecimal irEsperado = new BigDecimal("21.60"); // 17,5% de 123.45
         assertEquals(0, irEsperado.compareTo(ir));

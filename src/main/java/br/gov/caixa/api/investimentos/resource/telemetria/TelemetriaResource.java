@@ -1,18 +1,18 @@
 package br.gov.caixa.api.investimentos.resource.telemetria;
 
+import br.gov.caixa.api.investimentos.dto.telemetria.AcessoLogDTO;
 import br.gov.caixa.api.investimentos.dto.telemetria.EstatisticasAcessoDTO;
+import br.gov.caixa.api.investimentos.dto.telemetria.TelemetriaResponse;
+import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetrica;
+import br.gov.caixa.api.investimentos.repository.telemetria.TelemetriaMetricaRepository;
+import br.gov.caixa.api.investimentos.service.telemetria.AcessoLogService;
+import br.gov.caixa.api.investimentos.service.telemetria.TelemetriaService;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.inject.Inject;
-import br.gov.caixa.api.investimentos.dto.telemetria.TelemetriaResponse;
-import br.gov.caixa.api.investimentos.dto.telemetria.AcessoLogDTO;
-import br.gov.caixa.api.investimentos.service.telemetria.TelemetriaService;
-import br.gov.caixa.api.investimentos.service.telemetria.AcessoLogService;
-import br.gov.caixa.api.investimentos.repository.telemetria.TelemetriaMetricaRepository;
-import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetrica;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 @Path("/telemetria")
@@ -21,7 +21,7 @@ public class TelemetriaResource {
 
     @Inject
     TelemetriaService telemetriaService;
-    
+
     @Inject
     TelemetriaMetricaRepository telemetriaRepository;
 
@@ -40,7 +40,7 @@ public class TelemetriaResource {
                     .build();
         }
     }
-    
+
     @GET
     @Path("/detalhado")
     @Produces(MediaType.APPLICATION_JSON)
@@ -54,7 +54,7 @@ public class TelemetriaResource {
                     .build();
         }
     }
-    
+
     @GET
     @Path("/mais-acessados/{limite}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,7 +68,7 @@ public class TelemetriaResource {
                     .build();
         }
     }
-    
+
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response limparMetricas() {
@@ -84,9 +84,6 @@ public class TelemetriaResource {
         }
     }
 
-    
-
-    
     @GET
     @Path("/acesso-logs")
     @Produces(MediaType.APPLICATION_JSON)
@@ -101,7 +98,6 @@ public class TelemetriaResource {
         }
     }
 
-    
     @GET
     @Path("/acesso-logs/usuario/{usuarioId}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -115,8 +111,7 @@ public class TelemetriaResource {
                     .build();
         }
     }
-	
-    
+
     @GET
     @Path("/acesso-logs/erros")
     @Produces(MediaType.APPLICATION_JSON)
@@ -131,7 +126,6 @@ public class TelemetriaResource {
         }
     }
 
-    
     @GET
     @Path("/acesso-logs/status/{statusCode}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -146,7 +140,6 @@ public class TelemetriaResource {
         }
     }
 
-    
     @GET
     @Path("/acesso-logs/estatisticas")
     @Produces(MediaType.APPLICATION_JSON)
@@ -161,7 +154,6 @@ public class TelemetriaResource {
         }
     }
 
-    
     @DELETE
     @Path("/acesso-logs")
     @Produces(MediaType.APPLICATION_JSON)
@@ -176,7 +168,6 @@ public class TelemetriaResource {
         }
     }
 
-    
     @DELETE
     @Path("/acesso-logs/antigos/{diasRetencao}")
     @Produces(MediaType.APPLICATION_JSON)

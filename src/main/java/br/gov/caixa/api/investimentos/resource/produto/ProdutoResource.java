@@ -1,5 +1,11 @@
 package br.gov.caixa.api.investimentos.resource.produto;
 
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.exception.produto.ProdutoNotFoundException;
+import br.gov.caixa.api.investimentos.service.produto.ProdutoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -7,13 +13,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
-import br.gov.caixa.api.investimentos.exception.produto.ProdutoNotFoundException;
-import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
-import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-
-import br.gov.caixa.api.investimentos.service.produto.ProdutoService;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +25,6 @@ public class ProdutoResource {
     @Inject
     ProdutoService produtoService;
 
-    
     @GET
     @RolesAllowed({"USER", "ADMIN"})
     public Response listarProdutos(
@@ -39,7 +37,6 @@ public class ProdutoResource {
     ) {
         List<ProdutoResponse> produtos;
 
-        
         if (tipo != null) {
             produtos = produtoService.buscarPorTipo(tipo);
         } else if (tipoRentabilidade != null) {
@@ -59,13 +56,12 @@ public class ProdutoResource {
         return Response.ok(produtos).build();
     }
 
-    
     @GET
     @Path("/{id}")
     @RolesAllowed({"USER", "ADMIN"})
     public Response buscarPorId(@PathParam("id") @NotNull Long id) {
         Optional<ProdutoResponse> produto = produtoService.buscarPorId(id);
-        
+
         if (produto.isPresent()) {
             return Response.ok(produto.get()).build();
         } else {
@@ -73,18 +69,15 @@ public class ProdutoResource {
         }
     }
 
-    
     @POST
     @RolesAllowed({"ADMIN"})
-    public Response criarProduto(@Valid @NotNull ProdutoRequest request)
-    {
+    public Response criarProduto(@Valid @NotNull ProdutoRequest request) {
         ProdutoResponse produto = produtoService.criar(request);
         return Response.status(Response.Status.CREATED)
                 .entity(produto)
                 .build();
     }
 
-    
     @PUT
     @Path("/{id}")
     @RolesAllowed({"ADMIN"})
@@ -93,7 +86,6 @@ public class ProdutoResource {
         return Response.ok(produto).build();
     }
 
-    
     @GET
     @Path("/count")
     @RolesAllowed({"USER", "ADMIN"})
@@ -102,11 +94,11 @@ public class ProdutoResource {
         return Response.ok(new CountResponse(total)).build();
     }
 
-    
     public static class CountResponse {
         private long total;
 
-        public CountResponse() {}
+        public CountResponse() {
+        }
 
         public CountResponse(long total) {
             this.total = total;

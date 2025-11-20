@@ -28,7 +28,7 @@ class RateLimitByIpFilterTest {
         try {
             java.lang.reflect.Field bucketsField = RateLimitByIpFilter.class.getDeclaredField("buckets");
             bucketsField.setAccessible(true);
-            ((java.util.Map<?,?>) bucketsField.get(filter)).clear();
+            ((java.util.Map<?, ?>) bucketsField.get(filter)).clear();
         } catch (Exception e) {
             throw new RuntimeException("Failed to reset buckets map", e);
         }

@@ -7,7 +7,8 @@ import jakarta.validation.ConstraintValidatorContext.ConstraintViolationBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class RentabilidadeIndiceValidatorTest {
@@ -34,7 +35,8 @@ class RentabilidadeIndiceValidatorTest {
     }
 
     // ===== Record simulado =====
-    private record SimulacaoRecord(TipoRentabilidade tipoRentabilidade, Indice indice) {}
+    private record SimulacaoRecord(TipoRentabilidade tipoRentabilidade, Indice indice) {
+    }
 
     @Test
     void preFixadoWithNullOrNenhumIndiceShouldBeValid() {
@@ -75,8 +77,13 @@ class RentabilidadeIndiceValidatorTest {
             this.indice = indice;
         }
 
-        public TipoRentabilidade getTipoRentabilidade() { return tipoRentabilidade; }
-        public Indice getIndice() { return indice; }
+        public TipoRentabilidade getTipoRentabilidade() {
+            return tipoRentabilidade;
+        }
+
+        public Indice getIndice() {
+            return indice;
+        }
     }
 
     @Test

@@ -1,9 +1,9 @@
 package br.gov.caixa.api.investimentos.mapper;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import br.gov.caixa.api.investimentos.dto.simulacao.ResultadoSimulacao;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoInvestimentoResponse;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class SimulacaoInvestimentoMapper {
 
-    
     public SimulacaoInvestimentoResponse toResponse(SimulacaoInvestimento simulacao) {
         if (simulacao == null) {
             return null;
@@ -36,7 +35,6 @@ public class SimulacaoInvestimentoMapper {
         );
     }
 
-    
     public List<SimulacaoInvestimentoResponse> toResponseList(List<SimulacaoInvestimento> simulacoes) {
         if (simulacoes == null) {
             return null;
@@ -48,7 +46,6 @@ public class SimulacaoInvestimentoMapper {
                 .collect(Collectors.toList());
     }
 
-    
     public SimulacaoInvestimento toEntity(Long clienteId, Long produtoId, String nomeProduto, BigDecimal valorInvestido, ResultadoSimulacao resultado) {
         if (clienteId == null || nomeProduto == null || valorInvestido == null || resultado == null) {
             return null;
@@ -70,10 +67,9 @@ public class SimulacaoInvestimentoMapper {
         );
     }
 
-    
     public SimulacaoInvestimento toEntity(Long clienteId, Long produtoId, String produto, BigDecimal valorInvestido,
-                                        BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias, 
-                                        Integer prazoAnos) {
+                                          BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias,
+                                          Integer prazoAnos) {
         if (clienteId == null || produto == null || valorInvestido == null || valorFinal == null) {
             return null;
         }
@@ -90,12 +86,11 @@ public class SimulacaoInvestimentoMapper {
         );
     }
 
-    
-    public void updateEntityFromData(SimulacaoInvestimento simulacao, Long clienteId, String produto, 
-                                   BigDecimal valorInvestido, BigDecimal valorFinal, 
-                                   Integer prazoMeses, Integer prazoDias, Integer prazoAnos,
-                                   BigDecimal rentabilidadeEfetiva, BigDecimal rendimento, 
-                                   Boolean valorSimulado, String cenarioSimulacao) {
+    public void updateEntityFromData(SimulacaoInvestimento simulacao, Long clienteId, String produto,
+                                     BigDecimal valorInvestido, BigDecimal valorFinal,
+                                     Integer prazoMeses, Integer prazoDias, Integer prazoAnos,
+                                     BigDecimal rentabilidadeEfetiva, BigDecimal rendimento,
+                                     Boolean valorSimulado, String cenarioSimulacao) {
         if (simulacao == null) {
             return;
         }

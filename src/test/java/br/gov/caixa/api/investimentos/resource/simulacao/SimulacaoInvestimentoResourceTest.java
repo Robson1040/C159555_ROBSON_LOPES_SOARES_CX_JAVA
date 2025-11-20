@@ -2,18 +2,20 @@ package br.gov.caixa.api.investimentos.resource.simulacao;
 
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.simulacao.ResultadoSimulacao;
+import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoInvestimentoResponse;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
-import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoInvestimentoResponse;
 import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
 import br.gov.caixa.api.investimentos.mapper.SimulacaoInvestimentoMapper;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
 import br.gov.caixa.api.investimentos.service.simulacao.SimulacaoInvestimentoService;
-import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,7 +23,8 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class SimulacaoInvestimentoResourceTest {
 
@@ -88,11 +91,11 @@ class SimulacaoInvestimentoResourceTest {
         );
 
         SimulacaoInvestimentoResponse response1 = new SimulacaoInvestimentoResponse(
-                1L, 100L, 10L, "ProdutoA", new BigDecimal("1000"), new BigDecimal("1100"), 
+                1L, 100L, 10L, "ProdutoA", new BigDecimal("1000"), new BigDecimal("1100"),
                 12, 0, 1, LocalDateTime.now(), new BigDecimal("0.1"), new BigDecimal("100"), true, "Cenário A"
         );
         SimulacaoInvestimentoResponse response2 = new SimulacaoInvestimentoResponse(
-                2L, 101L, 10L, "ProdutoB", new BigDecimal("2000"), new BigDecimal("2200"), 
+                2L, 101L, 10L, "ProdutoB", new BigDecimal("2000"), new BigDecimal("2200"),
                 6, 0, 0, LocalDateTime.now(), new BigDecimal("0.05"), new BigDecimal("100"), false, "Cenário B"
         );
 
@@ -115,7 +118,7 @@ class SimulacaoInvestimentoResourceTest {
                 new BigDecimal("0.1"), new BigDecimal("100"), true, "Cenário A"
         );
         SimulacaoInvestimentoResponse responseExpected = new SimulacaoInvestimentoResponse(
-                1L, 100L, 10L, "ProdutoA", new BigDecimal("1000"), new BigDecimal("1100"), 
+                1L, 100L, 10L, "ProdutoA", new BigDecimal("1000"), new BigDecimal("1100"),
                 12, 0, 1, LocalDateTime.now(), new BigDecimal("0.1"), new BigDecimal("100"), true, "Cenário A"
         );
 

@@ -1,26 +1,26 @@
 package br.gov.caixa.api.investimentos.resource.produto_recomendado;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.eclipse.microprofile.jwt.JsonWebToken;
-
-import jakarta.ws.rs.core.Response;
-import java.util.List;
-import java.util.ArrayList;
-
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
-import br.gov.caixa.api.investimentos.service.produto_recomendado.ProdutoRecomendadoService;
-import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
+import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.exception.auth.AccessDeniedException;
 import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
-import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
-import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import br.gov.caixa.api.investimentos.service.produto_recomendado.ProdutoRecomendadoService;
+import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @DisplayName("ProdutoRecomendadoResource - Testes unitários para casos não cobertos")
@@ -53,13 +53,13 @@ class ProdutoRecomendadoResourceTest {
     void deveRetornarProdutosRecomendadosPorClienteComSucesso() {
         // Given
         List<ProdutoResponse> produtosEsperados = List.of(
-            createProdutoResponse(1L, "CDB Test", TipoProduto.CDB, NivelRisco.BAIXO),
-            createProdutoResponse(2L, "LCI Test", TipoProduto.LCI, NivelRisco.BAIXO)
+                createProdutoResponse(1L, "CDB Test", TipoProduto.CDB, NivelRisco.BAIXO),
+                createProdutoResponse(2L, "LCI Test", TipoProduto.LCI, NivelRisco.BAIXO)
         );
-        
+
         doNothing().when(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
         when(produtoRecomendadoService.buscarProdutosPorCliente(CLIENTE_ID_TESTE))
-            .thenReturn(produtosEsperados);
+                .thenReturn(produtosEsperados);
 
         // When
         Response response = resource.buscarProdutosPorCliente(CLIENTE_ID_TESTE);
@@ -78,7 +78,7 @@ class ProdutoRecomendadoResourceTest {
         String mensagemErro = "Cliente ID não pode ser negativo";
         doNothing().when(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
         when(produtoRecomendadoService.buscarProdutosPorCliente(CLIENTE_ID_TESTE))
-            .thenThrow(new IllegalArgumentException(mensagemErro));
+                .thenThrow(new IllegalArgumentException(mensagemErro));
 
         // When
         Response response = resource.buscarProdutosPorCliente(CLIENTE_ID_TESTE);
@@ -96,15 +96,15 @@ class ProdutoRecomendadoResourceTest {
         String mensagemErro = "Estado inválido para recomendação";
         doNothing().when(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
         when(produtoRecomendadoService.buscarProdutosPorCliente(CLIENTE_ID_TESTE))
-            .thenThrow(new IllegalStateException(mensagemErro));
+                .thenThrow(new IllegalStateException(mensagemErro));
 
         // When
         Response response = resource.buscarProdutosPorCliente(CLIENTE_ID_TESTE);
 
         // Then
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
-        ErrorResponse errorResponse = 
-            (ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse =
+                (ErrorResponse) response.getEntity();
         assertEquals(mensagemErro, errorResponse.message());
     }
 
@@ -115,15 +115,15 @@ class ProdutoRecomendadoResourceTest {
         String mensagemErro = "Cliente não encontrado";
         doNothing().when(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
         when(produtoRecomendadoService.buscarProdutosPorCliente(CLIENTE_ID_TESTE))
-            .thenThrow(new ClienteNotFoundException(mensagemErro));
+                .thenThrow(new ClienteNotFoundException(mensagemErro));
 
         // When
         Response response = resource.buscarProdutosPorCliente(CLIENTE_ID_TESTE);
 
         // Then
         assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
-        ErrorResponse errorResponse = 
-            (ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse =
+                (ErrorResponse) response.getEntity();
         assertEquals(mensagemErro, errorResponse.message());
     }
 
@@ -133,15 +133,15 @@ class ProdutoRecomendadoResourceTest {
         // Given
         doNothing().when(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
         when(produtoRecomendadoService.buscarProdutosPorCliente(CLIENTE_ID_TESTE))
-            .thenThrow(new RuntimeException("Erro inesperado"));
+                .thenThrow(new RuntimeException("Erro inesperado"));
 
         // When
         Response response = resource.buscarProdutosPorCliente(CLIENTE_ID_TESTE);
 
         // Then
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
-        ErrorResponse errorResponse = 
-            (ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse =
+                (ErrorResponse) response.getEntity();
         assertEquals("Erro interno no servidor", errorResponse.message());
     }
 
@@ -150,17 +150,17 @@ class ProdutoRecomendadoResourceTest {
     void deveTratarAccessDeniedExceptionComoErroInterno() {
         // Given
         doThrow(new AccessDeniedException("Acesso negado"))
-            .when(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
+                .when(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
 
         // When
         Response response = resource.buscarProdutosPorCliente(CLIENTE_ID_TESTE);
 
         // Then - AccessDeniedException é capturada pelo catch genérico
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
-        ErrorResponse errorResponse = 
-            (ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse =
+                (ErrorResponse) response.getEntity();
         assertEquals("Erro interno no servidor", errorResponse.message());
-        
+
         verify(authHelper).validarAcessoAoCliente(jwt, CLIENTE_ID_TESTE);
         verify(produtoRecomendadoService, never()).buscarProdutosPorCliente(any());
     }
@@ -171,12 +171,12 @@ class ProdutoRecomendadoResourceTest {
         // Given
         String perfil = "Conservador";
         List<ProdutoResponse> produtosEsperados = List.of(
-            createProdutoResponse(1L, "Poupança", TipoProduto.POUPANCA, NivelRisco.BAIXO),
-            createProdutoResponse(2L, "CDB", TipoProduto.CDB, NivelRisco.BAIXO)
+                createProdutoResponse(1L, "Poupança", TipoProduto.POUPANCA, NivelRisco.BAIXO),
+                createProdutoResponse(2L, "CDB", TipoProduto.CDB, NivelRisco.BAIXO)
         );
-        
+
         when(produtoRecomendadoService.buscarProdutosPorPerfil(perfil))
-            .thenReturn(produtosEsperados);
+                .thenReturn(produtosEsperados);
 
         // When
         Response response = resource.buscarProdutosPorPerfil(perfil);
@@ -194,15 +194,15 @@ class ProdutoRecomendadoResourceTest {
         String perfilInvalido = "InvalidProfile";
         String mensagemErro = "Perfil inválido: " + perfilInvalido;
         when(produtoRecomendadoService.buscarProdutosPorPerfil(perfilInvalido))
-            .thenThrow(new IllegalArgumentException(mensagemErro));
+                .thenThrow(new IllegalArgumentException(mensagemErro));
 
         // When
         Response response = resource.buscarProdutosPorPerfil(perfilInvalido);
 
         // Then
         assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
-        ErrorResponse errorResponse = 
-            (ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse =
+                (ErrorResponse) response.getEntity();
         assertEquals(mensagemErro, errorResponse.message());
     }
 
@@ -212,15 +212,15 @@ class ProdutoRecomendadoResourceTest {
         // Given
         String perfil = "Conservador";
         when(produtoRecomendadoService.buscarProdutosPorPerfil(perfil))
-            .thenThrow(new RuntimeException("Erro inesperado"));
+                .thenThrow(new RuntimeException("Erro inesperado"));
 
         // When
         Response response = resource.buscarProdutosPorPerfil(perfil);
 
         // Then
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
-        ErrorResponse errorResponse = 
-            (ErrorResponse) response.getEntity();
+        ErrorResponse errorResponse =
+                (ErrorResponse) response.getEntity();
         assertEquals("Erro interno no servidor", errorResponse.message());
     }
 
@@ -229,10 +229,10 @@ class ProdutoRecomendadoResourceTest {
     void deveValidarErrorResponseRecord() {
         // Given
         String mensagem = "Teste de erro";
-        
+
         // When
-        ErrorResponse errorResponse = 
-            new ErrorResponse(mensagem);
+        ErrorResponse errorResponse =
+                new ErrorResponse(mensagem);
 
         // Then
         assertEquals(mensagem, errorResponse.message());
@@ -247,7 +247,7 @@ class ProdutoRecomendadoResourceTest {
 
         for (String perfil : perfisValidos) {
             when(produtoRecomendadoService.buscarProdutosPorPerfil(perfil))
-                .thenReturn(produtosVazios);
+                    .thenReturn(produtosVazios);
 
             // When
             Response response = resource.buscarProdutosPorPerfil(perfil);
@@ -267,7 +267,7 @@ class ProdutoRecomendadoResourceTest {
         String perfil = "Conservador";
         List<ProdutoResponse> produtosVazios = new ArrayList<>();
         when(produtoRecomendadoService.buscarProdutosPorPerfil(perfil))
-            .thenReturn(produtosVazios);
+                .thenReturn(produtosVazios);
 
         // When
         Response response = resource.buscarProdutosPorPerfil(perfil);
@@ -281,17 +281,17 @@ class ProdutoRecomendadoResourceTest {
     private ProdutoResponse createProdutoResponse(Long id, String nome, TipoProduto tipo, NivelRisco risco) {
         // Usando construtor com parâmetros mínimos necessários
         return new ProdutoResponse(
-            id, 
-            nome, 
-            tipo, 
-            null, // tipoRentabilidade
-            null, // percentualRentabilidade
-            null, // periodoRentabilidade
-            null, // indice
-            null, // liquidezDias
-            null, // carenciaDias
-            null, // temFGC
-            risco
+                id,
+                nome,
+                tipo,
+                null, // tipoRentabilidade
+                null, // percentualRentabilidade
+                null, // periodoRentabilidade
+                null, // indice
+                null, // liquidezDias
+                null, // carenciaDias
+                null, // temFGC
+                risco
         );
     }
 }

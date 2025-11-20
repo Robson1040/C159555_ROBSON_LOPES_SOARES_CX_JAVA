@@ -1,12 +1,12 @@
 package br.gov.caixa.api.investimentos.filter;
 
+import br.gov.caixa.api.investimentos.service.telemetria.MetricasManager;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
 import jakarta.ws.rs.ext.Provider;
-import br.gov.caixa.api.investimentos.service.telemetria.MetricasManager;
 
 import java.io.IOException;
 
@@ -20,9 +20,9 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
 
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
-        
+
         requestContext.setProperty(START_TIME_PROPERTY, System.currentTimeMillis());
-        
+
     }
 
     @Override
@@ -32,16 +32,13 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
             long duration = System.currentTimeMillis() - startTime;
             String path = requestContext.getUriInfo().getPath();
             String endpoint = extractEndpointName(path);
-            
 
             if (endpoint != null && !endpoint.contains("telemetria")) {
-                
+
                 metricasManager.incrementarContador(endpoint);
-                
-                
+
                 metricasManager.registrarTempoResposta(endpoint, duration);
 
-               
             }
         }
     }
@@ -51,17 +48,14 @@ public class TelemetriaFilter implements ContainerRequestFilter, ContainerRespon
             return null;
         }
 
-        
         String cleaned = path.replaceAll("^/+", "").replaceAll("/+$", "");
-
-
 
         String[] parts = cleaned.split("/");
         if (parts.length > 0) {
-            
+
             StringBuilder sb = new StringBuilder("/");
             sb.append(parts[0]);
-            if (parts.length > 1 && !parts[1].matches("\\d+")) { 
+            if (parts.length > 1 && !parts[1].matches("\\d+")) {
                 sb.append("/").append(parts[1]);
             }
             return sb.toString();

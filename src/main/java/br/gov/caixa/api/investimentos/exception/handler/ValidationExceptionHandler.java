@@ -1,15 +1,14 @@
 package br.gov.caixa.api.investimentos.exception.handler;
 
+import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
-import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Provider
 public class ValidationExceptionHandler implements ExceptionMapper<ConstraintViolationException> {
@@ -22,7 +21,7 @@ public class ValidationExceptionHandler implements ExceptionMapper<ConstraintVio
                 .collect(Collectors.toList());
 
         ErrorResponse errorResponse = ErrorResponse.validationError(
-                "Dados inválidos fornecidos", 
+                "Dados inválidos fornecidos",
                 violationMessages
         );
 
@@ -35,13 +34,12 @@ public class ValidationExceptionHandler implements ExceptionMapper<ConstraintVio
         String propertyPath = violation.getPropertyPath().toString();
         String message = violation.getMessage();
         Object invalidValue = violation.getInvalidValue();
-        
-        
-        String fieldName = propertyPath.contains(".") ? 
-                propertyPath.substring(propertyPath.lastIndexOf('.') + 1) : 
+
+        String fieldName = propertyPath.contains(".") ?
+                propertyPath.substring(propertyPath.lastIndexOf('.') + 1) :
                 propertyPath;
-        
-        return String.format("Campo '%s': %s (valor fornecido: %s)", 
+
+        return String.format("Campo '%s': %s (valor fornecido: %s)",
                 fieldName, message, invalidValue);
     }
 }

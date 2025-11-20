@@ -1,7 +1,6 @@
 package br.gov.caixa.api.investimentos.service.telemetria;
 
 import br.gov.caixa.api.investimentos.repository.telemetria.TelemetriaMetricaRepository;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -80,14 +79,14 @@ class MetricasManagerTest {
         // Given
         String endpoint = "/produtos";
         when(telemetriaRepository.obterContadorExecucoes(endpoint))
-            .thenThrow(new RuntimeException("Erro no banco"));
+                .thenThrow(new RuntimeException("Erro no banco"));
 
         // Simular incremento no cache primeiro
         metricasManager.incrementarContador(endpoint);
         reset(telemetriaRepository); // Reset para testar fallback
 
         when(telemetriaRepository.obterContadorExecucoes(endpoint))
-            .thenThrow(new RuntimeException("Erro no banco"));
+                .thenThrow(new RuntimeException("Erro no banco"));
 
         // When
         long contador = metricasManager.obterContadorExecucoes(endpoint);
@@ -118,9 +117,9 @@ class MetricasManagerTest {
         // Given
         String endpoint = "/produtos";
         when(telemetriaRepository.obterTempoMedioResposta(endpoint))
-            .thenThrow(new RuntimeException("Erro no banco"));
+                .thenThrow(new RuntimeException("Erro no banco"));
         doThrow(new RuntimeException("Erro no banco"))
-            .when(telemetriaRepository).adicionarTempoExecucao(anyString(), anyLong());
+                .when(telemetriaRepository).adicionarTempoExecucao(anyString(), anyLong());
 
         // Simular registro de tempo no cache primeiro
         metricasManager.registrarTempoResposta(endpoint, 100L);
@@ -154,9 +153,9 @@ class MetricasManagerTest {
         // Given
         String endpoint = "/produtos";
         when(telemetriaRepository.obterEndpointsComMetricas())
-            .thenThrow(new RuntimeException("Erro no banco"));
+                .thenThrow(new RuntimeException("Erro no banco"));
         doThrow(new RuntimeException("Erro no banco"))
-            .when(telemetriaRepository).incrementarContador(anyString());
+                .when(telemetriaRepository).incrementarContador(anyString());
 
         // Simular adição ao cache
         metricasManager.incrementarContador(endpoint);
@@ -191,11 +190,11 @@ class MetricasManagerTest {
             metricasManager.incrementarContador(null);
             metricasManager.incrementarContador("");
         });
-        
+
         // Verify que o repositório nunca foi chamado para null e empty
         verify(telemetriaRepository, never()).incrementarContador(null);
         verify(telemetriaRepository, never()).incrementarContador("");
-        
+
         // Mas deve ser chamado para string com espaços (comportamento atual)
         metricasManager.incrementarContador("   ");
         verify(telemetriaRepository, times(1)).incrementarContador("   ");
@@ -209,11 +208,11 @@ class MetricasManagerTest {
             metricasManager.registrarTempoResposta(null, 100L);
             metricasManager.registrarTempoResposta("", 100L);
         });
-        
+
         // Verify que o repositório nunca foi chamado para null e empty
         verify(telemetriaRepository, never()).adicionarTempoExecucao(null, 100L);
         verify(telemetriaRepository, never()).adicionarTempoExecucao("", 100L);
-        
+
         // Mas deve ser chamado para string com espaços (comportamento atual)
         metricasManager.registrarTempoResposta("   ", 100L);
         verify(telemetriaRepository, times(1)).adicionarTempoExecucao("   ", 100L);
@@ -278,9 +277,9 @@ class MetricasManagerTest {
         // Given
         String endpoint = "/produtos";
         when(telemetriaRepository.obterTempoMedioResposta(endpoint))
-            .thenThrow(new RuntimeException("Usar cache"));
+                .thenThrow(new RuntimeException("Usar cache"));
         doThrow(new RuntimeException("Usar cache"))
-            .when(telemetriaRepository).adicionarTempoExecucao(anyString(), anyLong());
+                .when(telemetriaRepository).adicionarTempoExecucao(anyString(), anyLong());
 
         // When - Registrar diferentes tempos
         metricasManager.registrarTempoResposta(endpoint, 100L);

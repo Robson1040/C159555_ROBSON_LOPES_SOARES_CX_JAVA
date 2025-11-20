@@ -2,14 +2,14 @@ package br.gov.caixa.api.investimentos.resource.investimento;
 
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
-import br.gov.caixa.api.investimentos.service.investimento.InvestimentoService;
 import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
-import org.eclipse.microprofile.jwt.JsonWebToken;
+import br.gov.caixa.api.investimentos.service.investimento.InvestimentoService;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +17,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class InvestimentoResourceTest {
 

@@ -2,12 +2,12 @@ package br.gov.caixa.api.investimentos.mapper;
 
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoResponse;
-import br.gov.caixa.api.investimentos.model.investimento.Investimento;
-import br.gov.caixa.api.investimentos.model.produto.Produto;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import br.gov.caixa.api.investimentos.model.investimento.Investimento;
+import br.gov.caixa.api.investimentos.model.produto.Produto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -105,7 +105,7 @@ class InvestimentoMapperTest {
         // Then
         assertNotNull(responses);
         assertEquals(2, responses.size());
-        
+
         InvestimentoResponse response1 = responses.get(0);
         assertEquals(1L, response1.id());
         assertEquals(100L, response1.clienteId());
@@ -158,8 +158,8 @@ class InvestimentoMapperTest {
         assertNotNull(responses);
         assertEquals(2, responses.size());
         assertAll(
-            () -> assertEquals(1L, responses.get(0).id()),
-            () -> assertEquals(1L, responses.get(1).id())
+                () -> assertEquals(1L, responses.get(0).id()),
+                () -> assertEquals(1L, responses.get(1).id())
         );
     }
 
@@ -199,7 +199,7 @@ class InvestimentoMapperTest {
         assertEquals(18, investimento.getPrazoMeses());
         assertEquals(540, investimento.getPrazoDias());
         assertEquals(1, investimento.getPrazoAnos());
-        
+
         // Dados do produto copiados
         assertEquals(TipoProduto.CDB, investimento.getTipo());
         assertEquals(TipoRentabilidade.POS, investimento.getTipoRentabilidade());
@@ -288,7 +288,7 @@ class InvestimentoMapperTest {
         // Then
         // ID deve permanecer inalterado
         assertEquals(1L, investimento.getId());
-        
+
         // Dados do request atualizados
         assertEquals(999L, investimento.getClienteId());
         assertEquals(888L, investimento.getProdutoId());
@@ -296,7 +296,7 @@ class InvestimentoMapperTest {
         assertEquals(24, investimento.getPrazoMeses());
         assertEquals(730, investimento.getPrazoDias());
         assertEquals(2, investimento.getPrazoAnos());
-        
+
         // Dados do produto atualizados
         assertEquals(TipoProduto.LCI, investimento.getTipo());
         assertEquals(TipoRentabilidade.POS, investimento.getTipoRentabilidade());
@@ -332,10 +332,10 @@ class InvestimentoMapperTest {
         investimento.setId(1L);
         investimento.setClienteId(100L);
         investimento.setValor(new BigDecimal("5000.00"));
-        
+
         Long clienteIdOriginal = investimento.getClienteId();
         BigDecimal valorOriginal = investimento.getValor();
-        
+
         Produto produto = new Produto();
 
         // When
@@ -362,7 +362,7 @@ class InvestimentoMapperTest {
                 365,
                 1
         );
-        
+
         Long clienteIdOriginal = investimento.getClienteId();
 
         // When
@@ -414,7 +414,7 @@ class InvestimentoMapperTest {
         assertNull(investimento.getPrazoMeses());
         assertNull(investimento.getPrazoDias());
         assertNull(investimento.getPrazoAnos());
-        
+
         // Dados do produto devem ser copiados mesmo com request null
         assertEquals(TipoProduto.CDB, investimento.getTipo());
         assertEquals(TipoRentabilidade.PRE, investimento.getTipoRentabilidade());
@@ -475,7 +475,7 @@ class InvestimentoMapperTest {
 
         // Then
         assertEquals(1L, investimento.getId()); // ID deve permanecer
-        
+
         // Campos atualizados devem ser null
         assertNull(investimento.getClienteId());
         assertNull(investimento.getProdutoId());
@@ -483,7 +483,7 @@ class InvestimentoMapperTest {
         assertNull(investimento.getPrazoMeses());
         assertNull(investimento.getPrazoDias());
         assertNull(investimento.getPrazoAnos());
-        
+
         // Dados do produto null
         assertNull(investimento.getTipo());
         assertNull(investimento.getTipoRentabilidade());

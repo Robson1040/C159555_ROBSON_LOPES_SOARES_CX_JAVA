@@ -107,7 +107,7 @@ class SimulacaoInvestimentoMapperTest {
         // Then
         assertNotNull(responses);
         assertEquals(2, responses.size());
-        
+
         SimulacaoInvestimentoResponse response1 = responses.get(0);
         assertEquals(1L, response1.id());
         assertEquals(100L, response1.clienteId());
@@ -170,8 +170,8 @@ class SimulacaoInvestimentoMapperTest {
         assertNotNull(responses);
         assertEquals(2, responses.size());
         assertAll(
-            () -> assertEquals(1L, responses.get(0).id()),
-            () -> assertEquals(1L, responses.get(1).id())
+                () -> assertEquals(1L, responses.get(0).id()),
+                () -> assertEquals(1L, responses.get(1).id())
         );
     }
 
@@ -182,7 +182,7 @@ class SimulacaoInvestimentoMapperTest {
         Long produtoId = 200L;
         String nomeProduto = "CDB Excelente";
         BigDecimal valorInvestido = new BigDecimal("20000.00");
-        
+
         ResultadoSimulacao resultado = new ResultadoSimulacao(
                 new BigDecimal("25000.00"), // valorFinal
                 new BigDecimal("25.00"), // rentabilidadeEfetiva
@@ -304,7 +304,7 @@ class SimulacaoInvestimentoMapperTest {
 
         // When
         SimulacaoInvestimento simulacao = simulacaoMapper.toEntity(
-                clienteId, produtoId, produto, valorInvestido, 
+                clienteId, produtoId, produto, valorInvestido,
                 valorFinal, prazoMeses, prazoDias, prazoAnos
         );
 
@@ -319,7 +319,7 @@ class SimulacaoInvestimentoMapperTest {
         assertEquals(24, simulacao.getPrazoMeses());
         assertEquals(730, simulacao.getPrazoDias());
         assertEquals(2, simulacao.getPrazoAnos());
-        
+
         // Campos não informados devem ser null
         assertNull(simulacao.getRentabilidadeEfetiva());
         assertNull(simulacao.getRendimento());
@@ -403,7 +403,7 @@ class SimulacaoInvestimentoMapperTest {
         // Then
         // ID deve permanecer inalterado
         assertEquals(1L, simulacao.getId());
-        
+
         // Outros campos devem ser atualizados
         assertEquals(999L, simulacao.getClienteId());
         assertEquals("Produto Atualizado", simulacao.getProduto());
@@ -456,7 +456,7 @@ class SimulacaoInvestimentoMapperTest {
 
         // Then
         assertEquals(1L, simulacao.getId()); // ID deve permanecer
-        
+
         // Campos atualizados devem ser null
         assertNull(simulacao.getClienteId());
         assertNull(simulacao.getProduto());

@@ -6,10 +6,9 @@ import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
-
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.service.autenticacao.JwtService;
 import io.quarkus.test.junit.QuarkusTest;
@@ -18,19 +17,19 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.math.BigDecimal;
-
 import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
@@ -45,7 +44,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
 
     // IDs dos dados criados para reutilização nos testes
     private static Long produtoIdCriado1;
-    private static Long produtoIdCriado2; 
+    private static Long produtoIdCriado2;
     private static Long produtoIdCriado3;
     private static Long clienteIdCriado;
     private static Long simulacaoIdCriada1;
@@ -325,15 +324,15 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
                 .extract().response();
 
         List<Map<String, Object>> simulacoes = response.jsonPath().getList("$");
-        
+
         // Verificar se as simulações criadas estão no histórico
         boolean temPrimeiraSimulacao = simulacoes.stream()
-            .anyMatch(s -> "CDB Simulação Test 120% CDI".equals(s.get("produto")));
+                .anyMatch(s -> "CDB Simulação Test 120% CDI".equals(s.get("produto")));
         boolean temSegundaSimulacao = simulacoes.stream()
-            .anyMatch(s -> "Tesouro IPCA+ 2035 Test".equals(s.get("produto")));
+                .anyMatch(s -> "Tesouro IPCA+ 2035 Test".equals(s.get("produto")));
         boolean temTerceiraSimulacao = simulacoes.stream()
-            .anyMatch(s -> "LCI Pré-fixada Test".equals(s.get("produto")));
-            
+                .anyMatch(s -> "LCI Pré-fixada Test".equals(s.get("produto")));
+
         assertTrue(temPrimeiraSimulacao, "Primeira simulação deve estar no histórico");
         assertTrue(temSegundaSimulacao, "Segunda simulação deve estar no histórico");
         assertTrue(temTerceiraSimulacao, "Terceira simulação deve estar no histórico");
@@ -568,7 +567,7 @@ public class SimulacaoInvestimentoResourceIntegrationTest {
         // Criar um token para um usuário específico e tentar acessar dados de outro cliente
         // Este teste verifica se a validação de acesso está funcionando
         String tokenUsuarioEspecifico = jwtService.gerarToken("user2@test.com", "USER");
-        
+
         given()
                 .header("Authorization", "Bearer " + tokenUsuarioEspecifico)
                 .when()

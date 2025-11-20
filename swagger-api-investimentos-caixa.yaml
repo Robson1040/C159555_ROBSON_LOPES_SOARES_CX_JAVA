@@ -23,15 +23,13 @@ info:
   version: 1.0.0
   contact:
     name: Equipe API Investimentos CAIXA
-    email: api-investimentos@caixa.gov.br
+    email: robson.soares@caixa.gov.br
   license:
     name: Proprietary
     
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:9090
     description: Ambiente de desenvolvimento
-  - url: https://api-investimentos.caixa.gov.br
-    description: Ambiente de produção
 
 security:
   - bearerAuth: []

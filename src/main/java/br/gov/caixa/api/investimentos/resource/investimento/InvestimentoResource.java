@@ -1,5 +1,9 @@
 package br.gov.caixa.api.investimentos.resource.investimento;
 
+import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
+import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoResponse;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import br.gov.caixa.api.investimentos.service.investimento.InvestimentoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -7,10 +11,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
-import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoResponse;
-import br.gov.caixa.api.investimentos.service.investimento.InvestimentoService;
-import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.List;
@@ -30,23 +30,21 @@ public class InvestimentoResource {
     @Inject
     JwtAuthorizationHelper authHelper;
 
-    
     @POST
     public Response criar(@Valid @NotNull InvestimentoRequest request) {
-        
+
         authHelper.validarAcessoAoCliente(jwt, request.clienteId());
-        
+
         InvestimentoResponse response = investimentoService.criar(request);
         return Response.status(Response.Status.CREATED).entity(response).build();
     }
 
-    
     @GET
     @Path("/{clienteId}")
     public Response buscarPorCliente(@PathParam("clienteId") @NotNull Long clienteId) {
-        
+
         authHelper.validarAcessoAoCliente(jwt, clienteId);
-        
+
         List<InvestimentoResponse> investimentos = investimentoService.buscarPorCliente(clienteId);
 
         return Response.ok(investimentos).build();

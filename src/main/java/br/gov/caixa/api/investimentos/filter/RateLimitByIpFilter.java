@@ -8,28 +8,25 @@ import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.time.Instant;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Provider
 @Priority(Priorities.AUTHENTICATION)
 public class RateLimitByIpFilter implements ContainerRequestFilter {
 
-
-    
     @ConfigProperty(name = "rate.limit.requests_per_minute", defaultValue = "30")
-    private int REQUESTS; 
+    private int REQUESTS;
 
-    private static final long WINDOW_MS = 60_000; 
-    private static final long EXPIRE_MS = 3_600_000; 
+    private static final long WINDOW_MS = 60_000;
+    private static final long EXPIRE_MS = 3_600_000;
 
     @Inject
-    HttpServerRequest vertxRequest; 
+    HttpServerRequest vertxRequest;
 
-    
     private static class IpBucket {
         int count;
         long windowStart;
@@ -45,7 +42,7 @@ public class RateLimitByIpFilter implements ContainerRequestFilter {
         IpBucket bucket = buckets.compute(ip, (k, b) -> {
             long now = Instant.now().toEpochMilli();
             if (b == null || (now - b.windowStart) > WINDOW_MS) {
-                
+
                 b = new IpBucket();
                 b.count = 1;
                 b.windowStart = now;

@@ -11,7 +11,6 @@ public class CPFValidator implements ConstraintValidator<ValidCPF, String> {
             return false;
         }
 
-        
         if (cpf.chars().distinct().count() == 1) {
             return false;
         }
@@ -19,7 +18,6 @@ public class CPFValidator implements ConstraintValidator<ValidCPF, String> {
         try {
             int[] digits = cpf.chars().map(c -> c - '0').toArray();
 
-            
             int sum = 0;
             for (int i = 0; i < 9; i++) {
                 sum += digits[i] * (10 - i);
@@ -27,7 +25,6 @@ public class CPFValidator implements ConstraintValidator<ValidCPF, String> {
             int dv1 = sum % 11 < 2 ? 0 : 11 - (sum % 11);
             if (digits[9] != dv1) return false;
 
-            
             sum = 0;
             for (int i = 0; i < 10; i++) {
                 sum += digits[i] * (11 - i);

@@ -1,15 +1,14 @@
 package br.gov.caixa.api.investimentos.dto.produto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.*;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.validation.ValidRentabilidadeIndice;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
-
 
 @ValidRentabilidadeIndice
 public record ProdutoRequest(
@@ -45,4 +44,5 @@ public record ProdutoRequest(
 
         @NotNull(message = "FGC é obrigatório")
         Boolean fgc
-) {}
+) {
+}

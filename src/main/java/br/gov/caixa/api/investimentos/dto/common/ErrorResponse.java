@@ -6,41 +6,36 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 public record ErrorResponse(
         @JsonProperty("message")
         String message,
-        
+
         @JsonProperty("timestamp")
         LocalDateTime timestamp,
-        
+
         @JsonProperty("status")
         Integer status,
-        
+
         @JsonProperty("path")
         @JsonIgnore
         String path,
-        
+
         @JsonProperty("errors")
         List<String> errors
 ) {
-    
-    
+
     public ErrorResponse(String message) {
         this(message, LocalDateTime.now(), null, null, null);
     }
 
-    
     public ErrorResponse(String message, Integer status) {
         this(message, LocalDateTime.now(), status, null, null);
     }
 
-    
     public ErrorResponse(String message, Integer status, String path) {
         this(message, LocalDateTime.now(), status, path, null);
     }
 
-    
     public static ErrorResponse badRequest(String message) {
         return new ErrorResponse(message, LocalDateTime.now(), 400, null, null);
     }

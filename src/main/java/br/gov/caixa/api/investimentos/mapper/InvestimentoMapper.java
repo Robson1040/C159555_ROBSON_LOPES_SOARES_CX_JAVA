@@ -1,10 +1,10 @@
 package br.gov.caixa.api.investimentos.mapper;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoResponse;
 import br.gov.caixa.api.investimentos.model.investimento.Investimento;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class InvestimentoMapper {
 
-    
     public InvestimentoResponse toResponse(Investimento investimento) {
         if (investimento == null) {
             return null;
@@ -38,7 +37,6 @@ public class InvestimentoMapper {
         );
     }
 
-    
     public List<InvestimentoResponse> toResponseList(List<Investimento> investimentos) {
         if (investimentos == null) {
             return null;
@@ -50,7 +48,6 @@ public class InvestimentoMapper {
                 .collect(Collectors.toList());
     }
 
-    
     public Investimento toEntity(InvestimentoRequest request, Produto produto) {
         if (request == null || produto == null) {
             return null;
@@ -74,7 +71,6 @@ public class InvestimentoMapper {
         return inv;
     }
 
-    
     public void updateEntityFromRequest(Investimento investimento, InvestimentoRequest request, Produto produto) {
         if (investimento == null || request == null || produto == null) {
             return;
@@ -86,8 +82,7 @@ public class InvestimentoMapper {
         investimento.setPrazoMeses(request.prazoMeses());
         investimento.setPrazoDias(request.prazoDias());
         investimento.setPrazoAnos(request.prazoAnos());
-        
-        
+
         investimento.setTipo(produto.getTipo());
         investimento.setTipoRentabilidade(produto.getTipoRentabilidade());
         investimento.setRentabilidade(produto.getRentabilidade());

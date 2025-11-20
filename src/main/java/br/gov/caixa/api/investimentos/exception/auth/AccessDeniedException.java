@@ -1,6 +1,5 @@
 package br.gov.caixa.api.investimentos.exception.auth;
 
-
 public class AccessDeniedException extends RuntimeException {
 
     public AccessDeniedException(String message) {

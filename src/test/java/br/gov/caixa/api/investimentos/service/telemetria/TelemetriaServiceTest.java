@@ -1,10 +1,7 @@
 package br.gov.caixa.api.investimentos.service.telemetria;
 
-import br.gov.caixa.api.investimentos.dto.telemetria.PeriodoTelemetria;
-import br.gov.caixa.api.investimentos.dto.telemetria.ServicoTelemetria;
 import br.gov.caixa.api.investimentos.dto.telemetria.TelemetriaResponse;
 import br.gov.caixa.api.investimentos.repository.telemetria.TelemetriaMetricaRepository;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,11 +10,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @DisplayName("Testes unitários para TelemetriaService")
 class TelemetriaServiceTest {
@@ -43,7 +39,7 @@ class TelemetriaServiceTest {
         Set<String> endpoints = Set.of("/produtos", "/simulacao");
         LocalDateTime dataInicio = LocalDateTime.of(2023, 11, 15, 10, 0);
         LocalDateTime dataFim = LocalDateTime.of(2023, 11, 16, 16, 30);
-        
+
         when(metricasManager.obterEndpointsComMetricas()).thenReturn(endpoints);
         when(metricasManager.obterContadorExecucoes("/produtos")).thenReturn(15L);
         when(metricasManager.obterTempoMedioResposta("/produtos")).thenReturn(120.5);
@@ -68,7 +64,7 @@ class TelemetriaServiceTest {
     void deveRetornarPeriodoNullQuandoAmbasDatasSaoNull() {
         // Given
         Set<String> endpoints = Set.of("/produtos");
-        
+
         when(metricasManager.obterEndpointsComMetricas()).thenReturn(endpoints);
         when(metricasManager.obterContadorExecucoes("/produtos")).thenReturn(5L);
         when(metricasManager.obterTempoMedioResposta("/produtos")).thenReturn(150.0);
@@ -89,7 +85,7 @@ class TelemetriaServiceTest {
     void deveTratarExcecaoNoRepositoryGraciosamente() {
         // Given
         Set<String> endpoints = Set.of("/produtos");
-        
+
         when(metricasManager.obterEndpointsComMetricas()).thenReturn(endpoints);
         when(metricasManager.obterContadorExecucoes("/produtos")).thenReturn(10L);
         when(metricasManager.obterTempoMedioResposta("/produtos")).thenReturn(100.0);

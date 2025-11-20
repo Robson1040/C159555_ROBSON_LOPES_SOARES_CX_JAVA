@@ -1,19 +1,19 @@
 package br.gov.caixa.api.investimentos.service.investimento;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoResponse;
 import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
 import br.gov.caixa.api.investimentos.exception.produto.ProdutoNotFoundException;
 import br.gov.caixa.api.investimentos.mapper.InvestimentoMapper;
-import br.gov.caixa.api.investimentos.model.investimento.Investimento;
 import br.gov.caixa.api.investimentos.model.cliente.Pessoa;
+import br.gov.caixa.api.investimentos.model.investimento.Investimento;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
 import br.gov.caixa.api.investimentos.repository.cliente.IPessoaRepository;
-import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
 import br.gov.caixa.api.investimentos.repository.investimento.IInvestimentoRepository;
+import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -33,8 +33,7 @@ public class InvestimentoService {
     IInvestimentoRepository investimentoRepository;
 
     @Transactional
-    public InvestimentoResponse criar(InvestimentoRequest request)
-    {
+    public InvestimentoResponse criar(InvestimentoRequest request) {
         if (request == null) {
             throw new IllegalArgumentException("Dados do investimento não podem ser nulos");
         }
@@ -49,7 +48,6 @@ public class InvestimentoService {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + request.clienteId());
         }
 
-        
         int prazoDias = request.getPrazoEmDias();
         if (prazoDias > 0 && prazoDias < produto.getMinimoDiasInvestimento()) {
             throw new IllegalArgumentException("Prazo informado é menor que o mínimo do produto: " + produto.getMinimoDiasInvestimento() + " dias");
@@ -61,20 +59,18 @@ public class InvestimentoService {
         return investimentoMapper.toResponse(investimento);
     }
 
-    
     public List<InvestimentoResponse> buscarPorCliente(Long clienteId) {
         if (clienteId == null) {
             throw new IllegalArgumentException("ID do cliente não pode ser nulo");
         }
 
-        
         Pessoa cliente = pessoaRepository.findById(clienteId);
         if (cliente == null) {
             throw new ClienteNotFoundException("Cliente não encontrado com ID: " + clienteId);
         }
 
         List<Investimento> investimentos = investimentoRepository.findByClienteId(clienteId);
-        
+
         return investimentoMapper.toResponseList(investimentos);
     }
 }

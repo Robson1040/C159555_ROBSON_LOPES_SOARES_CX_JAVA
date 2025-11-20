@@ -1,19 +1,18 @@
 package br.gov.caixa.api.investimentos.resource.produto_recomendado;
 
+import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
+import br.gov.caixa.api.investimentos.service.produto_recomendado.ProdutoRecomendadoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.validation.constraints.Positive;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
-import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
-import br.gov.caixa.api.investimentos.service.produto_recomendado.ProdutoRecomendadoService;
-import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.List;
-
 
 @Path("/produtos-recomendados")
 @Produces(MediaType.APPLICATION_JSON)
@@ -30,18 +29,17 @@ public class ProdutoRecomendadoResource {
     @Inject
     JwtAuthorizationHelper authHelper;
 
-    
     @GET
     @Path("/cliente/{clienteId}")
     public Response buscarProdutosPorCliente(@PathParam("clienteId") @Positive Long clienteId) {
         try {
-            
+
             authHelper.validarAcessoAoCliente(jwt, clienteId);
 
             List<ProdutoResponse> produtos = produtoRecomendadoService.buscarProdutosPorCliente(clienteId);
 
             return Response.ok(produtos).build();
-            
+
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(ErrorResponse.badRequest(e.getMessage()))
@@ -63,7 +61,6 @@ public class ProdutoRecomendadoResource {
         }
     }
 
-    
     @GET
     @Path("/{perfil}")
     public Response buscarProdutosPorPerfil(@PathParam("perfil") String perfil) {
@@ -71,7 +68,7 @@ public class ProdutoRecomendadoResource {
             List<ProdutoResponse> produtos = produtoRecomendadoService.buscarProdutosPorPerfil(perfil);
 
             return Response.ok(produtos).build();
-            
+
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .entity(ErrorResponse.badRequest(e.getMessage()))

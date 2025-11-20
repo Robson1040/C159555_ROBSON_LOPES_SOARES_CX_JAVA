@@ -2,6 +2,7 @@ package br.gov.caixa.api.investimentos.model.telemetria;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,27 +16,27 @@ public class TelemetriaMetrica extends PanacheEntityBase {
 
     @Column(name = "endpoint", nullable = false, length = 200)
     private String endpoint;
-    
+
     @Column(name = "contador_execucoes", nullable = false)
     private Long contadorExecucoes;
-    
+
     @Column(name = "tempo_medio_resposta", nullable = false)
     private Double tempoMedioResposta;
-    
+
     @Column(name = "tempo_total_execucao", nullable = false)
     private Double tempoTotalExecucao;
-    
+
     @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
-    
+
     @Column(name = "ultima_atualizacao", nullable = false)
     private LocalDateTime ultimaAtualizacao;
-    
+
     public TelemetriaMetrica() {
         this.setDataCriacao(LocalDateTime.now());
         this.setUltimaAtualizacao(LocalDateTime.now());
     }
-    
+
     public TelemetriaMetrica(String endpoint) {
         this();
         this.setEndpoint(endpoint);
@@ -43,25 +44,25 @@ public class TelemetriaMetrica extends PanacheEntityBase {
         this.setTempoMedioResposta(0.0);
         this.setTempoTotalExecucao(0.0);
     }
-    
+
     public void incrementarContador() {
         this.setContadorExecucoes(this.getContadorExecucoes() + 1);
         this.setUltimaAtualizacao(LocalDateTime.now());
     }
-    
+
     public void adicionarTempoExecucao(long tempoExecucaoMs) {
         this.setTempoTotalExecucao(this.getTempoTotalExecucao() + tempoExecucaoMs);
         this.setTempoMedioResposta(this.getTempoTotalExecucao() / this.getContadorExecucoes());
         this.setUltimaAtualizacao(LocalDateTime.now());
     }
-    
+
     public static TelemetriaMetrica findByEndpoint(String endpoint) {
         return find("endpoint", endpoint).firstResult();
     }
-    
+
     @Override
     public String toString() {
-        return String.format("TelemetriaMetrica{id=%d, endpoint='%s', execucoes=%d, tempoMedio=%.2f}", 
+        return String.format("TelemetriaMetrica{id=%d, endpoint='%s', execucoes=%d, tempoMedio=%.2f}",
                 getId(), getEndpoint(), getContadorExecucoes(), getTempoMedioResposta());
     }
 

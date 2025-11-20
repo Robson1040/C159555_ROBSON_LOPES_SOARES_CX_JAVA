@@ -1,16 +1,18 @@
 package br.gov.caixa.api.investimentos.model.investimento;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 
 @Entity
 @Table(name = "investimento")
@@ -48,7 +50,6 @@ public class Investimento extends PanacheEntityBase {
     @Column(name = "data", nullable = false)
     private LocalDate data;
 
-    
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
@@ -87,10 +88,9 @@ public class Investimento extends PanacheEntityBase {
     @Column(name = "fgc", nullable = false)
     private Boolean fgc;
 
-    public Investimento() 
-	{
-		this.data = LocalDate.now();
-	}
+    public Investimento() {
+        this.data = LocalDate.now();
+    }
 
     public Long getId() {
         return id;

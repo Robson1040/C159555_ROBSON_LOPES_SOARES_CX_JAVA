@@ -1,20 +1,21 @@
 package br.gov.caixa.api.investimentos.resource.telemetria;
 
-import br.gov.caixa.api.investimentos.dto.telemetria.TelemetriaResponse;
 import br.gov.caixa.api.investimentos.dto.telemetria.AcessoLogDTO;
 import br.gov.caixa.api.investimentos.dto.telemetria.EstatisticasAcessoDTO;
+import br.gov.caixa.api.investimentos.dto.telemetria.TelemetriaResponse;
 import br.gov.caixa.api.investimentos.model.telemetria.TelemetriaMetrica;
 import br.gov.caixa.api.investimentos.repository.telemetria.TelemetriaMetricaRepository;
-import br.gov.caixa.api.investimentos.service.telemetria.TelemetriaService;
 import br.gov.caixa.api.investimentos.service.telemetria.AcessoLogService;
+import br.gov.caixa.api.investimentos.service.telemetria.TelemetriaService;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class TelemetriaResourceTest {

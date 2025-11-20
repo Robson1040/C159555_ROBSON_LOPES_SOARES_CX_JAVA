@@ -1,14 +1,14 @@
 package br.gov.caixa.api.investimentos.model.produto;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.validation.ValidRentabilidadeIndice;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -68,13 +68,10 @@ public class Produto extends PanacheEntityBase {
     @Transient
     private double pontuacao;
 
-    
-    public Produto()
-    {
+    public Produto() {
         this.pontuacao = 0;
     }
 
-    
     public Produto(String nome, TipoProduto tipo, TipoRentabilidade tipoRentabilidade,
                    BigDecimal rentabilidade, PeriodoRentabilidade periodoRentabilidade,
                    Indice indice, Integer liquidez, Integer minimoDiasInvestimento, Boolean fgc) {
@@ -91,9 +88,6 @@ public class Produto extends PanacheEntityBase {
         this.pontuacao = 0;
     }
 
-
-
-    
     public Long getId() {
         return id;
     }
@@ -174,81 +168,69 @@ public class Produto extends PanacheEntityBase {
         this.fgc = fgc;
     }
 
-	public NivelRisco getRisco() 
-	{
-		
-		if (tipo == TipoProduto.TESOURO_DIRETO
-				|| tipo == TipoProduto.POUPANCA) {
-			return NivelRisco.BAIXO;
-		}
+    public NivelRisco getRisco() {
 
-		if (tipo == TipoProduto.ACAO
-				|| tipo == TipoProduto.FUNDO || tipo == TipoProduto.DEBENTURE || tipo == TipoProduto.CRI) {
-			return NivelRisco.ALTO;
-		}
+        if (tipo == TipoProduto.TESOURO_DIRETO
+                || tipo == TipoProduto.POUPANCA) {
+            return NivelRisco.BAIXO;
+        }
 
-		if (tipo == TipoProduto.LCI
-				|| tipo == TipoProduto.LCA) {
-			return NivelRisco.BAIXO;
-		}
+        if (tipo == TipoProduto.ACAO
+                || tipo == TipoProduto.FUNDO || tipo == TipoProduto.DEBENTURE || tipo == TipoProduto.CRI) {
+            return NivelRisco.ALTO;
+        }
 
-		
-		if (tipo == TipoProduto.CDB && Boolean.TRUE.equals(fgc)) {
-			if (tipoRentabilidade == TipoRentabilidade.POS && indice == Indice.CDI) {
-				return NivelRisco.BAIXO;
-			}
-			if (tipoRentabilidade == TipoRentabilidade.POS && indice == Indice.IPCA) {
-				return NivelRisco.MEDIO;
-			}
-		}
+        if (tipo == TipoProduto.LCI
+                || tipo == TipoProduto.LCA) {
+            return NivelRisco.BAIXO;
+        }
 
-		
-		int p = 0;
+        if (tipo == TipoProduto.CDB && Boolean.TRUE.equals(fgc)) {
+            if (tipoRentabilidade == TipoRentabilidade.POS && indice == Indice.CDI) {
+                return NivelRisco.BAIXO;
+            }
+            if (tipoRentabilidade == TipoRentabilidade.POS && indice == Indice.IPCA) {
+                return NivelRisco.MEDIO;
+            }
+        }
 
-		
-		if (Boolean.TRUE.equals(fgc)) {
-			p += 0; 
-		} else {
-			p += 20; 
-		}
+        int p = 0;
 
-		
-		if (tipo == TipoProduto.CDB)
-		{
-			if (tipoRentabilidade == TipoRentabilidade.POS) 
-			{
-				switch (indice) {
-					case CDI -> p   += 0;
-					case IPCA -> p  += 5;
-					case IGP_M -> p += 10;
-				}
-			}
-		}
-		else
-		{
-			p += 5;
-		}
+        if (Boolean.TRUE.equals(fgc)) {
+            p += 0;
+        } else {
+            p += 20;
+        }
 
-		
-		if (liquidez != null) {
-			if (liquidez <= 0)         p += 0;
-			else if (liquidez <= 30)   p += 2;
-			else if (liquidez <= 180)  p += 6;
-			else                       p += 10;
-		}
+        if (tipo == TipoProduto.CDB) {
+            if (tipoRentabilidade == TipoRentabilidade.POS) {
+                switch (indice) {
+                    case CDI -> p += 0;
+                    case IPCA -> p += 5;
+                    case IGP_M -> p += 10;
+                }
+            }
+        } else {
+            p += 5;
+        }
 
-		
-		if (minimoDiasInvestimento != null && minimoDiasInvestimento > 0) {
-			if (minimoDiasInvestimento <= 30)       p += 0;
-			else if (minimoDiasInvestimento <= 180) p += 5;
-			else                                    p += 10;
-		}
+        if (liquidez != null) {
+            if (liquidez <= 0) p += 0;
+            else if (liquidez <= 30) p += 2;
+            else if (liquidez <= 180) p += 6;
+            else p += 10;
+        }
 
-		
-		if (p <= 15) return NivelRisco.BAIXO;
-		if (p <= 35) return NivelRisco.MEDIO;
-		return NivelRisco.ALTO;
-	}
+        if (minimoDiasInvestimento != null && minimoDiasInvestimento > 0) {
+            if (minimoDiasInvestimento <= 30) p += 0;
+            else if (minimoDiasInvestimento <= 180) p += 5;
+            else p += 10;
+        }
+
+        if (p <= 15) return NivelRisco.BAIXO;
+        if (p <= 35) return NivelRisco.MEDIO;
+        return NivelRisco.ALTO;
+    }
 
     public double getPontuacao() {
         return pontuacao;

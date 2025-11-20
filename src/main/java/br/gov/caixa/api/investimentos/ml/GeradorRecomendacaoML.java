@@ -17,9 +17,8 @@ import java.util.Map;
 import java.util.Objects;
 
 @ApplicationScoped
-public class GeradorRecomendacaoML
-{
-    
+public class GeradorRecomendacaoML {
+
     public List<Produto> encontrarProdutosOrdenadosPorAparicao(List<?> entradas, List<Produto> todosProdutos) {
         if (entradas == null) {
             throw new IllegalArgumentException("Lista de entradas não pode ser nula");
@@ -49,7 +48,7 @@ public class GeradorRecomendacaoML
                 peso = (int) (pesoBase * decayFactor);
             } else if (entrada instanceof SimulacaoInvestimento simulacao) {
                 pesoBase = (Math.log10(simulacao.getValorInvestido().doubleValue() + 1) * 100);
-                
+
                 double diasDesdeSimulacao = ChronoUnit.DAYS.between(simulacao.getDataSimulacao().toLocalDate(), LocalDate.now());
                 decayFactor = Math.exp(-diasDesdeSimulacao / 365.0);
                 peso = (pesoBase * decayFactor);
@@ -89,9 +88,7 @@ public class GeradorRecomendacaoML
                 .toList();
     }
 
-    
-    private double calcularDistanciaEuclidiana(Object entrada, Produto produto, List<Produto> todoProdutos)
-    {
+    private double calcularDistanciaEuclidiana(Object entrada, Produto produto, List<Produto> todoProdutos) {
         double valorNorm;
         double tipoNorm;
         double tipoRentNorm;
@@ -101,9 +98,7 @@ public class GeradorRecomendacaoML
         double fgcNorm;
         double minimoInvNorm;
 
-        
-        if (entrada instanceof Investimento investimento)
-        {
+        if (entrada instanceof Investimento investimento) {
             valorNorm = normalizar(investimento.getValor().doubleValue(), 0, 1_000_000);
             tipoNorm = normalizarTipoProduto(investimento.getTipo());
             tipoRentNorm = normalizarTipoRentabilidade(investimento.getTipoRentabilidade());
@@ -118,32 +113,26 @@ public class GeradorRecomendacaoML
                     investimento.getMinimoDiasInvestimento() != null ? investimento.getMinimoDiasInvestimento() : 0,
                     0, 1800
             );
-        }
-
-        
-        else if (entrada instanceof SimulacaoInvestimento simulacao)
-        {
+        } else if (entrada instanceof SimulacaoInvestimento simulacao) {
             valorNorm = normalizar(simulacao.getValorInvestido().doubleValue(), 0, 1_000_000);
 
             Produto p = null;
 
             for (Produto todoProduto : todoProdutos) {
-                if (Objects.equals(simulacao.getProdutoId(), todoProduto.getId()))
-                {
+                if (Objects.equals(simulacao.getProdutoId(), todoProduto.getId())) {
                     p = todoProduto;
                     break;
                 }
             }
 
-            if(p == null)
-            {
+            if (p == null) {
                 throw new IllegalArgumentException(
                         "Produto não encontrado para simulação com produtoId: " + simulacao.getProdutoId()
                 );
             }
 
             tipoNorm = p.getTipo().getValor();
-            
+
             tipoRentNorm = normalizarTipoRentabilidade(p.getTipoRentabilidade());
             periodoRentNorm = normalizarPeriodoRentabilidade(p.getPeriodoRentabilidade());
             indiceNorm = normalizarIndice(p.getIndice());
@@ -156,19 +145,14 @@ public class GeradorRecomendacaoML
                     p.getMinimoDiasInvestimento() != null ? p.getMinimoDiasInvestimento() : 0,
                     0, 1800
             );
-        }
-
-        else
-        {
+        } else {
             throw new IllegalArgumentException(
                     "Tipo não suportado: " + entrada.getClass()
             );
         }
 
-        
-        
         double prodValorNorm = produto.getRentabilidade() != null ?
-            normalizar(produto.getRentabilidade().doubleValue() * 10000, 0, 1_000_000) : 0.5;
+                normalizar(produto.getRentabilidade().doubleValue() * 10000, 0, 1_000_000) : 0.5;
         double prodTipoNorm = normalizarTipoProduto(produto.getTipo());
         double prodTipoRentNorm = normalizarTipoRentabilidade(produto.getTipoRentabilidade());
         double prodPeriodoRentNorm = normalizarPeriodoRentabilidade(produto.getPeriodoRentabilidade());
@@ -177,7 +161,6 @@ public class GeradorRecomendacaoML
         double prodFgcNorm = produto.getFgc() ? 1.0 : 0.0;
         double prodMinimoInvNorm = normalizar(produto.getMinimoDiasInvestimento(), 0, 1800);
 
-        
         return Math.sqrt(
                 Math.pow(valorNorm - prodValorNorm, 2) +
                         Math.pow(tipoNorm - prodTipoNorm, 2) +
@@ -190,24 +173,20 @@ public class GeradorRecomendacaoML
         );
     }
 
-    
     private double normalizar(double valor, double min, double max) {
         if (max == min) return 0.5;
         return Math.max(0, Math.min(1, (valor - min) / (max - min)));
     }
 
-    
     private double normalizarTipoProduto(TipoProduto tipo) {
         return tipo.getValor();
     }
 
-    
     private double normalizarTipoRentabilidade(TipoRentabilidade tipo) {
         if (tipo == null) return 0.5;
         return tipo == TipoRentabilidade.PRE ? 0.0 : 1.0;
     }
 
-    
     private double normalizarPeriodoRentabilidade(PeriodoRentabilidade periodo) {
         if (periodo == null) return 0.5;
         return switch (periodo) {
@@ -218,7 +197,6 @@ public class GeradorRecomendacaoML
         };
     }
 
-    
     private double normalizarIndice(Indice indice) {
         if (indice == null || indice == Indice.NENHUM) return 0.0;
         return switch (indice) {
@@ -230,6 +208,5 @@ public class GeradorRecomendacaoML
             default -> 0.0;
         };
     }
-
 
 }

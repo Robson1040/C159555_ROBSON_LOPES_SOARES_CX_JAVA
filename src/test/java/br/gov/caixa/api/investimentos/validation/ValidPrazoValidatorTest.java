@@ -4,16 +4,15 @@ import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
-
 import jakarta.validation.ConstraintValidatorContext;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 class ValidPrazoValidatorTest {
 

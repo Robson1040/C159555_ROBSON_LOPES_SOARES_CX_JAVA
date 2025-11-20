@@ -1,9 +1,8 @@
 package br.gov.caixa.api.investimentos.resource.simulacao;
 
-
+import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoAnoDTO;
 import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoDataDTO;
 import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoMesDTO;
-import br.gov.caixa.api.investimentos.dto.simulacao.AgrupamentoProdutoAnoDTO;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponseDTO;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
 import br.gov.caixa.api.investimentos.service.simulacao.SimulacaoInvestimentoService;
@@ -13,13 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.YearMonth;
-import java.time.Year;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class SimulacaoResourceTest {
 

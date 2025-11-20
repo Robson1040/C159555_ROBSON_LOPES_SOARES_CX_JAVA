@@ -1,26 +1,25 @@
 package br.gov.caixa.api.investimentos.service.produto;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.util.List;
-import java.util.Optional;
-import java.math.BigDecimal;
-
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.exception.produto.ProdutoNotFoundException;
 import br.gov.caixa.api.investimentos.mapper.ProdutoMapper;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
 import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
-import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
-import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

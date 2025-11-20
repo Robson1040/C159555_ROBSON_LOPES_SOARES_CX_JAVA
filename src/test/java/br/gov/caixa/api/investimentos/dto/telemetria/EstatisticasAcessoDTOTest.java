@@ -1,7 +1,9 @@
 package br.gov.caixa.api.investimentos.dto.telemetria;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EstatisticasAcessoDTOTest {
     @Test
@@ -13,7 +15,7 @@ class EstatisticasAcessoDTOTest {
         double taxaErro = 20.0;
 
         EstatisticasAcessoDTO dto = new EstatisticasAcessoDTO(
-            totalAcessos, acessosComSucesso, acessosComErro, taxaSucesso, taxaErro
+                totalAcessos, acessosComSucesso, acessosComErro, taxaSucesso, taxaErro
         );
 
         assertEquals(totalAcessos, dto.totalAcessos());

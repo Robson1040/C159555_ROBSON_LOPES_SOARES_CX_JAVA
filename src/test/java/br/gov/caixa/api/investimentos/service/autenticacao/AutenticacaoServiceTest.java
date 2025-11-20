@@ -7,7 +7,9 @@ import br.gov.caixa.api.investimentos.model.cliente.Pessoa;
 import br.gov.caixa.api.investimentos.repository.cliente.IPessoaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

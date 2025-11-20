@@ -1,18 +1,18 @@
 package br.gov.caixa.api.investimentos.service.compliance;
 
+import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+import br.gov.caixa.api.investimentos.repository.investimento.IInvestimentoRepository;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 
-import br.gov.caixa.api.investimentos.repository.investimento.IInvestimentoRepository;
-import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("LimitesRegulatóriosService - Testes unitários para validação de limites FGC")
 class LimitesRegulatóriosServiceTest {
@@ -269,8 +269,8 @@ class LimitesRegulatóriosServiceTest {
             BigDecimal valorDisponivel = limitesService.calcularValorDisponivelFGC(CPF_TESTE, produto);
 
             // Then
-            assertTrue(valorDisponivel.compareTo(BigDecimal.ZERO) >= 0, 
-                      "Valor disponível deve ser >= 0 para " + produto);
+            assertTrue(valorDisponivel.compareTo(BigDecimal.ZERO) >= 0,
+                    "Valor disponível deve ser >= 0 para " + produto);
         }
     }
 }

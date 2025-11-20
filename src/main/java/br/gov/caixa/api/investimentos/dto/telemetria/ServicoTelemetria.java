@@ -3,13 +3,13 @@ package br.gov.caixa.api.investimentos.dto.telemetria;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ServicoTelemetria {
-    
+
     @JsonProperty("nome")
     private String nome;
-    
+
     @JsonProperty("contador_execucao")
     private long quantidadeChamadas;
-    
+
     @JsonProperty("tempo_medio_resposta")
     private double mediaTempoRespostaMs;
 

@@ -1,19 +1,19 @@
 package br.gov.caixa.api.investimentos.service.telemetria;
 
-import br.gov.caixa.api.investimentos.model.telemetria.AcessoLog;
-import br.gov.caixa.api.investimentos.repository.telemetria.AcessoLogRepository;
 import br.gov.caixa.api.investimentos.dto.telemetria.AcessoLogDTO;
 import br.gov.caixa.api.investimentos.dto.telemetria.EstatisticasAcessoDTO;
-import br.gov.caixa.api.investimentos.mapper.AcessoLogMapper;
+import br.gov.caixa.api.investimentos.model.telemetria.AcessoLog;
+import br.gov.caixa.api.investimentos.repository.telemetria.AcessoLogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -148,8 +148,8 @@ class AcessoLogServiceTest {
 
     @Test
     void testRegistrarAcessoException() {
-    doThrow(new RuntimeException("Erro persistencia")).when(acessoLogRepository).persist(any(AcessoLog.class));
-    AcessoLog result = acessoLogService.registrarAcesso(1L, "/api/teste", "GET", "/api/teste?param=1", "127.0.0.1", "{}", 200, "{\"ok\":true}", 123L, "JUnit", "", "stack");
-    assertNull(result);
+        doThrow(new RuntimeException("Erro persistencia")).when(acessoLogRepository).persist(any(AcessoLog.class));
+        AcessoLog result = acessoLogService.registrarAcesso(1L, "/api/teste", "GET", "/api/teste?param=1", "127.0.0.1", "{}", 200, "{\"ok\":true}", 123L, "JUnit", "", "stack");
+        assertNull(result);
     }
 }

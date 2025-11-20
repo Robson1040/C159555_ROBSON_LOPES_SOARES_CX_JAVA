@@ -1,8 +1,8 @@
 package br.gov.caixa.api.investimentos.client;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -16,33 +16,31 @@ public class SimuladorMercado {
 
     private final Random random = new Random();
 
-    
     public CenarioMercado gerarCenario(TipoProduto tipoProduto, int prazoMeses) {
         CenarioEconomico cenario = definirCenarioEconomico(prazoMeses);
         BigDecimal multiplicadorRisco = calcularMultiplicadorRisco(tipoProduto, cenario);
         String descricao = gerarDescricaoCenario(cenario, prazoMeses);
-        
+
         return new CenarioMercado(cenario, multiplicadorRisco, descricao, true);
     }
 
-    
     private CenarioEconomico definirCenarioEconomico(int prazoMeses) {
-        
+
         double probabilidade = random.nextDouble();
-        
+
         if (prazoMeses <= 6) {
-            
+
             if (probabilidade < 0.6) return CenarioEconomico.ESTAVEL;
             if (probabilidade < 0.8) return CenarioEconomico.CRESCIMENTO_MODERADO;
             return CenarioEconomico.VOLATIL;
         } else if (prazoMeses <= 12) {
-            
+
             if (probabilidade < 0.3) return CenarioEconomico.RECESSAO_LEVE;
             if (probabilidade < 0.5) return CenarioEconomico.ESTAVEL;
             if (probabilidade < 0.75) return CenarioEconomico.CRESCIMENTO_MODERADO;
             return CenarioEconomico.CRESCIMENTO_FORTE;
         } else if (prazoMeses <= 24) {
-            
+
             if (probabilidade < 0.2) return CenarioEconomico.RECESSAO_FORTE;
             if (probabilidade < 0.35) return CenarioEconomico.RECESSAO_LEVE;
             if (probabilidade < 0.5) return CenarioEconomico.ESTAVEL;
@@ -50,7 +48,7 @@ public class SimuladorMercado {
             if (probabilidade < 0.9) return CenarioEconomico.CRESCIMENTO_FORTE;
             return CenarioEconomico.BOOM_ECONOMICO;
         } else {
-            
+
             if (probabilidade < 0.15) return CenarioEconomico.RECESSAO_FORTE;
             if (probabilidade < 0.25) return CenarioEconomico.RECESSAO_LEVE;
             if (probabilidade < 0.4) return CenarioEconomico.ESTAVEL;
@@ -61,23 +59,22 @@ public class SimuladorMercado {
         }
     }
 
-    
     private BigDecimal calcularMultiplicadorRisco(TipoProduto tipoProduto, CenarioEconomico cenario) {
         BigDecimal baseMultiplier = getMultiplicadorBaseProduto(tipoProduto);
         BigDecimal cenarioAdjustment = getAjusteCenario(cenario);
-        
+
         return baseMultiplier.multiply(cenarioAdjustment)
-                           .setScale(4, RoundingMode.HALF_UP);
+                .setScale(4, RoundingMode.HALF_UP);
     }
 
     private BigDecimal getMultiplicadorBaseProduto(TipoProduto tipoProduto) {
         return switch (tipoProduto) {
-            case POUPANCA -> new BigDecimal("0.95");      
-            case CDB, LCI, LCA -> new BigDecimal("1.00"); 
-            case TESOURO_DIRETO -> new BigDecimal("1.02"); 
-            case DEBENTURE ->  new BigDecimal("-0.06");
+            case POUPANCA -> new BigDecimal("0.95");
+            case CDB, LCI, LCA -> new BigDecimal("1.00");
+            case TESOURO_DIRETO -> new BigDecimal("1.02");
+            case DEBENTURE -> new BigDecimal("-0.06");
             case CRI -> new BigDecimal("-0.06");
-            case FUNDO -> new BigDecimal("1.15");         
+            case FUNDO -> new BigDecimal("1.15");
             case FII -> new BigDecimal("-0.06");
             case ACAO -> new BigDecimal("-0.06");
             case ETF -> new BigDecimal("-0.06");
@@ -96,14 +93,13 @@ public class SimuladorMercado {
         };
     }
 
-    
     private String gerarDescricaoCenario(CenarioEconomico cenario, int prazoMeses) {
         String periodo = getPeriodoDescricao(prazoMeses);
         String descricaoCenario = getDescricaoCenario(cenario);
         LocalDate dataSimulacao = LocalDate.now();
-        
-        return String.format("Simulação para %s (%s) - Cenário: %s - Data base: %s", 
-                           periodo, prazoMeses + " meses", descricaoCenario, dataSimulacao);
+
+        return String.format("Simulação para %s (%s) - Cenário: %s - Data base: %s",
+                periodo, prazoMeses + " meses", descricaoCenario, dataSimulacao);
     }
 
     private String getPeriodoDescricao(int prazoMeses) {
@@ -126,25 +122,22 @@ public class SimuladorMercado {
         };
     }
 
-    
-    public BigDecimal ajustarRentabilidadePorCenario(BigDecimal rentabilidadeBase, 
-                                                   CenarioMercado cenario,
-                                                   TipoRentabilidade tipoRentabilidade) {
+    public BigDecimal ajustarRentabilidadePorCenario(BigDecimal rentabilidadeBase,
+                                                     CenarioMercado cenario,
+                                                     TipoRentabilidade tipoRentabilidade) {
         BigDecimal multiplicador = cenario.getMultiplicadorRisco();
-        
-        
+
         if (TipoRentabilidade.POS.equals(tipoRentabilidade)) {
             multiplicador = multiplicador.multiply(new BigDecimal("1.2"));
         }
-        
+
         return rentabilidadeBase.multiply(multiplicador)
-                              .setScale(4, RoundingMode.HALF_UP);
+                .setScale(4, RoundingMode.HALF_UP);
     }
 
-    
     public enum CenarioEconomico {
         RECESSAO_FORTE,
-        RECESSAO_LEVE, 
+        RECESSAO_LEVE,
         ESTAVEL,
         CRESCIMENTO_MODERADO,
         CRESCIMENTO_FORTE,
@@ -158,19 +151,29 @@ public class SimuladorMercado {
         private final String descricao;
         private final boolean simulado;
 
-        public CenarioMercado(CenarioEconomico cenario, BigDecimal multiplicadorRisco, 
-                            String descricao, boolean simulado) {
+        public CenarioMercado(CenarioEconomico cenario, BigDecimal multiplicadorRisco,
+                              String descricao, boolean simulado) {
             this.cenario = cenario;
             this.multiplicadorRisco = multiplicadorRisco;
             this.descricao = descricao;
             this.simulado = simulado;
         }
 
-        
-        public CenarioEconomico getCenario() { return cenario; }
-        public BigDecimal getMultiplicadorRisco() { return multiplicadorRisco; }
-        public String getDescricao() { return descricao; }
-        public boolean isSimulado() { return simulado; }
+        public CenarioEconomico getCenario() {
+            return cenario;
+        }
+
+        public BigDecimal getMultiplicadorRisco() {
+            return multiplicadorRisco;
+        }
+
+        public String getDescricao() {
+            return descricao;
+        }
+
+        public boolean isSimulado() {
+            return simulado;
+        }
     }
 }
 

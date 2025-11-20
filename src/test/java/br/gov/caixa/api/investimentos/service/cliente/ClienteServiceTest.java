@@ -8,7 +8,6 @@ import br.gov.caixa.api.investimentos.mapper.PessoaMapper;
 import br.gov.caixa.api.investimentos.model.cliente.Pessoa;
 import br.gov.caixa.api.investimentos.repository.cliente.IPessoaRepository;
 import br.gov.caixa.api.investimentos.service.autenticacao.PasswordService;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,8 +46,8 @@ class ClienteServiceTest {
         // Given
         List<Pessoa> pessoas = List.of(createPessoa(1L, "12345678901"), createPessoa(2L, "12345678902"));
         List<ClienteResponse> responsesEsperadas = List.of(
-            createClienteResponse(1L, "João Silva"),
-            createClienteResponse(2L, "Maria Santos")
+                createClienteResponse(1L, "João Silva"),
+                createClienteResponse(2L, "Maria Santos")
         );
 
         when(pessoaRepository.listAll()).thenReturn(pessoas);
@@ -95,8 +94,8 @@ class ClienteServiceTest {
 
         // When & Then
         ClienteNotFoundException exception = assertThrows(
-            ClienteNotFoundException.class,
-            () -> clienteService.buscarPorId(clienteId)
+                ClienteNotFoundException.class,
+                () -> clienteService.buscarPorId(clienteId)
         );
 
         assertEquals("Cliente não encontrado com ID: " + clienteId, exception.getMessage());
@@ -109,7 +108,7 @@ class ClienteServiceTest {
     void deveCriarClienteComSucesso() {
         // Given
         ClienteRequest request = new ClienteRequest(
-            "João Silva", "12345678901", "joao.silva", "senha123", "USER"
+                "João Silva", "12345678901", "joao.silva", "senha123", "USER"
         );
         Pessoa pessoa = createPessoa(null, request.cpf());
 
@@ -140,14 +139,14 @@ class ClienteServiceTest {
     void deveLancarExcecaoAoCriarClienteComCpfDuplicado() {
         // Given
         ClienteRequest request = new ClienteRequest(
-            "João Silva", "12345678901", "joao.silva", "senha123", "USER"
+                "João Silva", "12345678901", "joao.silva", "senha123", "USER"
         );
         when(pessoaRepository.existsByCpf(request.cpf())).thenReturn(true);
 
         // When & Then
         IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
-            () -> clienteService.criar(request)
+                IllegalArgumentException.class,
+                () -> clienteService.criar(request)
         );
 
         assertEquals("Já existe um cliente com este CPF", exception.getMessage());
@@ -161,15 +160,15 @@ class ClienteServiceTest {
     void deveLancarExcecaoAoCriarClienteComUsernameDuplicado() {
         // Given
         ClienteRequest request = new ClienteRequest(
-            "João Silva", "12345678901", "joao.silva", "senha123", "USER"
+                "João Silva", "12345678901", "joao.silva", "senha123", "USER"
         );
         when(pessoaRepository.existsByCpf(request.cpf())).thenReturn(false);
         when(pessoaRepository.existsByUsername(request.username())).thenReturn(true);
 
         // When & Then
         IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
-            () -> clienteService.criar(request)
+                IllegalArgumentException.class,
+                () -> clienteService.criar(request)
         );
 
         assertEquals("Já existe um cliente com este username", exception.getMessage());
@@ -184,7 +183,7 @@ class ClienteServiceTest {
         // Given
         Long clienteId = 1L;
         ClienteUpdateRequest request = new ClienteUpdateRequest(
-            "João Silva Atualizado", "joao.silva.novo", "novaSenha123"
+                "João Silva Atualizado", "joao.silva.novo", "novaSenha123"
         );
         Pessoa pessoa = createPessoa(clienteId, "12345678901");
         ClienteResponse responseEsperada = createClienteResponse(clienteId, request.nome());
@@ -214,14 +213,14 @@ class ClienteServiceTest {
         // Given
         Long clienteId = 999L;
         ClienteUpdateRequest request = new ClienteUpdateRequest(
-            "Nome", "username", "senha"
+                "Nome", "username", "senha"
         );
         when(pessoaRepository.findById(clienteId)).thenReturn(null);
 
         // When & Then
         ClienteNotFoundException exception = assertThrows(
-            ClienteNotFoundException.class,
-            () -> clienteService.atualizar(clienteId, request)
+                ClienteNotFoundException.class,
+                () -> clienteService.atualizar(clienteId, request)
         );
 
         assertEquals("Cliente não encontrado com ID: " + clienteId, exception.getMessage());
@@ -236,7 +235,7 @@ class ClienteServiceTest {
         // Given
         Long clienteId = 1L;
         ClienteUpdateRequest request = new ClienteUpdateRequest(
-            "Nome", "username.existente", null
+                "Nome", "username.existente", null
         );
         Pessoa cliente = createPessoa(clienteId, "12345678901");
         Pessoa outroCliente = createPessoa(2L, "12345678902");
@@ -246,8 +245,8 @@ class ClienteServiceTest {
 
         // When & Then
         IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class,
-            () -> clienteService.atualizar(clienteId, request)
+                IllegalArgumentException.class,
+                () -> clienteService.atualizar(clienteId, request)
         );
 
         assertEquals("Já existe um cliente com este username", exception.getMessage());
@@ -263,7 +262,7 @@ class ClienteServiceTest {
         // Given
         Long clienteId = 1L;
         ClienteUpdateRequest request = new ClienteUpdateRequest(
-            "João Silva Atualizado", "joao.silva.novo", null
+                "João Silva Atualizado", "joao.silva.novo", null
         );
         Pessoa pessoa = createPessoa(clienteId, "12345678901");
         ClienteResponse responseEsperada = createClienteResponse(clienteId, request.nome());
@@ -307,8 +306,8 @@ class ClienteServiceTest {
 
         // When & Then
         ClienteNotFoundException exception = assertThrows(
-            ClienteNotFoundException.class,
-            () -> clienteService.deletar(clienteId)
+                ClienteNotFoundException.class,
+                () -> clienteService.deletar(clienteId)
         );
 
         assertEquals("Cliente não encontrado com ID: " + clienteId, exception.getMessage());
@@ -346,8 +345,8 @@ class ClienteServiceTest {
 
         // When & Then
         ClienteNotFoundException exception = assertThrows(
-            ClienteNotFoundException.class,
-            () -> clienteService.buscarPorCpf(cpf)
+                ClienteNotFoundException.class,
+                () -> clienteService.buscarPorCpf(cpf)
         );
 
         assertEquals("Cliente não encontrado com CPF: " + cpf, exception.getMessage());
@@ -385,8 +384,8 @@ class ClienteServiceTest {
 
         // When & Then
         ClienteNotFoundException exception = assertThrows(
-            ClienteNotFoundException.class,
-            () -> clienteService.buscarPorUsername(username)
+                ClienteNotFoundException.class,
+                () -> clienteService.buscarPorUsername(username)
         );
 
         assertEquals("Cliente não encontrado com username: " + username, exception.getMessage());

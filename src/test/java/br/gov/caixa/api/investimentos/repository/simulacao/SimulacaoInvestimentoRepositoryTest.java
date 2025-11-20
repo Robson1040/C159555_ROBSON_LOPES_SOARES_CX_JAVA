@@ -133,8 +133,6 @@ class SimulacaoInvestimentoRepositoryTest {
     }
     */
 
-
-
     @Test
     void deveRetornarZeroQuandoNaoHaInvestimentos() {
         PanacheQuery<SimulacaoInvestimento> query = mock(PanacheQuery.class);
@@ -174,8 +172,5 @@ class SimulacaoInvestimentoRepositoryTest {
 
         assertThrows(IllegalStateException.class, () -> repository.getTotalInvestidoByClienteId(1L));
     }
-
-
-
 
 }

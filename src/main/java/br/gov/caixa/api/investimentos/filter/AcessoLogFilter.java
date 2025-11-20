@@ -1,5 +1,7 @@
 package br.gov.caixa.api.investimentos.filter;
 
+import br.gov.caixa.api.investimentos.service.telemetria.AcessoLogService;
+import br.gov.caixa.api.investimentos.service.telemetria.MetricasManager;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
@@ -7,12 +9,10 @@ import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
 import jakarta.ws.rs.ext.Provider;
 import org.eclipse.microprofile.jwt.JsonWebToken;
-import br.gov.caixa.api.investimentos.service.telemetria.AcessoLogService;
-import br.gov.caixa.api.investimentos.service.telemetria.MetricasManager;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Provider
 public class AcessoLogFilter implements ContainerRequestFilter, ContainerResponseFilter {
@@ -23,7 +23,6 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
     @Inject
     MetricasManager metricasManager;
 
-    
     @Inject
     jakarta.enterprise.inject.Instance<JsonWebToken> jwtInstance;
 
@@ -74,20 +73,20 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
                 long tempoExecucao = System.currentTimeMillis() - startTime;
 
                 Long usuarioId = null;
-                try  {
-                if (jwtInstance.isResolvable()) {
-                    JsonWebToken jwt = jwtInstance.get();
+                try {
+                    if (jwtInstance.isResolvable()) {
+                        JsonWebToken jwt = jwtInstance.get();
 
-                    Object claim = jwt.getClaim("userId");
-                    if (claim != null) {
-                        try {
-                            usuarioId = Long.parseLong(claim.toString());
-                        } catch (NumberFormatException e) {
-                            usuarioId = null;
+                        Object claim = jwt.getClaim("userId");
+                        if (claim != null) {
+                            try {
+                                usuarioId = Long.parseLong(claim.toString());
+                            } catch (NumberFormatException e) {
+                                usuarioId = null;
+                            }
                         }
                     }
-                }
-                } catch(Exception e){
+                } catch (Exception e) {
 
                 }
 
@@ -122,7 +121,6 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
                             erroStacktrace
                     );
 
-                    
                 }
 
             }
@@ -133,26 +131,23 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
         }
     }
 
-    
     private String extrairCorpoRequisicao(ContainerRequestContext requestContext) throws IOException {
-        return null; 
-        
+        return null;
+
     }
 
-    
     private String extrairCorpoResposta(ContainerResponseContext responseContext) {
-        return null; 
-        
+        return null;
+
     }
 
-    
     private String extrairMensagemErro(String corpoResposta) {
         if (corpoResposta == null) {
             return null;
         }
 
         try {
-            
+
             if (corpoResposta.contains("\"message\"")) {
                 int inicio = corpoResposta.indexOf("\"message\":");
                 int fim = corpoResposta.indexOf(",", inicio);
@@ -165,12 +160,11 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
                 }
             }
         } catch (Exception e) {
-            
+
         }
         return null;
     }
 
-    
     private String extrairEndpoint(String path) {
         if (path == null || path.isEmpty()) {
             return "root";
@@ -202,7 +196,6 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
         return parts.length > 0 ? parts[0] : cleaned;
     }
 
-    
     private String obterIpOrigem(ContainerRequestContext requestContext) {
         String xForwardedFor = requestContext.getHeaderString("X-Forwarded-For");
         if (xForwardedFor != null && !xForwardedFor.isEmpty()) {
@@ -214,19 +207,16 @@ public class AcessoLogFilter implements ContainerRequestFilter, ContainerRespons
             return xRealIp;
         }
 
-        
         return requestContext.getHeaderString("Host") != null ?
-               requestContext.getHeaderString("Host").split(":")[0] :
-               "desconhecido";
+                requestContext.getHeaderString("Host").split(":")[0] :
+                "desconhecido";
     }
 
-    
     private boolean temCorpoRequisicao(ContainerRequestContext requestContext) {
         String metodo = requestContext.getMethod();
         return metodo.equals("POST") || metodo.equals("PUT") || metodo.equals("PATCH");
     }
 
-    
     private byte[] readInputStream(InputStream inputStream) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         byte[] data = new byte[1024];

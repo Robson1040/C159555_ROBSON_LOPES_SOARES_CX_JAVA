@@ -6,10 +6,8 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 
 @Entity
 @Table(name = "simulacao_investimento")
@@ -68,15 +66,13 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
     @Column(name = "cenario_simulacao", length = 500)
     private String cenarioSimulacao;
 
-    
     public SimulacaoInvestimento() {
         this.dataSimulacao = LocalDateTime.now();
     }
 
-    
     public SimulacaoInvestimento(Long clienteId, Long produtoId, String produto, BigDecimal valorInvestido,
-                               BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias, 
-                               Integer prazoAnos) {
+                                 BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias,
+                                 Integer prazoAnos) {
         this();
         this.setClienteId(clienteId);
         this.setProdutoId(produtoId);
@@ -88,12 +84,11 @@ public class SimulacaoInvestimento extends PanacheEntityBase {
         this.setPrazoAnos(prazoAnos);
     }
 
-    
     public SimulacaoInvestimento(Long clienteId, Long produtoId, String produto, BigDecimal valorInvestido,
-                               BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias,
-                               Integer prazoAnos, BigDecimal rentabilidadeEfetiva, 
-                               BigDecimal rendimento, Boolean valorSimulado, 
-                               String cenarioSimulacao) {
+                                 BigDecimal valorFinal, Integer prazoMeses, Integer prazoDias,
+                                 Integer prazoAnos, BigDecimal rentabilidadeEfetiva,
+                                 BigDecimal rendimento, Boolean valorSimulado,
+                                 String cenarioSimulacao) {
         this(clienteId, produtoId, produto, valorInvestido, valorFinal, prazoMeses, prazoDias, prazoAnos);
         this.setRentabilidadeEfetiva(rentabilidadeEfetiva);
         this.setRendimento(rendimento);

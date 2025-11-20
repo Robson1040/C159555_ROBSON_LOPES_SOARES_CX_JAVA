@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
 public record SimulacaoInvestimentoResponse(
         @JsonProperty("id")
         Long id,
@@ -48,4 +47,5 @@ public record SimulacaoInvestimentoResponse(
 
         @JsonProperty("cenarioSimulacao")
         String cenarioSimulacao
-) {}
+) {
+}

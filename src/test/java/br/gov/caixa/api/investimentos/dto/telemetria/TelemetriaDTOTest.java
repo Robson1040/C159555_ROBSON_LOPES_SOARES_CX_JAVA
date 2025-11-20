@@ -141,8 +141,8 @@ class TelemetriaDTOTest {
     void telemetriaResponse_deveCriarComParametros() {
         // Given
         List<ServicoTelemetria> servicos = Arrays.asList(
-            new ServicoTelemetria("/produtos", 150L, 125.5),
-            new ServicoTelemetria("/simulacoes", 89L, 250.75)
+                new ServicoTelemetria("/produtos", 150L, 125.5),
+                new ServicoTelemetria("/simulacoes", 89L, 250.75)
         );
         PeriodoTelemetria periodo = new PeriodoTelemetria("2024-01-01", "2024-01-31");
 
@@ -162,7 +162,7 @@ class TelemetriaDTOTest {
         // Given
         TelemetriaResponse response = new TelemetriaResponse();
         List<ServicoTelemetria> servicos = Arrays.asList(
-            new ServicoTelemetria("/clientes", 75L, 100.25)
+                new ServicoTelemetria("/clientes", 75L, 100.25)
         );
         PeriodoTelemetria periodo = new PeriodoTelemetria("2024-02-01", "2024-02-29");
 
@@ -181,15 +181,15 @@ class TelemetriaDTOTest {
     void integracao_deveFuncionarComObjetosComplexos() {
         // Given
         PeriodoTelemetria periodo = new PeriodoTelemetria(
-            LocalDate.of(2024, 1, 1), 
-            LocalDate.of(2024, 12, 31)
+                LocalDate.of(2024, 1, 1),
+                LocalDate.of(2024, 12, 31)
         );
 
         List<ServicoTelemetria> servicos = Arrays.asList(
-            new ServicoTelemetria("/entrar", 1200L, 45.8),
-            new ServicoTelemetria("/produtos", 950L, 125.3),
-            new ServicoTelemetria("/simulacoes", 720L, 280.9),
-            new ServicoTelemetria("/telemetria", 15L, 35.2)
+                new ServicoTelemetria("/entrar", 1200L, 45.8),
+                new ServicoTelemetria("/produtos", 950L, 125.3),
+                new ServicoTelemetria("/simulacoes", 720L, 280.9),
+                new ServicoTelemetria("/telemetria", 15L, 35.2)
         );
 
         // When
@@ -219,27 +219,27 @@ class TelemetriaDTOTest {
         // Given
         ServicoTelemetria servicoZero = new ServicoTelemetria("", 0L, 0.0);
         ServicoTelemetria servicoAlto = new ServicoTelemetria("teste-longo-nome-servico", Long.MAX_VALUE, Double.MAX_VALUE);
-        
+
         PeriodoTelemetria periodoVazio = new PeriodoTelemetria("", "");
-        
+
         // When
         TelemetriaResponse response = new TelemetriaResponse(
-            Arrays.asList(servicoZero, servicoAlto), 
-            periodoVazio
+                Arrays.asList(servicoZero, servicoAlto),
+                periodoVazio
         );
 
         // Then
         assertNotNull(response);
         assertEquals(2, response.getServicos().size());
-        
+
         assertEquals("", response.getServicos().get(0).getNome());
         assertEquals(0L, response.getServicos().get(0).getQuantidadeChamadas());
         assertEquals(0.0, response.getServicos().get(0).getMediaTempoRespostaMs());
-        
+
         assertEquals("teste-longo-nome-servico", response.getServicos().get(1).getNome());
         assertEquals(Long.MAX_VALUE, response.getServicos().get(1).getQuantidadeChamadas());
         assertEquals(Double.MAX_VALUE, response.getServicos().get(1).getMediaTempoRespostaMs());
-        
+
         assertEquals("", response.getPeriodo().getInicio());
         assertEquals("", response.getPeriodo().getFim());
     }

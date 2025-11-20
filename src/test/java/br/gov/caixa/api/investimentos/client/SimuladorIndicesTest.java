@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SimuladorIndicesTest {
 
@@ -28,9 +29,9 @@ class SimuladorIndicesTest {
         assertNotNull(simulador.getTaxaSimulada(Indice.SELIC, 1).subtract(simulador.getTaxaSimulada(Indice.SELIC, 1)).add(new BigDecimal("10.75"))); // SELIC base
         assertNotNull(simulador.getTaxaSimulada(Indice.CDI, 1).subtract(simulador.getTaxaSimulada(Indice.CDI, 1)).add(new BigDecimal("10.65"))); // CDI base
         assertNotNull(simulador.getTaxaSimulada(Indice.IBOVESPA, 1).subtract(simulador.getTaxaSimulada(Indice.IBOVESPA, 1)).add(new BigDecimal("8.50"))); // IBOVESPA base
-        assertNotNull( simulador.getTaxaSimulada(Indice.IPCA, 1).subtract(simulador.getTaxaSimulada(Indice.IPCA, 1)).add(new BigDecimal("4.25"))); // IPCA base
+        assertNotNull(simulador.getTaxaSimulada(Indice.IPCA, 1).subtract(simulador.getTaxaSimulada(Indice.IPCA, 1)).add(new BigDecimal("4.25"))); // IPCA base
         assertNotNull(simulador.getTaxaSimulada(Indice.IGP_M, 1).subtract(simulador.getTaxaSimulada(Indice.IGP_M, 1)).add(new BigDecimal("4.80"))); // IGP-M base
-        assertNotNull( simulador.getTaxaSimulada(Indice.NENHUM, 1).subtract(simulador.getTaxaSimulada(Indice.NENHUM, 1)).add(BigDecimal.ZERO)); // NENHUM base
+        assertNotNull(simulador.getTaxaSimulada(Indice.NENHUM, 1).subtract(simulador.getTaxaSimulada(Indice.NENHUM, 1)).add(BigDecimal.ZERO)); // NENHUM base
     }
 
     @Test

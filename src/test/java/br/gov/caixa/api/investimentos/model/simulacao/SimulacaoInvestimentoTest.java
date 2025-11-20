@@ -19,7 +19,7 @@ class SimulacaoInvestimentoTest {
     @BeforeEach
     void setUp() {
         mapper = new SimulacaoInvestimentoMapper();
-        
+
         resultado = new ResultadoSimulacao(
                 BigDecimal.valueOf(1200.0),
                 BigDecimal.valueOf(0.12),

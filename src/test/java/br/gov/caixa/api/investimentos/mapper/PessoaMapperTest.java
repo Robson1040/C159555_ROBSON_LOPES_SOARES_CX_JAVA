@@ -4,7 +4,6 @@ import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteUpdateRequest;
 import br.gov.caixa.api.investimentos.model.cliente.Pessoa;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,8 +56,8 @@ class PessoaMapperTest {
     void deveConverterListaDePessoaParaListaDeClienteResponse() {
         // Given
         List<Pessoa> pessoas = Arrays.asList(
-            createPessoa(1L, "João Silva", "12345678901", "joao.silva", "USER"),
-            createPessoa(2L, "Maria Santos", "12345678902", "maria.santos", "ADMIN")
+                createPessoa(1L, "João Silva", "12345678901", "joao.silva", "USER"),
+                createPessoa(2L, "Maria Santos", "12345678902", "maria.santos", "ADMIN")
         );
 
         // When
@@ -67,12 +66,12 @@ class PessoaMapperTest {
         // Then
         assertNotNull(responses);
         assertEquals(2, responses.size());
-        
+
         ClienteResponse firstResponse = responses.get(0);
         assertEquals(1L, firstResponse.id());
         assertEquals("João Silva", firstResponse.nome());
         assertEquals("USER", firstResponse.role());
-        
+
         ClienteResponse secondResponse = responses.get(1);
         assertEquals(2L, secondResponse.id());
         assertEquals("Maria Santos", secondResponse.nome());
@@ -94,9 +93,9 @@ class PessoaMapperTest {
     void deveFiltrarElementosNullDaListaDePessoa() {
         // Given
         List<Pessoa> pessoas = Arrays.asList(
-            createPessoa(1L, "João Silva", "12345678901", "joao.silva", "USER"),
-            null,
-            createPessoa(2L, "Maria Santos", "12345678902", "maria.santos", "ADMIN")
+                createPessoa(1L, "João Silva", "12345678901", "joao.silva", "USER"),
+                null,
+                createPessoa(2L, "Maria Santos", "12345678902", "maria.santos", "ADMIN")
         );
 
         // When
@@ -112,7 +111,7 @@ class PessoaMapperTest {
     void deveConverterClienteRequestParaEntidadePessoa() {
         // Given
         ClienteRequest request = new ClienteRequest(
-            "João Silva", "12345678901", "joao.silva", "senha123", "USER"
+                "João Silva", "12345678901", "joao.silva", "senha123", "USER"
         );
 
         // When
@@ -144,7 +143,7 @@ class PessoaMapperTest {
         // Given
         Pessoa pessoa = createPessoa(1L, "João Silva", "12345678901", "joao.silva", "USER");
         ClienteUpdateRequest request = new ClienteUpdateRequest(
-            "João Silva Atualizado", "joao.silva.novo", "novaSenha"
+                "João Silva Atualizado", "joao.silva.novo", "novaSenha"
         );
 
         // When
@@ -170,7 +169,7 @@ class PessoaMapperTest {
         String passwordOriginal = pessoa.getPassword();
 
         ClienteUpdateRequest requestParcial = new ClienteUpdateRequest(
-            "Nome Atualizado", null, null
+                "Nome Atualizado", null, null
         );
 
         // When
@@ -187,7 +186,7 @@ class PessoaMapperTest {
     void deveIgnorarQuandoPessoaENull() {
         // Given
         ClienteUpdateRequest request = new ClienteUpdateRequest(
-            "Nome", "username", "senha"
+                "Nome", "username", "senha"
         );
 
         // When & Then - Não deve lançar exceção
@@ -235,7 +234,7 @@ class PessoaMapperTest {
         // Given
         Pessoa pessoa = createPessoa(1L, "João Silva", "12345678901", "joao.silva", "USER");
         ClienteUpdateRequest request = new ClienteUpdateRequest(
-            "", "novo.username", "novaSenha"
+                "", "novo.username", "novaSenha"
         );
 
         // When

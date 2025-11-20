@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 
-
 public record ResultadoSimulacao(
         @JsonProperty("valorFinal")
         BigDecimal valorFinal,
@@ -32,4 +31,5 @@ public record ResultadoSimulacao(
 
         @JsonProperty("cenarioSimulacao")
         String cenarioSimulacao
-) {}
+) {
+}

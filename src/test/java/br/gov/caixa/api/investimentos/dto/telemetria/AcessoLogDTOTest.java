@@ -1,8 +1,11 @@
 package br.gov.caixa.api.investimentos.dto.telemetria;
 
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AcessoLogDTOTest {
     @Test
@@ -21,7 +24,7 @@ class AcessoLogDTOTest {
         String userAgent = "JUnit";
         String erroMessage = "";
 
-        AcessoLogDTO dto = new AcessoLogDTO(id, usuarioId,  endpoint, metodoHttp, uriCompleta, ipOrigem,
+        AcessoLogDTO dto = new AcessoLogDTO(id, usuarioId, endpoint, metodoHttp, uriCompleta, ipOrigem,
                 corpoRequisicao, statusCode, corpoResposta, tempoExecucaoMs, dataAcesso, userAgent, erroMessage);
 
         assertEquals(id, dto.id());
@@ -44,7 +47,7 @@ class AcessoLogDTOTest {
         LocalDateTime now = LocalDateTime.now();
         AcessoLogDTO dto1 = new AcessoLogDTO(1L, 2L, "/api/teste", "GET", "/api/teste?param=1", "127.0.0.1",
                 "{}", 200, "{\"ok\":true}", 123L, now, "JUnit", "");
-        AcessoLogDTO dto2 = new AcessoLogDTO(1L, 2L,  "/api/teste", "GET", "/api/teste?param=1", "127.0.0.1",
+        AcessoLogDTO dto2 = new AcessoLogDTO(1L, 2L, "/api/teste", "GET", "/api/teste?param=1", "127.0.0.1",
                 "{}", 200, "{\"ok\":true}", 123L, now, "JUnit", "");
         assertEquals(dto1, dto2);
         assertEquals(dto1.hashCode(), dto2.hashCode());
@@ -53,7 +56,7 @@ class AcessoLogDTOTest {
     @Test
     void testToString() {
         LocalDateTime now = LocalDateTime.now();
-        AcessoLogDTO dto = new AcessoLogDTO(1L, 2L,  "/api/teste", "GET", "/api/teste?param=1", "127.0.0.1",
+        AcessoLogDTO dto = new AcessoLogDTO(1L, 2L, "/api/teste", "GET", "/api/teste?param=1", "127.0.0.1",
                 "{}", 200, "{\"ok\":true}", 123L, now, "JUnit", "");
         String str = dto.toString();
         assertTrue(str.contains("AcessoLogDTO"));

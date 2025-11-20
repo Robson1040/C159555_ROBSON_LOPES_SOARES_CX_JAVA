@@ -7,7 +7,7 @@ import org.mockito.MockedStatic;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mockStatic;
 
 class TelemetriaMetricaTest {
 

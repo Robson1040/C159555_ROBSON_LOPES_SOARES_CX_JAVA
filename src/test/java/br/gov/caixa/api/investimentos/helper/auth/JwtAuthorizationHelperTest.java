@@ -1,18 +1,17 @@
 package br.gov.caixa.api.investimentos.helper.auth;
 
+import br.gov.caixa.api.investimentos.exception.auth.AccessDeniedException;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import java.util.Set;
 
-import br.gov.caixa.api.investimentos.exception.auth.AccessDeniedException;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @DisplayName("JwtAuthorizationHelper - Testes unitários para autorização JWT")
 class JwtAuthorizationHelperTest {
@@ -39,8 +38,8 @@ class JwtAuthorizationHelperTest {
         when(mockJwt.getGroups()).thenReturn(Set.of("ADMIN"));
 
         // When & Then
-        assertDoesNotThrow(() -> 
-            jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
+        assertDoesNotThrow(() ->
+                jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
         );
     }
 
@@ -52,8 +51,8 @@ class JwtAuthorizationHelperTest {
         when(mockJwt.getClaim("userId")).thenReturn(USER_ID_JWT);
 
         // When & Then
-        assertDoesNotThrow(() -> 
-            jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
+        assertDoesNotThrow(() ->
+                jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
         );
     }
 
@@ -65,22 +64,22 @@ class JwtAuthorizationHelperTest {
         when(mockJwt.getClaim("userId")).thenReturn(USER_ID_DIFERENTE);
 
         // When & Then
-        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () -> 
-            jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
+        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () ->
+                jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
         );
-        
-        assertEquals("Acesso negado: usuário só pode acessar seus próprios dados", 
-                     exception.getMessage());
+
+        assertEquals("Acesso negado: usuário só pode acessar seus próprios dados",
+                exception.getMessage());
     }
 
     @Test
     @DisplayName("Deve negar acesso quando JWT é null")
     void deveNegarAcessoQuandoJWTENull() {
         // When & Then
-        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () -> 
-            jwtHelper.validarAcessoAoCliente(null, CLIENTE_ID_TESTE)
+        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () ->
+                jwtHelper.validarAcessoAoCliente(null, CLIENTE_ID_TESTE)
         );
-        
+
         assertEquals("Token JWT não encontrado", exception.getMessage());
     }
 
@@ -92,12 +91,12 @@ class JwtAuthorizationHelperTest {
         when(mockJwt.getClaim("userId")).thenReturn(null);
 
         // When & Then
-        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () -> 
-            jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
+        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () ->
+                jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
         );
-        
-        assertEquals("Acesso negado: usuário só pode acessar seus próprios dados", 
-                     exception.getMessage());
+
+        assertEquals("Acesso negado: usuário só pode acessar seus próprios dados",
+                exception.getMessage());
     }
 
     @Test
@@ -107,10 +106,10 @@ class JwtAuthorizationHelperTest {
         when(mockJwt.getGroups()).thenReturn(Set.of("GUEST", "OTHER"));
 
         // When & Then
-        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () -> 
-            jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
+        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () ->
+                jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
         );
-        
+
         assertEquals("Acesso negado: role não autorizada", exception.getMessage());
     }
 
@@ -121,10 +120,10 @@ class JwtAuthorizationHelperTest {
         when(mockJwt.getGroups()).thenReturn(Set.of());
 
         // When & Then
-        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () -> 
-            jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
+        AccessDeniedException exception = assertThrows(AccessDeniedException.class, () ->
+                jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
         );
-        
+
         assertEquals("Acesso negado: role não autorizada", exception.getMessage());
     }
 
@@ -243,8 +242,8 @@ class JwtAuthorizationHelperTest {
         when(mockJwt.getGroups()).thenReturn(Set.of("USER", "ADMIN", "MANAGER"));
 
         // When & Then
-        assertDoesNotThrow(() -> 
-            jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
+        assertDoesNotThrow(() ->
+                jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
         );
     }
 
@@ -256,8 +255,8 @@ class JwtAuthorizationHelperTest {
         when(mockJwt.getClaim("userId")).thenReturn(USER_ID_JWT);
 
         // When & Then
-        assertDoesNotThrow(() -> 
-            jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
+        assertDoesNotThrow(() ->
+                jwtHelper.validarAcessoAoCliente(mockJwt, CLIENTE_ID_TESTE)
         );
     }
 

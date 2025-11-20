@@ -9,18 +9,19 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Testes de integração para todos os endpoints da ClienteResource.
- * 
+ * <p>
  * Os testes seguem uma ordem lógica:
  * 1. Criar cliente com role USER
  * 2. Alterar username do cliente
@@ -49,10 +50,10 @@ class ClienteResourceIntegrationTest {
         // Criar tokens JWT para testes
         // Token para usuário comum (será usado depois que o cliente for criado)
         userToken = jwtService.gerarToken("user@test.com", "USER");
-        
+
         // Token para admin
         adminToken = jwtService.gerarToken("admin@test.com", "ADMIN");
-        
+
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
@@ -87,7 +88,7 @@ class ClienteResourceIntegrationTest {
         // Armazenar dados para próximos testes
         clienteIdCriado = clienteResponse.id();
         clienteCpfCriado = clienteResponse.cpf();
-        
+
         assertNotNull(clienteIdCriado);
         assertEquals("João da Silva", clienteResponse.nome());
         assertEquals("12345678909", clienteResponse.cpf());
@@ -99,7 +100,7 @@ class ClienteResourceIntegrationTest {
     @Order(2)
     void deveAlterarUsernameDoCliente() {
         assertNotNull(clienteIdCriado, "Cliente deve ter sido criado no teste anterior");
-        
+
         String novoUsername = "joao.silva.updated";
         ClienteUpdateRequest updateRequest = new ClienteUpdateRequest(
                 null, // não alterar nome
@@ -130,7 +131,7 @@ class ClienteResourceIntegrationTest {
 
         // Atualizar username para próximos testes
         clienteUsernameAtualizado = clienteResponse.username();
-        
+
         assertEquals(novoUsername, clienteResponse.username());
     }
 
@@ -274,7 +275,7 @@ class ClienteResourceIntegrationTest {
     @Order(11)
     void deveRetornar403ParaUserTentandoAcessarDadosDeOutroCliente() {
         assertNotNull(clienteIdCriado, "Cliente deve ter sido criado no teste anterior");
-        
+
         // Criar token para outro usuário
         String outroUserToken = jwtService.gerarToken("outro.user@test.com", "USER");
 
@@ -303,7 +304,7 @@ class ClienteResourceIntegrationTest {
     @Order(13)
     void deveRetornar403ParaUserTentandoBuscarPorCpf() {
         assertNotNull(clienteCpfCriado, "Cliente deve ter sido criado no teste anterior");
-        
+
         // Tentar buscar por CPF com role USER
         given()
                 .header("Authorization", "Bearer " + userToken)
@@ -317,7 +318,7 @@ class ClienteResourceIntegrationTest {
     @Order(14)
     void deveRetornar403ParaUserTentandoBuscarPorUsername() {
         assertNotNull(clienteUsernameAtualizado, "Cliente deve ter sido atualizado no teste anterior");
-        
+
         // Tentar buscar por username com role USER
         given()
                 .header("Authorization", "Bearer " + userToken)
@@ -331,7 +332,7 @@ class ClienteResourceIntegrationTest {
     @Order(15)
     void deveRetornar401ParaRequisicaoSemToken() {
         assertNotNull(clienteIdCriado, "Cliente deve ter sido criado no teste anterior");
-        
+
         // Tentar fazer requisição sem token de autorização
         given()
                 .when()

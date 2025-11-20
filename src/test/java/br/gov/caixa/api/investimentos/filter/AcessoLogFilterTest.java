@@ -156,7 +156,6 @@ class AcessoLogFilterTest {
         assertNull(erroMsgCaptor.getValue());
         assertNull(erroStackCaptor.getValue());
 
-
     }
 
     @Test

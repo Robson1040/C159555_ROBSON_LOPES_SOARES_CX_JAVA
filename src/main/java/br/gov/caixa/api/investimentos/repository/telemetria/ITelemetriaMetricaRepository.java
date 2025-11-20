@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-
 public interface ITelemetriaMetricaRepository extends PanacheRepository<TelemetriaMetrica> {
 
     TelemetriaMetrica findByEndpoint(String endpoint);

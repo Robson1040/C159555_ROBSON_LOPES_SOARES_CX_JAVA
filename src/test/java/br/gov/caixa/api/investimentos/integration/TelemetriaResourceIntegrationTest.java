@@ -6,10 +6,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -38,7 +38,7 @@ public class TelemetriaResourceIntegrationTest {
     @Order(1)
     void deveGerarDadosTelemetria_ChamadasClientes() {
         System.out.println("=== DEBUG: Iniciando geração de dados de telemetria com chamadas GET /clientes");
-        
+
         // Faz várias chamadas para GET /clientes para gerar dados de telemetria
         for (int i = 0; i < 5; i++) {
             given()
@@ -47,7 +47,7 @@ public class TelemetriaResourceIntegrationTest {
                     .get("/clientes")
                     .then()
                     .statusCode(anyOf(equalTo(200), equalTo(404))); // Aceita 404 se não houver clientes
-            
+
             // Pequena pausa entre as chamadas para simular uso real
             try {
                 Thread.sleep(50);
@@ -63,7 +63,7 @@ public class TelemetriaResourceIntegrationTest {
     @Order(2)
     void deveGerarDadosTelemetria_ChamadasProdutos() {
         System.out.println("=== DEBUG: Gerando dados de telemetria com chamadas GET /produtos");
-        
+
         // Faz várias chamadas para GET /produtos para gerar mais dados de telemetria
         for (int i = 0; i < 3; i++) {
             given()
@@ -72,7 +72,7 @@ public class TelemetriaResourceIntegrationTest {
                     .get("/produtos")
                     .then()
                     .statusCode(200); // Produtos devem existir dos testes anteriores
-            
+
             try {
                 Thread.sleep(30);
             } catch (InterruptedException e) {
@@ -87,10 +87,10 @@ public class TelemetriaResourceIntegrationTest {
     @Order(3)
     void deveGerarDadosTelemetria_ChamadasRecomendacoes() {
         System.out.println("=== DEBUG: Gerando dados de telemetria com chamadas de recomendações");
-        
+
         // Faz chamadas para endpoints de recomendações
         String[] perfis = {"conservador", "moderado", "agressivo"};
-        
+
         for (String perfil : perfis) {
             given()
                     .header("Authorization", "Bearer " + adminToken)
@@ -98,7 +98,7 @@ public class TelemetriaResourceIntegrationTest {
                     .get("/produtos-recomendados/" + perfil)
                     .then()
                     .statusCode(200);
-            
+
             try {
                 Thread.sleep(40);
             } catch (InterruptedException e) {
@@ -245,7 +245,7 @@ public class TelemetriaResourceIntegrationTest {
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
-        
+
         System.out.println("=== DEBUG: Ordem dos endpoints mais acessados validada");
     }
 
@@ -471,7 +471,7 @@ public class TelemetriaResourceIntegrationTest {
     @Order(27)
     void deveRegenerarDadosAposLimpeza() {
         System.out.println("=== DEBUG: Regenerando dados de telemetria após limpeza");
-        
+
         // Faz algumas chamadas para regenerar dados
         for (int i = 0; i < 2; i++) {
             given()

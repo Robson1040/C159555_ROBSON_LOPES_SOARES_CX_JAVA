@@ -1,29 +1,27 @@
 package br.gov.caixa.api.investimentos.resource.simulacao;
 
+import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
+import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
+import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import br.gov.caixa.api.investimentos.service.autenticacao.JwtService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.*;
-
 import jakarta.inject.Inject;
-
-import br.gov.caixa.api.investimentos.service.autenticacao.JwtService;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
-import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
-import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
-import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
-import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
-import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
-import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -38,7 +36,7 @@ public class SimulacaoResourceIntegrationTest {
 
     // IDs dos dados criados para reutilização nos testes
     private static Long produtoIdCriado1;
-    private static Long produtoIdCriado2; 
+    private static Long produtoIdCriado2;
     private static Long produtoIdCriado3;
     private static Long clienteIdCriado1;
     private static Long clienteIdCriado2;
@@ -352,8 +350,8 @@ public class SimulacaoResourceIntegrationTest {
                 .statusCode(200)
                 .body("size()", greaterThanOrEqualTo(1))
                 .body("produto", hasItems(
-                    containsString("CDB"),
-                    containsString("Tesouro")
+                        containsString("CDB"),
+                        containsString("Tesouro")
                 ));
 
         System.out.println("=== DEBUG: Consulta agrupamento por produto/dia realizada com sucesso");
@@ -370,8 +368,8 @@ public class SimulacaoResourceIntegrationTest {
                 .statusCode(200)
                 .body("size()", greaterThanOrEqualTo(1))
                 .body("produto", hasItems(
-                    containsString("CDB"),
-                    containsString("Tesouro")
+                        containsString("CDB"),
+                        containsString("Tesouro")
                 ));
 
         System.out.println("=== DEBUG: Consulta agrupamento por produto/mês realizada com sucesso");
@@ -388,8 +386,8 @@ public class SimulacaoResourceIntegrationTest {
                 .statusCode(200)
                 .body("size()", greaterThanOrEqualTo(1))
                 .body("produto", hasItems(
-                    containsString("CDB"),
-                    containsString("Tesouro")
+                        containsString("CDB"),
+                        containsString("Tesouro")
                 ));
 
         System.out.println("=== DEBUG: Consulta agrupamento por produto/ano realizada com sucesso");

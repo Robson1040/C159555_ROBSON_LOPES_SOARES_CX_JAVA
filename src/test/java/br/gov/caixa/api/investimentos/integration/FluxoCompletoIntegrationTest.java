@@ -10,7 +10,6 @@ import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
-
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
@@ -20,10 +19,10 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import java.math.BigDecimal;
 
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Teste de integração que demonstra o fluxo completo do sistema:
  * 1. Cadastra um produto
- * 2. Cadastra um cliente com role USER  
+ * 2. Cadastra um cliente com role USER
  * 3. Obtém token de autenticação do cliente
  * 4. Realiza investimento usando o token do cliente
  * 5. Realiza simulação de investimento usando o token do cliente
@@ -61,7 +60,7 @@ class FluxoCompletoIntegrationTest {
     @Order(1)
     void deveCadastrarProduto() {
         System.out.println("=== STEP 1: Cadastrando produto CDB Premium ===");
-        
+
         ProdutoRequest produto = new ProdutoRequest(
                 "CDB Premium Fluxo Teste",
                 TipoProduto.CDB,
@@ -99,7 +98,7 @@ class FluxoCompletoIntegrationTest {
     @Order(2)
     void deveCadastrarCliente() {
         System.out.println("=== STEP 2: Cadastrando cliente com role USER ===");
-        
+
         ClienteRequest cliente = new ClienteRequest(
                 "joao Investidora Santos",
                 "05447756006", // CPF válido para teste
@@ -132,7 +131,7 @@ class FluxoCompletoIntegrationTest {
     @Order(3)
     void deveObterTokenDoCliente() {
         System.out.println("=== STEP 3: Obtendo token de autenticação do cliente ===");
-        
+
         LoginRequest loginRequest = new LoginRequest(
                 "joao.investidora@test.com",
                 "senha@123"
@@ -200,7 +199,7 @@ class FluxoCompletoIntegrationTest {
     @Order(5)
     void deveRealizarSimulacaoInvestimento() {
         System.out.println("=== STEP 5: Realizando simulação de investimento com token do cliente ===");
-        
+
         SimulacaoRequest simulacao = new SimulacaoRequest(
                 clienteId.longValue(),
                 produtoId.longValue(),
@@ -249,7 +248,7 @@ class FluxoCompletoIntegrationTest {
     @Order(6)
     void deveValidarSeguranca_ClienteNaoPodeAcessarOutroCliente() {
         System.out.println("=== STEP 6: Validando segurança - cliente não pode acessar dados de outro cliente ===");
-        
+
         // Tentar criar investimento para outro cliente (deve falhar com 403)
         InvestimentoRequest investimentoInvalido = new InvestimentoRequest(
                 999L, // ID de outro cliente fictício
@@ -274,7 +273,7 @@ class FluxoCompletoIntegrationTest {
     @Order(7)
     void deveValidarQueAdminTemAcessoTotal() {
         System.out.println("=== STEP 7: Validando que ADMIN tem acesso total ===");
-        
+
         // Admin pode criar investimento para qualquer cliente
         InvestimentoRequest investimentoAdmin = new InvestimentoRequest(
                 clienteId,
@@ -300,7 +299,7 @@ class FluxoCompletoIntegrationTest {
     @Order(8)
     void deveValidarConsultaInvestimentos() {
         System.out.println("=== STEP 8: Validando consulta de investimentos do cliente ===");
-        
+
         // Cliente pode consultar seus próprios investimentos
         given()
                 .header("Authorization", "Bearer " + clienteToken)

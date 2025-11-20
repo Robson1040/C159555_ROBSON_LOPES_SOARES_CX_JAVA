@@ -1,12 +1,10 @@
 package br.gov.caixa.api.investimentos.dto.investimento;
 
+import br.gov.caixa.api.investimentos.validation.ValidPrazo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
-import br.gov.caixa.api.investimentos.validation.ValidPrazo;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-
 
 @ValidPrazo
 public record InvestimentoRequest(

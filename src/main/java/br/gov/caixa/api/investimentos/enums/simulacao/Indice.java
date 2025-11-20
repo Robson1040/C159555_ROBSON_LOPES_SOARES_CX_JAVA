@@ -20,22 +20,18 @@ public enum Indice {
         return descricao;
     }
 
-    
     public BigDecimal getTaxaAnualSimulada(int prazoMeses) {
         if (this == NENHUM) {
             return BigDecimal.ZERO;
         }
-        
-        
+
         return getTaxaFixaFallback();
     }
 
-    
     public BigDecimal getTaxaDecimal(int prazoMeses) {
         return getTaxaAnualSimulada(prazoMeses).divide(new BigDecimal("100"));
     }
 
-    
     private BigDecimal getTaxaFixaFallback() {
         return switch (this) {
             case SELIC -> new BigDecimal("10.75");
@@ -47,13 +43,11 @@ public enum Indice {
         };
     }
 
-    
     @Deprecated
     public BigDecimal getTaxaAnualSimulada() {
         return getTaxaAnualSimulada(12);
     }
 
-    
     @Deprecated
     public BigDecimal getTaxaDecimal() {
         return getTaxaDecimal(12);

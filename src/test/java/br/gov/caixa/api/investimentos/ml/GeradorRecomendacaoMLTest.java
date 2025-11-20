@@ -1,6 +1,8 @@
 package br.gov.caixa.api.investimentos.ml;
 
-import br.gov.caixa.api.investimentos.enums.produto.*;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
+import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.model.investimento.Investimento;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
@@ -22,10 +24,10 @@ class GeradorRecomendacaoMLTest {
     @BeforeEach
     void setUp() {
         gerador = new GeradorRecomendacaoML();
-        
+
         // Criar uma lista diversificada de produtos para teste
         todosProdutos = new ArrayList<>();
-        
+
         // Produto 1: CDB Conservador
         Produto produto1 = criarProduto(1L, "CDB Conservador", TipoProduto.CDB);
         produto1.setTipoRentabilidade(TipoRentabilidade.PRE);
@@ -95,7 +97,7 @@ class GeradorRecomendacaoMLTest {
         // Then
         assertNotNull(recomendados);
         assertFalse(recomendados.isEmpty());
-        
+
         // Verifica ordenação por pontuação (decrescente)
         for (int i = 0; i < recomendados.size() - 1; i++) {
             assertTrue(recomendados.get(i).getPontuacao() >= recomendados.get(i + 1).getPontuacao());
@@ -164,7 +166,7 @@ class GeradorRecomendacaoMLTest {
         // Then
         assertNotNull(recomendados);
         assertFalse(recomendados.isEmpty());
-        
+
         // Verifica ordenação por pontuação (decrescente)
         for (int i = 0; i < recomendados.size() - 1; i++) {
             assertTrue(recomendados.get(i).getPontuacao() >= recomendados.get(i + 1).getPontuacao());
@@ -179,7 +181,6 @@ class GeradorRecomendacaoMLTest {
         // Then
         assertTrue(recomendados.isEmpty());
     }
-
 
     @Test
     void encontrarProdutosOrdenadosPorAparicao_comApenasUmProduto_retornaVazioInvestimento() {
@@ -259,7 +260,7 @@ class GeradorRecomendacaoMLTest {
     void encontrarProdutosOrdenadosPorAparicao_testaTodosOsTiposProduto() {
         // Given - Investimentos com diferentes tipos para testar normalização
         List<Investimento> investimentos = new ArrayList<>();
-        
+
         for (TipoProduto tipo : TipoProduto.values()) {
             Investimento inv = criarInvestimento(1L, BigDecimal.valueOf(10000), tipo);
             investimentos.add(inv);
@@ -277,7 +278,7 @@ class GeradorRecomendacaoMLTest {
     void encontrarProdutosOrdenadosPorAparicao_testaTodosOsIndices() {
         // Given - Investimentos com diferentes índices
         List<Investimento> investimentos = new ArrayList<>();
-        
+
         for (Indice indice : Indice.values()) {
             Investimento inv = criarInvestimento(2L, BigDecimal.valueOf(10000), TipoProduto.LCI);
             inv.setIndice(indice);
@@ -296,7 +297,7 @@ class GeradorRecomendacaoMLTest {
     void encontrarProdutosOrdenadosPorAparicao_testaTodosPeriodosRentabilidade() {
         // Given - Investimentos com diferentes períodos
         List<Investimento> investimentos = new ArrayList<>();
-        
+
         for (PeriodoRentabilidade periodo : PeriodoRentabilidade.values()) {
             Investimento inv = criarInvestimento(2L, BigDecimal.valueOf(10000), TipoProduto.LCI);
             inv.setPeriodoRentabilidade(periodo);
@@ -315,7 +316,7 @@ class GeradorRecomendacaoMLTest {
     void encontrarProdutosOrdenadosPorAparicao_testaTodosTiposRentabilidade() {
         // Given - Investimentos com diferentes tipos de rentabilidade
         List<Investimento> investimentos = new ArrayList<>();
-        
+
         for (TipoRentabilidade tipoRent : TipoRentabilidade.values()) {
             Investimento inv = criarInvestimento(2L, BigDecimal.valueOf(10000), TipoProduto.LCI);
             inv.setTipoRentabilidade(tipoRent);
@@ -334,7 +335,7 @@ class GeradorRecomendacaoMLTest {
     void encontrarProdutosOrdenadosPorAparicao_comMesmosProdutoIds_testaBehaviorInvestimento() {
         // Given - Teste com um investimento específico 
         List<Investimento> investimentos = new ArrayList<>();
-        
+
         // Usar apenas um investimento para testar o comportamento específico
         Investimento inv = criarInvestimento(1L, BigDecimal.valueOf(10000), TipoProduto.CDB);
         investimentos.add(inv);
@@ -352,11 +353,11 @@ class GeradorRecomendacaoMLTest {
     void encontrarProdutosOrdenadosPorAparicao_comMesmosProdutoIds_testaBehaviorSimulacao() {
         // Given - Teste com uma simulação específica
         List<SimulacaoInvestimento> simulacoes = new ArrayList<>();
-        
+
         // Usar apenas uma simulação para testar o comportamento específico
         SimulacaoInvestimento sim = new SimulacaoInvestimento(
-            100L, 1L, "CDB Test", 
-            BigDecimal.valueOf(10000), BigDecimal.valueOf(12000), 12, 365, 1
+                100L, 1L, "CDB Test",
+                BigDecimal.valueOf(10000), BigDecimal.valueOf(12000), 12, 365, 1
         );
         simulacoes.add(sim);
 
@@ -370,7 +371,7 @@ class GeradorRecomendacaoMLTest {
     }
 
     // --------------------- Helpers ---------------------
-    
+
     private Produto criarProduto(Long id, String nome, TipoProduto tipo) {
         Produto p = new Produto();
         p.setId(id);

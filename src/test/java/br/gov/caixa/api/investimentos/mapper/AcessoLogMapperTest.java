@@ -1,12 +1,15 @@
 package br.gov.caixa.api.investimentos.mapper;
 
-import br.gov.caixa.api.investimentos.model.telemetria.AcessoLog;
 import br.gov.caixa.api.investimentos.dto.telemetria.AcessoLogDTO;
+import br.gov.caixa.api.investimentos.model.telemetria.AcessoLog;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class AcessoLogMapperTest {
     @Test
@@ -83,19 +86,19 @@ class AcessoLogMapperTest {
 
     @Test
     void testToDTOWithNullValues() {
-    AcessoLog log = new AcessoLog();
-    AcessoLogDTO dto = AcessoLogMapper.toDTO(log);
-    assertNull(dto.id());
-    assertNull(dto.usuarioId());
-    assertNull(dto.endpoint());
-    assertNull(dto.metodoHttp());
-    assertNull(dto.uriCompleta());
-    assertNull(dto.ipOrigem());
-    assertNull(dto.corpoRequisicao());
-    assertNull(dto.statusCode());
-    assertNull(dto.corpoResposta());
-    assertNull(dto.tempoExecucaoMs());
-    assertNull(dto.userAgent());
-    assertNull(dto.erroMessage());
+        AcessoLog log = new AcessoLog();
+        AcessoLogDTO dto = AcessoLogMapper.toDTO(log);
+        assertNull(dto.id());
+        assertNull(dto.usuarioId());
+        assertNull(dto.endpoint());
+        assertNull(dto.metodoHttp());
+        assertNull(dto.uriCompleta());
+        assertNull(dto.ipOrigem());
+        assertNull(dto.corpoRequisicao());
+        assertNull(dto.statusCode());
+        assertNull(dto.corpoResposta());
+        assertNull(dto.tempoExecucaoMs());
+        assertNull(dto.userAgent());
+        assertNull(dto.erroMessage());
     }
 }

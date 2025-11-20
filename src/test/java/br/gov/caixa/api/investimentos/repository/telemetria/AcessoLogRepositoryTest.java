@@ -131,8 +131,13 @@ class AcessoLogRepositoryTest {
         private List<AcessoLog> returnList = Collections.emptyList();
         private long returnCount = 0L;
 
-        void setReturnList(List<AcessoLog> list) { this.returnList = list; }
-        void setReturnCount(long c) { this.returnCount = c; }
+        void setReturnList(List<AcessoLog> list) {
+            this.returnList = list;
+        }
+
+        void setReturnCount(long c) {
+            this.returnCount = c;
+        }
 
         @Override
         public List<AcessoLog> listAll(Sort sort) {

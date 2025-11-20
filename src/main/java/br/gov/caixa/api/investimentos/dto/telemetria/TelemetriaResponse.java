@@ -1,13 +1,14 @@
 package br.gov.caixa.api.investimentos.dto.telemetria;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class TelemetriaResponse {
-    
+
     @JsonProperty("servicos")
     private List<ServicoTelemetria> servicos;
-    
+
     @JsonProperty("periodo")
     private PeriodoTelemetria periodo;
 

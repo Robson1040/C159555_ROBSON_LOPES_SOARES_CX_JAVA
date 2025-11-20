@@ -1,15 +1,16 @@
 package br.gov.caixa.api.investimentos.resource.perfil_risco;
 
-import br.gov.caixa.api.investimentos.dto.perfil_risco.PerfilRiscoResponse;
 import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
+import br.gov.caixa.api.investimentos.dto.perfil_risco.PerfilRiscoResponse;
 import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
 import br.gov.caixa.api.investimentos.service.perfil_risco.PerfilRiscoService;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class PerfilRiscoResourceTest {
 
@@ -27,7 +28,7 @@ class PerfilRiscoResourceTest {
     void calcularPerfilRisco_deveRetornarPerfilComSucesso() {
         Long clienteId = 1L;
         PerfilRiscoResponse responseMock = new PerfilRiscoResponse(
-                clienteId,"Moderado", 50, "Perfil equilibrado entre risco e retorno"
+                clienteId, "Moderado", 50, "Perfil equilibrado entre risco e retorno"
         );
 
         when(service.calcularPerfilRisco(clienteId)).thenReturn(responseMock);

@@ -1,11 +1,9 @@
 package br.gov.caixa.api.investimentos.model.produto;
 
-import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
-import br.gov.caixa.api.investimentos.enums.simulacao.TipoRenda;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

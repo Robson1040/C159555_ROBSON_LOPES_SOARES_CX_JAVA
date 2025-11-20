@@ -1,14 +1,13 @@
 package br.gov.caixa.api.investimentos.dto.investimento;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
 
 public record InvestimentoResponse(
         Long id,
@@ -27,4 +26,5 @@ public record InvestimentoResponse(
         @JsonProperty("liquidez") Integer liquidez,
         @JsonProperty("minimo_dias_investimento") Integer minimoDiasInvestimento,
         @JsonProperty("fgc") Boolean fgc
-) {}
+) {
+}

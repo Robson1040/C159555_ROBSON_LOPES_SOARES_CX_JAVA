@@ -1,10 +1,10 @@
 package br.gov.caixa.api.investimentos.model.investimento;
 
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.mapper.InvestimentoMapper;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
 import org.junit.jupiter.api.BeforeEach;

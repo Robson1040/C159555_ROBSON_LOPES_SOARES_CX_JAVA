@@ -2,13 +2,12 @@ package br.gov.caixa.api.investimentos.integration;
 
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
+import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
-import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
-
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.service.autenticacao.JwtService;
 import io.quarkus.test.junit.QuarkusTest;
@@ -16,17 +15,17 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.math.BigDecimal;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
@@ -46,12 +45,10 @@ public class ProdutoRecomendadoResourceIntegrationTest {
     private static Long produtoIdRiscoMedio2; // CRI
     private static Long produtoIdRiscoAlto1;  // Ação
     private static Long produtoIdRiscoAlto2;  // ETF
-    
+
     private static Long clienteIdInvestidor1;
     private static Long clienteIdInvestidor2;
     private static Long clienteIdSemHistorico;
-    
-
 
     @BeforeEach
     public void setup() {
@@ -300,7 +297,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
         // Extrair o ID real do cliente criado
         clienteIdInvestidor1 = clienteResponse.id();
         System.out.println("=== DEBUG: Cliente investidor 1 criado com ID: " + clienteIdInvestidor1);
-        
+
         assertNotNull(clienteIdInvestidor1);
         assertEquals("Carlos Silva Conservador", clienteResponse.nome());
         assertEquals("27269308080", clienteResponse.cpf());
@@ -339,7 +336,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
         // Extrair o ID real do cliente criado
         clienteIdInvestidor2 = clienteResponse.id();
         System.out.println("=== DEBUG: Cliente investidor 2 criado com ID: " + clienteIdInvestidor2);
-        
+
         assertNotNull(clienteIdInvestidor2);
         assertEquals("Ana Santos Agressiva", clienteResponse.nome());
         assertEquals("49003529000", clienteResponse.cpf());
@@ -378,7 +375,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
         // Extrair o ID real do cliente criado
         clienteIdSemHistorico = clienteResponse.id();
         System.out.println("=== DEBUG: Cliente sem histórico criado com ID: " + clienteIdSemHistorico);
-        
+
         assertNotNull(clienteIdSemHistorico);
         assertEquals("José Sem Histórico", clienteResponse.nome());
         assertEquals("96949804024", clienteResponse.cpf());
@@ -469,7 +466,8 @@ public class ProdutoRecomendadoResourceIntegrationTest {
     }
 
     @Test
-    @Order(125) // Inserindo entre 12 e 13
+    @Order(125)
+        // Inserindo entre 12 e 13
     void deveCriarSegundoInvestimentoCliente1() {
         // Cliente 1 faz outro investimento (conservador) para enriquecer histórico
         InvestimentoRequest investimento = new InvestimentoRequest(
@@ -548,12 +546,12 @@ public class ProdutoRecomendadoResourceIntegrationTest {
     @Order(16)
     void deveBuscarProdutosPorClienteComHistorico() {
         // IMPORTANTE: Este teste exige cliente com histórico - só aceita 200, não 404
-        
+
         // Se clienteIdInvestidor1 foi criado nos testes anteriores, usar ele
         Long clienteId = clienteIdInvestidor1;
-        
+
         System.out.println("=== DEBUG: Testando GET /produtos-recomendados/cliente/" + clienteId + " - DEVE retornar 200");
-        
+
         // REGRA ESTRITA: Cliente com histórico DEVE sempre retornar 200 com produtos
         given()
                 .header("Authorization", "Bearer " + adminToken)
@@ -671,7 +669,7 @@ public class ProdutoRecomendadoResourceIntegrationTest {
                 .asString();
 
         System.out.println("=== DEBUG: Response body: " + responseBody);
-        
+
         // Valida que é um array com pelo menos um elemento
         given()
                 .header("Authorization", "Bearer " + adminToken)

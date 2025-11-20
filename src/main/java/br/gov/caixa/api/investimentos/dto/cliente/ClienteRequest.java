@@ -31,4 +31,5 @@ public record ClienteRequest(
         @NotBlank(message = "Role é obrigatório")
         @Pattern(regexp = "USER|ADMIN", message = "Role deve ser 'USER' ou 'ADMIN'")
         String role
-) {}
+) {
+}

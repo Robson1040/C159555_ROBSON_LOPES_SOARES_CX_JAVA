@@ -1,29 +1,27 @@
 package br.gov.caixa.api.investimentos.integration;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
-import org.junit.jupiter.api.*;
-
-import jakarta.inject.Inject;
-
-import br.gov.caixa.api.investimentos.service.autenticacao.JwtService;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import br.gov.caixa.api.investimentos.service.autenticacao.JwtService;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
+import jakarta.inject.Inject;
+import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

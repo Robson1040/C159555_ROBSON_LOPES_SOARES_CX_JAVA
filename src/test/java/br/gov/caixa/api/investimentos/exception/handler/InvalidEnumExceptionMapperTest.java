@@ -1,14 +1,13 @@
 package br.gov.caixa.api.investimentos.exception.handler;
 
 import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import jakarta.ws.rs.core.Response;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class InvalidEnumExceptionMapperTest {
 

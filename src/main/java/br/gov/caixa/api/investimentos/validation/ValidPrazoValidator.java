@@ -1,22 +1,21 @@
 package br.gov.caixa.api.investimentos.validation;
 
+import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
+import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
-import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
-
 
 public class ValidPrazoValidator implements ConstraintValidator<ValidPrazo, Object> {
 
     @Override
     public void initialize(ValidPrazo constraintAnnotation) {
-        
+
     }
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         if (value == null) {
-            return true; 
+            return true;
         }
 
         Integer prazoMeses = null;
@@ -32,7 +31,7 @@ public class ValidPrazoValidator implements ConstraintValidator<ValidPrazo, Obje
             prazoDias = req.prazoDias();
             prazoAnos = req.prazoAnos();
         } else {
-            
+
             return true;
         }
 

@@ -1,6 +1,7 @@
 package br.gov.caixa.api.investimentos.enums.produto;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TipoRentabilidadeTest {

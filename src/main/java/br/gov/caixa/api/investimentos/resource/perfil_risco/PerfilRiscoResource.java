@@ -1,15 +1,14 @@
 package br.gov.caixa.api.investimentos.resource.perfil_risco;
 
+import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
+import br.gov.caixa.api.investimentos.dto.perfil_risco.PerfilRiscoResponse;
+import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
+import br.gov.caixa.api.investimentos.service.perfil_risco.PerfilRiscoService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import br.gov.caixa.api.investimentos.dto.perfil_risco.PerfilRiscoResponse;
-import br.gov.caixa.api.investimentos.dto.common.ErrorResponse;
-import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
-import br.gov.caixa.api.investimentos.service.perfil_risco.PerfilRiscoService;
-
 
 @Path("/perfil-risco")
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,7 +19,6 @@ public class PerfilRiscoResource {
     @Inject
     PerfilRiscoService perfilRiscoService;
 
-    
     @GET
     @Path("/{clienteId}")
     public Response calcularPerfilRisco(@PathParam("clienteId") Long clienteId) {

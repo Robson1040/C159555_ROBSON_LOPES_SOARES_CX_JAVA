@@ -1,21 +1,21 @@
 package br.gov.caixa.api.investimentos.service.perfil_risco;
 
-import br.gov.caixa.api.investimentos.ml.GeradorRecomendacaoML;
-import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
 import br.gov.caixa.api.investimentos.dto.perfil_risco.PerfilRiscoResponse;
 import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.exception.cliente.ClienteNotFoundException;
+import br.gov.caixa.api.investimentos.ml.GeradorRecomendacaoML;
 import br.gov.caixa.api.investimentos.model.investimento.Investimento;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
 import br.gov.caixa.api.investimentos.repository.investimento.IInvestimentoRepository;
+import br.gov.caixa.api.investimentos.repository.produto.IProdutoRepository;
 import br.gov.caixa.api.investimentos.repository.simulacao.ISimulacaoInvestimentoRepository;
 import br.gov.caixa.api.investimentos.service.cliente.ClienteService;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @ApplicationScoped
 public class PerfilRiscoService {
@@ -34,41 +34,33 @@ public class PerfilRiscoService {
 
     @Inject
     GeradorRecomendacaoML geradorRecomendacaoML;
-    
+
     public PerfilRiscoResponse calcularPerfilRisco(Long clienteId) {
-        
+
         validarCliente(clienteId);
 
         List<Produto> produtos_sugeridos = new ArrayList<>();
         List<Produto> produtos = produtoRepository.listAll();
 
-        
         List<Investimento> investimentos = investimentoRepository.findByClienteId(clienteId);
         List<SimulacaoInvestimento> simulacoes = simulacaoRepository.findByClienteId(clienteId);
 
-        if (!investimentos.isEmpty())
-        {
+        if (!investimentos.isEmpty()) {
             produtos_sugeridos = geradorRecomendacaoML.encontrarProdutosOrdenadosPorAparicao(investimentos, produtos);
         }
 
-        if (produtos_sugeridos.isEmpty())
-        {
+        if (produtos_sugeridos.isEmpty()) {
             produtos_sugeridos = geradorRecomendacaoML.encontrarProdutosOrdenadosPorAparicao(simulacoes, produtos);
         }
 
-        if (produtos_sugeridos.isEmpty())
-        {
+        if (produtos_sugeridos.isEmpty()) {
             throw new IllegalStateException("Cliente não possui histórico de investimentos nem simulações para calcular perfil de risco");
         }
-
-
 
         return determinarPerfilFinal(clienteId, contarNivelRisco(produtos_sugeridos, produtos_sugeridos.getFirst().getRisco()), contarTotal(produtos_sugeridos), produtos_sugeridos.getFirst());
     }
 
-    
-    private void validarCliente(Long clienteId)
-    {
+    private void validarCliente(Long clienteId) {
         try {
             clienteService.buscarPorId(clienteId);
         } catch (ClienteNotFoundException e) {
@@ -76,10 +68,7 @@ public class PerfilRiscoService {
         }
     }
 
-    
-
-    private int contarNivelRisco(List<Produto> produtos, NivelRisco nivel)
-    {
+    private int contarNivelRisco(List<Produto> produtos, NivelRisco nivel) {
         int quantidade = 0;
 
         for (Produto produto : produtos) {
@@ -91,35 +80,25 @@ public class PerfilRiscoService {
         return quantidade;
     }
 
-    private int contarTotal(List<Produto> produtos)
-    {
+    private int contarTotal(List<Produto> produtos) {
         int quantidade = 0;
 
-        for (Produto produto : produtos)
-        {
+        for (Produto produto : produtos) {
             quantidade += produto.getPontuacao();
         }
 
         return quantidade;
     }
 
-    private PerfilRiscoResponse determinarPerfilFinal(Long clienteId, int aparicoes, int total, Produto produto)
-    {
-
+    private PerfilRiscoResponse determinarPerfilFinal(Long clienteId, int aparicoes, int total, Produto produto) {
 
         int pontuacao = total == 0 ? 0 : (aparicoes * 100) / total;
 
-        
-        if (produto.getRisco().equals(NivelRisco.BAIXO))
-        {
+        if (produto.getRisco().equals(NivelRisco.BAIXO)) {
             return PerfilRiscoResponse.conservador(clienteId, pontuacao);
-        }
-        else if (produto.getRisco().equals(NivelRisco.MEDIO))
-        {
+        } else if (produto.getRisco().equals(NivelRisco.MEDIO)) {
             return PerfilRiscoResponse.moderado(clienteId, pontuacao);
-        }
-        else
-        {
+        } else {
             return PerfilRiscoResponse.agressivo(clienteId, pontuacao);
         }
     }

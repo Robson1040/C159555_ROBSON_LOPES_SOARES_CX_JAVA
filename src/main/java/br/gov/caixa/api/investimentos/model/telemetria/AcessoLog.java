@@ -2,8 +2,8 @@ package br.gov.caixa.api.investimentos.model.telemetria;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "acesso_log")
@@ -55,9 +55,8 @@ public class AcessoLog extends PanacheEntityBase {
     @Column(name = "erro_stacktrace", columnDefinition = "TEXT")
     private String erroStacktrace;
 
-    
     public AcessoLog() {
-       this.dataAcesso = LocalDateTime.now();
+        this.dataAcesso = LocalDateTime.now();
     }
 
     public AcessoLog(Long usuarioId, String endpoint, String metodoHttp,
@@ -71,7 +70,6 @@ public class AcessoLog extends PanacheEntityBase {
         this.corpoRequisicao = corpoRequisicao;
     }
 
-    
     public Long getId() {
         return id;
     }
@@ -187,8 +185,8 @@ public class AcessoLog extends PanacheEntityBase {
     @Override
     public String toString() {
         return String.format(
-            "AcessoLog{id=%d, usuario=%s, metodo=%s, endpoint=%s, statusCode=%d, tempoMs=%d, data=%s}",
-            id, metodoHttp, endpoint, statusCode, tempoExecucaoMs, dataAcesso
+                "AcessoLog{id=%d, usuario=%s, metodo=%s, endpoint=%s, statusCode=%d, tempoMs=%d, data=%s}",
+                id, metodoHttp, endpoint, statusCode, tempoExecucaoMs, dataAcesso
         );
     }
 }

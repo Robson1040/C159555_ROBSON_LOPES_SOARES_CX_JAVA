@@ -3,18 +3,20 @@ package br.gov.caixa.api.investimentos.resource.cliente;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteUpdateRequest;
-import br.gov.caixa.api.investimentos.service.cliente.ClienteService;
 import br.gov.caixa.api.investimentos.helper.auth.JwtAuthorizationHelper;
-import org.eclipse.microprofile.jwt.JsonWebToken;
+import br.gov.caixa.api.investimentos.service.cliente.ClienteService;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ClienteResourceTest {
 
@@ -28,12 +30,12 @@ class ClienteResourceTest {
         service = mock(ClienteService.class);
         authHelper = mock(JwtAuthorizationHelper.class);
         jwt = mock(JsonWebToken.class);
-        
+
         resource = new ClienteResource();
         resource.clienteService = service; // Injeta mock manualmente
         resource.authHelper = authHelper; // Injeta mock manualmente
         resource.jwt = jwt; // Injeta mock manualmente
-        
+
         // Mock padrão para JWT - ADMIN com acesso total
         when(jwt.getGroups()).thenReturn(Set.of("ADMIN"));
     }

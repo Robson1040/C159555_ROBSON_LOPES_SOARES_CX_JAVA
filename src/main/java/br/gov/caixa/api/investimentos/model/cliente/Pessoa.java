@@ -1,11 +1,10 @@
 package br.gov.caixa.api.investimentos.model.cliente;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
 
 @Entity
 @Table(name = "pessoa")
@@ -41,10 +40,9 @@ public class Pessoa extends PanacheEntityBase {
     @Column(name = "role", nullable = false, length = 10)
     private String role;
 
-    
-    public Pessoa() {}
+    public Pessoa() {
+    }
 
-    
     public Pessoa(String nome, String cpf, String username, String password, String role) {
         this.nome = nome;
         this.cpf = cpf;
@@ -52,8 +50,6 @@ public class Pessoa extends PanacheEntityBase {
         this.password = password;
         this.role = role;
     }
-
-
 
     @Override
     public String toString() {

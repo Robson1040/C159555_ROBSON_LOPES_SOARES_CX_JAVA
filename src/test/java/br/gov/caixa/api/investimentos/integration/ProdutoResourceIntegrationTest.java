@@ -2,33 +2,33 @@ package br.gov.caixa.api.investimentos.integration;
 
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.service.autenticacao.JwtService;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testes de integração para todos os endpoints da ProdutoResource.
- * 
+ * <p>
  * Os testes seguem uma ordem lógica:
  * 1. Criar alguns produtos (POST /produtos)
  * 2. Alterar um produto por ID (PUT /produtos/ID)
@@ -46,7 +46,7 @@ class ProdutoResourceIntegrationTest {
     private static Long produtoIdCriado1;
     private static Long produtoIdCriado2;
     private static Long produtoIdCriado3;
-    
+
     // Helper method para buscar produto por nome
     private Long buscarProdutoPorNome(String nome) {
         return given()
@@ -68,7 +68,7 @@ class ProdutoResourceIntegrationTest {
         // Criar tokens JWT para testes
         userToken = jwtService.gerarToken("user@test.com", "USER");
         adminToken = jwtService.gerarToken("admin@test.com", "ADMIN");
-        
+
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
     }
 
@@ -112,7 +112,7 @@ class ProdutoResourceIntegrationTest {
 
         // Armazenar ID para próximos testes
         produtoIdCriado1 = produtoResponse.id();
-        
+
         assertNotNull(produtoIdCriado1);
         assertEquals("CDB Premium", produtoResponse.nome());
         assertEquals(TipoProduto.CDB, produtoResponse.tipo());
@@ -202,16 +202,16 @@ class ProdutoResourceIntegrationTest {
     void deveAlterarProdutoPorId() {
         // Primeiro, vamos listar todos os produtos para encontrar um CDB
         Response response = given()
-            .header("Authorization", "Bearer " + adminToken)
-        .when()
-            .get("/produtos")
-        .then()
-            .statusCode(200)
-            .extract().response();
+                .header("Authorization", "Bearer " + adminToken)
+                .when()
+                .get("/produtos")
+                .then()
+                .statusCode(200)
+                .extract().response();
 
         List<Map<String, Object>> produtos = response.jsonPath().getList("$");
         Long idProduto = null;
-        
+
         // Buscar o primeiro produto CDB
         for (Map<String, Object> produto : produtos) {
             if ("CDB".equals(produto.get("tipo"))) {
@@ -219,9 +219,9 @@ class ProdutoResourceIntegrationTest {
                 break;
             }
         }
-        
+
         assertNotNull(idProduto, "Deve existir pelo menos um produto CDB para alterar");
-        
+
         // Dados para atualizar o produto
         ProdutoRequest updateRequest = new ProdutoRequest(
                 "CDB Premium Atualizado",
@@ -230,7 +230,7 @@ class ProdutoResourceIntegrationTest {
                 new BigDecimal("13.0"), // nova rentabilidade
                 PeriodoRentabilidade.AO_ANO,
                 Indice.CDI,
-                0, 
+                0,
                 45, // novo mínimo de dias
                 true
         );
@@ -253,7 +253,7 @@ class ProdutoResourceIntegrationTest {
         assertEquals("CDB Premium Atualizado", produtoResponse.nome());
         assertEquals(new BigDecimal("13.0"), produtoResponse.rentabilidade());
         assertEquals(45, produtoResponse.minimoDiasInvestimento());
-        
+
         // Atualizar o ID para os próximos testes
         produtoIdCriado1 = idProduto;
     }
@@ -287,16 +287,16 @@ class ProdutoResourceIntegrationTest {
                 .statusCode(200)
                 .body("$", hasSize(greaterThanOrEqualTo(1))) // pelo menos um produto deve existir
                 .extract().response();
-                
+
         // Verificar se pelo menos um dos produtos criados nos testes anteriores está na lista
         List<Map<String, Object>> produtos = response.jsonPath().getList("$");
         boolean temProdutoCriado = produtos.stream()
-            .anyMatch(produto -> 
-                "CDB Premium Atualizado".equals(produto.get("nome")) ||
-                "Tesouro IPCA+ 2035".equals(produto.get("nome")) ||
-                "Fundo DI Expert".equals(produto.get("nome"))
-            );
-            
+                .anyMatch(produto ->
+                        "CDB Premium Atualizado".equals(produto.get("nome")) ||
+                                "Tesouro IPCA+ 2035".equals(produto.get("nome")) ||
+                                "Fundo DI Expert".equals(produto.get("nome"))
+                );
+
         assertTrue(temProdutoCriado, "Pelo menos um dos produtos criados nos testes deve estar na listagem");
     }
 
@@ -445,7 +445,7 @@ class ProdutoResourceIntegrationTest {
     @Order(13)
     void deveRetornar403ParaUserTentandoAtualizarProduto() {
         assertNotNull(produtoIdCriado1, "Produto deve ter sido criado no teste anterior");
-        
+
         // Tentar atualizar produto com role USER (apenas ADMIN pode atualizar)
         ProdutoRequest updateRequest = new ProdutoRequest(
                 "Produto Atualizado por User",

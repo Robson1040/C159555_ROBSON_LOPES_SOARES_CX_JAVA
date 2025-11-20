@@ -1,13 +1,14 @@
 package br.gov.caixa.api.investimentos.dto.telemetria;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 
 public class PeriodoTelemetria {
-    
+
     @JsonProperty("inicio")
     private String inicio;
-    
+
     @JsonProperty("fim")
     private String fim;
 

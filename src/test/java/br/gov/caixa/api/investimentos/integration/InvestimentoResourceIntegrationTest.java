@@ -2,14 +2,13 @@ package br.gov.caixa.api.investimentos.integration;
 
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteRequest;
 import br.gov.caixa.api.investimentos.dto.cliente.ClienteResponse;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
-import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoRequest;
 import br.gov.caixa.api.investimentos.dto.investimento.InvestimentoResponse;
-
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
+import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.service.autenticacao.JwtService;
 import io.quarkus.test.junit.QuarkusTest;
@@ -17,16 +16,16 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import java.math.BigDecimal;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
@@ -41,7 +40,7 @@ public class InvestimentoResourceIntegrationTest {
 
     // IDs dos dados criados para reutilização nos testes
     private static Long produtoIdPoupanca;
-    private static Long produtoIdCDB; 
+    private static Long produtoIdCDB;
     private static Long produtoIdDebenture;
     private static Long clienteIdInvestidor1;
     private static Long clienteIdInvestidor2;

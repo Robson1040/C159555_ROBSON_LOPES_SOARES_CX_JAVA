@@ -1,9 +1,9 @@
 package br.gov.caixa.api.investimentos.mapper;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.model.produto.Produto;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class ProdutoMapper {
 
-    
     public ProdutoResponse toResponse(Produto produto) {
         if (produto == null) {
             return null;
@@ -32,20 +31,17 @@ public class ProdutoMapper {
         );
     }
 
-    
     public List<ProdutoResponse> toResponseList(List<Produto> produtos) {
         if (produtos == null) {
             return null;
         }
 
-        
         return produtos.stream()
                 .filter(produto -> produto != null)
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 
-    
     public Produto toEntity(ProdutoRequest request) {
         if (request == null) {
             return null;
@@ -64,7 +60,6 @@ public class ProdutoMapper {
         );
     }
 
-    
     public void updateEntityFromRequest(Produto produto, ProdutoRequest request) {
         if (produto == null || request == null) {
             return;

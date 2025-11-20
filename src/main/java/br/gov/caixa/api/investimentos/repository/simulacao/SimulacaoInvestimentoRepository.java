@@ -1,7 +1,7 @@
 package br.gov.caixa.api.investimentos.repository.simulacao;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import br.gov.caixa.api.investimentos.model.simulacao.SimulacaoInvestimento;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -69,24 +69,23 @@ public class SimulacaoInvestimentoRepository implements ISimulacaoInvestimentoRe
         return find("clienteId = ?1 ORDER BY dataSimulacao DESC", clienteId).firstResult();
     }
 
-   /**
- * Calcula total investido por um cliente em simulações
- */
-	public BigDecimal getTotalInvestidoByClienteId(Long clienteId) 
-	{
-		Object result = find("SELECT SUM(s.valorInvestido) FROM SimulacaoInvestimento s WHERE s.clienteId = ?1", clienteId)
-				.singleResult();
+    /**
+     * Calcula total investido por um cliente em simulações
+     */
+    public BigDecimal getTotalInvestidoByClienteId(Long clienteId) {
+        Object result = find("SELECT SUM(s.valorInvestido) FROM SimulacaoInvestimento s WHERE s.clienteId = ?1", clienteId)
+                .singleResult();
 
-		if (result == null) {
-			return BigDecimal.ZERO;
-		}
+        if (result == null) {
+            return BigDecimal.ZERO;
+        }
 
-		if (result instanceof BigDecimal) {
-			return (BigDecimal) result;
-		} else if (result instanceof Number) {
-			return BigDecimal.valueOf(((Number) result).doubleValue());
-		} else {
-			throw new IllegalStateException("Tipo inesperado: " + result.getClass());
-		}
-	}
+        if (result instanceof BigDecimal) {
+            return (BigDecimal) result;
+        } else if (result instanceof Number) {
+            return BigDecimal.valueOf(((Number) result).doubleValue());
+        } else {
+            throw new IllegalStateException("Tipo inesperado: " + result.getClass());
+        }
+    }
 }

@@ -1,14 +1,13 @@
 package br.gov.caixa.api.investimentos.dto.produto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
 import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
+import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
-
 
 public record ProdutoResponse(
         Long id,
@@ -33,4 +32,5 @@ public record ProdutoResponse(
         Boolean fgc,
 
         NivelRisco risco
-) {}
+) {
+}

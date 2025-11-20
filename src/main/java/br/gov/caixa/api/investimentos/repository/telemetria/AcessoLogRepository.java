@@ -1,8 +1,8 @@
 package br.gov.caixa.api.investimentos.repository.telemetria;
 
+import br.gov.caixa.api.investimentos.model.telemetria.AcessoLog;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
-import br.gov.caixa.api.investimentos.model.telemetria.AcessoLog;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,7 +36,7 @@ public class AcessoLogRepository implements IAcessoLogRepository {
      */
     public List<AcessoLog> buscarPorPeriodo(LocalDateTime dataInicio, LocalDateTime dataFim) {
         return list("dataAcesso >= ?1 and dataAcesso <= ?2", Sort.by("dataAcesso").descending(),
-                   dataInicio, dataFim);
+                dataInicio, dataFim);
     }
 
     /**
@@ -57,11 +57,11 @@ public class AcessoLogRepository implements IAcessoLogRepository {
      * Busca acessos com filtros múltiplos
      */
     public List<AcessoLog> buscarComFiltros(Long usuarioId, String endpoint,
-                                             LocalDateTime dataInicio, LocalDateTime dataFim) {
+                                            LocalDateTime dataInicio, LocalDateTime dataFim) {
 
         // Se nenhum filtro for fornecido, retorna todos
         if (usuarioId == null && (endpoint == null || endpoint.isEmpty()) &&
-            (dataInicio == null && dataFim == null)) {
+                (dataInicio == null && dataFim == null)) {
             return listAll(Sort.by("dataAcesso").descending());
         }
 
@@ -86,22 +86,22 @@ public class AcessoLogRepository implements IAcessoLogRepository {
 
         // Executar query com parâmetros posicionais
         if (usuarioId != null && (endpoint == null || endpoint.isEmpty()) &&
-            (dataInicio == null || dataFim == null)) {
+                (dataInicio == null || dataFim == null)) {
             return list(query.toString(), Sort.by("dataAcesso").descending(), usuarioId);
         } else if ((usuarioId == null) && (endpoint != null && !endpoint.isEmpty()) &&
-                   (dataInicio == null || dataFim == null)) {
+                (dataInicio == null || dataFim == null)) {
             return list(query.toString(), Sort.by("dataAcesso").descending(), endpoint);
         } else if ((usuarioId == null) && (endpoint == null || endpoint.isEmpty()) &&
-                   (dataInicio != null && dataFim != null)) {
+                (dataInicio != null && dataFim != null)) {
             return list(query.toString(), Sort.by("dataAcesso").descending(), dataInicio, dataFim);
         } else if ((usuarioId != null) && (endpoint != null && !endpoint.isEmpty()) &&
-                   (dataInicio == null || dataFim == null)) {
+                (dataInicio == null || dataFim == null)) {
             return list(query.toString(), Sort.by("dataAcesso").descending(), usuarioId, endpoint);
         } else if ((usuarioId != null) && (endpoint == null || endpoint.isEmpty()) &&
-                   (dataInicio != null && dataFim != null)) {
+                (dataInicio != null && dataFim != null)) {
             return list(query.toString(), Sort.by("dataAcesso").descending(), usuarioId, dataInicio, dataFim);
         } else if ((usuarioId == null) && (endpoint != null && !endpoint.isEmpty()) &&
-                   (dataInicio != null && dataFim != null)) {
+                (dataInicio != null && dataFim != null)) {
             return list(query.toString(), Sort.by("dataAcesso").descending(), endpoint, dataInicio, dataFim);
         } else {
             // Todos os filtros fornecidos

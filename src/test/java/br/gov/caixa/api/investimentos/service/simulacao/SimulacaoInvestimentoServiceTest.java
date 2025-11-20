@@ -5,11 +5,11 @@ import br.gov.caixa.api.investimentos.client.SimuladorMercado;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoRequest;
 import br.gov.caixa.api.investimentos.dto.simulacao.SimulacaoResponse;
+import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
-import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.exception.produto.NenhumProdutoDisponivelException;
 import br.gov.caixa.api.investimentos.mapper.ProdutoMapper;
 import br.gov.caixa.api.investimentos.mapper.SimulacaoInvestimentoMapper;
@@ -129,10 +129,10 @@ class SimulacaoInvestimentoServiceTest {
 
         // Setup cenário de mercado
         cenarioMercado = new SimuladorMercado.CenarioMercado(
-            SimuladorMercado.CenarioEconomico.ESTAVEL,
-            BigDecimal.ONE,
-            "Cenário base",
-            true
+                SimuladorMercado.CenarioEconomico.ESTAVEL,
+                BigDecimal.ONE,
+                "Cenário base",
+                true
         );
     }
 
@@ -294,8 +294,6 @@ class SimulacaoInvestimentoServiceTest {
         verify(simuladorIndices).getTaxaSimulada(Indice.CDI, 12);
         verify(simuladorMercado).ajustarRentabilidadePorCenario(any(), any(), eq(TipoRentabilidade.POS));
     }
-
-
 
     @Test
     void buscarSimulacoesPorCliente_WithValidClienteId_ShouldReturnSimulacoes() {

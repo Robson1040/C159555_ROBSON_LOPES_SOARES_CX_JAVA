@@ -2,12 +2,12 @@ package br.gov.caixa.api.investimentos.mapper;
 
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoRequest;
 import br.gov.caixa.api.investimentos.dto.produto.ProdutoResponse;
-import br.gov.caixa.api.investimentos.model.produto.Produto;
+import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
+import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
 import br.gov.caixa.api.investimentos.enums.produto.TipoProduto;
 import br.gov.caixa.api.investimentos.enums.produto.TipoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.PeriodoRentabilidade;
-import br.gov.caixa.api.investimentos.enums.produto.NivelRisco;
 import br.gov.caixa.api.investimentos.enums.simulacao.Indice;
+import br.gov.caixa.api.investimentos.model.produto.Produto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -73,27 +73,27 @@ class ProdutoMapperTest {
     void toResponseList_WithValidListProdutos_ShouldReturnProdutoResponseList() {
         // Given
         Produto produto1 = new Produto(
-                "CDB 1", 
-                TipoProduto.CDB, 
-                TipoRentabilidade.PRE, 
-                new BigDecimal("10.0"), 
-                PeriodoRentabilidade.AO_ANO, 
+                "CDB 1",
+                TipoProduto.CDB,
+                TipoRentabilidade.PRE,
+                new BigDecimal("10.0"),
+                PeriodoRentabilidade.AO_ANO,
                 null, // PRE-fixado não usa índice
-                0, 
-                90, 
+                0,
+                90,
                 true
         );
         produto1.setId(1L);
 
         Produto produto2 = new Produto(
-                "LCI 1", 
-                TipoProduto.LCI, 
-                TipoRentabilidade.POS, 
-                new BigDecimal("11.0"), 
-                PeriodoRentabilidade.AO_ANO, 
-                Indice.CDI, 
-                1, 
-                180, 
+                "LCI 1",
+                TipoProduto.LCI,
+                TipoRentabilidade.POS,
+                new BigDecimal("11.0"),
+                PeriodoRentabilidade.AO_ANO,
+                Indice.CDI,
+                1,
+                180,
                 true
         );
         produto2.setId(2L);
@@ -106,7 +106,7 @@ class ProdutoMapperTest {
         // Then
         assertNotNull(responses);
         assertEquals(2, responses.size());
-        
+
         ProdutoResponse response1 = responses.get(0);
         assertEquals(1L, response1.id());
         assertEquals("CDB 1", response1.nome());
@@ -144,14 +144,14 @@ class ProdutoMapperTest {
     void toResponseList_WithListContainingNullElements_ShouldFilterNullElements() {
         // Given
         Produto produto1 = new Produto(
-                "CDB 1", 
-                TipoProduto.CDB, 
-                TipoRentabilidade.PRE, 
-                new BigDecimal("10.0"), 
-                PeriodoRentabilidade.AO_ANO, 
-                null, 
-                0, 
-                90, 
+                "CDB 1",
+                TipoProduto.CDB,
+                TipoRentabilidade.PRE,
+                new BigDecimal("10.0"),
+                PeriodoRentabilidade.AO_ANO,
+                null,
+                0,
+                90,
                 true
         );
         produto1.setId(1L);
@@ -168,8 +168,8 @@ class ProdutoMapperTest {
         assertNotNull(responses);
         assertEquals(2, responses.size());
         assertAll(
-            () -> assertEquals(1L, responses.get(0).id()),
-            () -> assertEquals(1L, responses.get(1).id())
+                () -> assertEquals(1L, responses.get(0).id()),
+                () -> assertEquals(1L, responses.get(1).id())
         );
     }
 
@@ -218,14 +218,14 @@ class ProdutoMapperTest {
     void updateEntityFromRequest_WithValidParameters_ShouldUpdateProduto() {
         // Given
         Produto produto = new Produto(
-                "Nome Antigo", 
-                TipoProduto.CDB, 
-                TipoRentabilidade.PRE, 
-                new BigDecimal("5.0"), 
-                PeriodoRentabilidade.AO_MES, 
-                null, 
-                0, 
-                30, 
+                "Nome Antigo",
+                TipoProduto.CDB,
+                TipoRentabilidade.PRE,
+                new BigDecimal("5.0"),
+                PeriodoRentabilidade.AO_MES,
+                null,
+                0,
+                30,
                 false
         );
         produto.setId(1L);
@@ -248,7 +248,7 @@ class ProdutoMapperTest {
         // Then
         // ID deve permanecer inalterado
         assertEquals(1L, produto.getId());
-        
+
         // Outros campos devem ser atualizados
         assertEquals("Nome Novo", produto.getNome());
         assertEquals(TipoProduto.LCI, produto.getTipo());
@@ -284,21 +284,21 @@ class ProdutoMapperTest {
     void updateEntityFromRequest_WithNullRequest_ShouldDoNothing() {
         // Given
         Produto produto = new Produto(
-                "Nome Original", 
-                TipoProduto.CDB, 
-                TipoRentabilidade.PRE, 
-                new BigDecimal("5.0"), 
-                PeriodoRentabilidade.AO_MES, 
-                null, 
-                0, 
-                30, 
+                "Nome Original",
+                TipoProduto.CDB,
+                TipoRentabilidade.PRE,
+                new BigDecimal("5.0"),
+                PeriodoRentabilidade.AO_MES,
+                null,
+                0,
+                30,
                 false
         );
         produto.setId(1L);
 
         String nomeOriginal = produto.getNome();
         TipoProduto tipoOriginal = produto.getTipo();
-        
+
         // When
         produtoMapper.updateEntityFromRequest(produto, null);
 
@@ -374,14 +374,14 @@ class ProdutoMapperTest {
     void updateEntityFromRequest_WithRequestHavingNullValues_ShouldUpdateWithNullValues() {
         // Given
         Produto produto = new Produto(
-                "Nome", 
-                TipoProduto.CDB, 
-                TipoRentabilidade.PRE, 
-                new BigDecimal("10.0"), 
-                PeriodoRentabilidade.AO_ANO, 
-                null, 
-                0, 
-                90, 
+                "Nome",
+                TipoProduto.CDB,
+                TipoRentabilidade.PRE,
+                new BigDecimal("10.0"),
+                PeriodoRentabilidade.AO_ANO,
+                null,
+                0,
+                90,
                 true
         );
         produto.setId(1L);
@@ -403,7 +403,7 @@ class ProdutoMapperTest {
 
         // Then
         assertEquals(1L, produto.getId()); // ID deve permanecer
-        
+
         // Campos atualizados devem ser null
         assertNull(produto.getNome());
         assertNull(produto.getTipo());
