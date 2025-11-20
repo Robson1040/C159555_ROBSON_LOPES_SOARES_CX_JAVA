@@ -127,7 +127,7 @@ A API foi construída seguindo os princípios de:
 - **JUnit 5 + RestAssured** - Testes automatizados
 - **Machine Learning** - Algoritmo personalizado de recomendações
 - **OpenAPI 3.0.3** - Especificação completa da API
--**Caffeine Cache** - Cache de alta performance
+- **Caffeine Cache** - Cache de alta performance
 ---
 
 ## Documentos de Conformidade e Análise
