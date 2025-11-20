@@ -9,6 +9,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
     - Algoritmo avançado de recomendação personalizada de produtos
     - Análise multidimensional com 8 características financeiras
     - Aprendizado baseado em histórico real de investimentos ou simulações
+	- Expansível para N dimensões
 	
 ### Endpoints com Machine Learning
 - [1. GET /perfil-risco/{clienteId}](docs/DOCUMENTACAO_PERFIL_RISCO.md#1-get-perfil-riscoclienteid) *Usa ML para definir o perfil de risco do cliente e mostra probabilidade de acerto.*
