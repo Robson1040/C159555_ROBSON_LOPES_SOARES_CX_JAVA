@@ -274,12 +274,6 @@ Content-Type: application/json
 
 ---
 
-## Observações Técnicas e Testes
-
-- As validações importantes estão no DTO `InvestimentoRequest` e na anotação customizada `@ValidPrazo`.
-- A autorização por cliente é feita por `JwtAuthorizationHelper.validarAcessoAoCliente(jwt, clienteId)` (chamado tanto no POST quanto no GET).
-- Testes de integração relevantes: `src/test/java/.../InvestimentoResourceIntegrationTest.java`.
-- Verifique também o contrato OpenAPI em `swagger-api-investimentos-caixa.yaml` para exemplos automáticos e para manter a documentação sincronizada.
 
 ---
 
