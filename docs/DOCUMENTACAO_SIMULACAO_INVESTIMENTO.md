@@ -624,7 +624,7 @@ Content-Type: application/json
 
 2. **Busca de Produtos**
    - Filtragem por critérios informados
-   - Priorização por produtoId se especificado
+   - Priorização por produtoId se especificado e válido
    - Fallback para produtos compatíveis
 
 3. **Cálculos Financeiros**

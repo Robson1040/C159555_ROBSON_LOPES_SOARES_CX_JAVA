@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0d489427-1111-4770-b188-23abdea06e09",
+		"_postman_id": "e6b0e476-3c1a-4091-a720-e41b150f05ea",
 		"name": "API-INVESTIMENTOS-CAIXA",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "42473966"
@@ -678,7 +678,7 @@
 						"bearer": [
 							{
 								"key": "token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktaW52ZXN0aW1lbnRvcy1jYWl4YSIsInN1YiI6ImFkbWluMDIiLCJncm91cHMiOlsiQURNSU4iXSwibm9tZSI6IkFkbWluaXN0cmFkb3IgZGUgdGVzdGUiLCJjcGYiOiI5NDcwMzQwODA5MCIsInVzZXJJZCI6MSwiaWF0IjoxNzYzNTkwODgyLCJleHAiOjE3NjM1OTQ0ODIsImp0aSI6Ijg2ZGU4MGI0LTIzODMtNGZiMC1iMTE4LTNiZWRhYTM0ZmU4YSJ9.Vy2rfEvbB3PN8uZBeP_U6H25EP9sGgZqZSCnz1jChPUOKsPQlG85w4NMk9AuLMyBh7GcCytH3U7J2e9R_dtLP2pwt38nvq16dPLYFEOeOFnHecq7FfZIrrqgJsS7yjAdugeyrZ08TKM7KrRJbtZNbBTj930WudkRzvPsC5zxptZGcFwUj7hYOnOnm_E0_8Dn5DmygjjBf09Gz_NgI78OBkUADuUwWK2xMSBIcXCjPGbEzIWjBAmURmOIbiP0G1fPJ9f-Ff8_QpmA9OlL5vK7uahxfUxFTT1c4lWygs2kfWVjeaug7GIznpX7XatMJOsB37t_uD72VHVJ6vR3eB9lSg",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktaW52ZXN0aW1lbnRvcy1jYWl4YSIsInN1YiI6ImFkbWluMDIiLCJncm91cHMiOlsiQURNSU4iXSwibm9tZSI6IkFkbWluaXN0cmFkb3IgZGUgdGVzdGUiLCJjcGYiOiI5NDcwMzQwODA5MCIsInVzZXJJZCI6MiwiaWF0IjoxNzYzNjU2NDYyLCJleHAiOjE3NjM2NjAwNjIsImp0aSI6IjcxYjU2Y2QxLTc1NjgtNGU2Zi05ZDA5LWEwZjVmZDdlZjJiOSJ9.Jn7bxGEMU0XHOSF2ckEQIIw6RgWEjONiXbUjLrtjsnL-MkjasX9FkIoRHR0p-zYYFCo5ZV5PcO0arWMS0TFaXHsCm9eSfJdumlG6YX4vVGiyeIrIjYSagDNrMdF1CdSyrECLXOd2t7i080OIwrvy5yLzkXAso7uS8Do73-j3_WOj4afFveH34uW6v41QaLnDK_D2Im4nDJanoSydA7yqgCkSWHprK0fIjPGyG0bBDU_peb41QEtzJyEK-uv99EgqQ9kyhVvfKRkMFf9697GS-dAY27qG3YJGfIgXO_IbvoPFF7R2v1EeHSTQKwlcekdXjkm3vu8J_he_4noRoqSyzA",
 								"type": "string"
 							}
 						]
@@ -879,7 +879,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000.45,\n  \"prazoAnos\": 3,\n  \"produtoId\": 2,\n  \"fgc\": true\n}",
+											"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000.45,\n  \"prazoAnos\": 3,\n  \"produtoId\": 41,\n  \"fgc\": true\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -974,7 +974,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"clienteId\": 1,\n  \"produtoId\": 1,\n  \"valor\": 1500.50,\n  \"prazoMeses\": 12\n}",
+											"raw": "{\n  \"clienteId\": 1,\n  \"produtoId\": 41,\n  \"valor\": 1500.50,\n  \"prazoMeses\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1048,7 +1048,7 @@
 						"bearer": [
 							{
 								"key": "token",
-								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktaW52ZXN0aW1lbnRvcy1jYWl4YSIsInN1YiI6ImFkbWluMDIiLCJncm91cHMiOlsiQURNSU4iXSwibm9tZSI6IkFkbWluaXN0cmFkb3IgZGUgdGVzdGUiLCJjcGYiOiI5NDcwMzQwODA5MCIsInVzZXJJZCI6MSwiaWF0IjoxNzYzNTkwODgyLCJleHAiOjE3NjM1OTQ0ODIsImp0aSI6Ijg2ZGU4MGI0LTIzODMtNGZiMC1iMTE4LTNiZWRhYTM0ZmU4YSJ9.Vy2rfEvbB3PN8uZBeP_U6H25EP9sGgZqZSCnz1jChPUOKsPQlG85w4NMk9AuLMyBh7GcCytH3U7J2e9R_dtLP2pwt38nvq16dPLYFEOeOFnHecq7FfZIrrqgJsS7yjAdugeyrZ08TKM7KrRJbtZNbBTj930WudkRzvPsC5zxptZGcFwUj7hYOnOnm_E0_8Dn5DmygjjBf09Gz_NgI78OBkUADuUwWK2xMSBIcXCjPGbEzIWjBAmURmOIbiP0G1fPJ9f-Ff8_QpmA9OlL5vK7uahxfUxFTT1c4lWygs2kfWVjeaug7GIznpX7XatMJOsB37t_uD72VHVJ6vR3eB9lSg",
+								"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJhcGktaW52ZXN0aW1lbnRvcy1jYWl4YSIsInN1YiI6InVzdWFyaW8wMSIsImdyb3VwcyI6WyJVU0VSIl0sIm5vbWUiOiJVc3XDoXJpbyBkZSB0ZXN0ZSIsImNwZiI6IjA0Mjg1ODczMDUyIiwidXNlcklkIjoxLCJpYXQiOjE3NjM2NTY0MzksImV4cCI6MTc2MzY2MDAzOSwianRpIjoiMDc2ZTBhNWYtNTBlOS00MDJjLTgxZjktZTRlNWJmYzljY2E0In0.NOA-42LnV_kRJch3eNv36T5MkaPn8GJi-8v8y5zP1Rp4e5bOVXQmj9YobMc2uWQT-0wAqRMGOYxwT9zpFXcXOpVtxlbL0NolYZrW6R-WXdR_h5Fpll8_Yxr-HkZsFHnLoW2Hq4xfBUDEHYYs6opyLssygMY81l_q9U3ncNYOuH1CVSkNg-w-n_mbAJkEDHV71clvqkIhhbMcPdxVKTKQqTL9EhF1T2hLSqyArup2Mx7KBEIcQ4_9G9cBx2e3AOZlr7RvWOiXjoNq9ut7z6KccR57ATEi3kzQDFS0MRCW4M-6ujmpulMIoC8gNox-Q-nQVKN4ot28mXwKkisx9MaGOg",
 								"type": "string"
 							}
 						]
