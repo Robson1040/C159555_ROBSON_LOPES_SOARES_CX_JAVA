@@ -599,43 +599,6 @@ GET /simulacoes → Histórico completo para auditoria
 
 ---
 
-## Considerações de Segurança
-
-### Controle de Acesso Rigoroso
-1. **Role exclusiva**: Apenas ADMIN pode acessar
-2. **Dados sensíveis**: Informações financeiras de todos os clientes
-3. **Auditoria**: Logs de acesso necessários
-4. **Monitoramento**: Alertas para acessos suspeitos
-
-### Proteção de Dados
-1. **LGPD/GDPR**: Dados pessoais de investimento
-2. **Anonimização**: Considerar remover clienteId em alguns cenários
-3. **Retenção**: Políticas de armazenamento de longo prazo
-4. **Backup**: Estratégias de backup e recovery
-
-### Recomendações de Segurança
-1. **Rate Limiting**: Limitar consultas por administrador
-2. **Logs de Auditoria**: Registrar todos os acessos
-3. **Filtros por Período**: Evitar consultas de grandes volumes
-4. **IP Whitelist**: Restringir acesso por localização
-5. **Two-Factor Auth**: Autenticação dupla para ADMINs
 
 ---
 
-## Análise de Dados e Insights
-
-### Métricas Disponíveis
-
-#### Por Simulação Individual
-- Valor investido e projeção final
-- Prazo de investimento (dias/meses/anos)
-- Produto escolhido
-- Cliente realizador
-- Timestamp da simulação
-
-#### Por Agrupamento (Dia/Mês/Ano)
-- Quantidade total de simulações
-- Valor médio investido
-- Valor médio final projetado
-- Distribuição por produto
-- Tendências temporais

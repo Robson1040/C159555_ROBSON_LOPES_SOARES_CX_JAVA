@@ -273,13 +273,6 @@ curl -X POST http://localhost:9090/entrar \
 
 ---
 
-## Considerações de Segurança
-
-1. **Criptografia de Senhas**: As senhas são criptografadas no banco usando BCrypt
-2. **Validação de Token**: Tokens são assinados com chave RSA privada
-3. **Expiração**: Tokens expiram em 1 hora para limitar janela de exposição
-4. **Não exposição**: Senhas nunca são retornadas nas responses
-5. **Rate Limiting**: Considere implementar rate limiting para prevenir ataques de força bruta
 
 ---
 

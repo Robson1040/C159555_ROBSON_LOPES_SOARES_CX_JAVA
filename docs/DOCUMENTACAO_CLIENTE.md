@@ -602,15 +602,6 @@ curl -X PUT http://localhost:9090/clientes/1 \
 
 ---
 
-## Considerações de Segurança
-
-1. **Controle de Acesso**: Implementação rigorosa de RBAC (Role-Based Access Control)
-2. **Validação de Autorização**: USERs só acessam seus próprios dados
-3. **Validação de Dados**: Todas as entradas são validadas (Bean Validation)
-4. **Criptografia**: Senhas são hasheadas com BCrypt
-5. **Não Exposição**: Senhas nunca retornadas nas responses
-6. **Validação de CPF**: Validação algorítmica de CPF
-7. **JWT Security**: Tokens assinados e com expiração
 
 ---
 
