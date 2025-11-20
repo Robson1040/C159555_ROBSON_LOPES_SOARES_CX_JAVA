@@ -15,6 +15,9 @@ import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
+import io.quarkus.cache.CacheResult;
+import io.quarkus.cache.CacheInvalidateAll;
+
 @Path("/telemetria")
 @RolesAllowed({"ADMIN"})
 public class TelemetriaResource {
@@ -30,6 +33,7 @@ public class TelemetriaResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "telemetria")
     public Response obterTelemetria() {
         try {
             TelemetriaResponse telemetria = telemetriaService.obterTelemetria();
@@ -44,6 +48,7 @@ public class TelemetriaResource {
     @GET
     @Path("/detalhado")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "telemetria-detalhado")
     public Response obterTelemetriaDetalhada() {
         try {
             List<TelemetriaMetrica> metricas = telemetriaRepository.listAll();
@@ -58,6 +63,7 @@ public class TelemetriaResource {
     @GET
     @Path("/mais-acessados/{limite}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "telemetria-mais-acessados")
     public Response obterMaisAcessados(@PathParam("limite") int limite) {
         try {
             List<TelemetriaMetrica> metricas = telemetriaRepository.listarMaisAcessadas(limite);
@@ -71,6 +77,9 @@ public class TelemetriaResource {
 
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheInvalidateAll(cacheName = "telemetria")
+    @CacheInvalidateAll(cacheName = "telemetria-detalhado")
+    @CacheInvalidateAll(cacheName = "telemetria-mais-acessados")
     public Response limparMetricas() {
         try {
             telemetriaRepository.limparTodasMetricas();
@@ -87,6 +96,7 @@ public class TelemetriaResource {
     @GET
     @Path("/acesso-logs")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "acesso-logs")
     public Response listarLogsAcesso() {
         try {
             List<AcessoLogDTO> logs = acessoLogService.listarTodosLogs();
@@ -101,6 +111,7 @@ public class TelemetriaResource {
     @GET
     @Path("/acesso-logs/usuario/{usuarioId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "acesso-logs-usuario")
     public Response listarLogsAcessoPorUsuario(@PathParam("usuarioId") Long usuarioId) {
         try {
             List<AcessoLogDTO> logs = acessoLogService.buscarLogsPorUsuario(usuarioId);
@@ -115,6 +126,7 @@ public class TelemetriaResource {
     @GET
     @Path("/acesso-logs/erros")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "acesso-logs-erros")
     public Response listarLogsAcessoComErro() {
         try {
             List<AcessoLogDTO> logs = acessoLogService.buscarLogsComErro();
@@ -129,6 +141,7 @@ public class TelemetriaResource {
     @GET
     @Path("/acesso-logs/status/{statusCode}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "acesso-logs-status")
     public Response listarLogsAcessoPorStatusCode(@PathParam("statusCode") Integer statusCode) {
         try {
             List<AcessoLogDTO> logs = acessoLogService.buscarLogsPorStatusCode(statusCode);
@@ -143,6 +156,7 @@ public class TelemetriaResource {
     @GET
     @Path("/acesso-logs/estatisticas")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "acesso-logs-estatisticas")
     public Response obterEstatisticasAcessoLogs() {
         try {
             EstatisticasAcessoDTO stats = acessoLogService.obterEstatisticas();
@@ -157,6 +171,11 @@ public class TelemetriaResource {
     @DELETE
     @Path("/acesso-logs")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheInvalidateAll(cacheName = "acesso-logs")
+    @CacheInvalidateAll(cacheName = "acesso-logs-usuario")
+    @CacheInvalidateAll(cacheName = "acesso-logs-erros")
+    @CacheInvalidateAll(cacheName = "acesso-logs-status")
+    @CacheInvalidateAll(cacheName = "acesso-logs-estatisticas")
     public Response limparLogsAcesso() {
         try {
             acessoLogService.limparTodosLogs();
@@ -171,6 +190,11 @@ public class TelemetriaResource {
     @DELETE
     @Path("/acesso-logs/antigos/{diasRetencao}")
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheInvalidateAll(cacheName = "acesso-logs")
+    @CacheInvalidateAll(cacheName = "acesso-logs-usuario")
+    @CacheInvalidateAll(cacheName = "acesso-logs-erros")
+    @CacheInvalidateAll(cacheName = "acesso-logs-status")
+    @CacheInvalidateAll(cacheName = "acesso-logs-estatisticas")
     public Response limparLogsAcessoAntigos(@PathParam("diasRetencao") int diasRetencao) {
         try {
             acessoLogService.limparLogsAntigos(diasRetencao);

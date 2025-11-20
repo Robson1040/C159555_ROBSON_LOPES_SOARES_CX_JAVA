@@ -4,6 +4,10 @@
 
 O `TelemetriaResource` é responsável por fornecer métricas e dados de monitoramento da API de Investimentos Caixa. Oferece endpoints para visualizar estatísticas de uso, performance dos serviços e gerenciar dados de telemetria. Todos os endpoints são restritos a administradores.
 
+**Os endpoints GET deste recurso possuem cache de 10 minutos**.
+
+---
+
 **Servidor:** `http://localhost:9090`
 
 **Base Path:** `/telemetria`

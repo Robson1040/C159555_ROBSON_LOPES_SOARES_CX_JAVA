@@ -4,6 +4,10 @@
 
 Sistema completo de auditoria que registra **todos os acessos** aos endpoints da API, capturando informações detalhadas sobre quem acessou o quê, quando, de onde e com qual resultado.
 
+**Os endpoints GET deste recurso possuem cache de 10 minutos**.
+
+---
+
 **Servidor:** `http://localhost:9090`
 
 **Base Path:** `/telemetria`
