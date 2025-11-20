@@ -10,7 +10,7 @@ public record SimulacaoInvestimentoResponse(
         @JsonProperty("id")
         Long id,
 
-        @JsonProperty("produto_id")
+        @JsonProperty("produtoId")
         Long produtoId,
 
         @JsonProperty("clienteId")

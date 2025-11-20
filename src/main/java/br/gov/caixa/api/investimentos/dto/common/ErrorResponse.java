@@ -1,5 +1,6 @@
 package br.gov.caixa.api.investimentos.dto.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public record ErrorResponse(
         Integer status,
         
         @JsonProperty("path")
+        @JsonIgnore
         String path,
         
         @JsonProperty("errors")

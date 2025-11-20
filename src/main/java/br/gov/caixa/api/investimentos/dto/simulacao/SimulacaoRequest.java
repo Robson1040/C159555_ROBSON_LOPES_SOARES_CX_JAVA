@@ -16,7 +16,7 @@ public record SimulacaoRequest(
         @JsonProperty("clienteId")
         Long clienteId,
 
-        @JsonProperty("produto_id")
+        @JsonProperty("produtoId")
         Long produtoId,
 
         @NotNull(message = "Valor do investimento é obrigatório")

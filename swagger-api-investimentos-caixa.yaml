@@ -1278,7 +1278,7 @@ components:
           type: integer
           format: int64
           example: 123
-        produto_id:
+        produtoId:
           type: integer
           format: int64
           example: 1
@@ -1391,6 +1391,10 @@ components:
           type: integer
           format: int64
           example: 456
+        produtoId:
+          type: integer
+          format: int64
+          example: 123
         clienteId:
           type: integer
           format: int64
@@ -1611,10 +1615,6 @@ components:
           type: integer
           example: 401
           description: Código de status HTTP
-        path:
-          type: string
-          example: "/entrar"
-          description: Path da requisição que gerou o erro
         details:
           type: object
           nullable: true
@@ -1641,14 +1641,8 @@ components:
           type: string
         ipOrigem:
           type: string
-        corpoRequisicao:
-          type: string
-          description: "Truncado a 10KB"
         statusCode:
           type: integer
-        corpoResposta:
-          type: string
-          description: "Truncado a 10KB"
         tempoExecucaoMs:
           type: integer
         dataAcesso:

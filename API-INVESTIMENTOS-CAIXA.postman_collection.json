@@ -879,7 +879,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000.45,\n  \"prazoAnos\": 3,\n  \"produto_id\": 2,\n  \"fgc\": true\n}",
+											"raw": "{\n  \"clienteId\": 1,\n  \"valor\": 10000.45,\n  \"prazoAnos\": 3,\n  \"produtoId\": 2,\n  \"fgc\": true\n}",
 											"options": {
 												"raw": {
 													"language": "json"
