@@ -22,7 +22,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
    docker compose up --build
    ```
 
-2. Crie um usuário para começar:
+2. Crie um usuário:
    - [**Criar Usuário**](docs/DOCUMENTACAO_CLIENTE.md#3-post-clientes)
 
 3. Autentique o usuário na API:
@@ -57,7 +57,7 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
 - [**SIMULACAO_INVESTIMENTO**](docs/DOCUMENTACAO_SIMULACAO_INVESTIMENTO.md) - Documentação da API de simulações de cenários de investimento 
 - [**CONSULTA_SIMULACAO**](docs/DOCUMENTACAO_SIMULACAO_RESOURCE.md) - Documentação da API de consulta de simulações de investimentos 
 
-###  Registro de Investimento
+###  Investimentos
 - [**INVESTIMENTO**](docs/DOCUMENTACAO_INVESTIMENTO_RESOURCE.md) - Documentação da API de realização de investimentos
 
 ###  Monitoramento e Observabilidade
