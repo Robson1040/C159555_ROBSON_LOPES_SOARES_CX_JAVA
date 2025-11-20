@@ -34,8 +34,8 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
 
 4. Explore a documentação e os **36 ENDPOINTS** da API:
    - [**Documentação completa dos endpoints e funcionalidades da API**](#funcionalidades-e-documentações-da-api)
-   - [**Collection do Postman**](docs/API-INVESTIMENTOS-CAIXA.postman_collection.json)
-   - [**OpenAPI/Swagger**](docs/swagger-api-investimentos-caixa.yaml)
+   - [**Collection do Postman**](#especificação-da-api)
+   - [**OpenAPI/Swagger**](#especificação-da-api)
 
 ##  Evidências
 
@@ -74,13 +74,13 @@ Projeto de API para o CAIXAVERSO que analisa o comportamento financeiro do clien
 - [**swagger-api-investimentos-caixa**](docs/swagger-api-investimentos-caixa.yaml) - **Especificação completa da API** em formato OpenAPI 3.0.3
     - Todos os endpoints documentados com schemas detalhados
     - Autenticação JWT e segurança por roles
-    - Exemplos práticos para todos os endpoints
     - Validações completas com Jakarta Bean Validation
     - Códigos de resposta HTTP apropriados
 
 ###  Postman Collection
 - [**API-INVESTIMENTOS-CAIXA.postman_collection**](docs/API-INVESTIMENTOS-CAIXA.postman_collection.json) - **Teste completo da API** em formato Collection V2.1
-
+    - Exemplos práticos para todos os endpoints
+	
 ## ️ Arquitetura do Sistema
 
 A API foi construída seguindo os princípios de:
