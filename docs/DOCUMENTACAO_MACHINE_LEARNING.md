@@ -136,7 +136,7 @@ private double calcularDistanciaEuclidiana(Object entrada, Produto produto, List
 
 ```java
 // Peso logarítmico para evitar dominância excessiva
-int pesoBase = (int) (Math.log10(investimento.getValor().doubleValue() + 1) * 1000);
+double pesoBase = (double) (Math.log10(investimento.getValor().doubleValue() + 1) * 100);
 
 // Decay temporal - investimentos recentes têm mais relevância  
 double decayFactor = 1.0;
@@ -144,7 +144,7 @@ if (investimento.getData() != null) {
     long diasDesdeInvestimento = ChronoUnit.DAYS.between(investimento.getData(), LocalDate.now());
     decayFactor = Math.exp(-diasDesdeInvestimento / 365.0);
 }
-int peso = (int) (pesoBase * decayFactor);
+double peso = (double) (pesoBase * decayFactor);
 
 contador.merge(produtoMaisProximo, peso, Integer::sum);
 ```
