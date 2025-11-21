@@ -146,7 +146,7 @@ if (investimento.getData() != null) {
 }
 double peso = (double) (pesoBase * decayFactor);
 
-contador.merge(produtoMaisProximo, peso, Integer::sum);
+contador.merge(produtoMaisProximo, peso, Double::sum);
 ```
 
 **Inovações Avançadas**: 
