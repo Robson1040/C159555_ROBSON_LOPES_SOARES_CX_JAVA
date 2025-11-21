@@ -144,15 +144,15 @@ A API foi construída seguindo os princípios de:
 
 TESTES AUTOMATIZADOS
 -----------------------------
-- TOTAL DE TESTES: **697**
-- TAXA DE SUCESSO: **100%** (697/697)
+- TOTAL DE TESTES: **702**
+- TAXA DE SUCESSO: **100%** (702/702)
 - FALHAS: **0** | ERROS: **0** | IGNORADOS: **0**
 - TEMPO TOTAL DE EXECUÇÃO: **41,605 s**
 - TEMPO MÉDIO POR TESTE: **0,062 s**
 
 
 - TESTES DE INTEGRAÇÃO: **167**
-- TESTES UNITÁRIOS: **530**
+- TESTES UNITÁRIOS: **535**
 
 Cobertura (IntelliJ Test Report)
 ----------------------
